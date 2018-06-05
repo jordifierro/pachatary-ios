@@ -192,7 +192,8 @@ xcuserdata/
 # c.f. http://guides.cocoapods.org/using/using-cocoapods.html#what-is-a-podfilelock
 # c.f. http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
 #
-#!Podfile.lock
+!Podfile.lock
+Pods/
 #
 # RUBY:
 #
@@ -215,3 +216,10 @@ xcuserdata/
 ####
 # UNKNOWN: recommended by others, but I can't discover what these files are
 #
+
+####
+# ApiKeys.plist - Secret app keys
+#
+# To create your own, copy ApiKeys.plist.sample to ApiKeys.plist and set the values
+#
+ApiKeys.plist
