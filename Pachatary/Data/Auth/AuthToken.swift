@@ -1,6 +1,6 @@
 import Swift
 
-struct AuthToken {
+struct AuthToken: Equatable {
     
     let accessToken: String!
     let refreshToken: String!

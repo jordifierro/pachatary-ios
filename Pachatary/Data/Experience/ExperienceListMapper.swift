@@ -1,6 +1,7 @@
 import ObjectMapper
 
-struct ExperienceListMapper: Mappable {
+struct ExperienceListMapper: ToDomainMapper {
+    typealias domainType = [Experience]
     
     var experienceMappers: [ExperienceMapper]!
 

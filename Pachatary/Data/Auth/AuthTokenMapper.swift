@@ -1,6 +1,6 @@
 import ObjectMapper
 
-struct AuthTokenMapper: Mappable {
+struct AuthTokenMapper: ToDomainMapper {
     
     var authToken: AuthToken!
     var accessToken: String!

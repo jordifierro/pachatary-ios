@@ -7,13 +7,22 @@ class ExploreExperiencesViewController: UIViewController {
     let presenter = ExperienceDependencyInjector.exploreExperiencePresenter
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loaderIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var retryButton: UIButton!
+    @IBOutlet weak var errorLabel: UILabel!
     var experiences: [Experience] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         presenter.view = self
+        retryButton.addTarget(self, action: #selector(retryClick), for: .touchUpInside)
+        
         presenter.create()
+    }
+    
+    @objc func retryClick(_ sender: UIButton!) {
+        presenter.retryClick()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,9 +52,22 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
 }
 
 extension ExploreExperiencesViewController: ExploreExperiencesView {
-    
+
     func show(experiences: [Experience]) {
         self.experiences = experiences
         self.tableView!.reloadData()
+    }
+
+    func showLoader(_ visibility: Bool) {
+        if visibility { loaderIndicator.startAnimating() }
+        else { loaderIndicator.stopAnimating() }
+    }
+
+    func showError(_ visibility: Bool) {
+        errorLabel.isHidden = !visibility
+    }
+
+    func showRetry(_ visibility: Bool) {
+        retryButton.isHidden = !visibility
     }
 }

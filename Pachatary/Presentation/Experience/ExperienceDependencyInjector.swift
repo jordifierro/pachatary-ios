@@ -34,7 +34,8 @@ class ExperienceDependencyInjector {
 
     private static let mainScheduler: ImmediateSchedulerType! = MainScheduler.instance
     private static let experienceApi = MoyaProvider<ExperienceApi>(plugins: moyaPlugins).rx
-    private static let experienceRepository = ExperienceRepoImplementation(experienceApi)
+    private static let experienceRepository =
+        ExperienceRepoImplementation(experienceApi, ioScheduler)
     static var exploreExperiencePresenter: ExploreExperiencesPresenter { get {
         return ExploreExperiencesPresenter(experienceRepository, authRepository, mainScheduler) }
     }

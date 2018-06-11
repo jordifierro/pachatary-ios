@@ -3,7 +3,7 @@ import RxSwift
 import Moya
 
 protocol AuthApiRepository {
-    func getPersonInvitation() -> Observable<AuthToken>
+    func getPersonInvitation() -> Observable<Result<AuthToken>>
 }
 
 class AuthApiRepoImplementation: AuthApiRepository {
@@ -19,12 +19,9 @@ class AuthApiRepoImplementation: AuthApiRepository {
         self.ioScheduler = ioScheduler
     }
 
-    func getPersonInvitation() -> Observable<AuthToken> {
+    func getPersonInvitation() -> Observable<Result<AuthToken>> {
         return self.api.request(.createPerson(clientSecretKey: self.clientSecretKey))
-            .subscribeOn(ioScheduler)
-            .mapObject(AuthTokenMapper.self)
-            .map { mapper in return mapper.toDomain() }
-            .asObservable()
+            .transformNetworkResponse(AuthTokenMapper.self, ioScheduler)
     }
 }
 

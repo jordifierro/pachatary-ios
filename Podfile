@@ -9,14 +9,14 @@ target 'Pachatary' do
   pod 'Kingfisher', '~> 4.0'
   pod 'Alamofire', '~> 4.7'
   pod 'RxSwift',    '~> 4.0'
-  pod 'RxBlocking'
   pod 'Moya/RxSwift', '~> 11.0'
   pod 'Moya-ObjectMapper/RxSwift'
-  pod 'Hippolyte'
 
   target 'PachataryTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'RxBlocking'
+    pod 'Hippolyte'
   end
 
   target 'PachataryUITests' do

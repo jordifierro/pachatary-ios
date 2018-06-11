@@ -3,7 +3,7 @@ import RxSwift
 
 protocol AuthRepository {
     func hasPersonCredentials() -> Bool
-    func getPersonInvitation() -> Observable<AuthToken>
+    func getPersonInvitation() -> Observable<Result<AuthToken>>
 }
 
 class AuthRepoImplementation: AuthRepository {
@@ -25,9 +25,16 @@ class AuthRepoImplementation: AuthRepository {
         }
     }
     
-    func getPersonInvitation() -> Observable<AuthToken> {
+    func getPersonInvitation() -> Observable<Result<AuthToken>> {
         return apiRepo.getPersonInvitation()
-            .do(onNext: { self.storageRepo.setPersonCredentials(authToken: $0)})
+            .do(onNext: { result in
+                switch result.status {
+                case .success:
+                    self.storageRepo.setPersonCredentials(authToken: result.data!)
+                case .error: break
+                case .inProgress: break
+                }
+            })
     }
 }
 

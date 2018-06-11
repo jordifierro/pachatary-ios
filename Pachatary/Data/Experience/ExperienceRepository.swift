@@ -4,22 +4,21 @@ import Moya
 import Moya_ObjectMapper
 
 protocol ExperienceRepository {
-    func experiencesObservable() -> Observable<[Experience]>
+    func experiencesObservable() -> Observable<Result<[Experience]>>
 }
 
 class ExperienceRepoImplementation: ExperienceRepository {
     
     let api: Reactive<MoyaProvider<ExperienceApi>>!
+    let ioScheduler: ImmediateSchedulerType!
         
-    init(_ api: Reactive<MoyaProvider<ExperienceApi>>) {
+    init(_ api: Reactive<MoyaProvider<ExperienceApi>>, _ ioScheduler: ImmediateSchedulerType!) {
         self.api = api
+        self.ioScheduler = ioScheduler
     }
     
-    func experiencesObservable() -> Observable<[Experience]> {
+    func experiencesObservable() -> Observable<Result<[Experience]>> {
         return self.api.request(.searchExperiences)
-            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-            .mapObject(ExperienceListMapper.self)
-            .map { mapper in return mapper.toDomain() }
-            .asObservable()
+            .transformNetworkResponse(ExperienceListMapper.self, ioScheduler)
     }
 }

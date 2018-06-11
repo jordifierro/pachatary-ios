@@ -8,21 +8,24 @@ import Moya
 class ExperienceRepositoryTests: XCTestCase {
     
     func test_get_experiences_search_parses_experiences_response() {
-        ScenarioMaker().buildScenario(self)
+        ScenarioMaker(self).buildScenario()
             .given_an_stubbed_network_call()
             .when_experiences_flowable()
-            .then_should_return_flowable_that_parses()
+            .then_should_return_flowable_with_inprogress_and_result_experiences()
     }
     
     class ScenarioMaker {
         let api = MoyaProvider<ExperienceApi>().rx
         var repo: ExperienceRepository!
         var testCase: XCTestCase!
-        var resultObservable: Observable<[Experience]>!
-
-        func buildScenario(_ testCase: XCTestCase) -> ScenarioMaker {
+        var resultObservable: Observable<Result<[Experience]>>!
+        
+        init(_ testCase: XCTestCase) {
             self.testCase = testCase
-            repo = ExperienceRepoImplementation(api)
+        }
+
+        func buildScenario() -> ScenarioMaker {
+            repo = ExperienceRepoImplementation(api, MainScheduler.instance)
             return self
         }
         
@@ -59,7 +62,7 @@ class ExperienceRepositoryTests: XCTestCase {
         }
         
         @discardableResult
-        func then_should_return_flowable_that_parses() -> ScenarioMaker {
+        func then_should_return_flowable_with_inprogress_and_result_experiences() -> ScenarioMaker {
             let expectedExperiences = [
                 Experience( id: "3", title: "Magic Castle of Lost Swamps",
                     description: "Don't even try to go there!", picture: nil, isMine: true,
@@ -71,12 +74,11 @@ class ExperienceRepositoryTests: XCTestCase {
                     isMine: false, isSaved: true, authorUsername: "usr.nam", savesCount: 32)]
             
             do { let result = try resultObservable.toBlocking().toArray()
-                assert(result.count == 1)
-                assert(expectedExperiences == result[0])
+                assert(result.count == 2)
+                assert(Result(.inProgress) == result[0])
+                assert(Result(.success, data: expectedExperiences) == result[1])
             } catch { assertionFailure() }
             return self
         }
     }
 }
-
-

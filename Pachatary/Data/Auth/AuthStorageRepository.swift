@@ -8,14 +8,14 @@ protocol AuthStorageRepository {
 class AuthStorageRepoImplementation: AuthStorageRepository {
 
     let ACCESS_TOKEN_KEY = "auth_access_token"
-    let REFRESH_TOKEN_KEY = "auth_refesh_token"
+    let REFRESH_TOKEN_KEY = "auth_refresh_token"
     
     let defaults = UserDefaults.standard
     
     func getPersonCredentials() throws -> AuthToken {
         let accessToken = defaults.string(forKey: ACCESS_TOKEN_KEY)
         let refreshToken = defaults.string(forKey: REFRESH_TOKEN_KEY)
-        if accessToken == nil { throw DataError.noLoggedPerson }
+        if accessToken == nil || refreshToken == nil { throw DataError.noLoggedPerson }
         return AuthToken(accessToken: accessToken!, refreshToken: refreshToken!)
     }
     

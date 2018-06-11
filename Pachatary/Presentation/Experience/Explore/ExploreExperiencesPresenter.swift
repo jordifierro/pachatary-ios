@@ -18,20 +18,73 @@ class ExploreExperiencesPresenter {
     }
     
     func create() {
-        if self.authRepo.hasPersonCredentials() { connectToExperiences() }
-        else { getPersonInvitation() }
+        getCredentialsAndExperiences()
     }
     
-    private func connectToExperiences() {
-        _ = self.experienceRepo.experiencesObservable()
-            .observeOn(self.mainScheduler)
-            .subscribe(onNext: { experiences in self.view.show(experiences: experiences) })
+    func retryClick() {
+        getCredentialsAndExperiences()
+    }
+    
+    private func getCredentialsAndExperiences() {
+        if !self.authRepo.hasPersonCredentials() { getPersonInvitation() }
+        else { connectToExperiences() }
     }
     
     private func getPersonInvitation() {
         _ = self.authRepo.getPersonInvitation()
             .observeOn(self.mainScheduler)
-            .subscribe { self.connectToExperiences() }
+            .subscribe { event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success:
+                        self.view.showRetry(false)
+                        self.view.showLoader(false)
+                        self.view.showError(false)
+                        self.connectToExperiences()
+                    case .error:
+                        self.view.showLoader(false)
+                        self.view.showError(true)
+                        self.view.showRetry(true)
+                    case .inProgress:
+                        self.view.showRetry(false)
+                        self.view.showLoader(true)
+                        self.view.showError(false)
+                    }
+                case .error(let error):
+                    fatalError(error.localizedDescription)
+                case .completed: break
+                }
+            }
+    }
+    
+    private func connectToExperiences() {
+        _ = self.experienceRepo.experiencesObservable()
+            .observeOn(self.mainScheduler)
+            .debug()
+            .subscribe { event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success:
+                        self.view.showRetry(false)
+                        self.view.showLoader(false)
+                        self.view.showError(false)
+                        self.view.show(experiences: result.data!)
+                    case .error:
+                        self.view.showLoader(false)
+                        self.view.showError(true)
+                        self.view.showRetry(true)
+                    case .inProgress:
+                        self.view.showRetry(false)
+                        self.view.showError(false)
+                        self.view.showLoader(true)
+                    }
+                case .error(let error):
+                    fatalError(error.localizedDescription)
+                case .completed: break
+                }
+            }
     }
 }
 
