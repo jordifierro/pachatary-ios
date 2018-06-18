@@ -19,6 +19,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
                 .given_an_experience_repo_that_returns_that_experiences()
                 .given_an_auth_repo_with_credentials(true)
                 .when(action: action)
+                .then_should_call_get_firsts_kind_explore()
                 .then_should_show_experiences()
                 .then_should_show_loader(false)
                 .then_should_show_retry(false)
@@ -32,6 +33,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
                 .given_an_experience_repo_that_returns_in_progress()
                 .given_an_auth_repo_with_credentials(true)
                 .when(action: action)
+                .then_should_call_get_firsts_kind_explore()
                 .then_should_show_loader(true)
                 .then_should_show_retry(false)
                 .then_should_show_error(false)
@@ -44,6 +46,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
                 .given_an_experience_repo_that_returns_error()
                 .given_an_auth_repo_with_credentials(true)
                 .when(action: action)
+                .then_should_call_get_firsts_kind_explore()
                 .then_should_show_loader(false)
                 .then_should_show_retry(true)
                 .then_should_show_error(true)
@@ -56,6 +59,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
                 .given_an_auth_repo_with_credentials(false)
                 .given_an_auth_repo_that_returns_inprogress()
                 .when(action: action)
+                .then_should_not_call_get_firsts()
                 .then_should_show_loader(true)
                 .then_should_show_retry(false)
         }
@@ -67,6 +71,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
                 .given_an_auth_repo_with_credentials(false)
                 .given_an_auth_repo_that_returns_error()
                 .when(action: action)
+                .then_should_not_call_get_firsts()
                 .then_should_show_loader(false)
                 .then_should_show_retry(true)
                 .then_should_show_error(true)
@@ -83,6 +88,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
                 .given_an_auth_token()
                 .given_an_auth_repo_that_returns_that_auth_token_on_get_invitation()
                 .when(action: action)
+                .then_should_call_get_firsts_kind_explore()
                 .then_should_show_experiences()
                 .then_should_show_loader(false)
                 .then_should_show_retry(false)
@@ -175,6 +181,16 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             assert(visibility == mockView.showLoaderCalls[0])
             return self
         }
+        
+        func then_should_call_get_firsts_kind_explore() -> ScenarioMaker {
+            assert([Kind.explore] == mockExperienceRepo.getFirstsCalls)
+            return self
+        }
+        
+        func then_should_not_call_get_firsts() -> ScenarioMaker {
+            assert(mockExperienceRepo.getFirstsCalls.count == 0)
+            return self
+        }
 
         @discardableResult
         func then_should_show_retry(_ visibility: Bool) -> ScenarioMaker {
@@ -219,13 +235,19 @@ class ExperienceRepoMock: ExperienceRepository {
     var returnExperiences: [Experience]!
     var returnInProgress = false
     var returnError: DataError? = nil
+    var getFirstsCalls = [Kind]()
     
-    func experiencesObservable() -> Observable<Result<[Experience]>> {
+    func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
+        assert(kind == .explore)
         var result: Result<[Experience]>?
         if returnInProgress { result = Result(.inProgress) }
-        else if returnError != nil { result = Result(.error, error: returnError) }
+        else if returnError != nil { result = Result(error: returnError!) }
         else { result =  Result(.success, data: returnExperiences)}
         return Observable.just(result!)
+    }
+    
+    func getFirsts(kind: Kind) {
+        self.getFirstsCalls.append(kind)
     }
 }
 
@@ -243,7 +265,7 @@ class AuthRepoMock: AuthRepository {
     func getPersonInvitation() -> Observable<Result<AuthToken>> {
         var result: Result<AuthToken>?
         if returnInProgress { result = Result(.inProgress) }
-        else if returnError != nil { result = Result(.error, error: returnError) }
+        else if returnError != nil { result = Result(error: returnError!) }
         else { result =  Result(.success, data: authToken)}
         return Observable.just(result!)
     }

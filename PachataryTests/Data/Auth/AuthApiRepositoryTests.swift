@@ -39,7 +39,7 @@ class AuthApiRepositoryTests: XCTestCase {
         }
         
         func given_an_stubbed_network_call_for_people_post() -> ScenarioMaker {
-            let url = URL(string: ExperienceDependencyInjector.apiUrl + "/people/")!
+            let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/")!
             let requestBody = ("client_secret_key=" + clientSecretKey).data(using: .utf8)!
             var stub = StubRequest(method: .POST, url: url)
             stub.bodyMatcher = DataMatcher(data: requestBody)

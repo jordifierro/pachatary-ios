@@ -8,7 +8,7 @@ enum AuthApi {
 // MARK: - TargetType Protocol Implementation
 extension AuthApi: TargetType {
     var baseURL: URL {
-        return URL(string: ExperienceDependencyInjector.apiUrl)!
+        return URL(string: AppDataDependencyInjector.apiUrl)!
     }
     var path: String {
         switch self {

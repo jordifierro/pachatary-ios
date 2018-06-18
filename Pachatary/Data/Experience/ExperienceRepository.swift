@@ -1,24 +1,35 @@
 import Swift
 import RxSwift
-import Moya
-import Moya_ObjectMapper
+
+enum Kind {
+    case explore
+}
 
 protocol ExperienceRepository {
-    func experiencesObservable() -> Observable<Result<[Experience]>>
+    func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>>
+    func getFirsts(kind: Kind)
 }
 
-class ExperienceRepoImplementation: ExperienceRepository {
-    
-    let api: Reactive<MoyaProvider<ExperienceApi>>!
-    let ioScheduler: ImmediateSchedulerType!
-        
-    init(_ api: Reactive<MoyaProvider<ExperienceApi>>, _ ioScheduler: ImmediateSchedulerType!) {
-        self.api = api
-        self.ioScheduler = ioScheduler
+class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
+                                                               where R.requesterType == Experience {
+
+    let apiRepo: ExperienceApiRepository!
+    let exploreRequester: R!
+
+    init(apiRepo: ExperienceApiRepository, exploreRequester: R) {
+        self.apiRepo = apiRepo
+        self.exploreRequester = exploreRequester
+        self.exploreRequester.getFirstsCallable = { request in
+                                                    self.apiRepo.exploreExperiencesObservable() }
     }
     
-    func experiencesObservable() -> Observable<Result<[Experience]>> {
-        return self.api.request(.searchExperiences)
-            .transformNetworkResponse(ExperienceListMapper.self, ioScheduler)
+    func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
+        return self.exploreRequester.resultsObservable()
+    }
+    
+    func getFirsts(kind: Kind) {
+        self.exploreRequester.actionsObserver.onNext(Request(.getFirsts))
     }
 }
+
+

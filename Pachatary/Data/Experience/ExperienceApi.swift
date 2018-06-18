@@ -8,7 +8,7 @@ enum ExperienceApi {
 // MARK: - TargetType Protocol Implementation
 extension ExperienceApi: TargetType {
     var baseURL: URL {
-        return URL(string: ExperienceDependencyInjector.apiUrl)!
+        return URL(string: AppDataDependencyInjector.apiUrl)!
     }
     var path: String {
         switch self {

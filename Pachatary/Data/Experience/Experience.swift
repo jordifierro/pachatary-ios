@@ -1,6 +1,6 @@
 import Swift
 
-struct Experience: Equatable {
+struct Experience: Equatable, Identifiable {
     
     let id: String
     let title: String
@@ -10,6 +10,17 @@ struct Experience: Equatable {
     let isSaved: Bool
     let authorUsername: String
     let savesCount: Int
+    
+    init(_ id: String) {
+        self.id = id
+        self.title = ""
+        self.description = ""
+        self.picture = nil
+        self.isMine = false
+        self.isSaved = false
+        self.authorUsername = ""
+        self.savesCount = 0
+    }
     
     init(id: String, title: String, description: String, picture: Picture?,
          isMine: Bool, isSaved: Bool, authorUsername: String, savesCount: Int) {

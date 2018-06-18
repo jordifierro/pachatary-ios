@@ -47,7 +47,7 @@ class SingleNetworkResponseTransformerTests: XCTestCase {
         }
 
         func given_an_stubbed_network_call_that_returns_success() -> ScenarioMaker {
-            let url = URL(string: ExperienceDependencyInjector.apiUrl + "/people/")!
+            let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/")!
             let requestBody = ("client_secret_key=").data(using: .utf8)!
             var stub = StubRequest(method: .POST, url: url)
             stub.bodyMatcher = DataMatcher(data: requestBody)
@@ -74,7 +74,7 @@ class SingleNetworkResponseTransformerTests: XCTestCase {
         }
         
         func given_an_stubbed_network_call_that_returns_error() -> ScenarioMaker {
-            let url = URL(string: ExperienceDependencyInjector.apiUrl + "/people/")!
+            let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/")!
             let requestBody = ("client_secret_key=").data(using: .utf8)!
             var stub = StubRequest(method: .POST, url: url)
             stub.bodyMatcher = DataMatcher(data: requestBody)
@@ -113,7 +113,7 @@ class SingleNetworkResponseTransformerTests: XCTestCase {
         
         func given_an_stubbed_network_call_that_returns_no_internet_connection_error()
                                                                                   -> ScenarioMaker {
-            let url = URL(string: ExperienceDependencyInjector.apiUrl + "/people/")!
+            let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/")!
             let requestBody = ("client_secret_key=").data(using: .utf8)!
             var stub = StubRequest(method: .POST, url: url)
             stub.bodyMatcher = DataMatcher(data: requestBody)
@@ -192,7 +192,7 @@ class SingleNetworkResponseTransformerTests: XCTestCase {
             do {
                 let result = try resultObservable.toBlocking().toArray()
                 assert(result[0] == Result(.inProgress))
-                assert(result[1] == Result(.error, error: DataError.noInternetConnection))
+                assert(result[1] == Result(error: DataError.noInternetConnection))
             } catch { assertionFailure() }
             return self
         }
@@ -216,6 +216,6 @@ class FakeApiRepository {
     
     func fakeRequest() -> Observable<Result<AuthToken>> {
         return self.api.request(.createPerson(clientSecretKey: clientSecretKey))
-            .transformNetworkResponse(AuthTokenMapper.self, ioScheduler)
+            .transformNetworkResponse(ResultSingleMapper<AuthTokenMapper>.self, ioScheduler)
     }
 }

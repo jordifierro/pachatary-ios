@@ -3,9 +3,9 @@ import RxSwift
 
 class ExploreExperiencesPresenter {
     
-    let experienceRepo: ExperienceRepository!
-    let authRepo: AuthRepository!
-    let mainScheduler: ImmediateSchedulerType!
+    let experienceRepo: ExperienceRepository
+    let authRepo: AuthRepository
+    let mainScheduler: ImmediateSchedulerType
     
     var view: ExploreExperiencesView!
 
@@ -59,9 +59,8 @@ class ExploreExperiencesPresenter {
     }
     
     private func connectToExperiences() {
-        _ = self.experienceRepo.experiencesObservable()
+        _ = self.experienceRepo.experiencesObservable(kind: .explore)
             .observeOn(self.mainScheduler)
-            .debug()
             .subscribe { event in
                 switch event {
                 case .next(let result):
@@ -85,6 +84,7 @@ class ExploreExperiencesPresenter {
                 case .completed: break
                 }
             }
+        self.experienceRepo.getFirsts(kind: .explore)
     }
 }
 

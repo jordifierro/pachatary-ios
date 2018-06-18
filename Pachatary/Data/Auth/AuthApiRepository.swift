@@ -21,7 +21,7 @@ class AuthApiRepoImplementation: AuthApiRepository {
 
     func getPersonInvitation() -> Observable<Result<AuthToken>> {
         return self.api.request(.createPerson(clientSecretKey: self.clientSecretKey))
-            .transformNetworkResponse(AuthTokenMapper.self, ioScheduler)
+            .transformNetworkResponse(ResultSingleMapper<AuthTokenMapper>.self, ioScheduler)
     }
 }
 
