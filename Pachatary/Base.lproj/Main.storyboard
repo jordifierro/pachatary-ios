@@ -95,6 +95,26 @@
                                             <outlet property="titleLabel" destination="Xoi-7h-FxR" id="oRA-gE-h3Z"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseLoader" id="gdW-s0-7yP" customClass="PaginatorLoaderViewCell" customModule="Pachatary" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gdW-s0-7yP" id="iJI-24-6wr">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Fys-Bz-l2b" customClass="I">
+                                                    <rect key="frame" x="177" y="11" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Fys-Bz-l2b" firstAttribute="centerX" secondItem="iJI-24-6wr" secondAttribute="centerX" id="LtF-bh-5pF"/>
+                                                <constraint firstItem="Fys-Bz-l2b" firstAttribute="centerY" secondItem="iJI-24-6wr" secondAttribute="centerY" id="Y3J-LC-6o0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="loader" destination="Fys-Bz-l2b" id="EED-ak-5Mb"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="NV9-7R-LyK" id="vaB-Ge-yRt"/>

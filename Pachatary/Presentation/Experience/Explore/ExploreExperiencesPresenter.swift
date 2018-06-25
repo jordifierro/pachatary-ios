@@ -69,15 +69,26 @@ class ExploreExperiencesPresenter {
                         self.view.showRetry(false)
                         self.view.showLoader(false)
                         self.view.showError(false)
+                        self.view.showPaginationLoader(false)
                         self.view.show(experiences: result.data!)
                     case .error:
                         self.view.showLoader(false)
                         self.view.showError(true)
                         self.view.showRetry(true)
+                        self.view.showPaginationLoader(false)
                     case .inProgress:
                         self.view.showRetry(false)
                         self.view.showError(false)
-                        self.view.showLoader(true)
+                        switch result.action! {
+                        case .getFirsts:
+                            self.view.showLoader(true)
+                            self.view.showPaginationLoader(false)
+                        case .paginate:
+                            self.view.showLoader(false)
+                            self.view.showPaginationLoader(true)
+                        case .none: break
+                        case .refresh: break
+                        }
                     }
                 case .error(let error):
                     fatalError(error.localizedDescription)
@@ -85,6 +96,10 @@ class ExploreExperiencesPresenter {
                 }
             }
         self.experienceRepo.getFirsts(kind: .explore)
+    }
+    
+    func lastItemShown() {
+        self.experienceRepo.paginate(kind: .explore)
     }
 }
 

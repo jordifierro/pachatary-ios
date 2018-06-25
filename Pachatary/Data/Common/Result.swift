@@ -36,6 +36,7 @@ public struct Result<T: Equatable>: Equatable {
     func isSuccess() -> Bool { return (self.status == .success) }
     func isError() -> Bool { return (self.status == .error) }
     func hasBeenInitialized() -> Bool { return (self.action != Request.Action.none) }
+    func hasMoreElements() -> Bool { return (self.nextUrl != nil) }
     func builder() -> Builder { return Builder(self) }
     
     public static func == (lhs: Result<T>, rhs: Result<T>) -> Bool {
@@ -64,6 +65,21 @@ public struct Result<T: Equatable>: Equatable {
         
         func action(_ action: Request.Action) -> Builder {
             self.action = action
+            return self
+        }
+        
+        func data(_ data: T) -> Builder {
+            self.data = data
+            return self
+        }
+        
+        func status(_ status: ResultStatus) -> Builder {
+            self.status = status
+            return self
+        }
+        
+        func error(_ error: DataError?) -> Builder {
+            self.error = error
             return self
         }
         

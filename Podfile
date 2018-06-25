@@ -7,8 +7,8 @@ target 'Pachatary' do
 
   # Pods for Pachatary
   pod 'Kingfisher', '~> 4.0'
-  pod 'Alamofire', '~> 4.7'
   pod 'RxSwift',    '~> 4.0'
+  pod 'Alamofire', '~> 4.7'
   pod 'Moya/RxSwift', '~> 11.0'
   pod 'Moya-ObjectMapper/RxSwift'
 

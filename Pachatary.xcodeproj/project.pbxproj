@@ -10,6 +10,7 @@
 		36189B79170B1B17A56B4A8E /* Pods_Pachatary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F75C0457AE10B772911DA00 /* Pods_Pachatary.framework */; };
 		5120C255D2A1A3E4DC1DBDC6 /* Pods_PachataryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC6EE34BE667A62DEA5D3592 /* Pods_PachataryTests.framework */; };
 		721696F24410FC2F2C54AAEE /* Pods_PachataryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2ACA8339ABA2B763112FF08 /* Pods_PachataryUITests.framework */; };
+		AE0C676C20E122F500E4BFA0 /* PaginationLoaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */; };
 		AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */; };
 		AE1D6D1D20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */; };
 		AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1E20C5707300EA6DDD /* Experience.swift */; };
@@ -87,6 +88,7 @@
 		1DFE72F63DF3E7507D4FF8B8 /* Pods-PachataryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F75C0457AE10B772911DA00 /* Pods_Pachatary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pachatary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		386DAF74E9D4D63994E5E77E /* Pods-PachataryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationLoaderViewCell.swift; sourceTree = "<group>"; };
 		AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+NetworkResponseTransformerTests.swift"; sourceTree = "<group>"; };
 		AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		AE1D6D1E20C5707300EA6DDD /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 				AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */,
 				AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */,
 				AE89AC3520C801F200443C23 /* Explore */,
+				AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */,
 			);
 			path = Experience;
 			sourceTree = "<group>";
@@ -685,6 +688,7 @@
 				AEB326B520C6F819000E07D8 /* PictureMapper.swift in Sources */,
 				AEBB629E20C547D3001A4576 /* ExploreExperiencesViewController.swift in Sources */,
 				AEEC749F20CACCD800B86837 /* AuthTokenMapper.swift in Sources */,
+				AE0C676C20E122F500E4BFA0 /* PaginationLoaderViewCell.swift in Sources */,
 				AE86639420D7D22F008CE6D2 /* AppDataDependencyInjector.swift in Sources */,
 				AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */,
 				AE86639620D7D3B5008CE6D2 /* AuthDataDependencyInjector.swift in Sources */,

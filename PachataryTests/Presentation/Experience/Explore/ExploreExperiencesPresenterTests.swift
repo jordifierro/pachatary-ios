@@ -22,19 +22,35 @@ class ExploreExperiencesPresenterTests: XCTestCase {
                 .then_should_call_get_firsts_kind_explore()
                 .then_should_show_experiences()
                 .then_should_show_loader(false)
+                .then_should_show_pagination_loader(false)
                 .then_should_show_retry(false)
                 .then_should_show_error(false)
         }
     }
 
-    func test_on_create_asks_experiences_if_has_credentials_response_inprogress() {
+    func test_on_create_asks_experiences_if_has_credentials_response_inprogress_getfirsts() {
         for action in Action.values {
             ScenarioMaker()
-                .given_an_experience_repo_that_returns_in_progress()
+                .given_an_experience_repo_that_returns_in_progress(.getFirsts)
                 .given_an_auth_repo_with_credentials(true)
                 .when(action: action)
                 .then_should_call_get_firsts_kind_explore()
                 .then_should_show_loader(true)
+                .then_should_show_pagination_loader(false)
+                .then_should_show_retry(false)
+                .then_should_show_error(false)
+        }
+    }
+
+    func test_on_create_asks_experiences_if_has_credentials_response_inprogress_paginate() {
+        for action in Action.values {
+            ScenarioMaker()
+                .given_an_experience_repo_that_returns_in_progress(.paginate)
+                .given_an_auth_repo_with_credentials(true)
+                .when(action: action)
+                .then_should_call_get_firsts_kind_explore()
+                .then_should_show_loader(false)
+                .then_should_show_pagination_loader(true)
                 .then_should_show_retry(false)
                 .then_should_show_error(false)
         }
@@ -48,6 +64,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
                 .when(action: action)
                 .then_should_call_get_firsts_kind_explore()
                 .then_should_show_loader(false)
+                .then_should_show_pagination_loader(false)
                 .then_should_show_retry(true)
                 .then_should_show_error(true)
         }
@@ -91,9 +108,16 @@ class ExploreExperiencesPresenterTests: XCTestCase {
                 .then_should_call_get_firsts_kind_explore()
                 .then_should_show_experiences()
                 .then_should_show_loader(false)
+                .then_should_show_pagination_loader(false)
                 .then_should_show_retry(false)
                 .then_should_show_error(false)
         }
+    }
+    
+    func test_on_last_item_shown_should_call_repo_paginate() {
+        ScenarioMaker()
+            .when_last_item_shown()
+            .then_should_call_experience_repo_paginate()
     }
 
     class ScenarioMaker {
@@ -126,8 +150,10 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             return self
         }
         
-        func given_an_experience_repo_that_returns_in_progress() -> ScenarioMaker {
+        func given_an_experience_repo_that_returns_in_progress(_ action: Request.Action = .getFirsts)
+                                                                                -> ScenarioMaker {
             mockExperienceRepo.returnInProgress = true
+            mockExperienceRepo.returnAction = action
             return self
         }
         
@@ -170,6 +196,11 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             }
             return self
         }
+        
+        func when_last_item_shown() -> ScenarioMaker {
+            presenter.lastItemShown()
+            return self
+        }
 
         @discardableResult
         func then_should_show_experiences() -> ScenarioMaker {
@@ -179,6 +210,11 @@ class ExploreExperiencesPresenterTests: XCTestCase {
 
         func then_should_show_loader(_ visibility: Bool) -> ScenarioMaker {
             assert(visibility == mockView.showLoaderCalls[0])
+            return self
+        }
+        
+        func then_should_show_pagination_loader(_ visibility: Bool) -> ScenarioMaker {
+            assert(visibility == mockView.showPaginationLoaderCalls[0])
             return self
         }
         
@@ -203,6 +239,12 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             assert(visibility == mockView.showErrorCalls[0])
             return self
         }
+        
+        @discardableResult
+        func then_should_call_experience_repo_paginate() -> ScenarioMaker {
+            assert([Kind.explore] == mockExperienceRepo.paginateCalls)
+            return self
+        }
     }
 }
 
@@ -210,6 +252,7 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
 
     var showCalls: [[Experience]] = []
     var showLoaderCalls: [Bool] = []
+    var showPaginationLoaderCalls: [Bool] = []
     var showErrorCalls: [Bool] = []
     var showRetryCalls: [Bool] = []
 
@@ -219,6 +262,10 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
     
     func showLoader(_ visibility: Bool) {
         self.showLoaderCalls.append(visibility)
+    }
+    
+    func showPaginationLoader(_ visibility: Bool) {
+        self.showPaginationLoaderCalls.append(visibility)
     }
     
     func showError(_ visibility: Bool) {
@@ -234,13 +281,16 @@ class ExperienceRepoMock: ExperienceRepository {
     
     var returnExperiences: [Experience]!
     var returnInProgress = false
+    var returnAction = Request.Action.getFirsts
     var returnError: DataError? = nil
     var getFirstsCalls = [Kind]()
+    var paginateCalls = [Kind]()
     
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         assert(kind == .explore)
         var result: Result<[Experience]>?
-        if returnInProgress { result = Result(.inProgress) }
+        if returnInProgress { result = Result(.inProgress, data: nil,
+                                              nextUrl: nil, action: returnAction) }
         else if returnError != nil { result = Result(error: returnError!) }
         else { result =  Result(.success, data: returnExperiences)}
         return Observable.just(result!)
@@ -248,6 +298,10 @@ class ExperienceRepoMock: ExperienceRepository {
     
     func getFirsts(kind: Kind) {
         self.getFirstsCalls.append(kind)
+    }
+    
+    func paginate(kind: Kind) {
+        self.paginateCalls.append(kind)
     }
 }
 

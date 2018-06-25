@@ -9,7 +9,7 @@ class RequesterTests: XCTestCase {
     func test_not_initialized_result_when_get_firsts_calls_callable() {
         ScenarioMaker()
             .given_a_cache_result_flowable(Result<[IdEq]>(.success))
-            .given_a_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
+            .given_a_getfirsts_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
             .when_emit_action(.getFirsts)
             .then_should_emit_through_cache_replace(
                 Result<[IdEq]>(.success, data: [IdEq("2")], nextUrl: nil, action: .getFirsts))
@@ -18,7 +18,7 @@ class RequesterTests: XCTestCase {
     func test_error_result_when_get_firsts_calls_callable() {
         ScenarioMaker()
             .given_a_cache_result_flowable(Result<[IdEq]>(error: DataError.noInternetConnection))
-            .given_a_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
+            .given_a_getfirsts_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
             .when_emit_action(.getFirsts)
             .then_should_emit_through_cache_replace(
                 Result<[IdEq]>(.success, data: [IdEq("2")], nextUrl: nil, action: .getFirsts))
@@ -27,18 +27,78 @@ class RequesterTests: XCTestCase {
     func test_inprogress_result_when_get_firsts_does_nothing() {
         ScenarioMaker()
             .given_a_cache_result_flowable(Result<[IdEq]>(.inProgress))
-            .given_a_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
+            .given_a_getfirsts_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
             .when_emit_action(.getFirsts)
             .then_should_not_emit_through_cache_replace()
     }
     
-    func test_succes_and_initialized_result_when_get_firsts_does_nothing() {
+    func test_success_and_initialized_result_when_get_firsts_does_nothing() {
         ScenarioMaker()
             .given_a_cache_result_flowable(
                 Result<[IdEq]>(.success, data: nil, nextUrl: nil, action: .getFirsts))
-            .given_a_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
+            .given_a_getfirsts_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
             .when_emit_action(.getFirsts)
             .then_should_not_emit_through_cache_replace()
+    }
+    
+    func test_inprogress_when_paginate_does_nothing() {
+        ScenarioMaker()
+            .given_a_cache_result_flowable(Result<[IdEq]>(.inProgress))
+            .given_a_paginate_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
+            .when_emit_action(.paginate)
+            .then_should_not_emit_through_cache_replace()
+    }
+    
+    func test_error_getting_firsts_when_paginate_does_nothing() {
+        ScenarioMaker()
+            .given_a_cache_result_flowable(Result<[IdEq]>(.error, data: nil, nextUrl: nil, action: .paginate, error: DataError.noInternetConnection))
+            .given_a_paginate_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
+            .when_emit_action(.paginate)
+            .then_should_not_emit_through_cache_replace()
+    }
+    
+    func test_success_but_uninitialized_when_paginate_does_nothing() {
+        ScenarioMaker()
+            .given_a_cache_result_flowable(Result<[IdEq]>(.success, data: nil, nextUrl: nil,
+                                                          action: .none))
+            .given_a_paginate_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
+            .when_emit_action(.paginate)
+            .then_should_not_emit_through_cache_replace()
+    }
+    
+    func test_paginate_response_inprogress_returns_with_old_data_and_action_paginate() {
+        ScenarioMaker()
+            .given_a_cache_result_flowable(
+                Result<[IdEq]>(.success, data: [IdEq("9")], nextUrl: "some", action: .paginate))
+            .given_a_paginate_callable_that_returns(Result<[IdEq]>(.inProgress))
+            .when_emit_action(.paginate)
+            .then_should_emit_through_cache_replace(
+                Result<[IdEq]>(.inProgress, data: [IdEq("9")], nextUrl: "some", action: .paginate))
+    }
+    
+    func test_paginate_reponse_error_returns_with_old_data_and_action_paginate() {
+        ScenarioMaker()
+            .given_a_cache_result_flowable(
+                Result<[IdEq]>(.success, data: [IdEq("9")], nextUrl: "some", action: .getFirsts))
+            .given_a_paginate_callable_that_returns(
+                Result<[IdEq]>( error: DataError.noInternetConnection))
+            .when_emit_action(.paginate)
+            .then_should_emit_through_cache_replace(
+                Result<[IdEq]>(.error, data: [IdEq("9")], nextUrl: "some", action: .paginate,
+                               error: DataError.noInternetConnection))
+    }
+    
+    func test_paginate_response_success_returns_action_paginate_and_joined_experiences() {
+        ScenarioMaker()
+            .given_a_cache_result_flowable(
+                Result<[IdEq]>(.success, data: [IdEq("9"), IdEq("6")],
+                               nextUrl: "some", action: .getFirsts))
+            .given_a_paginate_callable_that_returns(
+                Result<[IdEq]>(.success, data: [IdEq("1"), IdEq("3")], nextUrl: "new"))
+            .when_emit_action(.paginate)
+            .then_should_emit_through_cache_replace(
+                Result<[IdEq]>(.success, data: [IdEq("9"), IdEq("6"), IdEq("1"), IdEq("3")],
+                               nextUrl: "new", action: .paginate))
     }
     
     class ScenarioMaker {
@@ -55,8 +115,13 @@ class RequesterTests: XCTestCase {
             return self
         }
         
-        func given_a_callable_that_returns(_ result: Result<[IdEq]>) -> ScenarioMaker {
+        func given_a_getfirsts_callable_that_returns(_ result: Result<[IdEq]>) -> ScenarioMaker {
             self.requester.getFirstsCallable = { request in return Observable.just(result) }
+            return self
+        }
+        
+        func given_a_paginate_callable_that_returns(_ result: Result<[IdEq]>) -> ScenarioMaker {
+            self.requester.paginateCallable = { request in return Observable.just(result) }
             return self
         }
         
