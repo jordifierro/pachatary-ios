@@ -216,6 +216,6 @@ class FakeApiRepository {
     
     func fakeRequest() -> Observable<Result<AuthToken>> {
         return self.api.request(.createPerson(clientSecretKey: clientSecretKey))
-            .transformNetworkResponse(ResultSingleMapper<AuthTokenMapper>.self, ioScheduler)
+            .transformNetworkResponse(SingleResultMapper<AuthTokenMapper>.self, ioScheduler)
     }
 }

@@ -1,7 +1,7 @@
 import Swift
 import ObjectMapper
 
-struct ResultSingleMapper<T: ToDomainMapper>: ToResultMapper {
+struct SingleResultMapper<T: ToDomainMapper>: ToResultMapper {
 
     typealias domainType = T.domainType
     

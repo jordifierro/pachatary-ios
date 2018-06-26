@@ -1,6 +1,6 @@
 import ObjectMapper
 
-struct ResultListMapper<T: ToDomainMapper>: ToResultMapper {
+struct PaginatedListResultMapper<T: ToDomainMapper>: ToResultMapper {
 
     typealias domainType = [T.domainType]
     
