@@ -162,11 +162,39 @@
                         <outlet property="loaderIndicator" destination="HlC-7u-Yhg" id="977-LJ-c0P"/>
                         <outlet property="retryButton" destination="mhV-Wt-Bid" id="kfM-Lz-1d4"/>
                         <outlet property="tableView" destination="zxP-Xl-HW6" id="5ag-cd-Mzw"/>
+                        <segue destination="AjU-og-TuU" kind="show" identifier="experienceDetailSegue" id="3nS-p7-VJe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oK-t8-Zs5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1493.5999999999999" y="105.69715142428787"/>
+        </scene>
+        <!--Experience Detail View Controller-->
+        <scene sceneID="dwX-eS-qCA">
+            <objects>
+                <viewController id="AjU-og-TuU" customClass="ExperienceDetailViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GMd-8z-A0I">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Experience detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWZ-kn-amS">
+                                <rect key="frame" x="166" y="323" width="131" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="EkW-0b-uNe"/>
+                    </view>
+                    <connections>
+                        <outlet property="testLabel" destination="GWZ-kn-amS" id="rZn-Lf-3q3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bGi-RH-C5p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2481" y="106"/>
         </scene>
     </scenes>
 </document>

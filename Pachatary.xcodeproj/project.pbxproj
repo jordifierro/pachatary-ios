@@ -15,6 +15,7 @@
 		AE1D6D1D20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */; };
 		AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1E20C5707300EA6DDD /* Experience.swift */; };
 		AE1D6D2120C5712E00EA6DDD /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D2020C5712E00EA6DDD /* Picture.swift */; };
+		AE218B8520E2789E00E79E51 /* ExperienceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE218B8420E2789E00E79E51 /* ExperienceDetailViewController.swift */; };
 		AE61DA8620C68F6400CFEE00 /* ExperienceApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE61DA8520C68F6400CFEE00 /* ExperienceApiRepository.swift */; };
 		AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE61DA8720C6967800CFEE00 /* ExperienceApi.swift */; };
 		AE6C279E20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6C279D20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift */; };
@@ -93,6 +94,7 @@
 		AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		AE1D6D1E20C5707300EA6DDD /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
 		AE1D6D2020C5712E00EA6DDD /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		AE218B8420E2789E00E79E51 /* ExperienceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDetailViewController.swift; sourceTree = "<group>"; };
 		AE61DA8520C68F6400CFEE00 /* ExperienceApiRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceApiRepository.swift; sourceTree = "<group>"; };
 		AE61DA8720C6967800CFEE00 /* ExperienceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceApi.swift; sourceTree = "<group>"; };
 		AE6C279D20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+NetworkResponseTransformer.swift"; sourceTree = "<group>"; };
@@ -196,6 +198,14 @@
 				386DAF74E9D4D63994E5E77E /* Pods-PachataryUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		AE218B8320E2788000E79E51 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				AE218B8420E2789E00E79E51 /* ExperienceDetailViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		AE6F8B6520DA50A5007CC36A /* Common */ = {
@@ -383,6 +393,7 @@
 		AEEAC68A20C97D8E007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
+				AE218B8320E2788000E79E51 /* Detail */,
 				AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */,
 				AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */,
 				AE89AC3520C801F200443C23 /* Explore */,
@@ -693,6 +704,7 @@
 				AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */,
 				AE86639620D7D3B5008CE6D2 /* AuthDataDependencyInjector.swift in Sources */,
 				AEE1528A20D94E3E008707FF /* ResultSingleMapper.swift in Sources */,
+				AE218B8520E2789E00E79E51 /* ExperienceDetailViewController.swift in Sources */,
 				AE6C279E20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift in Sources */,
 				AE6C27A020D1324600C5F59F /* ToDomainMapper.swift in Sources */,
 				AE61DA8620C68F6400CFEE00 /* ExperienceApiRepository.swift in Sources */,

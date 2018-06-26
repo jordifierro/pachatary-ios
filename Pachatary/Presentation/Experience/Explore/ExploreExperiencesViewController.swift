@@ -16,6 +16,7 @@ class ExploreExperiencesViewController: UIViewController {
 
     var experiences: [Experience] = []
     var showPaginationLoader = false
+    var selectedExperienceId: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,14 @@ class ExploreExperiencesViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "experienceDetailSegue" {
+            if let destinationVC = segue.destination as? ExperienceDetailViewController {
+                destinationVC.experienceId = selectedExperienceId
+            }
+        }
     }
 }
 
@@ -90,6 +99,12 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
         guard let height = cellHeights[indexPath] else { return 70.0 }
         return height
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row <= experiences.count {
+            presenter.experienceClick(experiences[indexPath.row].id)
+        }
+    }
 }
 
 extension ExploreExperiencesViewController: ExploreExperiencesView {
@@ -115,5 +130,10 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
 
     func showRetry(_ visibility: Bool) {
         retryButton.isHidden = !visibility
+    }
+    
+    func navigateToExperienceDetail(_ experienceId: String) {
+        selectedExperienceId = experienceId
+        performSegue(withIdentifier: "experienceDetailSegue", sender: self)
     }
 }

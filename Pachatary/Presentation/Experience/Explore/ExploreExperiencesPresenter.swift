@@ -101,5 +101,9 @@ class ExploreExperiencesPresenter {
     func lastItemShown() {
         self.experienceRepo.paginate(kind: .explore)
     }
+    
+    func experienceClick(_ experienceId: String) {
+        view.navigateToExperienceDetail(experienceId)
+    }
 }
 

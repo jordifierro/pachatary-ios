@@ -119,6 +119,12 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             .when_last_item_shown()
             .then_should_call_experience_repo_paginate()
     }
+    
+    func test_on_experience_selected_navigates_to_experience_detail_with_id() {
+        ScenarioMaker()
+            .when_experience_click(experienceId: "4")
+            .then_view_should_navigate_to_experience_detail(with: "4")
+    }
 
     class ScenarioMaker {
         var experiences: [Experience] = []
@@ -201,6 +207,18 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             presenter.lastItemShown()
             return self
         }
+        
+        func when_experience_click(experienceId: String) -> ScenarioMaker {
+            presenter.experienceClick(experienceId)
+            return self
+        }
+        
+        @discardableResult
+        func then_view_should_navigate_to_experience_detail(with experienceId: String)
+                                                                                  -> ScenarioMaker {
+            assert([experienceId] == mockView.navigateCalls)
+            return self
+        }
 
         @discardableResult
         func then_should_show_experiences() -> ScenarioMaker {
@@ -255,6 +273,7 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
     var showPaginationLoaderCalls: [Bool] = []
     var showErrorCalls: [Bool] = []
     var showRetryCalls: [Bool] = []
+    var navigateCalls: [String] = []
 
     func show(experiences: [Experience]) {
         self.showCalls.append(experiences)
@@ -274,6 +293,10 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
     
     func showRetry(_ visibility: Bool) {
         self.showRetryCalls.append(visibility)
+    }
+    
+    func navigateToExperienceDetail(_ experienceId: String) {
+        self.navigateCalls.append(experienceId)
     }
 }
 
