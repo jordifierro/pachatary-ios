@@ -63,6 +63,7 @@
 		AEE1528E20D96DC6008707FF /* ToResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528D20D96DC6008707FF /* ToResultMapper.swift */; };
 		AEE1529020D98395008707FF /* ResultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528F20D98395008707FF /* ResultCache.swift */; };
 		AEE1529220D983DB008707FF /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1529120D983DB008707FF /* Identifiable.swift */; };
+		AEE47BE620E3A83A001DAB31 /* SceneRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE47BE520E3A83A001DAB31 /* SceneRepositoryTests.swift */; };
 		AEEAC68320C94904007C17EE /* GET_experiences_search.json in Resources */ = {isa = PBXBuildFile; fileRef = AEEAC68220C94904007C17EE /* GET_experiences_search.json */; };
 		AEEAC69020C99979007C17EE /* ApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = AEEAC68E20C99963007C17EE /* ApiKeys.plist */; };
 		AEEC749220CA74AD00B86837 /* AuthStorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEEC749120CA74AD00B86837 /* AuthStorageRepository.swift */; };
@@ -157,6 +158,7 @@
 		AEE1528D20D96DC6008707FF /* ToResultMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToResultMapper.swift; sourceTree = "<group>"; };
 		AEE1528F20D98395008707FF /* ResultCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCache.swift; sourceTree = "<group>"; };
 		AEE1529120D983DB008707FF /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
+		AEE47BE520E3A83A001DAB31 /* SceneRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneRepositoryTests.swift; sourceTree = "<group>"; };
 		AEEAC68220C94904007C17EE /* GET_experiences_search.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GET_experiences_search.json; sourceTree = "<group>"; };
 		AEEAC68E20C99963007C17EE /* ApiKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ApiKeys.plist; sourceTree = "<group>"; };
 		AEEC749120CA74AD00B86837 /* AuthStorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStorageRepository.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 			children = (
 				AEAE26B620E29D6700E5D4E9 /* GET_scenes_experience_id.json */,
 				AEAE26B820E29DD600E5D4E9 /* SceneApiRepositoryTests.swift */,
+				AEE47BE520E3A83A001DAB31 /* SceneRepositoryTests.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -795,6 +798,7 @@
 				AEBB62B120C547D6001A4576 /* PachataryTests.swift in Sources */,
 				AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */,
 				AE6F8B6F20DAC6A0007CC36A /* RequesterTests.swift in Sources */,
+				AEE47BE620E3A83A001DAB31 /* SceneRepositoryTests.swift in Sources */,
 				AE6F8B6720DA50BD007CC36A /* ResultCacheTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
