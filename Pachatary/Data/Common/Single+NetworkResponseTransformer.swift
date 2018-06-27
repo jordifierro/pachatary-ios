@@ -5,34 +5,25 @@ import Moya_ObjectMapper
 
 extension Single where Element == Response {
     
+    private func getObservableSubscribed(_ scheduler: ImmediateSchedulerType)
+                                                                           -> Observable<Response> {
+        return self.asObservable()
+                .subscribeOn(scheduler)
+    }
+    
     func transformNetworkResponse<T: ToResultMapper>(_ mapperType: T.Type,
                                                      _ scheduler: ImmediateSchedulerType)
                                                                -> Observable<Result<T.domainType>> {
-        return self.asObservable()
-            .subscribeOn(scheduler)
-            .mapObject(mapperType)
-            .map { filledMapper in return filledMapper.toResult() }
-            .retry(2)
-            .catchError { moyaError in
-                switch (moyaError as! MoyaError) {
-                case .underlying(let error, _):
-                    if (error as NSError).code == NSURLErrorNotConnectedToInternet {
-                        return Observable.just(
-                            Result<T.domainType>(error: DataError.noInternetConnection))
-                    }
-                default:
-                    throw moyaError
-                }
-                throw moyaError
-            }
-            .startWith(Result<T.domainType>(.inProgress))
+        return getObservableSubscribed(scheduler)
+                .mapObject(mapperType)
+                .map { filledMapper in return filledMapper.toResult() }
+                .retryCatchErrorAndEmitInProgress(T.domainType.self)
     }
     
     func transformNetworkListResponse<T: ToDomainMapper>(_ mapperType: T.Type,
                                                          _ scheduler: ImmediateSchedulerType)
                                                              -> Observable<Result<[T.domainType]>> {
-            return self.asObservable()
-                .subscribeOn(scheduler)
+        return (getObservableSubscribed(scheduler)
                 .mapArray(mapperType)
                 .map { filledMappers in
                     var domains = [T.domainType]()
@@ -40,21 +31,27 @@ extension Single where Element == Response {
                         domains.append(mapper.toDomain())
                     }
                     return Result(.success, data: domains)
-                }
-                .retry(2)
+                } as Observable<Result<[T.domainType]>>)
+            .retryCatchErrorAndEmitInProgress([T.domainType].self)
+    }
+}
+
+extension Observable {
+    
+    func retryCatchErrorAndEmitInProgress<U: Equatable>(_ type: U.Type) -> Observable<Result<U>> {
+            return (self as! Observable<Result<U>>).retry(2)
                 .catchError { moyaError in
                     switch (moyaError as! MoyaError) {
                     case .underlying(let error, _):
                         if (error as NSError).code == NSURLErrorNotConnectedToInternet {
-                            return Observable.just(
-                                Result<[T.domainType]>(error: DataError.noInternetConnection))
+                            return Observable<Result<U>>.just(
+                                Result<U>(error: DataError.noInternetConnection))
                         }
                     default:
                         throw moyaError
                     }
                     throw moyaError
                 }
-                .startWith(Result<[T.domainType]>(.inProgress))
+                .startWith(Result<U>(.inProgress))
     }
 }
-
