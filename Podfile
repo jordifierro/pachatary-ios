@@ -11,6 +11,7 @@ target 'Pachatary' do
   pod 'Alamofire', '~> 4.7'
   pod 'Moya/RxSwift', '~> 11.0'
   pod 'Moya-ObjectMapper/RxSwift'
+  pod 'Mapbox-iOS-SDK', '~> 4.1'
 
   target 'PachataryTests' do
     inherit! :search_paths

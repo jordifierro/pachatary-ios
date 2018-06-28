@@ -11,5 +11,8 @@
 	<string>https://api.domain.com</string>
 	<key>clientSecretKey</key>
 	<string>6b80503</string>
+
+    <key>mapboxAccessToken</key>
+    <string>pk.pey</string>
 </dict>
 </plist>
