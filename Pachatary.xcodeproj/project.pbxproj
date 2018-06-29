@@ -10,6 +10,8 @@
 		36189B79170B1B17A56B4A8E /* Pods_Pachatary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F75C0457AE10B772911DA00 /* Pods_Pachatary.framework */; };
 		5120C255D2A1A3E4DC1DBDC6 /* Pods_PachataryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC6EE34BE667A62DEA5D3592 /* Pods_PachataryTests.framework */; };
 		721696F24410FC2F2C54AAEE /* Pods_PachataryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2ACA8339ABA2B763112FF08 /* Pods_PachataryUITests.framework */; };
+		AE0B27AC20E67AD90060D923 /* ExperienceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0B27AB20E67AD90060D923 /* ExperienceDetailView.swift */; };
+		AE0B27AE20E67D110060D923 /* ExperienceDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0B27AD20E67D110060D923 /* ExperienceDetailPresenter.swift */; };
 		AE0C676C20E122F500E4BFA0 /* PaginationLoaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */; };
 		AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */; };
 		AE1D6D1D20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */; };
@@ -18,6 +20,7 @@
 		AE218B8520E2789E00E79E51 /* ExperienceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE218B8420E2789E00E79E51 /* ExperienceDetailViewController.swift */; };
 		AE61DA8620C68F6400CFEE00 /* ExperienceApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE61DA8520C68F6400CFEE00 /* ExperienceApiRepository.swift */; };
 		AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE61DA8720C6967800CFEE00 /* ExperienceApi.swift */; };
+		AE6911CF20E78D0A00A05679 /* ExperienceDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6911CE20E78D0A00A05679 /* ExperienceDetailPresenterTests.swift */; };
 		AE6C279E20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6C279D20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift */; };
 		AE6C27A020D1324600C5F59F /* ToDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6C279F20D1324600C5F59F /* ToDomainMapper.swift */; };
 		AE6F8B6720DA50BD007CC36A /* ResultCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6F8B6620DA50BD007CC36A /* ResultCacheTests.swift */; };
@@ -99,6 +102,8 @@
 		1DFE72F63DF3E7507D4FF8B8 /* Pods-PachataryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F75C0457AE10B772911DA00 /* Pods_Pachatary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pachatary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		386DAF74E9D4D63994E5E77E /* Pods-PachataryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AE0B27AB20E67AD90060D923 /* ExperienceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDetailView.swift; sourceTree = "<group>"; };
+		AE0B27AD20E67D110060D923 /* ExperienceDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDetailPresenter.swift; sourceTree = "<group>"; };
 		AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationLoaderViewCell.swift; sourceTree = "<group>"; };
 		AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+NetworkResponseTransformerTests.swift"; sourceTree = "<group>"; };
 		AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedExperienceTableViewCell.swift; sourceTree = "<group>"; };
@@ -107,6 +112,7 @@
 		AE218B8420E2789E00E79E51 /* ExperienceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDetailViewController.swift; sourceTree = "<group>"; };
 		AE61DA8520C68F6400CFEE00 /* ExperienceApiRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceApiRepository.swift; sourceTree = "<group>"; };
 		AE61DA8720C6967800CFEE00 /* ExperienceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceApi.swift; sourceTree = "<group>"; };
+		AE6911CE20E78D0A00A05679 /* ExperienceDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDetailPresenterTests.swift; sourceTree = "<group>"; };
 		AE6C279D20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+NetworkResponseTransformer.swift"; sourceTree = "<group>"; };
 		AE6C279F20D1324600C5F59F /* ToDomainMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDomainMapper.swift; sourceTree = "<group>"; };
 		AE6F8B6620DA50BD007CC36A /* ResultCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCacheTests.swift; sourceTree = "<group>"; };
@@ -224,6 +230,16 @@
 			isa = PBXGroup;
 			children = (
 				AE218B8420E2789E00E79E51 /* ExperienceDetailViewController.swift */,
+				AE0B27AB20E67AD90060D923 /* ExperienceDetailView.swift */,
+				AE0B27AD20E67D110060D923 /* ExperienceDetailPresenter.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		AE6911CD20E78CE300A05679 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				AE6911CE20E78D0A00A05679 /* ExperienceDetailPresenterTests.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -422,6 +438,7 @@
 		AEEAC68820C97D49007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
+				AE6911CD20E78CE300A05679 /* Detail */,
 				AE89AC3920C8040700443C23 /* Explore */,
 			);
 			path = Experience;
@@ -439,10 +456,10 @@
 		AEEAC68A20C97D8E007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
+				AE89AC3520C801F200443C23 /* Explore */,
 				AE218B8320E2788000E79E51 /* Detail */,
 				AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */,
 				AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */,
-				AE89AC3520C801F200443C23 /* Explore */,
 				AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */,
 			);
 			path = Experience;
@@ -537,6 +554,7 @@
 				AEBB62B320C547D6001A4576 /* Sources */,
 				AEBB62B420C547D6001A4576 /* Frameworks */,
 				AEBB62B520C547D6001A4576 /* Resources */,
+				473D19DF8596AB572B52093C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -639,6 +657,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		473D19DF8596AB572B52093C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests-frameworks.sh",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AE75E6F320E4E0FB00A65411 /* ShellScript */ = {
@@ -767,6 +805,7 @@
 				AEEC749F20CACCD800B86837 /* AuthTokenMapper.swift in Sources */,
 				AE0C676C20E122F500E4BFA0 /* PaginationLoaderViewCell.swift in Sources */,
 				AEAE26A820E284AC00E5D4E9 /* Scene.swift in Sources */,
+				AE0B27AC20E67AD90060D923 /* ExperienceDetailView.swift in Sources */,
 				AE86639420D7D22F008CE6D2 /* AppDataDependencyInjector.swift in Sources */,
 				AEAE26B220E288C500E5D4E9 /* SceneMapper.swift in Sources */,
 				AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */,
@@ -797,6 +836,7 @@
 				AEAE26AA20E285AA00E5D4E9 /* SceneRepository.swift in Sources */,
 				AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */,
 				AEE1529020D98395008707FF /* ResultCache.swift in Sources */,
+				AE0B27AE20E67D110060D923 /* ExperienceDetailPresenter.swift in Sources */,
 				AEAE26AE20E2881A00E5D4E9 /* String+UrlEncoding.swift in Sources */,
 				AE6F8B6920DA5F0D007CC36A /* ConnectableObservableType+Autoconnect.swift in Sources */,
 			);
@@ -808,6 +848,7 @@
 			files = (
 				AE761EDC20C9268B00F80F9D /* ExperienceApiRepositoryTests.swift in Sources */,
 				AEAE26B920E29DD600E5D4E9 /* SceneApiRepositoryTests.swift in Sources */,
+				AE6911CF20E78D0A00A05679 /* ExperienceDetailPresenterTests.swift in Sources */,
 				AE89AC2E20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift in Sources */,
 				AEEC749920CAADD000B86837 /* AuthStorageRepositoryTests.swift in Sources */,
 				AEB6A66620DBFDA900F936DB /* ExperienceRepositoryTests.swift in Sources */,

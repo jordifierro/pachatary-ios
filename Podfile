@@ -23,6 +23,7 @@ target 'Pachatary' do
   target 'PachataryUITests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Mapbox-iOS-SDK', '~> 4.1'
   end
 
 end
