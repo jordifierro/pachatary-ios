@@ -37,8 +37,8 @@ class ExploreExperiencesViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "experienceDetailSegue" {
-            if let destinationVC = segue.destination as? ExperienceDetailViewController {
+        if segue.identifier == "experienceMapSegue" {
+            if let destinationVC = segue.destination as? ExperienceMapViewController {
                 destinationVC.experienceId = selectedExperienceId
             }
         }
@@ -132,8 +132,8 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
         retryButton.isHidden = !visibility
     }
     
-    func navigateToExperienceDetail(_ experienceId: String) {
+    func navigateToExperienceMap(_ experienceId: String) {
         selectedExperienceId = experienceId
-        performSegue(withIdentifier: "experienceDetailSegue", sender: self)
+        performSegue(withIdentifier: "experienceMapSegue", sender: self)
     }
 }

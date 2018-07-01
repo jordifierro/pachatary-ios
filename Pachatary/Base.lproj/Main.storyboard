@@ -163,17 +163,17 @@
                         <outlet property="loaderIndicator" destination="HlC-7u-Yhg" id="977-LJ-c0P"/>
                         <outlet property="retryButton" destination="mhV-Wt-Bid" id="kfM-Lz-1d4"/>
                         <outlet property="tableView" destination="zxP-Xl-HW6" id="5ag-cd-Mzw"/>
-                        <segue destination="AjU-og-TuU" kind="show" identifier="experienceDetailSegue" id="3nS-p7-VJe"/>
+                        <segue destination="AjU-og-TuU" kind="show" identifier="experienceMapSegue" id="3nS-p7-VJe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oK-t8-Zs5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2490" y="105"/>
         </scene>
-        <!--Experience Detail View Controller-->
+        <!--Experience Map View Controller-->
         <scene sceneID="dwX-eS-qCA">
             <objects>
-                <viewController id="AjU-og-TuU" customClass="ExperienceDetailViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="AjU-og-TuU" customClass="ExperienceMapViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" ambiguous="YES" id="GMd-8z-A0I">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -5,6 +5,6 @@ protocol ExploreExperiencesView {
     func showPaginationLoader(_ visibility: Bool)
     func showError(_ visibility: Bool)
     func showRetry(_ visibility: Bool)
-    func navigateToExperienceDetail(_ experienceId: String)
+    func navigateToExperienceMap(_ experienceId: String)
 }
 

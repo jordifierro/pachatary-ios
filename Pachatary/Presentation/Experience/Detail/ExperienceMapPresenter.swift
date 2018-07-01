@@ -1,12 +1,12 @@
 import Swift
 import RxSwift
 
-class ExperienceDetailPresenter {
+class ExperienceMapPresenter {
     
     let sceneRepo: SceneRepository
     let mainScheduler: ImmediateSchedulerType
     
-    var view: ExperienceDetailView!
+    var view: ExperienceMapView!
     var experienceId: String!
     
     init(_ sceneRepository: SceneRepository,

@@ -1,6 +1,6 @@
 import Swift
 
-protocol ExperienceDetailView {
+protocol ExperienceMapView {
     func showScenes(_ scenes: [Scene])
     func finish()
 }

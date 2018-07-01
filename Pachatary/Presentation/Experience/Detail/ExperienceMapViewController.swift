@@ -1,11 +1,11 @@
 import UIKit
 import Mapbox
 
-class ExperienceDetailViewController: UIViewController, MGLMapViewDelegate {
+class ExperienceMapViewController: UIViewController, MGLMapViewDelegate {
     
     @IBOutlet weak var mapView: MGLMapView!
     
-    let presenter = ExperienceDependencyInjector.experienceDetailPresenter
+    let presenter = ExperienceDependencyInjector.experienceMapPresenter
     var experienceId: String!
 
     override func viewDidLoad() {
@@ -32,7 +32,7 @@ class ExperienceDetailViewController: UIViewController, MGLMapViewDelegate {
     }
 }
 
-extension ExperienceDetailViewController: ExperienceDetailView {
+extension ExperienceMapViewController: ExperienceMapView {
     
     func showScenes(_ scenes: [Scene]) {
         if !scenes.isEmpty {

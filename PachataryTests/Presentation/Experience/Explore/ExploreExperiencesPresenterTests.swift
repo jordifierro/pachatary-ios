@@ -120,10 +120,10 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             .then_should_call_experience_repo_paginate()
     }
     
-    func test_on_experience_selected_navigates_to_experience_detail_with_id() {
+    func test_on_experience_selected_navigates_to_experience_map_with_id() {
         ScenarioMaker()
             .when_experience_click(experienceId: "4")
-            .then_view_should_navigate_to_experience_detail(with: "4")
+            .then_view_should_navigate_to_experience_map(with: "4")
     }
 
     class ScenarioMaker {
@@ -214,7 +214,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
         }
         
         @discardableResult
-        func then_view_should_navigate_to_experience_detail(with experienceId: String)
+        func then_view_should_navigate_to_experience_map(with experienceId: String)
                                                                                   -> ScenarioMaker {
             assert([experienceId] == mockView.navigateCalls)
             return self
@@ -295,7 +295,7 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
         self.showRetryCalls.append(visibility)
     }
     
-    func navigateToExperienceDetail(_ experienceId: String) {
+    func navigateToExperienceMap(_ experienceId: String) {
         self.navigateCalls.append(experienceId)
     }
 }

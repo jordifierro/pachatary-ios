@@ -3,7 +3,7 @@ import RxSwift
 
 @testable import Pachatary
 
-class ExperienceDetailPresenterTests: XCTestCase {
+class ExperienceMapPresenterTests: XCTestCase {
     
     func test_on_create_asks_scenes_with_experience_id() {
         ScenarioMaker()
@@ -34,11 +34,11 @@ class ExperienceDetailPresenterTests: XCTestCase {
 
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
-        var mockView = ExperienceDetailViewMock()
-        var presenter: ExperienceDetailPresenter!
+        var mockView = ExperienceMapViewMock()
+        var presenter: ExperienceMapPresenter!
 
         init() {
-            presenter = ExperienceDetailPresenter(mockSceneRepo, CurrentThreadScheduler.instance)
+            presenter = ExperienceMapPresenter(mockSceneRepo, CurrentThreadScheduler.instance)
             presenter.view = mockView
         }
         
@@ -88,7 +88,7 @@ class SceneRepoMock: SceneRepository {
     }
 }
 
-class ExperienceDetailViewMock: ExperienceDetailView {
+class ExperienceMapViewMock: ExperienceMapView {
     
     var showScenesCalls = [[Scene]]()
     var finishCalls = 0
