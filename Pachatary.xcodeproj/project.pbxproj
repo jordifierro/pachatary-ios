@@ -60,7 +60,6 @@
 		AEBB62A120C547D3001A4576 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB629F20C547D3001A4576 /* Main.storyboard */; };
 		AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A220C547D6001A4576 /* Assets.xcassets */; };
 		AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A420C547D6001A4576 /* LaunchScreen.storyboard */; };
-		AEBB62B120C547D6001A4576 /* PachataryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB62B020C547D6001A4576 /* PachataryTests.swift */; };
 		AEBB62BC20C547D6001A4576 /* PachataryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */; };
 		AEE1528A20D94E3E008707FF /* SingleResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528920D94E3E008707FF /* SingleResultMapper.swift */; };
 		AEE1528E20D96DC6008707FF /* ToResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528D20D96DC6008707FF /* ToResultMapper.swift */; };
@@ -155,7 +154,6 @@
 		AEBB62A520C547D6001A4576 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AEBB62A720C547D6001A4576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEBB62AC20C547D6001A4576 /* PachataryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PachataryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AEBB62B020C547D6001A4576 /* PachataryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PachataryTests.swift; sourceTree = "<group>"; };
 		AEBB62B220C547D6001A4576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEBB62B720C547D6001A4576 /* PachataryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PachataryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PachataryUITests.swift; sourceTree = "<group>"; };
@@ -402,7 +400,6 @@
 			children = (
 				AEEAC68720C97CED007C17EE /* Presentation */,
 				AE761ED920C925F300F80F9D /* Data */,
-				AEBB62B020C547D6001A4576 /* PachataryTests.swift */,
 				AEBB62B220C547D6001A4576 /* Info.plist */,
 			);
 			path = PachataryTests;
@@ -854,7 +851,6 @@
 				AEB6A66620DBFDA900F936DB /* ExperienceRepositoryTests.swift in Sources */,
 				AE80DE7C20CEE0CB00A170F6 /* AuthRepositoryTests.swift in Sources */,
 				AE73C7BF20CE80E200B05DA2 /* AuthApiRepositoryTests.swift in Sources */,
-				AEBB62B120C547D6001A4576 /* PachataryTests.swift in Sources */,
 				AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */,
 				AE6F8B6F20DAC6A0007CC36A /* RequesterTests.swift in Sources */,
 				AEE47BE620E3A83A001DAB31 /* SceneRepositoryTests.swift in Sources */,
