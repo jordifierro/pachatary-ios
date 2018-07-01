@@ -8,7 +8,7 @@ class ExtendedExperienceTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var savesCountLabel: UILabel!
     @IBOutlet weak var authorUsernameLabel: UILabel!
-    @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,6 +28,6 @@ class ExtendedExperienceTableViewCell: UITableViewCell {
         titleLabel.text = experience.title
         savesCountLabel.text = String(experience.savesCount)
         authorUsernameLabel.text = experience.authorUsername
-        descriptionTextView.text = experience.description
+        descriptionLabel.text = experience.description
     }
 }
