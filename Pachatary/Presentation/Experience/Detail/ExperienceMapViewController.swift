@@ -7,6 +7,8 @@ class ExperienceMapViewController: UIViewController, MGLMapViewDelegate {
     
     let presenter = ExperienceDependencyInjector.experienceMapPresenter
     var experienceId: String!
+    var annotationSceneId = [Int:String]()
+    var selectedSceneId: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,19 @@ class ExperienceMapViewController: UIViewController, MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return true
     }
+    
+    func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
+        presenter.sceneClick(annotationSceneId[annotation.hash]!)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "sceneListSegue" {
+            if let destinationVC = segue.destination as? SceneListViewController {
+                destinationVC.sceneId = self.selectedSceneId
+                destinationVC.experienceId = self.experienceId
+            }
+        }
+    }
 }
 
 extension ExperienceMapViewController: ExperienceMapView {
@@ -52,6 +67,7 @@ extension ExperienceMapViewController: ExperienceMapView {
                 point.coordinate = CLLocationCoordinate2D(latitude: scene.latitude,
                                                           longitude: scene.longitude)
                 point.title = scene.title
+                annotationSceneId[point.hash] = scene.id
                 mapView.addAnnotation(point)
                 
                 maxLatitude = [maxLatitude, scene.latitude].max()!
@@ -69,6 +85,11 @@ extension ExperienceMapViewController: ExperienceMapView {
                                            longitude: maxLongitude + longitudeMargin))
             mapView.setVisibleCoordinateBounds(bounds, animated: true)
         }
+    }
+    
+    func navigateToSceneList(with sceneId: String) {
+        selectedSceneId = sceneId
+        performSegue(withIdentifier: "sceneListSegue", sender: self)
     }
     
     func finish() {

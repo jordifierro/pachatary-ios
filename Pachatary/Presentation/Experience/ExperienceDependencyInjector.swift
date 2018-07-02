@@ -13,7 +13,7 @@ class ExperienceDependencyInjector {
     
     static var experienceMapPresenter: ExperienceMapPresenter { get { return
         ExperienceMapPresenter(
-        SceneDataDependencyInjector.SceneRepository,
+        SceneDataDependencyInjector.sceneRepository,
         AppPresentationDependencyInjector.mainScheduler) }
     }
 }

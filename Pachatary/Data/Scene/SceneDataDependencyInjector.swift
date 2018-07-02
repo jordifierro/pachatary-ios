@@ -12,6 +12,6 @@ class SceneDataDependencyInjector {
         return ResultCacheImplementation<Scene>()
         }}
 
-    static let SceneRepository = SceneRepoImplementation(
+    static let sceneRepository = SceneRepoImplementation(
         apiRepo: sceneApiRepository, generateNewCache: { return sceneResultCache })
 }

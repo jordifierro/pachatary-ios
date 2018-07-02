@@ -19,6 +19,10 @@ class ExperienceMapPresenter {
         getScenes()
     }
     
+    func sceneClick(_ sceneId: String) {
+        view.navigateToSceneList(with: sceneId)
+    }
+    
     private func getScenes() {
         _ = self.sceneRepo.scenesObservable(experienceId: experienceId)
             .observeOn(self.mainScheduler)

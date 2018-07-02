@@ -31,6 +31,12 @@ class ExperienceMapPresenterTests: XCTestCase {
             .when_create_presenter()
             .then_should_call_finish()
     }
+    
+    func test_on_scene_click_navigates_to_scene_list() {
+        ScenarioMaker()
+            .when_scene_click_with_id("8")
+            .then_should_navigate_to_scene_list_with_id("8")
+    }
 
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
@@ -57,6 +63,11 @@ class ExperienceMapPresenterTests: XCTestCase {
             return self
         }
         
+        func when_scene_click_with_id(_ sceneId: String) -> ScenarioMaker {
+            presenter.sceneClick(sceneId)
+            return self
+        }
+        
         @discardableResult
         func then_should_call_scenes_repo_observable_with(experienceId: String) -> ScenarioMaker {
             assert(mockSceneRepo.scenesObservableCalls == [experienceId])
@@ -74,23 +85,19 @@ class ExperienceMapPresenterTests: XCTestCase {
             assert(mockView.finishCalls == 1)
             return self
         }
-    }
-}
-
-class SceneRepoMock: SceneRepository {
-    
-    var scenesObservableCalls = [String]()
-    var resultSceneForExperience = [String:Result<[Scene]>]()
-    
-    func scenesObservable(experienceId: String) -> Observable<Result<[Scene]>> {
-        scenesObservableCalls.append(experienceId)
-        return Observable.just(resultSceneForExperience[experienceId]!)
+        
+        @discardableResult
+        func then_should_navigate_to_scene_list_with_id(_ sceneId: String) -> ScenarioMaker {
+            assert(mockView.navigateToSceneListCalls == [sceneId])
+            return self
+        }
     }
 }
 
 class ExperienceMapViewMock: ExperienceMapView {
     
     var showScenesCalls = [[Scene]]()
+    var navigateToSceneListCalls = [String]()
     var finishCalls = 0
     
     func showScenes(_ scenes: [Scene]) {
@@ -99,5 +106,9 @@ class ExperienceMapViewMock: ExperienceMapView {
     
     func finish() {
         finishCalls += 1
+    }
+    
+    func navigateToSceneList(with sceneId: String) {
+        navigateToSceneListCalls.append(sceneId)
     }
 }
