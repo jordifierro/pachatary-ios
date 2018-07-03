@@ -18,6 +18,8 @@
 		AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1E20C5707300EA6DDD /* Experience.swift */; };
 		AE1D6D2120C5712E00EA6DDD /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D2020C5712E00EA6DDD /* Picture.swift */; };
 		AE218B8520E2789E00E79E51 /* ExperienceMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE218B8420E2789E00E79E51 /* ExperienceMapViewController.swift */; };
+		AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */; };
+		AE3116E720EBD2FC00720A95 /* ExperienceRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */; };
 		AE598BA820EA464600F3DBA9 /* SceneListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA720EA464600F3DBA9 /* SceneListView.swift */; };
 		AE598BAA20EA4A9800F3DBA9 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */; };
 		AE598BAC20EA4CD800F3DBA9 /* SceneListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BAB20EA4CD800F3DBA9 /* SceneListPresenter.swift */; };
@@ -115,6 +117,8 @@
 		AE1D6D1E20C5707300EA6DDD /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
 		AE1D6D2020C5712E00EA6DDD /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		AE218B8420E2789E00E79E51 /* ExperienceMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapViewController.swift; sourceTree = "<group>"; };
+		AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtendedExperienceTableViewCell.xib; sourceTree = "<group>"; };
+		AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRepoMock.swift; sourceTree = "<group>"; };
 		AE598BA720EA464600F3DBA9 /* SceneListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneListView.swift; sourceTree = "<group>"; };
 		AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTableViewCell.swift; sourceTree = "<group>"; };
 		AE598BAB20EA4CD800F3DBA9 /* SceneListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneListPresenter.swift; sourceTree = "<group>"; };
@@ -460,6 +464,7 @@
 				AEEAC68220C94904007C17EE /* GET_experiences_search.json */,
 				AE761EDB20C9268B00F80F9D /* ExperienceApiRepositoryTests.swift */,
 				AEB6A66520DBFDA900F936DB /* ExperienceRepositoryTests.swift */,
+				AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */,
 			);
 			path = Experience;
 			sourceTree = "<group>";
@@ -497,9 +502,10 @@
 			children = (
 				AE89AC3520C801F200443C23 /* Explore */,
 				AE218B8320E2788000E79E51 /* Detail */,
-				AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */,
 				AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */,
 				AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */,
+				AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */,
+				AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */,
 			);
 			path = Experience;
 			sourceTree = "<group>";
@@ -654,6 +660,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEEAC69020C99979007C17EE /* ApiKeys.plist in Resources */,
+				AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */,
 				AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */,
 				AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */,
 				AEBB62A120C547D3001A4576 /* Main.storyboard in Resources */,
@@ -900,6 +907,7 @@
 				AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */,
 				AE598BB120EA79C200F3DBA9 /* SceneListPresenterTests.swift in Sources */,
 				AE598BB320EA7A1000F3DBA9 /* SceneRepoMock.swift in Sources */,
+				AE3116E720EBD2FC00720A95 /* ExperienceRepoMock.swift in Sources */,
 				AE6F8B6F20DAC6A0007CC36A /* RequesterTests.swift in Sources */,
 				AEE47BE620E3A83A001DAB31 /* SceneRepositoryTests.swift in Sources */,
 				AE6F8B6720DA50BD007CC36A /* ResultCacheTests.swift in Sources */,

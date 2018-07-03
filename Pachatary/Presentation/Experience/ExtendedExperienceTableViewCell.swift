@@ -26,8 +26,8 @@ class ExtendedExperienceTableViewCell: UITableViewCell {
             pictureImageView.kf.setImage(with: URL(string: experience.picture!.mediumUrl))
         }
         titleLabel.text = experience.title
-        savesCountLabel.text = String(experience.savesCount)
-        authorUsernameLabel.text = experience.authorUsername
+        savesCountLabel.text = String(experience.savesCount) + " ☆"
+        authorUsernameLabel.text = "by " + experience.authorUsername
         descriptionLabel.text = experience.description
     }
 }

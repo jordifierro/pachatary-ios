@@ -5,32 +5,39 @@ import RxSwift
 
 class SceneListPresenterTests: XCTestCase {
     
-    func test_on_create_asks_scenes_with_experience_id() {
+    func test_on_create_asks_scenes_and_experience_with_experience_id() {
         ScenarioMaker()
             .given_an_experience_id_for_presenter("7")
-            .given_a_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
+            .given_an_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
                                               experienceId: "7")
+            .given_an_experience_observable_result(Result(.success, data: Experience("9")),
+                                                   experienceId: "7")
             .when_create_presenter()
-            .then_should_call_scenes_repo_observable_with(experienceId: "7")
+            .then_should_call_scene_repo_observable_with(experienceId: "7")
+            .then_should_call_experience_repo_observable_with(experienceId: "7")
     }
     
     func test_on_response_success_shows_scenes_with_selected_scene_id() {
         ScenarioMaker()
             .given_an_experience_id_for_presenter("7")
             .given_an_scene_id_for_presenter("9")
-            .given_a_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
+            .given_an_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
                                               experienceId: "7")
+            .given_an_experience_observable_result(Result(.success, data: Experience("9")),
+                                                   experienceId: "7")
             .when_create_presenter()
-            .then_should_call_show_scenes_with([Scene("1"), Scene("3")], andScrollTo: "9")
+            .then_should_call_show_scenes_with([Scene("1"), Scene("3")], experience: Experience("9"), andScrollTo: "9")
     }
 
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
+        let mockExperienceRepo = ExperienceRepoMock()
         var mockView = SceneListViewMock()
         var presenter: SceneListPresenter!
         
         init() {
-            presenter = SceneListPresenter(mockSceneRepo, CurrentThreadScheduler.instance)
+            presenter = SceneListPresenter(mockSceneRepo, mockExperienceRepo,
+                                           CurrentThreadScheduler.instance)
             presenter.view = mockView
         }
         
@@ -44,8 +51,14 @@ class SceneListPresenterTests: XCTestCase {
             return self
         }
         
-        func given_a_scenes_observable_result(_ result: Result<[Scene]>, experienceId: String) -> ScenarioMaker {
+        func given_an_scenes_observable_result(_ result: Result<[Scene]>, experienceId: String) -> ScenarioMaker {
             mockSceneRepo.resultSceneForExperience[experienceId] = result
+            return self
+        }
+        
+        func given_an_experience_observable_result(_ result: Result<Experience>,
+                                                   experienceId: String) -> ScenarioMaker {
+            mockExperienceRepo.returnExperience[experienceId] = result
             return self
         }
         
@@ -55,15 +68,23 @@ class SceneListPresenterTests: XCTestCase {
         }
         
         @discardableResult
-        func then_should_call_scenes_repo_observable_with(experienceId: String) -> ScenarioMaker {
+        func then_should_call_scene_repo_observable_with(experienceId: String) -> ScenarioMaker {
             assert(mockSceneRepo.scenesObservableCalls == [experienceId])
             return self
         }
         
         @discardableResult
-        func then_should_call_show_scenes_with(_ scenes: [Scene], andScrollTo sceneId: String) -> ScenarioMaker {
+        func then_should_call_experience_repo_observable_with(experienceId: String) -> ScenarioMaker {
+            assert(mockExperienceRepo.singleExperienceCalls == [experienceId])
+            return self
+        }
+        
+        @discardableResult
+        func then_should_call_show_scenes_with(_ scenes: [Scene], experience: Experience,
+                                               andScrollTo sceneId: String) -> ScenarioMaker {
             assert(scenes == mockView.showScenesCalls[0].0)
-            assert(sceneId == mockView.showScenesCalls[0].1)
+            assert(experience == mockView.showScenesCalls[0].1)
+            assert(sceneId == mockView.showScenesCalls[0].2)
             return self
         }
     }
@@ -71,11 +92,11 @@ class SceneListPresenterTests: XCTestCase {
 
 class SceneListViewMock: SceneListView {
     
-    var showScenesCalls = [([Scene], String?)]()
+    var showScenesCalls = [([Scene], Experience, String?)]()
     var finishCalls = 0
-    
-    func showScenes(_ scenes: [Scene], showSceneWithId sceneId: String?) {
-        showScenesCalls.append((scenes, sceneId))
+
+    func showScenes(_ scenes: [Scene], experience: Experience, showSceneWithId sceneId: String?) {
+        showScenesCalls.append((scenes, experience, sceneId))
     }
     
     func finish() {

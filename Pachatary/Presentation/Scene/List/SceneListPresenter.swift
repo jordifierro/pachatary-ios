@@ -7,22 +7,30 @@ class SceneListPresenter {
     var experienceId: String!
     var sceneId: String!
     var sceneRepo: SceneRepository!
+    var experienceRepo: ExperienceRepository!
     var mainScheduler: ImmediateSchedulerType!
     
-    init(_ sceneRepo: SceneRepository, _ mainScheduler: ImmediateSchedulerType) {
+    init(_ sceneRepo: SceneRepository, _ experienceRepo: ExperienceRepository,
+         _ mainScheduler: ImmediateSchedulerType) {
         self.sceneRepo = sceneRepo
+        self.experienceRepo = experienceRepo
         self.mainScheduler = mainScheduler
     }
     
     func create() {
-        _ = sceneRepo.scenesObservable(experienceId: experienceId)
+        _ = Observable.combineLatest(sceneRepo.scenesObservable(experienceId: experienceId)
+                                                    .filter { result in return result.isSuccess() },
+                                     experienceRepo.experienceObservable(experienceId))
+        { sceneResult, experienceResult in return (sceneResult, experienceResult) }
             .observeOn(mainScheduler)
             .subscribe { event in
                 switch event {
-                case .next(let result):
-                    switch result.status {
+                case .next(let (sceneResult, experienceResult)):
+                    switch sceneResult.status {
                     case .success:
-                        self.view.showScenes(result.data!, showSceneWithId: self.sceneId)
+                        self.view.showScenes(sceneResult.data!,
+                                             experience: experienceResult.data!,
+                                             showSceneWithId: self.sceneId)
                     case .error: break
                     case .inProgress: break
                     }

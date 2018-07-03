@@ -9,6 +9,7 @@ protocol ExperienceRepository {
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>>
     func getFirsts(kind: Kind)
     func paginate(kind: Kind)
+    func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>>
 }
 
 class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
@@ -38,6 +39,14 @@ class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
     func paginate(kind: Kind) {
         self.exploreRequester.actionsObserver.onNext(Request(.paginate))
     }
+    
+    func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
+        return Observable.combineLatest(experiencesObservable(kind: .explore),
+                                        experiencesObservable(kind: .explore))
+                            { result, result2 in return result }
+            .map { result in
+                return Result(.success, data:
+                    result.data!.filter { experience in return experience.id == experienceId }[0])
+        }
+    }
 }
-
-

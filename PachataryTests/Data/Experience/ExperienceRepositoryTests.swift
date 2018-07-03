@@ -13,6 +13,15 @@ class ExperienceRepositoryTests: XCTestCase {
             .then_should_return_flowable_with([Result(.success, data: [Experience("2")])])
     }
     
+    func test_experience_observable_returns_only_requested_experience() {
+        ScenarioMaker()
+            .given_a_requester_that_returns_results(
+                [Result(.success, data: [Experience("2"), Experience("4"), Experience("7")])])
+            .when_call_experiences_observable()
+            .when_call_experience_observable("4")
+            .then_should_return_experience_observable_with(Result(.success, data: Experience("4")))
+    }
+    
     func test_get_firsts_emit_getfirsts_requests_through_explore_requester() {
         ScenarioMaker()
             .when_get_firsts()
@@ -46,8 +55,9 @@ class ExperienceRepositoryTests: XCTestCase {
         let repo: ExperienceRepository
 
         var experiencesObservableResult: Observable<Result<[Experience]>>!
+        var experienceObservableResult: Observable<Result<Experience>>!
         var callableResult: Observable<Result<[Experience]>>!
-        
+
         init() {
             repo = ExperienceRepoImplementation(apiRepo: mockApiRepo,
                                                 exploreRequester: mockRequester)
@@ -86,6 +96,11 @@ class ExperienceRepositoryTests: XCTestCase {
             return self
         }
         
+        func when_call_experience_observable(_ experienceId: String) -> ScenarioMaker {
+            experienceObservableResult = repo.experienceObservable(experienceId)
+            return self
+        }
+        
         func when_get_firsts() -> ScenarioMaker {
             repo.getFirsts(kind: .explore)
             return self
@@ -116,6 +131,14 @@ class ExperienceRepositoryTests: XCTestCase {
                                                                                   -> ScenarioMaker {
             do { let real = try callableResult.toBlocking().toArray()
                 assert(real == expected)
+            } catch { assertionFailure() }
+            return self
+        }
+        
+        @discardableResult
+        func then_should_return_experience_observable_with(_ result: Result<Experience>) -> ScenarioMaker {
+            do { let real = try experienceObservableResult.toBlocking().toArray().last!
+                 assert(real == result)
             } catch { assertionFailure() }
             return self
         }
