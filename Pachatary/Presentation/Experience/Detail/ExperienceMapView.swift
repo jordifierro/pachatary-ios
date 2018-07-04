@@ -7,7 +7,7 @@ protocol ExperienceMapView {
     func finish()
 }
 
-class ExperienceMapViewController: UIViewController, MGLMapViewDelegate {
+class ExperienceMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MGLMapView!
     
@@ -28,21 +28,7 @@ class ExperienceMapViewController: UIViewController, MGLMapViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         presenter.create()
     }
-    
-    // Use the default marker. See also: our view annotation or custom marker examples.
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        return nil
-    }
-    
-    // Allow callout view to appear when an annotation is tapped.
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        return true
-    }
-    
-    func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
-        presenter.sceneClick(annotationSceneId[annotation.hash]!)
-    }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sceneListSegue" {
             if let destinationVC = segue.destination as? SceneListViewController {
@@ -50,6 +36,21 @@ class ExperienceMapViewController: UIViewController, MGLMapViewDelegate {
                 destinationVC.experienceId = self.experienceId
             }
         }
+    }
+}
+
+extension ExperienceMapViewController: MGLMapViewDelegate {
+    
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        return nil
+    }
+    
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
+    
+    func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
+        presenter.sceneClick(annotationSceneId[annotation.hash]!)
     }
 }
 
