@@ -3,6 +3,7 @@ import Mapbox
 
 protocol ExperienceMapView {
     func showScenes(_ scenes: [Scene])
+    func showExperience(_ experience: Experience)
     func navigateToSceneList(with sceneId: String)
     func finish()
 }
@@ -10,6 +11,7 @@ protocol ExperienceMapView {
 class ExperienceMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MGLMapView!
+    @IBOutlet weak var saveButton: UIButton!
     
     let presenter = ExperienceDependencyInjector.experienceMapPresenter
     var experienceId: String!
@@ -91,6 +93,15 @@ extension ExperienceMapViewController: ExperienceMapView {
                 ne: CLLocationCoordinate2D(latitude: maxLatitude + latitudeMargin,
                                            longitude: maxLongitude + longitudeMargin))
             mapView.setVisibleCoordinateBounds(bounds, animated: true)
+        }
+    }
+    
+    func showExperience(_ experience: Experience) {
+        if experience.isSaved {
+            saveButton.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.0, alpha: 1.0)
+        }
+        else {
+            saveButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.5, alpha: 1.0)
         }
     }
     
