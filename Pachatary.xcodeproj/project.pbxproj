@@ -10,14 +10,13 @@
 		36189B79170B1B17A56B4A8E /* Pods_Pachatary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F75C0457AE10B772911DA00 /* Pods_Pachatary.framework */; };
 		5120C255D2A1A3E4DC1DBDC6 /* Pods_PachataryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC6EE34BE667A62DEA5D3592 /* Pods_PachataryTests.framework */; };
 		721696F24410FC2F2C54AAEE /* Pods_PachataryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2ACA8339ABA2B763112FF08 /* Pods_PachataryUITests.framework */; };
-		AE0B27AC20E67AD90060D923 /* ExperienceMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0B27AB20E67AD90060D923 /* ExperienceMapView.swift */; };
 		AE0B27AE20E67D110060D923 /* ExperienceMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */; };
 		AE0C676C20E122F500E4BFA0 /* PaginationLoaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */; };
 		AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */; };
 		AE1D6D1D20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */; };
 		AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1E20C5707300EA6DDD /* Experience.swift */; };
 		AE1D6D2120C5712E00EA6DDD /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D2020C5712E00EA6DDD /* Picture.swift */; };
-		AE218B8520E2789E00E79E51 /* ExperienceMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE218B8420E2789E00E79E51 /* ExperienceMapViewController.swift */; };
+		AE218B8520E2789E00E79E51 /* ExperienceMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE218B8420E2789E00E79E51 /* ExperienceMapView.swift */; };
 		AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */; };
 		AE3116E720EBD2FC00720A95 /* ExperienceRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */; };
 		AE598BA820EA464600F3DBA9 /* SceneListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA720EA464600F3DBA9 /* SceneListView.swift */; };
@@ -45,7 +44,6 @@
 		AE86639820D7D4A1008CE6D2 /* AppPresentationDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE86639720D7D4A1008CE6D2 /* AppPresentationDependencyInjector.swift */; };
 		AE86639A20D7D4D5008CE6D2 /* ExperienceDataDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE86639920D7D4D5008CE6D2 /* ExperienceDataDependencyInjector.swift */; };
 		AE868AC420C7D4EF009AAF93 /* ExploreExperiencesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE868AC320C7D4EF009AAF93 /* ExploreExperiencesPresenter.swift */; };
-		AE868AC620C7D537009AAF93 /* ExploreExperiencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE868AC520C7D537009AAF93 /* ExploreExperiencesView.swift */; };
 		AE89AC2C20C7E5A100443C23 /* ExperienceDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */; };
 		AE89AC2E20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE89AC2D20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift */; };
 		AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA0EE5520CFB98A0040E4C9 /* Result.swift */; };
@@ -64,7 +62,7 @@
 		AEB6A66420DBE4C000F936DB /* ExperienceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6A66320DBE4C000F936DB /* ExperienceRepository.swift */; };
 		AEB6A66620DBFDA900F936DB /* ExperienceRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6A66520DBFDA900F936DB /* ExperienceRepositoryTests.swift */; };
 		AEBB629C20C547D3001A4576 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB629B20C547D3001A4576 /* AppDelegate.swift */; };
-		AEBB629E20C547D3001A4576 /* ExploreExperiencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB629D20C547D3001A4576 /* ExploreExperiencesViewController.swift */; };
+		AEBB629E20C547D3001A4576 /* ExploreExperiencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB629D20C547D3001A4576 /* ExploreExperiencesView.swift */; };
 		AEBB62A120C547D3001A4576 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB629F20C547D3001A4576 /* Main.storyboard */; };
 		AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A220C547D6001A4576 /* Assets.xcassets */; };
 		AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A420C547D6001A4576 /* LaunchScreen.storyboard */; };
@@ -109,14 +107,13 @@
 		1DFE72F63DF3E7507D4FF8B8 /* Pods-PachataryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F75C0457AE10B772911DA00 /* Pods_Pachatary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pachatary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		386DAF74E9D4D63994E5E77E /* Pods-PachataryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests.release.xcconfig"; sourceTree = "<group>"; };
-		AE0B27AB20E67AD90060D923 /* ExperienceMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapView.swift; sourceTree = "<group>"; };
 		AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapPresenter.swift; sourceTree = "<group>"; };
 		AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationLoaderViewCell.swift; sourceTree = "<group>"; };
 		AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+NetworkResponseTransformerTests.swift"; sourceTree = "<group>"; };
 		AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		AE1D6D1E20C5707300EA6DDD /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
 		AE1D6D2020C5712E00EA6DDD /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
-		AE218B8420E2789E00E79E51 /* ExperienceMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapViewController.swift; sourceTree = "<group>"; };
+		AE218B8420E2789E00E79E51 /* ExperienceMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapView.swift; sourceTree = "<group>"; };
 		AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtendedExperienceTableViewCell.xib; sourceTree = "<group>"; };
 		AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRepoMock.swift; sourceTree = "<group>"; };
 		AE598BA720EA464600F3DBA9 /* SceneListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneListView.swift; sourceTree = "<group>"; };
@@ -144,7 +141,6 @@
 		AE86639720D7D4A1008CE6D2 /* AppPresentationDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPresentationDependencyInjector.swift; sourceTree = "<group>"; };
 		AE86639920D7D4D5008CE6D2 /* ExperienceDataDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDataDependencyInjector.swift; sourceTree = "<group>"; };
 		AE868AC320C7D4EF009AAF93 /* ExploreExperiencesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesPresenter.swift; sourceTree = "<group>"; };
-		AE868AC520C7D537009AAF93 /* ExploreExperiencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesView.swift; sourceTree = "<group>"; };
 		AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDependencyInjector.swift; sourceTree = "<group>"; };
 		AE89AC2D20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesPresenterTests.swift; sourceTree = "<group>"; };
 		AEA0EE5520CFB98A0040E4C9 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -164,7 +160,7 @@
 		AEB6A66520DBFDA900F936DB /* ExperienceRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRepositoryTests.swift; sourceTree = "<group>"; };
 		AEBB629820C547D3001A4576 /* Pachatary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pachatary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEBB629B20C547D3001A4576 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AEBB629D20C547D3001A4576 /* ExploreExperiencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesViewController.swift; sourceTree = "<group>"; };
+		AEBB629D20C547D3001A4576 /* ExploreExperiencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesView.swift; sourceTree = "<group>"; };
 		AEBB62A020C547D3001A4576 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AEBB62A220C547D6001A4576 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AEBB62A520C547D6001A4576 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -243,8 +239,7 @@
 		AE218B8320E2788000E79E51 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				AE218B8420E2789E00E79E51 /* ExperienceMapViewController.swift */,
-				AE0B27AB20E67AD90060D923 /* ExperienceMapView.swift */,
+				AE218B8420E2789E00E79E51 /* ExperienceMapView.swift */,
 				AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */,
 			);
 			path = Detail;
@@ -332,9 +327,8 @@
 		AE89AC3520C801F200443C23 /* Explore */ = {
 			isa = PBXGroup;
 			children = (
-				AEBB629D20C547D3001A4576 /* ExploreExperiencesViewController.swift */,
+				AEBB629D20C547D3001A4576 /* ExploreExperiencesView.swift */,
 				AE868AC320C7D4EF009AAF93 /* ExploreExperiencesPresenter.swift */,
-				AE868AC520C7D537009AAF93 /* ExploreExperiencesView.swift */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -848,18 +842,17 @@
 				AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */,
 				AEB326B520C6F819000E07D8 /* PictureMapper.swift in Sources */,
 				AE598BA820EA464600F3DBA9 /* SceneListView.swift in Sources */,
-				AEBB629E20C547D3001A4576 /* ExploreExperiencesViewController.swift in Sources */,
+				AEBB629E20C547D3001A4576 /* ExploreExperiencesView.swift in Sources */,
 				AEEC749F20CACCD800B86837 /* AuthTokenMapper.swift in Sources */,
 				AE0C676C20E122F500E4BFA0 /* PaginationLoaderViewCell.swift in Sources */,
 				AEAE26A820E284AC00E5D4E9 /* Scene.swift in Sources */,
-				AE0B27AC20E67AD90060D923 /* ExperienceMapView.swift in Sources */,
 				AE86639420D7D22F008CE6D2 /* AppDataDependencyInjector.swift in Sources */,
 				AEAE26B220E288C500E5D4E9 /* SceneMapper.swift in Sources */,
 				AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */,
 				AEAE26B020E2885900E5D4E9 /* SceneApiRepository.swift in Sources */,
 				AE86639620D7D3B5008CE6D2 /* AuthDataDependencyInjector.swift in Sources */,
 				AEE1528A20D94E3E008707FF /* SingleResultMapper.swift in Sources */,
-				AE218B8520E2789E00E79E51 /* ExperienceMapViewController.swift in Sources */,
+				AE218B8520E2789E00E79E51 /* ExperienceMapView.swift in Sources */,
 				AE6C279E20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift in Sources */,
 				AE6C27A020D1324600C5F59F /* ToDomainMapper.swift in Sources */,
 				AE61DA8620C68F6400CFEE00 /* ExperienceApiRepository.swift in Sources */,
@@ -882,7 +875,6 @@
 				AE598BAC20EA4CD800F3DBA9 /* SceneListPresenter.swift in Sources */,
 				AEAE26AC20E2860A00E5D4E9 /* SceneApi.swift in Sources */,
 				AEEC74A320CADB8C00B86837 /* AuthHeaderPlugin.swift in Sources */,
-				AE868AC620C7D537009AAF93 /* ExploreExperiencesView.swift in Sources */,
 				AEAE26AA20E285AA00E5D4E9 /* SceneRepository.swift in Sources */,
 				AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */,
 				AEE1529020D98395008707FF /* ResultCache.swift in Sources */,
