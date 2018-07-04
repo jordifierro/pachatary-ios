@@ -44,4 +44,47 @@ struct Experience: Equatable, Identifiable {
             lhs.authorUsername == rhs.authorUsername &&
             lhs.savesCount == rhs.savesCount
     }
+    
+    func builder() -> Builder {
+        return Builder(self)
+    }
+    
+    class Builder {
+        
+        var id: String
+        var title: String
+        var description: String
+        var picture: Picture?
+        var isMine: Bool
+        var isSaved: Bool
+        var authorUsername: String
+        var savesCount: Int
+        
+        init(_ experience: Experience) {
+            self.id = experience.id
+            self.title = experience.title
+            self.description = experience.description
+            self.picture = experience.picture
+            self.isMine = experience.isMine
+            self.isSaved = experience.isSaved
+            self.authorUsername = experience.authorUsername
+            self.savesCount = experience.savesCount
+        }
+        
+        func isSaved(_ isSaved: Bool) -> Builder {
+            self.isSaved = isSaved
+            return self
+        }
+        
+        func savesCount(_ savesCount: Int) -> Builder {
+            self.savesCount = savesCount
+            return self
+        }
+ 
+        func build() -> Experience {
+            return Experience(id: self.id, title: self.title, description: self.description,
+                              picture: self.picture, isMine: self.isMine, isSaved: self.isSaved,
+                              authorUsername: self.authorUsername, savesCount: self.savesCount)
+        }
+    }
 }

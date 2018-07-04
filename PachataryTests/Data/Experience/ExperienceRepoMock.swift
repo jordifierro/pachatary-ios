@@ -4,7 +4,7 @@ import RxSwift
 @testable import Pachatary
 
 class ExperienceRepoMock: ExperienceRepository {
-    
+
     var returnExperiences: [Experience]!
     var returnExperience = [String:Result<Experience>]()
     var returnInProgress = false
@@ -13,6 +13,7 @@ class ExperienceRepoMock: ExperienceRepository {
     var getFirstsCalls = [Kind]()
     var paginateCalls = [Kind]()
     var singleExperienceCalls = [String]()
+    var saveCalls = [String]()
     
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         assert(kind == .explore)
@@ -35,5 +36,9 @@ class ExperienceRepoMock: ExperienceRepository {
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
         singleExperienceCalls.append(experienceId)
         return Observable.just(returnExperience[experienceId]!)
+    }
+    
+    func switchExperienceSaveState(_ experienceId: String) {
+        saveCalls.append(experienceId)
     }
 }

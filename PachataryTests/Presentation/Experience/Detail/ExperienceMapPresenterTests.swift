@@ -52,6 +52,15 @@ class ExperienceMapPresenterTests: XCTestCase {
             .when_scene_click_with_id("8")
             .then_should_navigate_to_scene_list_with_id("8")
     }
+    
+    func test_on_experience_save_call_repo_switch_save_state() {
+        ScenarioMaker()
+            .given_an_experience_id_for_presenter("4")
+            .given_an_experience_observable_result(Result(.success, data: Experience("4")),
+                                                   experienceId: "4")
+            .when_save_click()
+            .then_should_call_repo_switch_save_state("4")
+    }
 
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
@@ -88,6 +97,17 @@ class ExperienceMapPresenterTests: XCTestCase {
         
         func when_scene_click_with_id(_ sceneId: String) -> ScenarioMaker {
             presenter.sceneClick(sceneId)
+            return self
+        }
+        
+        func when_save_click() -> ScenarioMaker {
+            presenter.saveClick()
+            return self
+        }
+        
+        @discardableResult
+        func then_should_call_repo_switch_save_state(_ experienceId: String) -> ScenarioMaker {
+            assert(mockExperienceRepo.saveCalls == [experienceId])
             return self
         }
         

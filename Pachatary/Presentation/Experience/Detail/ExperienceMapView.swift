@@ -10,6 +10,7 @@ protocol ExperienceMapView {
 
 class ExperienceMapViewController: UIViewController {
     
+    @IBOutlet var rootView: UIView!
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var saveButton: UIButton!
     
@@ -25,10 +26,16 @@ class ExperienceMapViewController: UIViewController {
         
         presenter.view = self
         presenter.experienceId = experienceId
+        
+        saveButton.addTarget(self, action: #selector(saveClick), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         presenter.create()
+    }
+    
+    @objc func saveClick(_ sender: UIButton!) {
+        presenter.saveClick()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -97,12 +104,9 @@ extension ExperienceMapViewController: ExperienceMapView {
     }
     
     func showExperience(_ experience: Experience) {
-        if experience.isSaved {
-            saveButton.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.0, alpha: 1.0)
-        }
-        else {
-            saveButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.5, alpha: 1.0)
-        }
+        rootView.bringSubview(toFront: self.saveButton)
+        if experience.isSaved { saveButton.backgroundColor = UIColor.yellow }
+        else { saveButton.backgroundColor = UIColor.white }
     }
     
     func navigateToSceneList(with sceneId: String) {

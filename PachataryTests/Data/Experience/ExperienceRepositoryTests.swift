@@ -48,6 +48,30 @@ class ExperienceRepositoryTests: XCTestCase {
             .then_result_should_be_observable_with([Result(.success, data: [Experience("2")])])
     }
     
+    func test_switch_save_state_emits_on_update_and_calls_api_save_case() {
+        ScenarioMaker()
+            .given_a_requester_that_returns_results([Result(.success, data: [Experience("2"),
+                 Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
+                            isSaved: false, authorUsername: "", savesCount: 5)])])
+            .when_switch_experience_save_state("4")
+            .then_should_emit_through_update_observer([
+                Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
+                           isSaved: true, authorUsername: "", savesCount: 6)])
+            .then_should_call_api_save("4", save: true)
+    }
+    
+    func test_switch_save_state_emits_on_update_and_calls_api_unsave_case() {
+        ScenarioMaker()
+            .given_a_requester_that_returns_results([Result(.success, data: [Experience("2"),
+                 Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
+                            isSaved: true, authorUsername: "", savesCount: 5)])])
+            .when_switch_experience_save_state("4")
+            .then_should_emit_through_update_observer([
+                Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
+                           isSaved: false, authorUsername: "", savesCount: 4)])
+            .then_should_call_api_save("4", save: false)
+    }
+    
     class ScenarioMaker {
         
         let mockApiRepo = MockExperienceApiRepo()
@@ -111,6 +135,11 @@ class ExperienceRepositoryTests: XCTestCase {
             return self
         }
         
+        func when_switch_experience_save_state(_ experienceId: String) -> ScenarioMaker {
+            repo.switchExperienceSaveState(experienceId)
+            return self
+        }
+        
         @discardableResult
         func then_should_emit_request_through_requester_actions_observer(
             _ action: Request.Action) -> ScenarioMaker {
@@ -142,6 +171,19 @@ class ExperienceRepositoryTests: XCTestCase {
             } catch { assertionFailure() }
             return self
         }
+        
+        func then_should_emit_through_update_observer(_ experiences: [Experience]) -> ScenarioMaker {
+            assert(mockRequester.updateObserverCalls == [experiences])
+            return self
+        }
+        
+        @discardableResult
+        func then_should_call_api_save(_ experienceId: String, save: Bool) -> ScenarioMaker {
+            assert(mockApiRepo.saveCalls.count == 1)
+            assert(mockApiRepo.saveCalls[0].0 == experienceId)
+            assert(mockApiRepo.saveCalls[0].1 == save)
+            return self
+        }
     }
 }
 
@@ -149,6 +191,7 @@ class MockExperienceApiRepo: ExperienceApiRepository {
 
     var apiGetFirstsCallResultObservable: Observable<Result<[Experience]>>?
     var apiPaginateCallResultObservable: Observable<Result<[Experience]>>?
+    var saveCalls = [(String, Bool)]()
     
     init() {}
     
@@ -159,10 +202,14 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     func paginateExperiences(_ url: String) -> Observable<Result<[Experience]>> {
         return apiPaginateCallResultObservable!
     }
+    
+    func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>> {
+        saveCalls.append((experienceId, save))
+        return Observable.empty()
+    }
 }
 
 class MockExperienceRequester: Requester {
-
     typealias requesterType = Experience
     
     var getFirstsCallable: ((Request) -> Observable<Result<[Experience]>>)!
@@ -171,11 +218,18 @@ class MockExperienceRequester: Requester {
     var actionsObserver: AnyObserver<Request>
     var actionsObserverCalls = [Request]()
     
+    var updateObserver: AnyObserver<[Experience]>
+    var updateObserverCalls = [[Experience]]()
+    
     var results = [Result<[Experience]>]()
     
     init() {
         let actionsSubject = PublishSubject<Request>()
         actionsObserver = actionsSubject.asObserver()
+        
+        let updateSubject = PublishSubject<[Experience]>()
+        updateObserver = updateSubject.asObserver()
+        
         _ = actionsSubject.asObservable()
             .subscribe { event in
                 switch event {
@@ -184,6 +238,16 @@ class MockExperienceRequester: Requester {
                 case .error: break
                 case .completed: break
             }
+        }
+        
+        _ = updateSubject.asObservable()
+            .subscribe { event in
+                switch event {
+                case .next(let experiences):
+                    self.updateObserverCalls.append(experiences)
+                case .error: break
+                case .completed: break
+                }
         }
     }
     

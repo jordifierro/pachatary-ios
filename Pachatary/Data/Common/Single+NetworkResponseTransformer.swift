@@ -11,6 +11,17 @@ extension Single where Element == Response {
                 .subscribeOn(scheduler)
     }
     
+    func transformNetworkVoidResponse(_ scheduler: ImmediateSchedulerType) -> Observable<Result<Bool>> {
+        return getObservableSubscribed(scheduler)
+            .map { (response: Response) -> Result<Bool> in
+                if response.statusCode >= 200 && response.statusCode < 300 {
+                    return Result(.success, data: true)
+                }
+                else { fatalError() }
+            }
+            .retryCatchErrorAndEmitInProgress(Bool.self)
+    }
+    
     func transformNetworkResponse<T: ToResultMapper>(_ mapperType: T.Type,
                                                      _ scheduler: ImmediateSchedulerType)
                                                                -> Observable<Result<T.domainType>> {

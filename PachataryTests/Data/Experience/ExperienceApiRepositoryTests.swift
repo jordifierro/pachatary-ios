@@ -22,11 +22,26 @@ class ExperienceApiRepositoryTests: XCTestCase {
             .then_should_return_flowable_with_inprogress_and_result_experiences()
     }
     
+    func test_save_experience() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_stubbed_network_call_for_save("6", method: .POST, statusCode: 201)
+            .when_save("6", save: true)
+            .then_should_return_flowable_with_inprogress_and_result_success()
+    }
+    
+    func test_unsave_experience() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_stubbed_network_call_for_save("6", method: .DELETE, statusCode: 204)
+            .when_save("6", save: false)
+            .then_should_return_flowable_with_inprogress_and_result_success()
+    }
+    
     class ScenarioMaker {
         let api = MoyaProvider<ExperienceApi>().rx
         var repo: ExperienceApiRepository!
         var testCase: XCTestCase!
         var resultObservable: Observable<Result<[Experience]>>!
+        var saveResultObservable: Observable<Result<Bool>>!
         var paginationUrl = ""
         
         init(_ testCase: XCTestCase) {
@@ -97,6 +112,29 @@ class ExperienceApiRepositoryTests: XCTestCase {
             return self
         }
         
+        func given_an_stubbed_network_call_for_save(_ experienceId: String, method: HTTPMethod,
+                                                    statusCode: Int) -> ScenarioMaker {
+            let url = URL(string: AppDataDependencyInjector.apiUrl +
+                                  "/experiences/" + experienceId + "/save/")!
+            var stub = StubRequest(method: method, url: url)
+            var response = StubResponse()
+            
+            response.body = Data()
+            response.statusCode = statusCode
+            stub.response = response
+            Hippolyte.shared.add(stubbedRequest: stub)
+            Hippolyte.shared.start()
+            
+            let expectation = testCase.expectation(description: "Stubs network call")
+            let task = URLSession.shared.dataTask(with: url) { data, _, _ in
+                XCTAssertEqual(data, nil)
+                expectation.fulfill()
+            }
+            task.resume()
+            
+            testCase.wait(for: [expectation], timeout: 1)
+            return self
+        }
         
         func when_experiences_flowable() -> ScenarioMaker {
             resultObservable = repo.exploreExperiencesObservable()
@@ -105,6 +143,11 @@ class ExperienceApiRepositoryTests: XCTestCase {
         
         func when_paginate_experiences_flowable() -> ScenarioMaker {
             resultObservable = repo.paginateExperiences(paginationUrl)
+            return self
+        }
+        
+        func when_save(_ experienceId: String, save: Bool) -> ScenarioMaker {
+            saveResultObservable = repo.saveExperience(experienceId, save: save)
             return self
         }
         
@@ -125,6 +168,16 @@ class ExperienceApiRepositoryTests: XCTestCase {
                 assert(result.count == 2)
                 assert(Result(.inProgress) == result[0])
                 assert(Result(.success, data: expectedExperiences, nextUrl: expectedNextUrl) == result[1])
+            } catch { assertionFailure() }
+            return self
+        }
+        
+        @discardableResult
+        func then_should_return_flowable_with_inprogress_and_result_success() -> ScenarioMaker {
+            do { let result = try saveResultObservable.toBlocking().toArray()
+                assert(result.count == 2)
+                assert(Result(.inProgress) == result[0])
+                assert(Result(.success, data: true) == result[1])
             } catch { assertionFailure() }
             return self
         }

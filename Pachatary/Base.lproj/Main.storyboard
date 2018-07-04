@@ -107,9 +107,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYI-wb-XRw">
-                                <rect key="frame" x="254" y="422" width="30" height="30"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <state key="normal" title="☆"/>
+                                <rect key="frame" x="254" y="422" width="50" height="50"/>
+                                <state key="normal" title="☆">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xxD-qk-2lI" customClass="MGLMapView">
                                 <rect key="frame" x="0.0" y="64" width="320" height="372"/>
@@ -121,10 +122,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="CYI-wb-XRw" firstAttribute="bottom" secondItem="EkW-0b-uNe" secondAttribute="bottom" constant="20" id="9j9-mQ-RBe"/>
+                            <constraint firstItem="CYI-wb-XRw" firstAttribute="bottom" secondItem="EkW-0b-uNe" secondAttribute="bottom" constant="-20" id="avS-6X-4Vu"/>
                             <constraint firstItem="xxD-qk-2lI" firstAttribute="top" secondItem="EkW-0b-uNe" secondAttribute="top" id="dL6-ZP-Opv"/>
                             <constraint firstItem="xxD-qk-2lI" firstAttribute="leading" secondItem="EkW-0b-uNe" secondAttribute="leading" id="dcM-2Q-IKA"/>
-                            <constraint firstItem="xxD-qk-2lI" firstAttribute="bottom" secondItem="EkW-0b-uNe" secondAttribute="bottom" id="eLG-8x-9dn"/>
+                            <constraint firstItem="EkW-0b-uNe" firstAttribute="bottom" secondItem="xxD-qk-2lI" secondAttribute="bottom" id="jMq-f0-gsR"/>
                             <constraint firstItem="EkW-0b-uNe" firstAttribute="trailing" secondItem="xxD-qk-2lI" secondAttribute="trailing" id="lBd-kx-gYd"/>
                             <constraint firstItem="EkW-0b-uNe" firstAttribute="trailing" secondItem="CYI-wb-XRw" secondAttribute="trailing" constant="20" id="y2U-4m-Ihh"/>
                         </constraints>
@@ -132,6 +133,7 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="xxD-qk-2lI" id="1XL-RH-9ZD"/>
+                        <outlet property="rootView" destination="GMd-8z-A0I" id="JOM-dt-k8D"/>
                         <outlet property="saveButton" destination="CYI-wb-XRw" id="yJl-mi-h71"/>
                         <segue destination="Qo6-bb-VbT" kind="show" identifier="sceneListSegue" id="lbv-Rm-Sd2"/>
                     </connections>

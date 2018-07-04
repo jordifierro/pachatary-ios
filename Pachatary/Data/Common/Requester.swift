@@ -8,14 +8,17 @@ protocol Requester {
     var paginateCallable: ((String) -> Observable<Result<[requesterType]>>)! { get set }
     var actionsObserver: AnyObserver<Request> { get }
     func resultsObservable() -> Observable<Result<[requesterType]>>
+    var updateObserver: AnyObserver<[requesterType]> { get }
 }
 
 class RequesterImplementation<T: ResultCache>: Requester {
 
     var getFirstsCallable: ((Request) -> Observable<Result<[T.cacheType]>>)!
     var paginateCallable: ((String) -> Observable<Result<[T.cacheType]>>)!
-    let cache: T!
     var actionsObserver: AnyObserver<Request>
+    
+    let cache: T!
+    var updateObserver: AnyObserver<[T.cacheType]> { get { return cache.updateObserver } }
 
     init(_ cache: T) {
         self.cache = cache
