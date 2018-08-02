@@ -75,7 +75,9 @@ class ResultCacheTests: XCTestCase {
         
         func given_an_experience(id: String, title: String = "") -> ScenarioMaker {
             let experience = Experience(id: id, title: title, description: "", picture: nil,
-                                        isMine: false, isSaved: false, authorUsername: "",
+                                        isMine: false, isSaved: false,
+                                        authorProfile: Profile(username: "", bio: "",
+                                                               picture: nil, isMe: false),
                                         savesCount: 0)
             experiences.append(experience)
             return self

@@ -6,7 +6,12 @@
                 "title": "Magic Castle of Lost Swamps",
                 "description": "Don't even try to go there!",
                 "picture": null,
-                "author_username": "da_usr",
+                "author_profile": {
+                    "username": "da_usr",
+                    "bio": "about me",
+                    "picture": null,
+                    "is_me": true
+                },
                 "is_mine": true,
                 "is_saved": false,
                 "saves_count": 5
@@ -20,7 +25,16 @@
                     "medium_url": "https://experiences/8c29.medium.jpg",
                     "large_url": "https://experiences/8c29.large.jpg"
                 },
-                "author_username": "usr.nam",
+                "author_profile": {
+                    "username": "usr.nam",
+                    "bio": "user info",
+                    "picture": {
+                        "tiny_url": "https://profiles/029d.tiny.jpg",
+                        "small_url": "https://profiles/029d.small.jpg",
+                        "medium_url": "https://profiles/029d.medium.jpg"
+                    },
+                    "is_me": false
+                },
                 "is_mine": false,
                 "is_saved": true,
                 "saves_count": 32

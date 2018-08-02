@@ -5,7 +5,7 @@ struct Scene: Equatable, Identifiable {
     let id: String
     let title: String
     let description: String
-    let picture: Picture?
+    let picture: BigPicture?
     let latitude: Double
     let longitude: Double
     let experienceId: String
@@ -20,7 +20,7 @@ struct Scene: Equatable, Identifiable {
         self.experienceId = ""
     }
     
-    init(id: String, title: String, description: String, picture: Picture?,
+    init(id: String, title: String, description: String, picture: BigPicture?,
          latitude: Double, longitude: Double, experienceId: String) {
         self.id = id
         self.title = title

@@ -27,7 +27,7 @@ class ExtendedExperienceTableViewCell: UITableViewCell {
         }
         titleLabel.text = experience.title
         savesCountLabel.text = String(experience.savesCount) + " ☆"
-        authorUsernameLabel.text = "by " + experience.authorUsername
+        authorUsernameLabel.text = "by " + experience.authorProfile.username
         descriptionLabel.text = experience.description
     }
 }

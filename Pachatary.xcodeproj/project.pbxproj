@@ -15,7 +15,7 @@
 		AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */; };
 		AE1D6D1D20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */; };
 		AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1E20C5707300EA6DDD /* Experience.swift */; };
-		AE1D6D2120C5712E00EA6DDD /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D2020C5712E00EA6DDD /* Picture.swift */; };
+		AE1D6D2120C5712E00EA6DDD /* BigPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D2020C5712E00EA6DDD /* BigPicture.swift */; };
 		AE218B8520E2789E00E79E51 /* ExperienceMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE218B8420E2789E00E79E51 /* ExperienceMapView.swift */; };
 		AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */; };
 		AE3116E720EBD2FC00720A95 /* ExperienceRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */; };
@@ -47,6 +47,10 @@
 		AE89AC2C20C7E5A100443C23 /* ExperienceDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */; };
 		AE89AC2E20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE89AC2D20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift */; };
 		AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA0EE5520CFB98A0040E4C9 /* Result.swift */; };
+		AEA5662521132F6A00F0E1F3 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5662421132F6A00F0E1F3 /* Profile.swift */; };
+		AEA56627211331D400F0E1F3 /* LittlePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA56626211331D400F0E1F3 /* LittlePicture.swift */; };
+		AEA566292113328400F0E1F3 /* LittlePictureMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA566282113328400F0E1F3 /* LittlePictureMapper.swift */; };
+		AEA5662B2113369D00F0E1F3 /* ProfileMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5662A2113369D00F0E1F3 /* ProfileMapper.swift */; };
 		AEAE26A820E284AC00E5D4E9 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAE26A720E284AC00E5D4E9 /* Scene.swift */; };
 		AEAE26AA20E285AA00E5D4E9 /* SceneRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAE26A920E285AA00E5D4E9 /* SceneRepository.swift */; };
 		AEAE26AC20E2860A00E5D4E9 /* SceneApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAE26AB20E2860A00E5D4E9 /* SceneApi.swift */; };
@@ -58,7 +62,7 @@
 		AEAE26B920E29DD600E5D4E9 /* SceneApiRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAE26B820E29DD600E5D4E9 /* SceneApiRepositoryTests.swift */; };
 		AEB326B120C6EDAA000E07D8 /* ExperienceMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB326B020C6EDAA000E07D8 /* ExperienceMapper.swift */; };
 		AEB326B320C6F26D000E07D8 /* PaginatedListResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB326B220C6F26D000E07D8 /* PaginatedListResultMapper.swift */; };
-		AEB326B520C6F819000E07D8 /* PictureMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB326B420C6F819000E07D8 /* PictureMapper.swift */; };
+		AEB326B520C6F819000E07D8 /* BigPictureMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB326B420C6F819000E07D8 /* BigPictureMapper.swift */; };
 		AEB6A66420DBE4C000F936DB /* ExperienceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6A66320DBE4C000F936DB /* ExperienceRepository.swift */; };
 		AEB6A66620DBFDA900F936DB /* ExperienceRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6A66520DBFDA900F936DB /* ExperienceRepositoryTests.swift */; };
 		AEBB629C20C547D3001A4576 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB629B20C547D3001A4576 /* AppDelegate.swift */; };
@@ -112,7 +116,7 @@
 		AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+NetworkResponseTransformerTests.swift"; sourceTree = "<group>"; };
 		AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		AE1D6D1E20C5707300EA6DDD /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
-		AE1D6D2020C5712E00EA6DDD /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		AE1D6D2020C5712E00EA6DDD /* BigPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPicture.swift; sourceTree = "<group>"; };
 		AE218B8420E2789E00E79E51 /* ExperienceMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapView.swift; sourceTree = "<group>"; };
 		AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtendedExperienceTableViewCell.xib; sourceTree = "<group>"; };
 		AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRepoMock.swift; sourceTree = "<group>"; };
@@ -144,6 +148,10 @@
 		AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDependencyInjector.swift; sourceTree = "<group>"; };
 		AE89AC2D20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesPresenterTests.swift; sourceTree = "<group>"; };
 		AEA0EE5520CFB98A0040E4C9 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		AEA5662421132F6A00F0E1F3 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		AEA56626211331D400F0E1F3 /* LittlePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittlePicture.swift; sourceTree = "<group>"; };
+		AEA566282113328400F0E1F3 /* LittlePictureMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittlePictureMapper.swift; sourceTree = "<group>"; };
+		AEA5662A2113369D00F0E1F3 /* ProfileMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMapper.swift; sourceTree = "<group>"; };
 		AEAE26A720E284AC00E5D4E9 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		AEAE26A920E285AA00E5D4E9 /* SceneRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneRepository.swift; sourceTree = "<group>"; };
 		AEAE26AB20E2860A00E5D4E9 /* SceneApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneApi.swift; sourceTree = "<group>"; };
@@ -155,7 +163,7 @@
 		AEAE26B820E29DD600E5D4E9 /* SceneApiRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneApiRepositoryTests.swift; sourceTree = "<group>"; };
 		AEB326B020C6EDAA000E07D8 /* ExperienceMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapper.swift; sourceTree = "<group>"; };
 		AEB326B220C6F26D000E07D8 /* PaginatedListResultMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedListResultMapper.swift; sourceTree = "<group>"; };
-		AEB326B420C6F819000E07D8 /* PictureMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureMapper.swift; sourceTree = "<group>"; };
+		AEB326B420C6F819000E07D8 /* BigPictureMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPictureMapper.swift; sourceTree = "<group>"; };
 		AEB6A66320DBE4C000F936DB /* ExperienceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRepository.swift; sourceTree = "<group>"; };
 		AEB6A66520DBFDA900F936DB /* ExperienceRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRepositoryTests.swift; sourceTree = "<group>"; };
 		AEBB629820C547D3001A4576 /* Pachatary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pachatary.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -316,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				AEEAC68B20C97DBC007C17EE /* Experience */,
+				AEA5662321132F3D00F0E1F3 /* Profile */,
 				AEAE26A620E2846A00E5D4E9 /* Scene */,
 				AEEC749020CA748E00B86837 /* Auth */,
 				AE89AC3820C803D800443C23 /* Picture */,
@@ -336,8 +345,10 @@
 		AE89AC3820C803D800443C23 /* Picture */ = {
 			isa = PBXGroup;
 			children = (
-				AE1D6D2020C5712E00EA6DDD /* Picture.swift */,
-				AEB326B420C6F819000E07D8 /* PictureMapper.swift */,
+				AE1D6D2020C5712E00EA6DDD /* BigPicture.swift */,
+				AEB326B420C6F819000E07D8 /* BigPictureMapper.swift */,
+				AEA56626211331D400F0E1F3 /* LittlePicture.swift */,
+				AEA566282113328400F0E1F3 /* LittlePictureMapper.swift */,
 			);
 			path = Picture;
 			sourceTree = "<group>";
@@ -370,6 +381,15 @@
 				AEAE26AD20E2881A00E5D4E9 /* String+UrlEncoding.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		AEA5662321132F3D00F0E1F3 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				AEA5662421132F6A00F0E1F3 /* Profile.swift */,
+				AEA5662A2113369D00F0E1F3 /* ProfileMapper.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		AEAE26A620E2846A00E5D4E9 /* Scene */ = {
@@ -835,12 +855,14 @@
 				AEB326B320C6F26D000E07D8 /* PaginatedListResultMapper.swift in Sources */,
 				AEE1528E20D96DC6008707FF /* ToResultMapper.swift in Sources */,
 				AEEC749620CA780F00B86837 /* DataError.swift in Sources */,
+				AEA5662B2113369D00F0E1F3 /* ProfileMapper.swift in Sources */,
 				AE89AC2C20C7E5A100443C23 /* ExperienceDependencyInjector.swift in Sources */,
 				AEEC749220CA74AD00B86837 /* AuthStorageRepository.swift in Sources */,
 				AEEC749B20CAC9B300B86837 /* AuthApiRepository.swift in Sources */,
+				AEA566292113328400F0E1F3 /* LittlePictureMapper.swift in Sources */,
 				AEAE26B420E28E3200E5D4E9 /* SceneDataDependencyInjector.swift in Sources */,
 				AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */,
-				AEB326B520C6F819000E07D8 /* PictureMapper.swift in Sources */,
+				AEB326B520C6F819000E07D8 /* BigPictureMapper.swift in Sources */,
 				AE598BA820EA464600F3DBA9 /* SceneListView.swift in Sources */,
 				AEBB629E20C547D3001A4576 /* ExploreExperiencesView.swift in Sources */,
 				AEEC749F20CACCD800B86837 /* AuthTokenMapper.swift in Sources */,
@@ -851,6 +873,7 @@
 				AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */,
 				AEAE26B020E2885900E5D4E9 /* SceneApiRepository.swift in Sources */,
 				AE86639620D7D3B5008CE6D2 /* AuthDataDependencyInjector.swift in Sources */,
+				AEA56627211331D400F0E1F3 /* LittlePicture.swift in Sources */,
 				AEE1528A20D94E3E008707FF /* SingleResultMapper.swift in Sources */,
 				AE218B8520E2789E00E79E51 /* ExperienceMapView.swift in Sources */,
 				AE6C279E20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift in Sources */,
@@ -862,9 +885,10 @@
 				AEEC749420CA751D00B86837 /* AuthToken.swift in Sources */,
 				AEE1529220D983DB008707FF /* Identifiable.swift in Sources */,
 				AE598BAE20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift in Sources */,
-				AE1D6D2120C5712E00EA6DDD /* Picture.swift in Sources */,
+				AE1D6D2120C5712E00EA6DDD /* BigPicture.swift in Sources */,
 				AE86639A20D7D4D5008CE6D2 /* ExperienceDataDependencyInjector.swift in Sources */,
 				AEEC74A120CACF0F00B86837 /* AuthRepository.swift in Sources */,
+				AEA5662521132F6A00F0E1F3 /* Profile.swift in Sources */,
 				AEEC749D20CACA5A00B86837 /* AuthApi.swift in Sources */,
 				AE6F8B6D20DABB21007CC36A /* Request.swift in Sources */,
 				AEBB629C20C547D3001A4576 /* AppDelegate.swift in Sources */,

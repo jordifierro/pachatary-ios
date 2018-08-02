@@ -142,12 +142,14 @@ class ExploreExperiencesPresenterTests: XCTestCase {
         }
 
         func given_an_experience(id: String, title: String = "", description: String = "",
-                                 picture: Picture? = nil, isMine: Bool = false,
+                                 picture: BigPicture? = nil, isMine: Bool = false,
                                  isSaved: Bool = false, authorUsername: String = "",
                                  savesCount: Int = 0) -> ScenarioMaker {
             experiences.append(Experience(id: id, title: title, description: description,
                                           picture: picture, isMine: isMine, isSaved: isSaved,
-                                          authorUsername: authorUsername, savesCount: savesCount))
+                                          authorProfile: Profile(username: authorUsername, bio: "",
+                                                                 picture: nil, isMe: false),
+                                          savesCount: savesCount))
             return self
         }
         

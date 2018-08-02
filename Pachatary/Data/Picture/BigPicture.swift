@@ -1,6 +1,6 @@
 import Swift
 
-struct Picture: Equatable {
+struct BigPicture: Equatable {
     
     let smallUrl: String
     let mediumUrl: String
@@ -12,7 +12,7 @@ struct Picture: Equatable {
         self.largeUrl = largeUrl
     }
     
-    static func == (lhs: Picture, rhs: Picture) -> Bool {
+    static func == (lhs: BigPicture, rhs: BigPicture) -> Bool {
         return lhs.smallUrl == rhs.smallUrl &&
             lhs.mediumUrl == rhs.mediumUrl &&
             lhs.largeUrl == rhs.largeUrl

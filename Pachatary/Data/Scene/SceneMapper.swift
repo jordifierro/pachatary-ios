@@ -8,7 +8,7 @@ struct SceneMapper: ToDomainMapper {
     var id: String!
     var title: String!
     var description: String!
-    var picture: PictureMapper?
+    var picture: BigPictureMapper?
     var latitude: Double!
     var longitude: Double!
     var experienceId: String!

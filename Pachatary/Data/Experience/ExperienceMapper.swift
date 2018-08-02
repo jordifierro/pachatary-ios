@@ -8,10 +8,10 @@ struct ExperienceMapper: ToDomainMapper {
     var id: String!
     var title: String!
     var description: String!
-    var picture: PictureMapper?
+    var picture: BigPictureMapper?
     var isMine: Bool!
     var isSaved: Bool!
-    var authorUsername: String!
+    var authorProfile: ProfileMapper!
     var savesCount: Int!
 
     init?(map: Map) { }
@@ -23,12 +23,11 @@ struct ExperienceMapper: ToDomainMapper {
         picture <- map["picture"]
         isMine <- map["is_mine"]
         isSaved <- map["is_saved"]
-        authorUsername <- map["author_username"]
+        authorProfile <- map["author_profile"]
         savesCount <- map["saves_count"]
         experience = Experience(id: id, title: title, description: description,
-                                picture: picture?.toDomain(),
-                                isMine: isMine, isSaved: isSaved,
-                                authorUsername: authorUsername, savesCount: savesCount)
+                                picture: picture?.toDomain(), isMine: isMine, isSaved: isSaved,
+                                authorProfile: authorProfile.toDomain(), savesCount: savesCount)
     }
     
     func toDomain() -> Experience {

@@ -154,21 +154,33 @@ class ExperienceApiRepositoryTests: XCTestCase {
         @discardableResult
         func then_should_return_flowable_with_inprogress_and_result_experiences() -> ScenarioMaker {
             let expectedExperiences = [
-                Experience( id: "3", title: "Magic Castle of Lost Swamps",
+                Experience(id: "3", title: "Magic Castle of Lost Swamps",
                     description: "Don't even try to go there!", picture: nil, isMine: true,
-                    isSaved: false, authorUsername: "da_usr", savesCount: 5),
+                    isSaved: false,
+                    authorProfile: Profile(username: "da_usr", bio: "about me",
+                                           picture: nil, isMe: true),
+                           savesCount: 5),
                 Experience( id: "2", title: "Baboóon", description: "Mystical place...",
-                    picture: Picture(smallUrl: "https://experiences/8c29.small.jpg",
-                                     mediumUrl: "https://experiences/8c29.medium.jpg",
-                                     largeUrl: "https://experiences/8c29.large.jpg"),
-                    isMine: false, isSaved: true, authorUsername: "usr.nam", savesCount: 32)]
+                    picture: BigPicture(smallUrl: "https://experiences/8c29.small.jpg",
+                                        mediumUrl: "https://experiences/8c29.medium.jpg",
+                                        largeUrl: "https://experiences/8c29.large.jpg"),
+                    isMine: false, isSaved: true,
+                    authorProfile: Profile(username: "usr.nam", bio: "user info",
+                                           picture: LittlePicture(
+                                            tinyUrl: "https://profiles/029d.tiny.jpg",
+                                            smallUrl: "https://profiles/029d.small.jpg",
+                                            mediumUrl: "https://profiles/029d.medium.jpg"),
+                                           isMe: false),
+                                           savesCount: 32)]
             let expectedNextUrl = "https://base_url/experiences/?mine=false&saved=false&limit=2&offset=2"
             
             do { let result = try resultObservable.toBlocking().toArray()
                 assert(result.count == 2)
                 assert(Result(.inProgress) == result[0])
                 assert(Result(.success, data: expectedExperiences, nextUrl: expectedNextUrl) == result[1])
-            } catch { assertionFailure() }
+            } catch {
+                assertionFailure()
+            }
             return self
         }
         

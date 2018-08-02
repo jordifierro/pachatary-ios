@@ -5,10 +5,10 @@ struct Experience: Equatable, Identifiable {
     let id: String
     let title: String
     let description: String
-    let picture: Picture?
+    let picture: BigPicture?
     let isMine: Bool
     let isSaved: Bool
-    let authorUsername: String
+    let authorProfile: Profile
     let savesCount: Int
     
     init(_ id: String) {
@@ -18,19 +18,19 @@ struct Experience: Equatable, Identifiable {
         self.picture = nil
         self.isMine = false
         self.isSaved = false
-        self.authorUsername = ""
+        self.authorProfile = Profile(username: "", bio: "", picture: nil, isMe: false)
         self.savesCount = 0
     }
     
-    init(id: String, title: String, description: String, picture: Picture?,
-         isMine: Bool, isSaved: Bool, authorUsername: String, savesCount: Int) {
+    init(id: String, title: String, description: String, picture: BigPicture?,
+         isMine: Bool, isSaved: Bool, authorProfile: Profile, savesCount: Int) {
         self.id = id
         self.title = title
         self.description = description
         self.picture = picture
         self.isMine = isMine
         self.isSaved = isSaved
-        self.authorUsername = authorUsername
+        self.authorProfile = authorProfile
         self.savesCount = savesCount
     }
     
@@ -41,7 +41,7 @@ struct Experience: Equatable, Identifiable {
             lhs.picture == rhs.picture &&
             lhs.isMine == rhs.isMine &&
             lhs.isSaved == rhs.isSaved &&
-            lhs.authorUsername == rhs.authorUsername &&
+            lhs.authorProfile == rhs.authorProfile &&
             lhs.savesCount == rhs.savesCount
     }
     
@@ -54,10 +54,10 @@ struct Experience: Equatable, Identifiable {
         var id: String
         var title: String
         var description: String
-        var picture: Picture?
+        var picture: BigPicture?
         var isMine: Bool
         var isSaved: Bool
-        var authorUsername: String
+        var authorProfile: Profile
         var savesCount: Int
         
         init(_ experience: Experience) {
@@ -67,7 +67,7 @@ struct Experience: Equatable, Identifiable {
             self.picture = experience.picture
             self.isMine = experience.isMine
             self.isSaved = experience.isSaved
-            self.authorUsername = experience.authorUsername
+            self.authorProfile = experience.authorProfile
             self.savesCount = experience.savesCount
         }
         
@@ -84,7 +84,7 @@ struct Experience: Equatable, Identifiable {
         func build() -> Experience {
             return Experience(id: self.id, title: self.title, description: self.description,
                               picture: self.picture, isMine: self.isMine, isSaved: self.isSaved,
-                              authorUsername: self.authorUsername, savesCount: self.savesCount)
+                              authorProfile: self.authorProfile, savesCount: self.savesCount)
         }
     }
 }

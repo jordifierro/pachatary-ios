@@ -1,6 +1,6 @@
 import ObjectMapper
 
-struct PictureMapper: Mappable {
+struct BigPictureMapper: Mappable {
     
     var smallUrl: String!
     var mediumUrl: String!
@@ -14,7 +14,7 @@ struct PictureMapper: Mappable {
         largeUrl <- map["large_url"]
     }
     
-    func toDomain() -> Picture {
-        return Picture(smallUrl: smallUrl, mediumUrl: mediumUrl, largeUrl: largeUrl)
+    func toDomain() -> BigPicture {
+        return BigPicture(smallUrl: smallUrl, mediumUrl: mediumUrl, largeUrl: largeUrl)
     }
 }

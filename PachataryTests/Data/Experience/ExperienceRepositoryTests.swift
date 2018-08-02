@@ -52,11 +52,17 @@ class ExperienceRepositoryTests: XCTestCase {
         ScenarioMaker()
             .given_a_requester_that_returns_results([Result(.success, data: [Experience("2"),
                  Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
-                            isSaved: false, authorUsername: "", savesCount: 5)])])
+                            isSaved: false,
+                            authorProfile: Profile(username: "", bio: "",
+                                                   picture: nil, isMe: false),
+                            savesCount: 5)])])
             .when_switch_experience_save_state("4")
             .then_should_emit_through_update_observer([
                 Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
-                           isSaved: true, authorUsername: "", savesCount: 6)])
+                           isSaved: true,
+                           authorProfile: Profile(username: "", bio: "",
+                                                  picture: nil, isMe: false),
+                           savesCount: 6)])
             .then_should_call_api_save("4", save: true)
     }
     
@@ -64,11 +70,15 @@ class ExperienceRepositoryTests: XCTestCase {
         ScenarioMaker()
             .given_a_requester_that_returns_results([Result(.success, data: [Experience("2"),
                  Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
-                            isSaved: true, authorUsername: "", savesCount: 5)])])
+                            isSaved: true, authorProfile: Profile(username: "", bio: "",
+                                                                  picture: nil, isMe: false),
+                            savesCount: 5)])])
             .when_switch_experience_save_state("4")
             .then_should_emit_through_update_observer([
                 Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
-                           isSaved: false, authorUsername: "", savesCount: 4)])
+                           isSaved: false,
+                           authorProfile: Profile(username: "", bio: "", picture: nil, isMe:false),
+                           savesCount: 4)])
             .then_should_call_api_save("4", save: false)
     }
     
