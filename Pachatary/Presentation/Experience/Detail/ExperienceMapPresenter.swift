@@ -24,7 +24,6 @@ class ExperienceMapPresenter {
     }
     
     func sceneClick(_ sceneId: String) {
-        view.navigateToSceneList(with: sceneId)
     }
     
     func saveClick() {

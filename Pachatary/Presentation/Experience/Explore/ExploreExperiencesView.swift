@@ -8,7 +8,7 @@ protocol ExploreExperiencesView {
     func showPaginationLoader(_ visibility: Bool)
     func showError(_ visibility: Bool)
     func showRetry(_ visibility: Bool)
-    func navigateToExperienceMap(_ experienceId: String)
+    func navigateToExperienceScenes(_ experienceId: String)
 }
 
 class ExploreExperiencesViewController: UIViewController {
@@ -49,8 +49,8 @@ class ExploreExperiencesViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "experienceMapSegue" {
-            if let destinationVC = segue.destination as? ExperienceMapViewController {
+        if segue.identifier == "experienceScenesSegue" {
+            if let destinationVC = segue.destination as? SceneListViewController {
                 destinationVC.experienceId = selectedExperienceId
             }
         }
@@ -82,7 +82,7 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
             let cell: ExtendedExperienceTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "extendedExperienceCell", for: indexPath)
                     as! ExtendedExperienceTableViewCell
-            cell.bind(experiences[indexPath.row])
+            cell.bind(experiences[indexPath.row], {})
             
             return cell
         }
@@ -144,8 +144,8 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
         retryButton.isHidden = !visibility
     }
     
-    func navigateToExperienceMap(_ experienceId: String) {
+    func navigateToExperienceScenes(_ experienceId: String) {
         selectedExperienceId = experienceId
-        performSegue(withIdentifier: "experienceMapSegue", sender: self)
+        performSegue(withIdentifier: "experienceScenesSegue", sender: self)
     }
 }

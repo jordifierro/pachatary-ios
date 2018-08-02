@@ -4,7 +4,6 @@ import Mapbox
 protocol ExperienceMapView {
     func showScenes(_ scenes: [Scene])
     func showExperience(_ experience: Experience)
-    func navigateToSceneList(with sceneId: String)
     func finish()
 }
 
@@ -36,15 +35,6 @@ class ExperienceMapViewController: UIViewController {
     
     @objc func saveClick(_ sender: UIButton!) {
         presenter.saveClick()
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "sceneListSegue" {
-            if let destinationVC = segue.destination as? SceneListViewController {
-                destinationVC.sceneId = self.selectedSceneId
-                destinationVC.experienceId = self.experienceId
-            }
-        }
     }
 }
 
@@ -107,11 +97,6 @@ extension ExperienceMapViewController: ExperienceMapView {
         rootView.bringSubview(toFront: self.saveButton)
         if experience.isSaved { saveButton.backgroundColor = UIColor.yellow }
         else { saveButton.backgroundColor = UIColor.white }
-    }
-    
-    func navigateToSceneList(with sceneId: String) {
-        selectedSceneId = sceneId
-        performSegue(withIdentifier: "sceneListSegue", sender: self)
     }
     
     func finish() {

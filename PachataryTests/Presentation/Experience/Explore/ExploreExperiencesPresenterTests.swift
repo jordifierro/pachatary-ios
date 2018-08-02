@@ -297,7 +297,7 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
         self.showRetryCalls.append(visibility)
     }
     
-    func navigateToExperienceMap(_ experienceId: String) {
+    func navigateToExperienceScenes(_ experienceId: String) {
         self.navigateCalls.append(experienceId)
     }
 }

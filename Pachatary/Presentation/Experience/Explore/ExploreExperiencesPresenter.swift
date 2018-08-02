@@ -103,7 +103,7 @@ class ExploreExperiencesPresenter {
     }
     
     func experienceClick(_ experienceId: String) {
-        view.navigateToExperienceMap(experienceId)
+        view.navigateToExperienceScenes(experienceId)
     }
 }
 

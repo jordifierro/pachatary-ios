@@ -91,7 +91,7 @@
                         <outlet property="loaderIndicator" destination="HlC-7u-Yhg" id="977-LJ-c0P"/>
                         <outlet property="retryButton" destination="mhV-Wt-Bid" id="kfM-Lz-1d4"/>
                         <outlet property="tableView" destination="zxP-Xl-HW6" id="5ag-cd-Mzw"/>
-                        <segue destination="AjU-og-TuU" kind="show" identifier="experienceMapSegue" id="3nS-p7-VJe"/>
+                        <segue destination="Qo6-bb-VbT" kind="show" identifier="experienceScenesSegue" id="NiL-UL-iij"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oK-t8-Zs5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -135,12 +135,11 @@
                         <outlet property="mapView" destination="xxD-qk-2lI" id="1XL-RH-9ZD"/>
                         <outlet property="rootView" destination="GMd-8z-A0I" id="JOM-dt-k8D"/>
                         <outlet property="saveButton" destination="CYI-wb-XRw" id="yJl-mi-h71"/>
-                        <segue destination="Qo6-bb-VbT" kind="show" identifier="sceneListSegue" id="lbv-Rm-Sd2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bGi-RH-C5p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3478.125" y="105"/>
+            <point key="canvasLocation" x="4239" y="105"/>
         </scene>
         <!--Scene List View Controller-->
         <scene sceneID="JsP-DM-mvx">
@@ -216,11 +215,12 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="zXF-YS-zzP" id="elv-Ah-eOo"/>
+                        <segue destination="AjU-og-TuU" kind="show" identifier="experienceMapSegue" id="WLB-c4-Bca"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dds-K4-IfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4433" y="105"/>
+            <point key="canvasLocation" x="3369" y="105"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A0p-PY-ein">

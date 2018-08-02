@@ -2,7 +2,8 @@ import Swift
 import UIKit
 
 protocol SceneListView {
-    func showScenes(_ scenes: [Scene], experience: Experience, showSceneWithId sceneId: String?)
+    func showScenes(_ scenes: [Scene], experience: Experience)
+    func navigateToMap()
     func finish()
 }
 
@@ -11,7 +12,6 @@ class SceneListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     let presenter = SceneDependencyInjector.sceneListPresenter
     var experienceId = "-1"
-    var sceneId = "-1"
     var scenes = [Scene]()
     var experience: Experience!
     
@@ -23,26 +23,31 @@ class SceneListViewController: UIViewController {
         
         presenter.view = self
         presenter.experienceId = experienceId
-        presenter.sceneId = sceneId
     }
     
     override func viewDidAppear(_ animated: Bool) {
         presenter.create()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "experienceMapSegue" {
+            if let destinationVC = segue.destination as? ExperienceMapViewController {
+                destinationVC.experienceId = experienceId
+            }
+        }
+    }
 }
 
 extension SceneListViewController: SceneListView {
-
-    func showScenes(_ scenes: [Scene], experience: Experience, showSceneWithId sceneId: String?) {
+    
+    func showScenes(_ scenes: [Scene], experience: Experience) {
         self.scenes = scenes
         self.experience = experience
         self.tableView!.reloadData()
-        
-        if sceneId != nil {
-            let indexPath = IndexPath(row: scenes.index(where: { scene in scene.id == sceneId })!,
-                                      section: 1)
-            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        }
+    }
+    
+    func navigateToMap() {
+        performSegue(withIdentifier: "experienceMapSegue", sender: self)
     }
     
     func finish() {
@@ -70,7 +75,7 @@ extension SceneListViewController: UITableViewDataSource, UITableViewDelegate {
             let cell: ExtendedExperienceTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "extendedExperienceCell", for: indexPath)
                     as! ExtendedExperienceTableViewCell
-            cell.bind(self.experience)
+            cell.bind(self.experience, presenter.onGoToMapClick)
             
             return cell
         }

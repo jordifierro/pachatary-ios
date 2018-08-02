@@ -5,7 +5,6 @@ class SceneListPresenter {
     
     var view: SceneListView!
     var experienceId: String!
-    var sceneId: String!
     var sceneRepo: SceneRepository!
     var experienceRepo: ExperienceRepository!
     var mainScheduler: ImmediateSchedulerType!
@@ -29,8 +28,7 @@ class SceneListPresenter {
                     switch sceneResult.status {
                     case .success:
                         self.view.showScenes(sceneResult.data!,
-                                             experience: experienceResult.data!,
-                                             showSceneWithId: self.sceneId)
+                                             experience: experienceResult.data!)
                     case .error: break
                     case .inProgress: break
                     }
@@ -38,6 +36,10 @@ class SceneListPresenter {
                 case .completed: break
                 }
             }
+    }
+    
+    func onGoToMapClick() {
+        view.navigateToMap()
     }
 }
 
