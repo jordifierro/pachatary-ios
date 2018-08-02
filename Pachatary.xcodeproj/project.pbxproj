@@ -248,20 +248,11 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		AE218B8320E2788000E79E51 /* Detail */ = {
-			isa = PBXGroup;
-			children = (
-				AE218B8420E2789E00E79E51 /* ExperienceMapView.swift */,
-				AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */,
-			);
-			path = Detail;
-			sourceTree = "<group>";
-		};
 		AE598BA520EA45C600F3DBA9 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				AEACD85D21137F0C0080507A /* Map */,
 				AE598BA620EA45E700F3DBA9 /* List */,
-				AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */,
 				AE598BAD20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift */,
 			);
 			path = Scene;
@@ -272,6 +263,9 @@
 			children = (
 				AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */,
 				AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */,
+				AEA5662E211375B100F0E1F3 /* ExperienceDetailTableViewCell.swift */,
+				AEA5662C2113756300F0E1F3 /* ExperienceDetailTableViewCell.xib */,
+				AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -279,17 +273,10 @@
 		AE598BAF20EA799D00F3DBA9 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				AE598BB020EA79C100F3DBA9 /* ExperienceScenesPresenterTests.swift */,
+				AEACD85F21137F4B0080507A /* Map */,
+				AEACD85E21137F410080507A /* List */,
 			);
 			path = Scene;
-			sourceTree = "<group>";
-		};
-		AE6911CD20E78CE300A05679 /* Detail */ = {
-			isa = PBXGroup;
-			children = (
-				AE6911CE20E78D0A00A05679 /* ExperienceMapPresenterTests.swift */,
-			);
-			path = Detail;
 			sourceTree = "<group>";
 		};
 		AE6F8B6520DA50A5007CC36A /* Common */ = {
@@ -396,6 +383,31 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		AEACD85D21137F0C0080507A /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				AE218B8420E2789E00E79E51 /* ExperienceMapView.swift */,
+				AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		AEACD85E21137F410080507A /* List */ = {
+			isa = PBXGroup;
+			children = (
+				AE598BB020EA79C100F3DBA9 /* ExperienceScenesPresenterTests.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		AEACD85F21137F4B0080507A /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				AE6911CE20E78D0A00A05679 /* ExperienceMapPresenterTests.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		AEAE26A620E2846A00E5D4E9 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,7 +511,6 @@
 		AEEAC68820C97D49007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
-				AE6911CD20E78CE300A05679 /* Detail */,
 				AE89AC3920C8040700443C23 /* Explore */,
 			);
 			path = Experience;
@@ -519,13 +530,10 @@
 			isa = PBXGroup;
 			children = (
 				AE89AC3520C801F200443C23 /* Explore */,
-				AE218B8320E2788000E79E51 /* Detail */,
 				AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */,
 				AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */,
 				AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */,
 				AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */,
-				AEA5662E211375B100F0E1F3 /* ExperienceDetailTableViewCell.swift */,
-				AEA5662C2113756300F0E1F3 /* ExperienceDetailTableViewCell.xib */,
 			);
 			path = Experience;
 			sourceTree = "<group>";
