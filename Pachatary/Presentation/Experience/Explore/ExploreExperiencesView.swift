@@ -82,7 +82,7 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
             let cell: ExtendedExperienceTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "extendedExperienceCell", for: indexPath)
                     as! ExtendedExperienceTableViewCell
-            cell.bind(experiences[indexPath.row], {})
+            cell.bind(experiences[indexPath.row])
             
             return cell
         }

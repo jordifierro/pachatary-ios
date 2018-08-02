@@ -18,8 +18,8 @@ class SceneListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nib = UINib.init(nibName: "ExtendedExperienceTableViewCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "extendedExperienceCell")
+        let nib = UINib.init(nibName: "ExperienceDetailTableViewCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "experienceDetailCell")
         
         presenter.view = self
         presenter.experienceId = experienceId
@@ -72,9 +72,9 @@ extension SceneListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell: ExtendedExperienceTableViewCell =
-                tableView.dequeueReusableCell(withIdentifier: "extendedExperienceCell", for: indexPath)
-                    as! ExtendedExperienceTableViewCell
+            let cell: ExperienceDetailTableViewCell =
+                tableView.dequeueReusableCell(withIdentifier: "experienceDetailCell", for: indexPath)
+                    as! ExperienceDetailTableViewCell
             cell.bind(self.experience, presenter.onGoToMapClick)
             
             return cell

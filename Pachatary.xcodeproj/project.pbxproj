@@ -51,6 +51,8 @@
 		AEA56627211331D400F0E1F3 /* LittlePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA56626211331D400F0E1F3 /* LittlePicture.swift */; };
 		AEA566292113328400F0E1F3 /* LittlePictureMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA566282113328400F0E1F3 /* LittlePictureMapper.swift */; };
 		AEA5662B2113369D00F0E1F3 /* ProfileMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5662A2113369D00F0E1F3 /* ProfileMapper.swift */; };
+		AEA5662D2113756300F0E1F3 /* ExperienceDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEA5662C2113756300F0E1F3 /* ExperienceDetailTableViewCell.xib */; };
+		AEA5662F211375B100F0E1F3 /* ExperienceDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5662E211375B100F0E1F3 /* ExperienceDetailTableViewCell.swift */; };
 		AEAE26A820E284AC00E5D4E9 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAE26A720E284AC00E5D4E9 /* Scene.swift */; };
 		AEAE26AA20E285AA00E5D4E9 /* SceneRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAE26A920E285AA00E5D4E9 /* SceneRepository.swift */; };
 		AEAE26AC20E2860A00E5D4E9 /* SceneApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAE26AB20E2860A00E5D4E9 /* SceneApi.swift */; };
@@ -152,6 +154,8 @@
 		AEA56626211331D400F0E1F3 /* LittlePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittlePicture.swift; sourceTree = "<group>"; };
 		AEA566282113328400F0E1F3 /* LittlePictureMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittlePictureMapper.swift; sourceTree = "<group>"; };
 		AEA5662A2113369D00F0E1F3 /* ProfileMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMapper.swift; sourceTree = "<group>"; };
+		AEA5662C2113756300F0E1F3 /* ExperienceDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExperienceDetailTableViewCell.xib; sourceTree = "<group>"; };
+		AEA5662E211375B100F0E1F3 /* ExperienceDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperienceDetailTableViewCell.swift; sourceTree = "<group>"; };
 		AEAE26A720E284AC00E5D4E9 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		AEAE26A920E285AA00E5D4E9 /* SceneRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneRepository.swift; sourceTree = "<group>"; };
 		AEAE26AB20E2860A00E5D4E9 /* SceneApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneApi.swift; sourceTree = "<group>"; };
@@ -520,6 +524,8 @@
 				AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */,
 				AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */,
 				AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */,
+				AEA5662E211375B100F0E1F3 /* ExperienceDetailTableViewCell.swift */,
+				AEA5662C2113756300F0E1F3 /* ExperienceDetailTableViewCell.xib */,
 			);
 			path = Experience;
 			sourceTree = "<group>";
@@ -675,6 +681,7 @@
 			files = (
 				AEEAC69020C99979007C17EE /* ApiKeys.plist in Resources */,
 				AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */,
+				AEA5662D2113756300F0E1F3 /* ExperienceDetailTableViewCell.xib in Resources */,
 				AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */,
 				AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */,
 				AEBB62A120C547D3001A4576 /* Main.storyboard in Resources */,
@@ -881,6 +888,7 @@
 				AE61DA8620C68F6400CFEE00 /* ExperienceApiRepository.swift in Sources */,
 				AEB6A66420DBE4C000F936DB /* ExperienceRepository.swift in Sources */,
 				AE6F8B6B20DABA3D007CC36A /* Requester.swift in Sources */,
+				AEA5662F211375B100F0E1F3 /* ExperienceDetailTableViewCell.swift in Sources */,
 				AE598BAA20EA4A9800F3DBA9 /* SceneTableViewCell.swift in Sources */,
 				AEEC749420CA751D00B86837 /* AuthToken.swift in Sources */,
 				AEE1529220D983DB008707FF /* Identifiable.swift in Sources */,
