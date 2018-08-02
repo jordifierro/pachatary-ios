@@ -1,13 +1,13 @@
 import Swift
 import UIKit
 
-protocol SceneListView {
+protocol ExperienceScenesView {
     func showScenes(_ scenes: [Scene], experience: Experience)
     func navigateToMap()
     func finish()
 }
 
-class SceneListViewController: UIViewController {
+class ExperienceScenesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     let presenter = SceneDependencyInjector.sceneListPresenter
@@ -38,7 +38,7 @@ class SceneListViewController: UIViewController {
     }
 }
 
-extension SceneListViewController: SceneListView {
+extension ExperienceScenesViewController: ExperienceScenesView {
     
     func showScenes(_ scenes: [Scene], experience: Experience) {
         self.scenes = scenes
@@ -55,7 +55,7 @@ extension SceneListViewController: SceneListView {
     }
 }
 
-extension SceneListViewController: UITableViewDataSource, UITableViewDelegate {
+extension ExperienceScenesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2

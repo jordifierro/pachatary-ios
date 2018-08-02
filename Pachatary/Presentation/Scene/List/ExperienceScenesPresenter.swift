@@ -1,9 +1,9 @@
 import Swift
 import RxSwift
 
-class SceneListPresenter {
+class ExperienceScenesPresenter {
     
-    var view: SceneListView!
+    var view: ExperienceScenesView!
     var experienceId: String!
     var sceneRepo: SceneRepository!
     var experienceRepo: ExperienceRepository!
