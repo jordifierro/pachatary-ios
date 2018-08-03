@@ -11,6 +11,7 @@ class ExperienceScenesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     let presenter = SceneDependencyInjector.sceneListPresenter
+    var cellHeights: [IndexPath : CGFloat] = [:]
     var experienceId = "-1"
     var scenes = [Scene]()
     var experience: Experience!
@@ -87,5 +88,14 @@ extension ExperienceScenesViewController: UITableViewDataSource, UITableViewDele
     
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cellHeights[indexPath] = cell.frame.size.height
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let height = cellHeights[indexPath] else { return 70.0 }
+        return height
     }
 }
