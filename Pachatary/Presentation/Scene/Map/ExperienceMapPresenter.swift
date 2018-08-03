@@ -9,6 +9,7 @@ class ExperienceMapPresenter {
     
     var view: ExperienceMapView!
     var experienceId: String!
+    var sceneId: String?
     
     init(_ sceneRepository: SceneRepository,
          _ experienceRepository: ExperienceRepository,
@@ -39,6 +40,7 @@ class ExperienceMapPresenter {
                     switch result.status {
                     case .success:
                         self.view.showScenes(result.data!)
+                        if (self.sceneId != nil) { self.view.selectScene(self.sceneId!) }
                     case .error:
                         self.view.finish()
                     case .inProgress: break

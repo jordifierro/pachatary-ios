@@ -26,6 +26,13 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .then_should_navigate_to_map()
     }
     
+    func test_on_locate_scene_click_navigates_to_map_with_scene_id() {
+        ScenarioMaker()
+            .given_an_experience_id_for_presenter("4")
+            .when_locate_scene_click("7")
+            .then_should_navigate_to_map(sceneId: "7")
+    }
+    
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
         let mockExperienceRepo = ExperienceRepoMock()
@@ -64,6 +71,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
             return self
         }
         
+        func when_locate_scene_click(_ sceneId: String) -> ScenarioMaker {
+            presenter.onLocateSceneClick(sceneId)
+            return self
+        }
+        
         @discardableResult
         func then_should_call_scene_repo_observable_with(experienceId: String) -> ScenarioMaker {
             assert(mockSceneRepo.scenesObservableCalls == [experienceId])
@@ -85,8 +97,8 @@ class ExperienceScenesPresenterTests: XCTestCase {
         }
         
         @discardableResult
-        func then_should_navigate_to_map() -> ScenarioMaker {
-            assert(mockView.navigateToMapCalls == 1)
+        func then_should_navigate_to_map(sceneId: String? = nil) -> ScenarioMaker {
+            assert(mockView.navigateToMapCalls == [sceneId])
             return self
         }
     }
@@ -95,15 +107,15 @@ class ExperienceScenesPresenterTests: XCTestCase {
 class ExperienceScenesViewMock: ExperienceScenesView {
 
     var showScenesCalls = [([Scene], Experience)]()
-    var navigateToMapCalls = 0
+    var navigateToMapCalls = [String?]()
     var finishCalls = 0
 
     func showScenes(_ scenes: [Scene], experience: Experience) {
         showScenesCalls.append((scenes, experience))
     }
     
-    func navigateToMap() {
-        navigateToMapCalls += 1
+    func navigateToMap(_ sceneId: String?) {
+        navigateToMapCalls.append(sceneId)
     }
     
     func finish() {

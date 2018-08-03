@@ -3,7 +3,7 @@ import UIKit
 
 protocol ExperienceScenesView {
     func showScenes(_ scenes: [Scene], experience: Experience)
-    func navigateToMap()
+    func navigateToMap(_ sceneId: String?)
     func finish()
 }
 
@@ -12,7 +12,8 @@ class ExperienceScenesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     let presenter = SceneDependencyInjector.sceneListPresenter
     var cellHeights: [IndexPath : CGFloat] = [:]
-    var experienceId = "-1"
+    var experienceId: String!
+    var selectedSceneId: String? = nil
     var scenes = [Scene]()
     var experience: Experience!
     
@@ -33,7 +34,8 @@ class ExperienceScenesViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "experienceMapSegue" {
             if let destinationVC = segue.destination as? ExperienceMapViewController {
-                destinationVC.experienceId = experienceId
+                destinationVC.selectedSceneId = self.selectedSceneId
+                destinationVC.experienceId = self.experienceId
             }
         }
     }
@@ -47,7 +49,8 @@ extension ExperienceScenesViewController: ExperienceScenesView {
         self.tableView!.reloadData()
     }
     
-    func navigateToMap() {
+    func navigateToMap(_ sceneId: String? = nil) {
+        self.selectedSceneId = sceneId
         performSegue(withIdentifier: "experienceMapSegue", sender: self)
     }
     
@@ -84,7 +87,7 @@ extension ExperienceScenesViewController: UITableViewDataSource, UITableViewDele
             let cell: SceneTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "sceneCellIdentifier", for: indexPath)
                     as! SceneTableViewCell
-            cell.bind(scenes[indexPath.row])
+            cell.bind(scenes[indexPath.row], presenter.onLocateSceneClick(_:))
     
             return cell
         }

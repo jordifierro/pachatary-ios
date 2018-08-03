@@ -16,7 +16,7 @@ class ExperienceMapPresenterTests: XCTestCase {
             .then_should_call_scenes_repo_observable_with(experienceId: "7")
             .then_should_call_experience_repo_observable_with(experienceId: "7")
     }
-    
+
     func test_on_response_success_shows_scenes() {
         ScenarioMaker()
             .given_an_experience_id_for_presenter("7")
@@ -26,6 +26,19 @@ class ExperienceMapPresenterTests: XCTestCase {
             .when_create_presenter()
             .then_should_call_show_scenes_with([Scene("1"), Scene("3")])
     }
+    
+    func test_on_response_success_shows_scenes_and_selects_scene_if_scene_id() {
+        ScenarioMaker()
+            .given_an_experience_id_for_presenter("7")
+            .given_an_scene_id_for_presenter("9")
+            .given_an_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
+                                               experienceId: "7")
+            .given_an_experience_observable_result(Result(.inProgress), experienceId: "7")
+            .when_create_presenter()
+            .then_should_call_show_scenes_with([Scene("1"), Scene("3")])
+            .then_should_call_select_scene("9")
+    }
+    
     
     func test_on_response_error_finishes_view() {
         ScenarioMaker()
@@ -76,6 +89,11 @@ class ExperienceMapPresenterTests: XCTestCase {
         
         func given_an_experience_id_for_presenter(_ experienceId: String) -> ScenarioMaker {
             presenter.experienceId = experienceId
+            return self
+        }
+        
+        func given_an_scene_id_for_presenter(_ sceneId: String) -> ScenarioMaker {
+            presenter.sceneId = sceneId
             return self
         }
         
@@ -146,15 +164,22 @@ class ExperienceMapPresenterTests: XCTestCase {
             //assert(mockView.navigateToSceneListCalls == [sceneId])
             return self
         }
+        
+        @discardableResult
+        func then_should_call_select_scene(_ sceneId: String) -> ScenarioMaker {
+            assert(mockView.selectSceneCalls == [sceneId])
+            return self
+        }
     }
 }
 
 class ExperienceMapViewMock: ExperienceMapView {
-    
+
     var showScenesCalls = [[Scene]]()
     var showExperienceCalls = [Experience]()
     var navigateToSceneListCalls = [String]()
     var finishCalls = 0
+    var selectSceneCalls = [String]()
     
     func showScenes(_ scenes: [Scene]) {
         showScenesCalls.append(scenes)
@@ -163,6 +188,11 @@ class ExperienceMapViewMock: ExperienceMapView {
     func showExperience(_ experience: Experience) {
         showExperienceCalls.append(experience)
     }
+    
+    func selectScene(_ sceneId: String) {
+        selectSceneCalls.append(sceneId)
+    }
+    
     
     func finish() {
         finishCalls += 1

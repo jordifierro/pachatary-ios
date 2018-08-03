@@ -4,6 +4,7 @@ import Mapbox
 protocol ExperienceMapView {
     func showScenes(_ scenes: [Scene])
     func showExperience(_ experience: Experience)
+    func selectScene(_ sceneId: String)
     func finish()
 }
 
@@ -25,6 +26,7 @@ class ExperienceMapViewController: UIViewController {
         
         presenter.view = self
         presenter.experienceId = experienceId
+        presenter.sceneId = selectedSceneId
         
         saveButton.addTarget(self, action: #selector(saveClick), for: .touchUpInside)
     }
@@ -97,6 +99,14 @@ extension ExperienceMapViewController: ExperienceMapView {
         rootView.bringSubview(toFront: self.saveButton)
         if experience.isSaved { saveButton.backgroundColor = UIColor.yellow }
         else { saveButton.backgroundColor = UIColor.white }
+    }
+    
+    func selectScene(_ sceneId: String) {
+        for annotation in mapView.annotations! {
+            if (annotationSceneId[annotation.hash] == sceneId) {
+                mapView.selectAnnotation(annotation, animated: true)
+            }
+        }
     }
     
     func finish() {

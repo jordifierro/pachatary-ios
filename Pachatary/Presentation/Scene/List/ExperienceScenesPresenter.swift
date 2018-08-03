@@ -39,7 +39,11 @@ class ExperienceScenesPresenter {
     }
     
     func onGoToMapClick() {
-        view.navigateToMap()
+        view.navigateToMap(nil)
+    }
+
+    func onLocateSceneClick(_ sceneId: String) {
+        view.navigateToMap(sceneId)
     }
 }
 
