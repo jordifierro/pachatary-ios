@@ -15,24 +15,21 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .when_create_presenter()
             .then_should_call_scene_repo_observable_with(experienceId: "7")
             .then_should_call_experience_repo_observable_with(experienceId: "7")
+            .then_should_call_show_scenes_with([Scene("1"), Scene("3")],
+                                               experience: Experience("9"))
     }
     
-    func test_on_response_success_shows_scenes_with_selected_scene_id() {
+    func test_on_go_to_map_click_navigates_to_map() {
         ScenarioMaker()
-            .given_an_experience_id_for_presenter("7")
-            .given_an_scene_id_for_presenter("9")
-            .given_an_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
-                                              experienceId: "7")
-            .given_an_experience_observable_result(Result(.success, data: Experience("9")),
-                                                   experienceId: "7")
-            .when_create_presenter()
-            .then_should_call_show_scenes_with([Scene("1"), Scene("3")], experience: Experience("9"), andScrollTo: "9")
+            .given_an_experience_id_for_presenter("4")
+            .when_go_to_map_click()
+            .then_should_navigate_to_map()
     }
-
+    
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
         let mockExperienceRepo = ExperienceRepoMock()
-        var mockView = SceneListViewMock()
+        var mockView = ExperienceScenesViewMock()
         var presenter: ExperienceScenesPresenter!
         
         init() {
@@ -43,11 +40,6 @@ class ExperienceScenesPresenterTests: XCTestCase {
         
         func given_an_experience_id_for_presenter(_ experienceId: String) -> ScenarioMaker {
             presenter.experienceId = experienceId
-            return self
-        }
-        
-        func given_an_scene_id_for_presenter(_ sceneId: String) -> ScenarioMaker {
-            presenter.sceneId = sceneId
             return self
         }
         
@@ -67,6 +59,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
             return self
         }
         
+        func when_go_to_map_click() -> ScenarioMaker {
+            presenter.onGoToMapClick()
+            return self
+        }
+        
         @discardableResult
         func then_should_call_scene_repo_observable_with(experienceId: String) -> ScenarioMaker {
             assert(mockSceneRepo.scenesObservableCalls == [experienceId])
@@ -80,28 +77,36 @@ class ExperienceScenesPresenterTests: XCTestCase {
         }
         
         @discardableResult
-        func then_should_call_show_scenes_with(_ scenes: [Scene], experience: Experience,
-                                               andScrollTo sceneId: String) -> ScenarioMaker {
+        func then_should_call_show_scenes_with(_ scenes: [Scene], experience: Experience)
+                                                                                  -> ScenarioMaker {
             assert(scenes == mockView.showScenesCalls[0].0)
             assert(experience == mockView.showScenesCalls[0].1)
-            assert(sceneId == mockView.showScenesCalls[0].2)
+            return self
+        }
+        
+        @discardableResult
+        func then_should_navigate_to_map() -> ScenarioMaker {
+            assert(mockView.navigateToMapCalls == 1)
             return self
         }
     }
 }
 
-class SceneListViewMock: ExperienceScenesView {
-    
-    var showScenesCalls = [([Scene], Experience, String?)]()
+class ExperienceScenesViewMock: ExperienceScenesView {
+
+    var showScenesCalls = [([Scene], Experience)]()
+    var navigateToMapCalls = 0
     var finishCalls = 0
 
-    func showScenes(_ scenes: [Scene], experience: Experience, showSceneWithId sceneId: String?) {
-        showScenesCalls.append((scenes, experience, sceneId))
+    func showScenes(_ scenes: [Scene], experience: Experience) {
+        showScenesCalls.append((scenes, experience))
+    }
+    
+    func navigateToMap() {
+        navigateToMapCalls += 1
     }
     
     func finish() {
         finishCalls += 1
     }
 }
-
-
