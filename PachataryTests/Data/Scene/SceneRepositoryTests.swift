@@ -94,7 +94,7 @@ class SceneRepositoryTests: XCTestCase {
         }
         
         func consume_result_observable() -> ScenarioMaker {
-            resultObservable.subscribe()
+            _ = resultObservable.subscribe()
             return self
         }
         

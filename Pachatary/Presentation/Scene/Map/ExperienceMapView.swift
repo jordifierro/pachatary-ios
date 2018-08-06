@@ -3,7 +3,6 @@ import Mapbox
 
 protocol ExperienceMapView {
     func showScenes(_ scenes: [Scene])
-    func showExperience(_ experience: Experience)
     func selectScene(_ sceneId: String)
     func setResult(_ sceneId: String)
     func finish()
@@ -13,15 +12,13 @@ class ExperienceMapViewController: UIViewController {
     
     @IBOutlet var rootView: UIView!
     @IBOutlet weak var mapView: MGLMapView!
-    @IBOutlet weak var saveButton: UIButton!
-    
+
     let presenter = ExperienceDependencyInjector.experienceMapPresenter
     var experienceId: String!
     var setResultDelegate: ((String) -> ())!
     
     var annotationSceneId = [Int:String]()
     var selectedSceneId: String!
-    var isExperienceSaved = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,16 +28,10 @@ class ExperienceMapViewController: UIViewController {
         presenter.view = self
         presenter.experienceId = experienceId
         presenter.sceneId = selectedSceneId
-        
-        saveButton.addTarget(self, action: #selector(saveClick), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         presenter.create()
-    }
-    
-    @objc func saveClick(_ sender: UIButton!) {
-        presenter.saveClick(!isExperienceSaved)
     }
 }
 
@@ -97,13 +88,6 @@ extension ExperienceMapViewController: ExperienceMapView {
                                            longitude: maxLongitude + longitudeMargin))
             mapView.setVisibleCoordinateBounds(bounds, animated: true)
         }
-    }
-    
-    func showExperience(_ experience: Experience) {
-        rootView.bringSubview(toFront: self.saveButton)
-        self.isExperienceSaved = experience.isSaved
-        if isExperienceSaved { saveButton.backgroundColor = UIColor.yellow }
-        else { saveButton.backgroundColor = UIColor.white }
     }
     
     func selectScene(_ sceneId: String) {

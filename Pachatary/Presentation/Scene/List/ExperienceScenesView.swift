@@ -59,7 +59,7 @@ extension ExperienceScenesViewController: ExperienceScenesView {
     }
     
     func scrollToScene(_ sceneId: String) {
-        var scenePosition = scenes.index(where: { scene in scene.id == sceneId })!
+        let scenePosition = scenes.index(where: { scene in scene.id == sceneId })!
         self.tableView.scrollToRow(at: IndexPath(item: scenePosition, section: 1),
                                    at: .top, animated: true)
     }
@@ -89,7 +89,7 @@ extension ExperienceScenesViewController: UITableViewDataSource, UITableViewDele
             let cell: ExperienceDetailTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "experienceDetailCell", for: indexPath)
                     as! ExperienceDetailTableViewCell
-            cell.bind(self.experience, self.scenes, presenter.onGoToMapClick)
+            cell.bind(self.experience, self.scenes, presenter.onGoToMapClick, presenter.saveExperience)
             
             return cell
         }

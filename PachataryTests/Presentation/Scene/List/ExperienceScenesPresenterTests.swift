@@ -56,6 +56,20 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .should_not_scroll_to_scene_id()
     }
     
+    func test_save() {
+        ScenarioMaker()
+            .given_an_experience_id_for_presenter("4")
+            .when_save_click(true)
+            .then_should_call_repo_save("4", true)
+    }
+    
+    func test_unsave() {
+        ScenarioMaker()
+            .given_an_experience_id_for_presenter("4")
+            .when_save_click(false)
+            .then_should_call_repo_save("4", false)
+    }
+    
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
         let mockExperienceRepo = ExperienceRepoMock()
@@ -96,6 +110,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
         
         func when_resume_presenter() -> ScenarioMaker {
             presenter.resume()
+            return self
+        }
+        
+        func when_save_click(_ save: Bool) -> ScenarioMaker {
+            presenter.saveExperience(save: save)
             return self
         }
         
@@ -144,6 +163,14 @@ class ExperienceScenesPresenterTests: XCTestCase {
         @discardableResult
         func should_not_scroll_to_scene_id() -> ScenarioMaker {
             assert(mockView.scrollToSceneCalls == [])
+            return self
+        }
+        
+        @discardableResult
+        func then_should_call_repo_save(_ experienceId: String, _ save: Bool) -> ScenarioMaker {
+            assert(mockExperienceRepo.saveCalls.count == 1)
+            assert(mockExperienceRepo.saveCalls[0].0 == experienceId)
+            assert(mockExperienceRepo.saveCalls[0].1 == save)
             return self
         }
     }

@@ -26,6 +26,13 @@
                             <constraint firstAttribute="width" secondItem="Le8-Dg-u5X" secondAttribute="height" multiplier="1:1" id="GFn-zh-i9r"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLW-Zj-Cvc">
+                        <rect key="frame" x="346" y="285" width="34" height="30"/>
+                        <state key="normal" title="Save">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jB3-Xz-CKp">
                         <rect key="frame" x="20" y="410" width="360" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -75,7 +82,9 @@
                     <constraint firstItem="fwb-zo-Uoh" firstAttribute="top" secondItem="jB3-Xz-CKp" secondAttribute="bottom" constant="10" id="eQ5-LW-awH"/>
                     <constraint firstAttribute="bottom" secondItem="4i0-yi-jl3" secondAttribute="bottom" constant="30" id="obn-T3-ddg"/>
                     <constraint firstItem="fwb-zo-Uoh" firstAttribute="leading" secondItem="51f-q8-neO" secondAttribute="trailing" constant="20" id="qkK-vg-ZEe"/>
+                    <constraint firstItem="PLW-Zj-Cvc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="tw8-Wd-gta"/>
                     <constraint firstAttribute="trailing" secondItem="fwb-zo-Uoh" secondAttribute="trailing" constant="20" id="weN-Fg-iHH"/>
+                    <constraint firstItem="PLW-Zj-Cvc" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-20" id="yYe-7T-6En"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -84,6 +93,7 @@
                 <outlet property="descriptionLabel" destination="voI-VH-337" id="oEM-KE-8jE"/>
                 <outlet property="mapImageView" destination="4i0-yi-jl3" id="fje-h4-YXk"/>
                 <outlet property="pictureImageView" destination="Le8-Dg-u5X" id="pAu-zk-v7l"/>
+                <outlet property="saveButton" destination="PLW-Zj-Cvc" id="aeX-70-7b7"/>
                 <outlet property="savesCountLabel" destination="51f-q8-neO" id="9Up-7s-F2Q"/>
                 <outlet property="titleLabel" destination="jB3-Xz-CKp" id="vf0-Ga-FA5"/>
             </connections>

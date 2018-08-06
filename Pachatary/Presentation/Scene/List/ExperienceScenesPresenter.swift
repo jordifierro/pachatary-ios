@@ -53,5 +53,8 @@ class ExperienceScenesPresenter {
     func onLocateSceneClick(_ sceneId: String) {
         view.navigateToMap(sceneId)
     }
+    
+    func saveExperience(save: Bool) {
+        experienceRepo.saveExperience(self.experienceId, save: save)
+    }
 }
-
