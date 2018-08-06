@@ -3,6 +3,7 @@ PODS:
   - Hippolyte (0.4.0)
   - Kingfisher (4.8.0)
   - Mapbox-iOS-SDK (4.1.0)
+  - MapboxStatic.swift (0.9.1)
   - Moya (11.0.2):
     - Moya/Core (= 11.0.2)
   - Moya-ObjectMapper/Core (2.6):
@@ -28,6 +29,7 @@ DEPENDENCIES:
   - Hippolyte
   - Kingfisher (~> 4.0)
   - Mapbox-iOS-SDK (~> 4.1)
+  - MapboxStatic.swift (~> 0.9)
   - Moya-ObjectMapper/RxSwift
   - Moya/RxSwift (~> 11.0)
   - RxBlocking
@@ -39,6 +41,7 @@ SPEC REPOS:
     - Hippolyte
     - Kingfisher
     - Mapbox-iOS-SDK
+    - MapboxStatic.swift
     - Moya
     - Moya-ObjectMapper
     - ObjectMapper
@@ -51,6 +54,7 @@ SPEC CHECKSUMS:
   Hippolyte: b1c306140f7063d6608929d0a8b3bcee47d2d6df
   Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   Mapbox-iOS-SDK: f0a9813d5f08c096c1199eceb57ec6102b19cf54
+  MapboxStatic.swift: 247d98dd6e11b8934aa5d122efcb50384f8d66f6
   Moya: a725035953bc1c0eb1be505ab903984501d82440
   Moya-ObjectMapper: cc9ff0e0df0c2db26f144c3aaffc78f4feb0983c
   ObjectMapper: 5cccd2de6f253eda859df8116a5a554d9769e859
@@ -58,6 +62,6 @@ SPEC CHECKSUMS:
   RxBlocking: f6054985901412fc8c02daa84e92d4ba68c61389
   RxSwift: e49536837d9901277638493ea537394d4b55f570
 
-PODFILE CHECKSUM: 5a07a5854f480d8154b6884b9ccfbe1c14ba6e6a
+PODFILE CHECKSUM: 98e61075c99ded9f12370cbb06c166a6854ad166
 
 COCOAPODS: 1.5.3

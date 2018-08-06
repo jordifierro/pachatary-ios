@@ -21,6 +21,10 @@ class AppDataDependencyInjector {
         if debug { return apiKeysDict!["devClientSecretKey"] as! String }
         else { return apiKeysDict!["clientSecretKey"] as! String }
     }}
+    static var mapboxAccessToken: String { get {
+        if debug { return apiKeysDict!["mapboxAccessToken"] as! String }
+        else { return apiKeysDict!["mapboxAccessToken"] as! String }
+        }}
     static let ioScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
     static let authStorageRepository = AuthStorageRepoImplementation()
     private static let authHeaderPlugin = AuthHeaderPlugin(authStorageRepository)

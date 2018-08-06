@@ -89,7 +89,7 @@ extension ExperienceScenesViewController: UITableViewDataSource, UITableViewDele
             let cell: ExperienceDetailTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "experienceDetailCell", for: indexPath)
                     as! ExperienceDetailTableViewCell
-            cell.bind(self.experience, presenter.onGoToMapClick)
+            cell.bind(self.experience, self.scenes, presenter.onGoToMapClick)
             
             return cell
         }
