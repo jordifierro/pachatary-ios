@@ -5,6 +5,7 @@ class ExperienceScenesPresenter {
     
     var view: ExperienceScenesView!
     var experienceId: String!
+    var selectedSceneId: String? = nil
     var sceneRepo: SceneRepository!
     var experienceRepo: ExperienceRepository!
     var mainScheduler: ImmediateSchedulerType!
@@ -36,6 +37,13 @@ class ExperienceScenesPresenter {
                 case .completed: break
                 }
             }
+    }
+    
+    func resume() {
+        if (selectedSceneId != nil) {
+            view.scrollToScene(selectedSceneId!)
+            selectedSceneId = nil
+        }
     }
     
     func onGoToMapClick() {

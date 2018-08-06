@@ -25,6 +25,8 @@ class ExperienceMapPresenter {
     }
     
     func sceneClick(_ sceneId: String) {
+        view.setResult(sceneId)
+        view.finish()
     }
     
     func saveClick() {

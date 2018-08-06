@@ -33,6 +33,29 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .then_should_navigate_to_map(sceneId: "7")
     }
     
+    func test_on_resume_scroll_to_scene_id_if_selected_scene_id() {
+        ScenarioMaker()
+            .given_a_selected_scene_id("5")
+            .when_resume_presenter()
+            .should_scroll_to_scene_id("5")
+    }
+    
+    func test_on_resume_scroll_to_scene_id_if_selected_scene_id_only_once() {
+        ScenarioMaker()
+            .given_a_selected_scene_id("5")
+            .when_resume_presenter()
+            .when_resume_presenter()
+            .when_resume_presenter()
+            .should_scroll_to_scene_id("5")
+    }
+    
+    func test_on_resume_doesnt_scroll_if_not_selected_scene_id() {
+        ScenarioMaker()
+            .given_a_selected_scene_id(nil)
+            .when_resume_presenter()
+            .should_not_scroll_to_scene_id()
+    }
+    
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
         let mockExperienceRepo = ExperienceRepoMock()
@@ -50,6 +73,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
             return self
         }
         
+        func given_a_selected_scene_id(_ sceneId: String?) -> ScenarioMaker {
+            presenter.selectedSceneId = sceneId
+            return self
+        }
+        
         func given_an_scenes_observable_result(_ result: Result<[Scene]>, experienceId: String) -> ScenarioMaker {
             mockSceneRepo.resultSceneForExperience[experienceId] = result
             return self
@@ -63,6 +91,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
         
         func when_create_presenter() -> ScenarioMaker {
             presenter.create()
+            return self
+        }
+        
+        func when_resume_presenter() -> ScenarioMaker {
+            presenter.resume()
             return self
         }
         
@@ -101,6 +134,18 @@ class ExperienceScenesPresenterTests: XCTestCase {
             assert(mockView.navigateToMapCalls == [sceneId])
             return self
         }
+        
+        @discardableResult
+        func should_scroll_to_scene_id(_ sceneId: String) -> ScenarioMaker {
+            assert(mockView.scrollToSceneCalls == [sceneId])
+            return self
+        }
+        
+        @discardableResult
+        func should_not_scroll_to_scene_id() -> ScenarioMaker {
+            assert(mockView.scrollToSceneCalls == [])
+            return self
+        }
     }
 }
 
@@ -109,6 +154,7 @@ class ExperienceScenesViewMock: ExperienceScenesView {
     var showScenesCalls = [([Scene], Experience)]()
     var navigateToMapCalls = [String?]()
     var finishCalls = 0
+    var scrollToSceneCalls = [String]()
 
     func showScenes(_ scenes: [Scene], experience: Experience) {
         showScenesCalls.append((scenes, experience))
@@ -116,6 +162,10 @@ class ExperienceScenesViewMock: ExperienceScenesView {
     
     func navigateToMap(_ sceneId: String?) {
         navigateToMapCalls.append(sceneId)
+    }
+    
+    func scrollToScene(_ sceneId: String) {
+        scrollToSceneCalls.append(sceneId)
     }
     
     func finish() {

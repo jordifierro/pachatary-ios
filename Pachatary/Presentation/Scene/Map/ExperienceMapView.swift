@@ -5,6 +5,7 @@ protocol ExperienceMapView {
     func showScenes(_ scenes: [Scene])
     func showExperience(_ experience: Experience)
     func selectScene(_ sceneId: String)
+    func setResult(_ sceneId: String)
     func finish()
 }
 
@@ -16,6 +17,8 @@ class ExperienceMapViewController: UIViewController {
     
     let presenter = ExperienceDependencyInjector.experienceMapPresenter
     var experienceId: String!
+    var setResultDelegate: ((String) -> ())!
+    
     var annotationSceneId = [Int:String]()
     var selectedSceneId: String!
 
@@ -109,7 +112,12 @@ extension ExperienceMapViewController: ExperienceMapView {
         }
     }
     
+    func setResult(_ sceneId: String) {
+        self.setResultDelegate(sceneId)
+    }
+    
     func finish() {
+        self.navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
 }

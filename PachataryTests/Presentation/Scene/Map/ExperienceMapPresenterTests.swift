@@ -63,7 +63,7 @@ class ExperienceMapPresenterTests: XCTestCase {
     func test_on_scene_click_navigates_to_scene_list() {
         ScenarioMaker()
             .when_scene_click_with_id("8")
-            .then_should_navigate_to_scene_list_with_id("8")
+            .then_should_set_result_scene_id_and_finish("8")
     }
     
     func test_on_experience_save_call_repo_switch_save_state() {
@@ -160,8 +160,9 @@ class ExperienceMapPresenterTests: XCTestCase {
         }
         
         @discardableResult
-        func then_should_navigate_to_scene_list_with_id(_ sceneId: String) -> ScenarioMaker {
-            //assert(mockView.navigateToSceneListCalls == [sceneId])
+        func then_should_set_result_scene_id_and_finish(_ sceneId: String) -> ScenarioMaker {
+            assert(mockView.setResultCalls == [sceneId])
+            assert(mockView.finishCalls == 1)
             return self
         }
         
@@ -177,7 +178,7 @@ class ExperienceMapViewMock: ExperienceMapView {
 
     var showScenesCalls = [[Scene]]()
     var showExperienceCalls = [Experience]()
-    var navigateToSceneListCalls = [String]()
+    var setResultCalls = [String]()
     var finishCalls = 0
     var selectSceneCalls = [String]()
     
@@ -192,13 +193,12 @@ class ExperienceMapViewMock: ExperienceMapView {
     func selectScene(_ sceneId: String) {
         selectSceneCalls.append(sceneId)
     }
-    
-    
+
     func finish() {
         finishCalls += 1
     }
     
-    func navigateToSceneList(with sceneId: String) {
-        navigateToSceneListCalls.append(sceneId)
+    func setResult(_ sceneId: String) {
+        setResultCalls.append(sceneId)
     }
 }

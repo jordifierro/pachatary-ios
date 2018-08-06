@@ -4,6 +4,7 @@ import UIKit
 protocol ExperienceScenesView {
     func showScenes(_ scenes: [Scene], experience: Experience)
     func navigateToMap(_ sceneId: String?)
+    func scrollToScene(_ sceneId: String)
     func finish()
 }
 
@@ -25,10 +26,11 @@ class ExperienceScenesViewController: UIViewController {
         
         presenter.view = self
         presenter.experienceId = experienceId
+        presenter.create()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        presenter.create()
+        presenter.resume()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -36,6 +38,8 @@ class ExperienceScenesViewController: UIViewController {
             if let destinationVC = segue.destination as? ExperienceMapViewController {
                 destinationVC.selectedSceneId = self.selectedSceneId
                 destinationVC.experienceId = self.experienceId
+                destinationVC.setResultDelegate = { (sceneId: String) in
+                    self.presenter.selectedSceneId = sceneId }
             }
         }
     }
@@ -52,6 +56,12 @@ extension ExperienceScenesViewController: ExperienceScenesView {
     func navigateToMap(_ sceneId: String? = nil) {
         self.selectedSceneId = sceneId
         performSegue(withIdentifier: "experienceMapSegue", sender: self)
+    }
+    
+    func scrollToScene(_ sceneId: String) {
+        var scenePosition = scenes.index(where: { scene in scene.id == sceneId })!
+        self.tableView.scrollToRow(at: IndexPath(item: scenePosition, section: 1),
+                                   at: .top, animated: true)
     }
     
     func finish() {
