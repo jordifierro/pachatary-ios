@@ -22,14 +22,20 @@ class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType
             getScenes(experienceId: experienceId)
             return cacheStore[experienceId]!.resultObservable
         }
-        return cacheStore[experienceId]!.resultObservable
-            .flatMapFirst { (result) -> Observable<Result<[Scene]>> in
-                if result.isError() {
+        return Observable.zip(cacheStore[experienceId]!.resultObservable,
+                              Observable.range(start: 0, count: 1000),
+                              resultSelector:
+            { (result: Result<[Scene]>, index: Int) -> (Int, Result<[Scene]>) in
+                return (index, result) })
+            .filter({ (index: Int, result: Result<[Scene]>) -> Bool in
+                if index == 0 && result.isError() {
                     self.getScenes(experienceId: experienceId)
-                    return Observable<Result<[Scene]>>.empty()
+                    return false
                 }
-                else { return Observable.just(result) }
-            }
+                else { return true }
+            })
+            .map { (index: Int, result: Result<[Scene]>) -> Result<[Scene]> in return result }
+        
     }
     
     private func getScenes(experienceId: String) {
