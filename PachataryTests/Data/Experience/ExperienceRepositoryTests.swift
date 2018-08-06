@@ -56,7 +56,7 @@ class ExperienceRepositoryTests: XCTestCase {
                             authorProfile: Profile(username: "", bio: "",
                                                    picture: nil, isMe: false),
                             savesCount: 5)])])
-            .when_switch_experience_save_state("4")
+            .when_save_experience("4", save: true)
             .then_should_emit_through_update_observer([
                 Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
                            isSaved: true,
@@ -73,7 +73,7 @@ class ExperienceRepositoryTests: XCTestCase {
                             isSaved: true, authorProfile: Profile(username: "", bio: "",
                                                                   picture: nil, isMe: false),
                             savesCount: 5)])])
-            .when_switch_experience_save_state("4")
+            .when_save_experience("4", save: false)
             .then_should_emit_through_update_observer([
                 Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
                            isSaved: false,
@@ -145,8 +145,8 @@ class ExperienceRepositoryTests: XCTestCase {
             return self
         }
         
-        func when_switch_experience_save_state(_ experienceId: String) -> ScenarioMaker {
-            repo.switchExperienceSaveState(experienceId)
+        func when_save_experience(_ experienceId: String, save: Bool) -> ScenarioMaker {
+            repo.saveExperience(experienceId, save: save)
             return self
         }
         

@@ -10,7 +10,7 @@ protocol ExperienceRepository {
     func getFirsts(kind: Kind)
     func paginate(kind: Kind)
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>>
-    func switchExperienceSaveState(_ experienceId: String)
+    func saveExperience(_ experienceId: String, save: Bool)
 }
 
 class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
@@ -51,31 +51,12 @@ class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
         }
     }
     
-    func switchExperienceSaveState(_ experienceId: String) {
-        _ = (experienceObservable(experienceId)
-            .take(1)
-            .map { result in
-                var modifier = 1
-                let isSaved = result.data!.isSaved
-                if isSaved { modifier = -1 }
-                let updatedExperience = result.data!.builder()
-                                            .isSaved(!isSaved)
-                                            .savesCount(result.data!.savesCount + modifier)
-                                            .build()
-                return updatedExperience
-            } as Observable<Experience>)
-            .subscribe { event in
-                switch event {
-                case .next(let experience):
-                    self.saveExperience(experience.id, save: experience.isSaved)
-                    self.exploreRequester.updateObserver.onNext([experience])
-                case .error(let error): fatalError(error.localizedDescription)
-                case .completed: break
-                }
-            }
+    func saveExperience(_ experienceId: String, save: Bool) {
+        saveExperienceOnApiRepo(experienceId, save: save)
+        updateCache(experienceId, save: save)
     }
     
-    private func saveExperience(_ experienceId: String, save: Bool) {
+    private func saveExperienceOnApiRepo(_ experienceId: String, save: Bool) {
         _ = apiRepo.saveExperience(experienceId, save: save)
             .subscribe { event in
                 switch event {
@@ -84,5 +65,27 @@ class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
                 case .completed: break
                 }
             }
+    }
+    
+    private func updateCache(_ experienceId: String, save: Bool) {
+        _ = (experienceObservable(experienceId)
+            .take(1)
+            .map { result in
+                var modifier = 1
+                if !save { modifier = -1 }
+                let updatedExperience = result.data!.builder()
+                    .isSaved(save)
+                    .savesCount(result.data!.savesCount + modifier)
+                    .build()
+                return updatedExperience
+            } as Observable<Experience>)
+            .subscribe { event in
+                switch event {
+                case .next(let experience):
+                    self.exploreRequester.updateObserver.onNext([experience])
+                case .error(let error): fatalError(error.localizedDescription)
+                case .completed: break
+            }
+        }
     }
 }

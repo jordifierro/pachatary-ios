@@ -21,6 +21,7 @@ class ExperienceMapViewController: UIViewController {
     
     var annotationSceneId = [Int:String]()
     var selectedSceneId: String!
+    var isExperienceSaved = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +40,7 @@ class ExperienceMapViewController: UIViewController {
     }
     
     @objc func saveClick(_ sender: UIButton!) {
-        presenter.saveClick()
+        presenter.saveClick(!isExperienceSaved)
     }
 }
 
@@ -100,7 +101,8 @@ extension ExperienceMapViewController: ExperienceMapView {
     
     func showExperience(_ experience: Experience) {
         rootView.bringSubview(toFront: self.saveButton)
-        if experience.isSaved { saveButton.backgroundColor = UIColor.yellow }
+        self.isExperienceSaved = experience.isSaved
+        if isExperienceSaved { saveButton.backgroundColor = UIColor.yellow }
         else { saveButton.backgroundColor = UIColor.white }
     }
     

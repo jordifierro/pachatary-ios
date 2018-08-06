@@ -115,7 +115,7 @@ class ExperienceApiRepositoryTests: XCTestCase {
         func given_an_stubbed_network_call_for_save(_ experienceId: String, method: HTTPMethod,
                                                     statusCode: Int) -> ScenarioMaker {
             let url = URL(string: AppDataDependencyInjector.apiUrl +
-                                  "/experiences/" + experienceId + "/save/")!
+                                  "/experiences/" + experienceId + "/save")!
             var stub = StubRequest(method: method, url: url)
             var response = StubResponse()
             

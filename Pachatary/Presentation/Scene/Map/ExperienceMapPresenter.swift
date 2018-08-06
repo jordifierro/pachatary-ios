@@ -29,8 +29,8 @@ class ExperienceMapPresenter {
         view.finish()
     }
     
-    func saveClick() {
-        experienceRepo.switchExperienceSaveState(experienceId)
+    func saveClick(_ save: Bool) {
+        experienceRepo.saveExperience(experienceId, save: save)
     }
     
     private func getScenes() {

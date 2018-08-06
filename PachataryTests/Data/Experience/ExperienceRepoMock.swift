@@ -13,7 +13,7 @@ class ExperienceRepoMock: ExperienceRepository {
     var getFirstsCalls = [Kind]()
     var paginateCalls = [Kind]()
     var singleExperienceCalls = [String]()
-    var saveCalls = [String]()
+    var saveCalls = [(String, Bool)]()
     
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         assert(kind == .explore)
@@ -38,7 +38,7 @@ class ExperienceRepoMock: ExperienceRepository {
         return Observable.just(returnExperience[experienceId]!)
     }
     
-    func switchExperienceSaveState(_ experienceId: String) {
-        saveCalls.append(experienceId)
+    func saveExperience(_ experienceId: String, save: Bool) {
+        saveCalls.append((experienceId, save))
     }
 }

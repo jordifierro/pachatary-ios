@@ -24,7 +24,7 @@ extension ExperienceApi: TargetType {
         case .paginate:
             return ""
         case .save(let (id, _)):
-            return "/experiences/" + id + "/save/"
+            return "/experiences/" + id + "/save"
         }
     }
     var method: Moya.Method {
