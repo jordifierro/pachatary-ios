@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -232,9 +233,41 @@
                     <view key="view" contentMode="scaleToFill" id="ZBq-7D-FJt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.31497504091591366" blue="0.21922822338070513" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Welcome to Pachatary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Gz-Qs-0lo">
+                                <rect key="frame" x="157" y="264" width="163" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HYD-22-kiB">
+                                <rect key="frame" x="32" y="400" width="256" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Start new adventure"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFQ-wc-51e">
+                                <rect key="frame" x="32" y="443" width="256" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="I already have an account"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0Gz-Qs-0lo" firstAttribute="centerY" secondItem="jUf-Cn-Mwt" secondAttribute="centerY" id="0EO-Cg-B3k"/>
+                            <constraint firstItem="jUf-Cn-Mwt" firstAttribute="bottom" secondItem="ZFQ-wc-51e" secondAttribute="bottom" constant="10" id="3jH-F6-x9K"/>
+                            <constraint firstItem="0Gz-Qs-0lo" firstAttribute="centerX" secondItem="jUf-Cn-Mwt" secondAttribute="centerX" id="Agh-Ge-ks2"/>
+                            <constraint firstItem="HYD-22-kiB" firstAttribute="centerX" secondItem="jUf-Cn-Mwt" secondAttribute="centerX" id="GME-OO-2i2"/>
+                            <constraint firstItem="ZFQ-wc-51e" firstAttribute="top" secondItem="HYD-22-kiB" secondAttribute="bottom" constant="10" id="OxI-iL-Obl"/>
+                            <constraint firstItem="ZFQ-wc-51e" firstAttribute="width" secondItem="ZBq-7D-FJt" secondAttribute="width" multiplier="8:10" id="PYg-gt-VLd"/>
+                            <constraint firstItem="ZFQ-wc-51e" firstAttribute="centerX" secondItem="jUf-Cn-Mwt" secondAttribute="centerX" id="XxL-Dn-NDe"/>
+                            <constraint firstItem="HYD-22-kiB" firstAttribute="width" secondItem="ZBq-7D-FJt" secondAttribute="width" multiplier="8:10" id="e8M-2g-4aq"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="jUf-Cn-Mwt"/>
                     </view>
+                    <connections>
+                        <outlet property="loginButton" destination="ZFQ-wc-51e" id="nBB-M4-DDG"/>
+                        <outlet property="startButton" destination="HYD-22-kiB" id="aKD-Z0-17Y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q9f-5L-NcZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

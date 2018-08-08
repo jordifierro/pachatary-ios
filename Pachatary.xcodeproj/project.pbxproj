@@ -20,7 +20,7 @@
 		AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */; };
 		AE3116E720EBD2FC00720A95 /* ExperienceRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */; };
 		AE3BE3BB211A142500D10A19 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3BE3BA211A142500D10A19 /* RootViewController.swift */; };
-		AE3BE3BE211A154C00D10A19 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3BE3BD211A154C00D10A19 /* WelcomeViewController.swift */; };
+		AE3BE3BE211A154C00D10A19 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */; };
 		AE598BA820EA464600F3DBA9 /* ExperienceScenesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */; };
 		AE598BAA20EA4A9800F3DBA9 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */; };
 		AE598BAC20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */; };
@@ -75,6 +75,10 @@
 		AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A220C547D6001A4576 /* Assets.xcassets */; };
 		AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A420C547D6001A4576 /* LaunchScreen.storyboard */; };
 		AEBB62BC20C547D6001A4576 /* PachataryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */; };
+		AEDB0DB5211B37F9004F843E /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DB4211B37F9004F843E /* WelcomePresenter.swift */; };
+		AEDB0DB7211B3996004F843E /* PersonDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DB6211B3996004F843E /* PersonDependencyInjector.swift */; };
+		AEDB0DBB211B3FAC004F843E /* WelcomePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */; };
+		AEDB0DBD211B4342004F843E /* AuthRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DBC211B4342004F843E /* AuthRepoMock.swift */; };
 		AEE1528A20D94E3E008707FF /* SingleResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528920D94E3E008707FF /* SingleResultMapper.swift */; };
 		AEE1528E20D96DC6008707FF /* ToResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528D20D96DC6008707FF /* ToResultMapper.swift */; };
 		AEE1529020D98395008707FF /* ResultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528F20D98395008707FF /* ResultCache.swift */; };
@@ -125,7 +129,7 @@
 		AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtendedExperienceTableViewCell.xib; sourceTree = "<group>"; };
 		AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRepoMock.swift; sourceTree = "<group>"; };
 		AE3BE3BA211A142500D10A19 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		AE3BE3BD211A154C00D10A19 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesView.swift; sourceTree = "<group>"; };
 		AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTableViewCell.swift; sourceTree = "<group>"; };
 		AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesPresenter.swift; sourceTree = "<group>"; };
@@ -186,6 +190,10 @@
 		AEBB62B720C547D6001A4576 /* PachataryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PachataryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PachataryUITests.swift; sourceTree = "<group>"; };
 		AEBB62BD20C547D6001A4576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEDB0DB4211B37F9004F843E /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
+		AEDB0DB6211B3996004F843E /* PersonDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDependencyInjector.swift; sourceTree = "<group>"; };
+		AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenterTests.swift; sourceTree = "<group>"; };
+		AEDB0DBC211B4342004F843E /* AuthRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepoMock.swift; sourceTree = "<group>"; };
 		AEE1528920D94E3E008707FF /* SingleResultMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleResultMapper.swift; sourceTree = "<group>"; };
 		AEE1528D20D96DC6008707FF /* ToResultMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToResultMapper.swift; sourceTree = "<group>"; };
 		AEE1528F20D98395008707FF /* ResultCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCache.swift; sourceTree = "<group>"; };
@@ -252,14 +260,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		AE3BE3BC211A152E00D10A19 /* Welcome */ = {
-			isa = PBXGroup;
-			children = (
-				AE3BE3BD211A154C00D10A19 /* WelcomeViewController.swift */,
-			);
-			path = Welcome;
-			sourceTree = "<group>";
-		};
 		AE598BA520EA45C600F3DBA9 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +307,7 @@
 				AEEC749820CAADD000B86837 /* AuthStorageRepositoryTests.swift */,
 				AE73C7BE20CE80E200B05DA2 /* AuthApiRepositoryTests.swift */,
 				AE80DE7B20CEE0CB00A170F6 /* AuthRepositoryTests.swift */,
+				AEDB0DBC211B4342004F843E /* AuthRepoMock.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -500,6 +501,24 @@
 			path = PachataryUITests;
 			sourceTree = "<group>";
 		};
+		AEDB0DB8211B3EE2004F843E /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
+		AEDB0DB9211B3F62004F843E /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */,
+				AEDB0DB4211B37F9004F843E /* WelcomePresenter.swift */,
+				AEDB0DB6211B3996004F843E /* PersonDependencyInjector.swift */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
 		AEEAC68420C97CBA007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
@@ -514,6 +533,7 @@
 		AEEAC68720C97CED007C17EE /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				AEDB0DB8211B3EE2004F843E /* Person */,
 				AE598BAF20EA799D00F3DBA9 /* Scene */,
 				AEEAC68820C97D49007C17EE /* Experience */,
 			);
@@ -531,7 +551,7 @@
 		AEEAC68920C97D70007C17EE /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				AE3BE3BC211A152E00D10A19 /* Welcome */,
+				AEDB0DB9211B3F62004F843E /* Person */,
 				AE598BA520EA45C600F3DBA9 /* Scene */,
 				AEEAC68A20C97D8E007C17EE /* Experience */,
 				AE86639720D7D4A1008CE6D2 /* AppPresentationDependencyInjector.swift */,
@@ -900,7 +920,7 @@
 				AE0C676C20E122F500E4BFA0 /* PaginationLoaderViewCell.swift in Sources */,
 				AEAE26A820E284AC00E5D4E9 /* Scene.swift in Sources */,
 				AE86639420D7D22F008CE6D2 /* AppDataDependencyInjector.swift in Sources */,
-				AE3BE3BE211A154C00D10A19 /* WelcomeViewController.swift in Sources */,
+				AE3BE3BE211A154C00D10A19 /* WelcomeView.swift in Sources */,
 				AEAE26B220E288C500E5D4E9 /* SceneMapper.swift in Sources */,
 				AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */,
 				AEAE26B020E2885900E5D4E9 /* SceneApiRepository.swift in Sources */,
@@ -918,6 +938,7 @@
 				AEEC749420CA751D00B86837 /* AuthToken.swift in Sources */,
 				AEE1529220D983DB008707FF /* Identifiable.swift in Sources */,
 				AE598BAE20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift in Sources */,
+				AEDB0DB7211B3996004F843E /* PersonDependencyInjector.swift in Sources */,
 				AE1D6D2120C5712E00EA6DDD /* BigPicture.swift in Sources */,
 				AE86639A20D7D4D5008CE6D2 /* ExperienceDataDependencyInjector.swift in Sources */,
 				AEEC74A120CACF0F00B86837 /* AuthRepository.swift in Sources */,
@@ -931,6 +952,7 @@
 				AEEC74A520CAE0BF00B86837 /* ClientVersionPlugin.swift in Sources */,
 				AE86639820D7D4A1008CE6D2 /* AppPresentationDependencyInjector.swift in Sources */,
 				AE598BAC20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift in Sources */,
+				AEDB0DB5211B37F9004F843E /* WelcomePresenter.swift in Sources */,
 				AEAE26AC20E2860A00E5D4E9 /* SceneApi.swift in Sources */,
 				AEEC74A320CADB8C00B86837 /* AuthHeaderPlugin.swift in Sources */,
 				AEAE26AA20E285AA00E5D4E9 /* SceneRepository.swift in Sources */,
@@ -951,6 +973,7 @@
 				AE6911CF20E78D0A00A05679 /* ExperienceMapPresenterTests.swift in Sources */,
 				AE89AC2E20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift in Sources */,
 				AEEC749920CAADD000B86837 /* AuthStorageRepositoryTests.swift in Sources */,
+				AEDB0DBD211B4342004F843E /* AuthRepoMock.swift in Sources */,
 				AEB6A66620DBFDA900F936DB /* ExperienceRepositoryTests.swift in Sources */,
 				AE80DE7C20CEE0CB00A170F6 /* AuthRepositoryTests.swift in Sources */,
 				AE73C7BF20CE80E200B05DA2 /* AuthApiRepositoryTests.swift in Sources */,
@@ -959,6 +982,7 @@
 				AE598BB320EA7A1000F3DBA9 /* SceneRepoMock.swift in Sources */,
 				AE3116E720EBD2FC00720A95 /* ExperienceRepoMock.swift in Sources */,
 				AE6F8B6F20DAC6A0007CC36A /* RequesterTests.swift in Sources */,
+				AEDB0DBB211B3FAC004F843E /* WelcomePresenterTests.swift in Sources */,
 				AEE47BE620E3A83A001DAB31 /* SceneRepositoryTests.swift in Sources */,
 				AE6F8B6720DA50BD007CC36A /* ResultCacheTests.swift in Sources */,
 			);

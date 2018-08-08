@@ -6,7 +6,8 @@ class RootViewController: UIViewController {
     
     init() {
         if authRepo.hasPersonCredentials() {
-            let mainViewController = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
+            let mainViewController = UIStoryboard.init(name: "Main", bundle: nil)
+                .instantiateInitialViewController()
             self.current = mainViewController!
         }
         else {
@@ -27,6 +28,25 @@ class RootViewController: UIViewController {
         current.view.frame = view.bounds
         view.addSubview(current.view)
         current.didMove(toParentViewController: self)
+    }
+    
+    private func animateFadeTransition(to new: UIViewController, completion: (() -> Void)? = nil) {
+        current.willMove(toParentViewController: nil)
+        addChildViewController(new)
+        
+        transition(from: current, to: new, duration: 0.3, options: [.transitionCrossDissolve, .curveEaseOut], animations: {
+        }) { completed in
+            self.current.removeFromParentViewController()
+            new.didMove(toParentViewController: self)
+            self.current = new
+            completion?()
+        }
+    }
+    
+    func navigateToMain() {
+        let mainViewController = UIStoryboard.init(name: "Main", bundle: nil)
+            .instantiateInitialViewController()!
+        animateFadeTransition(to: mainViewController)
     }
 }
 

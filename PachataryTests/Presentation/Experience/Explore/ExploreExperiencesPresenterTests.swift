@@ -301,23 +301,3 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
         self.navigateCalls.append(experienceId)
     }
 }
-
-class AuthRepoMock: AuthRepository {
-
-    var hasPersonCredentialsResponse: Bool!
-    var authToken: AuthToken!
-    var returnInProgress = false
-    var returnError: DataError? = nil
-    
-    func hasPersonCredentials() -> Bool {
-        return self.hasPersonCredentialsResponse
-    }
-    
-    func getPersonInvitation() -> Observable<Result<AuthToken>> {
-        var result: Result<AuthToken>?
-        if returnInProgress { result = Result(.inProgress) }
-        else if returnError != nil { result = Result(error: returnError!) }
-        else { result =  Result(.success, data: authToken)}
-        return Observable.just(result!)
-    }
-}
