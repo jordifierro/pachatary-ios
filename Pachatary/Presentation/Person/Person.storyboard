@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Welcome View Controller-->
+        <scene sceneID="8Qj-fi-jwq">
+            <objects>
+                <viewController storyboardIdentifier="welcomeViewController" id="g7u-8T-6Mu" customClass="WelcomeViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="J8h-tV-aYP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Welcome to Pachatary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1j-l6-VF5">
+                                <rect key="frame" x="157" y="264" width="163" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JgD-Iz-YzU">
+                                <rect key="frame" x="37.5" y="587" width="300" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Start new adventure"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5em-OM-7AK">
+                                <rect key="frame" x="37.5" y="630" width="300" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="I already have an account"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5em-OM-7AK" firstAttribute="top" secondItem="JgD-Iz-YzU" secondAttribute="bottom" constant="10" id="2yt-hc-ADy"/>
+                            <constraint firstItem="JgD-Iz-YzU" firstAttribute="width" secondItem="J8h-tV-aYP" secondAttribute="width" multiplier="8:10" id="351-Ir-7qx"/>
+                            <constraint firstItem="5em-OM-7AK" firstAttribute="centerX" secondItem="5cK-Zi-ozm" secondAttribute="centerX" id="Nbg-SQ-aF4"/>
+                            <constraint firstItem="t1j-l6-VF5" firstAttribute="centerY" secondItem="5cK-Zi-ozm" secondAttribute="centerY" id="Odp-PU-T1x"/>
+                            <constraint firstItem="5cK-Zi-ozm" firstAttribute="bottom" secondItem="5em-OM-7AK" secondAttribute="bottom" constant="10" id="QEX-YV-kLk"/>
+                            <constraint firstItem="t1j-l6-VF5" firstAttribute="centerX" secondItem="5cK-Zi-ozm" secondAttribute="centerX" id="QeW-dc-5Wr"/>
+                            <constraint firstItem="5em-OM-7AK" firstAttribute="width" secondItem="J8h-tV-aYP" secondAttribute="width" multiplier="8:10" id="gku-Xu-zut"/>
+                            <constraint firstItem="JgD-Iz-YzU" firstAttribute="centerX" secondItem="5cK-Zi-ozm" secondAttribute="centerX" id="ka8-cR-sBh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5cK-Zi-ozm"/>
+                    </view>
+                    <connections>
+                        <outlet property="loginButton" destination="5em-OM-7AK" id="zCA-Kb-cRd"/>
+                        <outlet property="startButton" destination="JgD-Iz-YzU" id="JAP-nS-nNw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PHq-FS-5pL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1489" y="-658"/>
+        </scene>
+    </scenes>
+</document>

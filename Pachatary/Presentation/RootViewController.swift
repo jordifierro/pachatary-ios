@@ -11,7 +11,8 @@ class RootViewController: UIViewController {
             self.current = mainViewController!
         }
         else {
-            let welcomeViewController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "welcomeViewController")
+            let welcomeViewController = UIStoryboard.init(name: "Person", bundle: nil)
+                .instantiateViewController(withIdentifier: "welcomeViewController")
             self.current = welcomeViewController
         }
         super.init(nibName: nil, bundle: nil)
@@ -34,13 +35,14 @@ class RootViewController: UIViewController {
         current.willMove(toParentViewController: nil)
         addChildViewController(new)
         
-        transition(from: current, to: new, duration: 0.3, options: [.transitionCrossDissolve, .curveEaseOut], animations: {
-        }) { completed in
-            self.current.removeFromParentViewController()
-            new.didMove(toParentViewController: self)
-            self.current = new
-            completion?()
-        }
+        transition(from: current, to: new, duration: 0.3,
+                   options: [.transitionCrossDissolve, .curveEaseOut], animations: { })
+            { completed in
+                self.current.removeFromParentViewController()
+                new.didMove(toParentViewController: self)
+                self.current = new
+                completion?()
+            }
     }
     
     func navigateToMain() {
@@ -49,4 +51,3 @@ class RootViewController: UIViewController {
         animateFadeTransition(to: mainViewController)
     }
 }
-
