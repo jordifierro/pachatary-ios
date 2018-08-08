@@ -12,6 +12,8 @@
 		721696F24410FC2F2C54AAEE /* Pods_PachataryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2ACA8339ABA2B763112FF08 /* Pods_PachataryUITests.framework */; };
 		AE0B27AE20E67D110060D923 /* ExperienceMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */; };
 		AE0C676C20E122F500E4BFA0 /* PaginationLoaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */; };
+		AE0F8F97211B549500A735B8 /* AskLoginEmailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F8F96211B549500A735B8 /* AskLoginEmailPresenter.swift */; };
+		AE0F8F99211B61C300A735B8 /* AskLoginEmailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F8F98211B61C300A735B8 /* AskLoginEmailPresenterTests.swift */; };
 		AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */; };
 		AE1D6D1D20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */; };
 		AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1E20C5707300EA6DDD /* Experience.swift */; };
@@ -80,6 +82,7 @@
 		AEDB0DBB211B3FAC004F843E /* WelcomePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */; };
 		AEDB0DBD211B4342004F843E /* AuthRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DBC211B4342004F843E /* AuthRepoMock.swift */; };
 		AEDB0DBF211B4CB6004F843E /* Person.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEDB0DBE211B4CB6004F843E /* Person.storyboard */; };
+		AEDB0DC3211B51E3004F843E /* AskLoginEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DC2211B51E3004F843E /* AskLoginEmailView.swift */; };
 		AEE1528A20D94E3E008707FF /* SingleResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528920D94E3E008707FF /* SingleResultMapper.swift */; };
 		AEE1528E20D96DC6008707FF /* ToResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528D20D96DC6008707FF /* ToResultMapper.swift */; };
 		AEE1529020D98395008707FF /* ResultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528F20D98395008707FF /* ResultCache.swift */; };
@@ -122,6 +125,8 @@
 		386DAF74E9D4D63994E5E77E /* Pods-PachataryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapPresenter.swift; sourceTree = "<group>"; };
 		AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationLoaderViewCell.swift; sourceTree = "<group>"; };
+		AE0F8F96211B549500A735B8 /* AskLoginEmailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskLoginEmailPresenter.swift; sourceTree = "<group>"; };
+		AE0F8F98211B61C300A735B8 /* AskLoginEmailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskLoginEmailPresenterTests.swift; sourceTree = "<group>"; };
 		AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+NetworkResponseTransformerTests.swift"; sourceTree = "<group>"; };
 		AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		AE1D6D1E20C5707300EA6DDD /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
@@ -196,6 +201,7 @@
 		AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenterTests.swift; sourceTree = "<group>"; };
 		AEDB0DBC211B4342004F843E /* AuthRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepoMock.swift; sourceTree = "<group>"; };
 		AEDB0DBE211B4CB6004F843E /* Person.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Person.storyboard; sourceTree = "<group>"; };
+		AEDB0DC2211B51E3004F843E /* AskLoginEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskLoginEmailView.swift; sourceTree = "<group>"; };
 		AEE1528920D94E3E008707FF /* SingleResultMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleResultMapper.swift; sourceTree = "<group>"; };
 		AEE1528D20D96DC6008707FF /* ToResultMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToResultMapper.swift; sourceTree = "<group>"; };
 		AEE1528F20D98395008707FF /* ResultCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCache.swift; sourceTree = "<group>"; };
@@ -507,6 +513,7 @@
 			isa = PBXGroup;
 			children = (
 				AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */,
+				AE0F8F98211B61C300A735B8 /* AskLoginEmailPresenterTests.swift */,
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -514,12 +521,30 @@
 		AEDB0DB9211B3F62004F843E /* Person */ = {
 			isa = PBXGroup;
 			children = (
-				AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */,
-				AEDB0DB4211B37F9004F843E /* WelcomePresenter.swift */,
+				AEDB0DC1211B51B9004F843E /* Login */,
+				AEDB0DC0211B51A6004F843E /* Welcome */,
 				AEDB0DB6211B3996004F843E /* PersonDependencyInjector.swift */,
 				AEDB0DBE211B4CB6004F843E /* Person.storyboard */,
 			);
 			path = Person;
+			sourceTree = "<group>";
+		};
+		AEDB0DC0211B51A6004F843E /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */,
+				AEDB0DB4211B37F9004F843E /* WelcomePresenter.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		AEDB0DC1211B51B9004F843E /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				AEDB0DC2211B51E3004F843E /* AskLoginEmailView.swift */,
+				AE0F8F96211B549500A735B8 /* AskLoginEmailPresenter.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		AEEAC68420C97CBA007C17EE /* Experience */ = {
@@ -915,6 +940,7 @@
 				AEEC749220CA74AD00B86837 /* AuthStorageRepository.swift in Sources */,
 				AEEC749B20CAC9B300B86837 /* AuthApiRepository.swift in Sources */,
 				AEA566292113328400F0E1F3 /* LittlePictureMapper.swift in Sources */,
+				AEDB0DC3211B51E3004F843E /* AskLoginEmailView.swift in Sources */,
 				AEAE26B420E28E3200E5D4E9 /* SceneDataDependencyInjector.swift in Sources */,
 				AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */,
 				AEB326B520C6F819000E07D8 /* BigPictureMapper.swift in Sources */,
@@ -929,6 +955,7 @@
 				AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */,
 				AEAE26B020E2885900E5D4E9 /* SceneApiRepository.swift in Sources */,
 				AE86639620D7D3B5008CE6D2 /* AuthDataDependencyInjector.swift in Sources */,
+				AE0F8F97211B549500A735B8 /* AskLoginEmailPresenter.swift in Sources */,
 				AEA56627211331D400F0E1F3 /* LittlePicture.swift in Sources */,
 				AEE1528A20D94E3E008707FF /* SingleResultMapper.swift in Sources */,
 				AE218B8520E2789E00E79E51 /* ExperienceMapView.swift in Sources */,
@@ -989,6 +1016,7 @@
 				AEDB0DBB211B3FAC004F843E /* WelcomePresenterTests.swift in Sources */,
 				AEE47BE620E3A83A001DAB31 /* SceneRepositoryTests.swift in Sources */,
 				AE6F8B6720DA50BD007CC36A /* ResultCacheTests.swift in Sources */,
+				AE0F8F99211B61C300A735B8 /* AskLoginEmailPresenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

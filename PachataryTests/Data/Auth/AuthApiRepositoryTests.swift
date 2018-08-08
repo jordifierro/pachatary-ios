@@ -16,12 +16,21 @@ class AuthApiRepositoryTests: XCTestCase {
             .then_should_return_inprogress_and_result_auth_token()
     }
 
+    func test_ask_login_email() {
+        ScenarioMaker(self)
+            .given_an_api_repo()
+            .given_an_stubbed_network_call_for_people_login_email_post("emailtest")
+            .when_ask_login_email("emailtest")
+            .then_should_return_inprogress_and_result_success()
+    }
+
     class ScenarioMaker {
         
         var authApiRepo: AuthApiRepository!
         var clientSecretKey: String!
         var testCase: XCTestCase!
         var resultObservable: Observable<Result<AuthToken>>!
+        var askLoginEmailResultObservable: Observable<Result<Bool>>!
 
         init(_ testCase: XCTestCase) {
             self.testCase = testCase
@@ -35,6 +44,12 @@ class AuthApiRepositoryTests: XCTestCase {
         func given_an_api_repo_with_that_client_secret_key() -> ScenarioMaker {
             authApiRepo = AuthApiRepoImplementation(MoyaProvider<AuthApi>().rx,
                                                     clientSecretKey, MainScheduler.instance)
+            return self
+        }
+        
+        func given_an_api_repo() -> ScenarioMaker {
+            authApiRepo = AuthApiRepoImplementation(MoyaProvider<AuthApi>().rx,
+                                                    "", MainScheduler.instance)
             return self
         }
         
@@ -65,9 +80,36 @@ class AuthApiRepositoryTests: XCTestCase {
             testCase.wait(for: [expectation], timeout: 1)
             return self
         }
+        func given_an_stubbed_network_call_for_people_login_email_post(_ email: String) -> ScenarioMaker {
+            let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/me/login-email")!
+            let requestBody = ("email=" + email).data(using: .utf8)!
+            var stub = StubRequest(method: .POST, url: url)
+            stub.bodyMatcher = DataMatcher(data: requestBody)
+            var response = StubResponse()
+            
+            response.body = Data()
+            stub.response = response
+            Hippolyte.shared.add(stubbedRequest: stub)
+            Hippolyte.shared.start()
+            
+            let expectation = testCase.expectation(description: "Stubs network call")
+            let task = URLSession.shared.dataTask(with: url) { data, response, _ in
+                //XCTAssertEqual(data, Data())
+                expectation.fulfill()
+            }
+            task.resume()
+            
+            testCase.wait(for: [expectation], timeout: 1)
+            return self
+        }
         
         func when_get_person_invitation() -> ScenarioMaker {
             resultObservable = authApiRepo.getPersonInvitation()
+            return self
+        }
+        
+        func when_ask_login_email(_ email: String) -> ScenarioMaker {
+            askLoginEmailResultObservable = authApiRepo.askLoginEmail(email)
             return self
         }
         
@@ -81,8 +123,15 @@ class AuthApiRepositoryTests: XCTestCase {
             } catch { assertionFailure() }
             return self
         }
+        
+        @discardableResult
+        func then_should_return_inprogress_and_result_success() -> ScenarioMaker {
+            do {
+                let result = try askLoginEmailResultObservable.toBlocking().toArray()
+                assert (result[0] == Result(.inProgress))
+                assert(result[1] == Result(.success, data: true))
+            } catch { assertionFailure() }
+            return self
+        }
     }
 }
-
-
-

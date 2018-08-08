@@ -58,5 +58,52 @@
             </objects>
             <point key="canvasLocation" x="1489" y="-658"/>
         </scene>
+        <!--Ask Login Email View Controller-->
+        <scene sceneID="tAE-hK-M5s">
+            <objects>
+                <viewController storyboardIdentifier="askLoginEmailViewController" id="19m-ND-7nL" customClass="AskLoginEmailViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KNI-98-IT5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l52-D6-aMc">
+                                <rect key="frame" x="20" y="40" width="45.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Introduce your email here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GYB-IC-Xsi">
+                                <rect key="frame" x="19" y="71" width="337.5" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" textContentType="email"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llV-tZ-1We">
+                                <rect key="frame" x="19" y="617" width="337.5" height="30"/>
+                                <state key="normal" title="Ask login email"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="l52-D6-aMc" firstAttribute="leading" secondItem="xIh-w8-2ed" secondAttribute="leading" constant="20" id="00H-NF-ICq"/>
+                            <constraint firstItem="llV-tZ-1We" firstAttribute="width" secondItem="KNI-98-IT5" secondAttribute="width" multiplier="9:10" id="60y-L7-VHx"/>
+                            <constraint firstItem="GYB-IC-Xsi" firstAttribute="centerX" secondItem="xIh-w8-2ed" secondAttribute="centerX" id="JS3-g6-LRE"/>
+                            <constraint firstItem="l52-D6-aMc" firstAttribute="top" secondItem="xIh-w8-2ed" secondAttribute="top" constant="20" id="Q4A-mE-Jdx"/>
+                            <constraint firstItem="xIh-w8-2ed" firstAttribute="bottom" secondItem="llV-tZ-1We" secondAttribute="bottom" constant="20" id="aFm-kn-C5q"/>
+                            <constraint firstItem="GYB-IC-Xsi" firstAttribute="width" secondItem="KNI-98-IT5" secondAttribute="width" multiplier="9:10" id="aOy-Bx-RNP"/>
+                            <constraint firstItem="GYB-IC-Xsi" firstAttribute="top" secondItem="l52-D6-aMc" secondAttribute="bottom" constant="10" id="nTH-h7-cEv"/>
+                            <constraint firstItem="llV-tZ-1We" firstAttribute="centerX" secondItem="xIh-w8-2ed" secondAttribute="centerX" id="znD-X3-k4z"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xIh-w8-2ed"/>
+                    </view>
+                    <connections>
+                        <outlet property="askButton" destination="llV-tZ-1We" id="CoF-6H-ubh"/>
+                        <outlet property="emailTextField" destination="GYB-IC-Xsi" id="cpa-Js-bgc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oKl-s4-8Jd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2342" y="-658"/>
+        </scene>
     </scenes>
 </document>

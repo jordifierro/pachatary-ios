@@ -8,4 +8,10 @@ class PersonDependencyInjector {
             AuthDataDependencyInjector.authRepository,
             AppPresentationDependencyInjector.mainScheduler) }
     }
+    
+    static var askLoginEmailPresenter: AskLoginEmailPresenter { get { return
+        AskLoginEmailPresenter(
+            AuthDataDependencyInjector.authRepository,
+            AppPresentationDependencyInjector.mainScheduler) }
+    }
 }

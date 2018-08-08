@@ -4,6 +4,7 @@ import RxSwift
 protocol AuthRepository {
     func hasPersonCredentials() -> Bool
     func getPersonInvitation() -> Observable<Result<AuthToken>>
+    func askLoginEmail(_ email: String) -> Observable<Result<Bool>>
 }
 
 class AuthRepoImplementation: AuthRepository {
@@ -36,5 +37,8 @@ class AuthRepoImplementation: AuthRepository {
                 }
             })
     }
+    
+    func askLoginEmail(_ email: String) -> Observable<Result<Bool>> {
+        return apiRepo.askLoginEmail(email)
+    }
 }
-

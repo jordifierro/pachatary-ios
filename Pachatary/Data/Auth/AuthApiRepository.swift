@@ -4,6 +4,7 @@ import Moya
 
 protocol AuthApiRepository {
     func getPersonInvitation() -> Observable<Result<AuthToken>>
+    func askLoginEmail(_ email: String) -> Observable<Result<Bool>>
 }
 
 class AuthApiRepoImplementation: AuthApiRepository {
@@ -22,6 +23,11 @@ class AuthApiRepoImplementation: AuthApiRepository {
     func getPersonInvitation() -> Observable<Result<AuthToken>> {
         return self.api.request(.createPerson(clientSecretKey: self.clientSecretKey))
             .transformNetworkResponse(SingleResultMapper<AuthTokenMapper>.self, ioScheduler)
+    }
+    
+    func askLoginEmail(_ email: String) -> Observable<Result<Bool>> {
+        return self.api.request(.askLoginEmail(email: email))
+            .transformNetworkVoidResponse(ioScheduler)
     }
 }
 
