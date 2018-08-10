@@ -81,6 +81,7 @@
 		AEBB62BC20C547D6001A4576 /* PachataryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */; };
 		AEC8DCE6211DEBAE007CCC68 /* LoginPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */; };
 		AEC8DCE8211DF1F0007CCC68 /* POST_people_me_login.json in Resources */ = {isa = PBXBuildFile; fileRef = AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */; };
+		AEC8DCEA211DF9D3007CCC68 /* DataTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC8DCE9211DF9D3007CCC68 /* DataTestUtils.swift */; };
 		AEDB0DB5211B37F9004F843E /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DB4211B37F9004F843E /* WelcomePresenter.swift */; };
 		AEDB0DB7211B3996004F843E /* PersonDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DB6211B3996004F843E /* PersonDependencyInjector.swift */; };
 		AEDB0DBB211B3FAC004F843E /* WelcomePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */; };
@@ -204,6 +205,7 @@
 		AEBB62BD20C547D6001A4576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenterTests.swift; sourceTree = "<group>"; };
 		AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POST_people_me_login.json; sourceTree = "<group>"; };
+		AEC8DCE9211DF9D3007CCC68 /* DataTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestUtils.swift; sourceTree = "<group>"; };
 		AEDB0DB4211B37F9004F843E /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
 		AEDB0DB6211B3996004F843E /* PersonDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDependencyInjector.swift; sourceTree = "<group>"; };
 		AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenterTests.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 			children = (
 				AE6F8B6620DA50BD007CC36A /* ResultCacheTests.swift */,
 				AE6F8B6E20DAC6A0007CC36A /* RequesterTests.swift */,
+				AEC8DCE9211DF9D3007CCC68 /* DataTestUtils.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1027,6 +1030,7 @@
 				AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */,
 				AE598BB120EA79C200F3DBA9 /* ExperienceScenesPresenterTests.swift in Sources */,
 				AE598BB320EA7A1000F3DBA9 /* SceneRepoMock.swift in Sources */,
+				AEC8DCEA211DF9D3007CCC68 /* DataTestUtils.swift in Sources */,
 				AE3116E720EBD2FC00720A95 /* ExperienceRepoMock.swift in Sources */,
 				AE6F8B6F20DAC6A0007CC36A /* RequesterTests.swift in Sources */,
 				AEDB0DBB211B3FAC004F843E /* WelcomePresenterTests.swift in Sources */,

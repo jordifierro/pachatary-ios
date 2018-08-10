@@ -59,80 +59,23 @@ class ExperienceApiRepositoryTests: XCTestCase {
         }
         
         func given_an_stubbed_network_call_for_search() -> ScenarioMaker {
-            let url = URL(string: AppDataDependencyInjector.apiUrl + "/experiences/search")!
-            var stub = StubRequest(method: .GET, url: url)
-            var response = StubResponse()
-            
-            var body = Data()
-            let path = Bundle(for: type(of: self))
-                .path(forResource: "GET_experiences_search", ofType: "json")
-            do { body = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe) }
-            catch { assertionFailure() }
-            
-            response.body = body
-            stub.response = response
-            Hippolyte.shared.add(stubbedRequest: stub)
-            Hippolyte.shared.start()
-            
-            let expectation = testCase.expectation(description: "Stubs network call")
-            let task = URLSession.shared.dataTask(with: url) { data, _, _ in
-                XCTAssertEqual(data, body)
-                expectation.fulfill()
-            }
-            task.resume()
-            
-            testCase.wait(for: [expectation], timeout: 1)
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
+                                          AppDataDependencyInjector.apiUrl + "/experiences/search",
+                                          .GET, "GET_experiences_search")
             return self
         }
         
         func given_an_stubbed_network_call_for_pagination() -> ScenarioMaker {
-            let url = URL(string: self.paginationUrl)!
-            var stub = StubRequest(method: .GET, url: url)
-            var response = StubResponse()
-            
-            var body = Data()
-            let path = Bundle(for: type(of: self))
-                .path(forResource: "GET_experiences_search", ofType: "json")
-            do { body = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe) }
-            catch { assertionFailure() }
-            
-            response.body = body
-            stub.response = response
-            Hippolyte.shared.add(stubbedRequest: stub)
-            Hippolyte.shared.start()
-            
-            let expectation = testCase.expectation(description: "Stubs network call")
-            let task = URLSession.shared.dataTask(with: url) { data, _, _ in
-                XCTAssertEqual(data, body)
-                expectation.fulfill()
-            }
-            task.resume()
-            
-            testCase.wait(for: [expectation], timeout: 1)
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
+                                          self.paginationUrl, .GET, "GET_experiences_search")
             return self
         }
         
         func given_an_stubbed_network_call_for_save(_ experienceId: String, method: HTTPMethod,
                                                     statusCode: Int) -> ScenarioMaker {
-            let url = URL(string: AppDataDependencyInjector.apiUrl +
-                                  "/experiences/" + experienceId + "/save")!
-            var stub = StubRequest(method: method, url: url)
-            var response = StubResponse()
-            
-            response.body = Data()
-            response.statusCode = statusCode
-            stub.response = response
-            Hippolyte.shared.add(stubbedRequest: stub)
-            Hippolyte.shared.start()
-            
-            let expectation = testCase.expectation(description: "Stubs network call")
-            let task = URLSession.shared.dataTask(with: url) { data, _, _ in
-                XCTAssertEqual(data, nil)
-                expectation.fulfill()
-            }
-            task.resume()
-            
-            testCase.wait(for: [expectation], timeout: 1)
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
+                  AppDataDependencyInjector.apiUrl + "/experiences/" + experienceId + "/save",
+                  method, nil, statusCode)
             return self
         }
         

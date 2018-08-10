@@ -62,81 +62,23 @@ class AuthApiRepositoryTests: XCTestCase {
         }
         
         func given_an_stubbed_network_call_for_people_post() -> ScenarioMaker {
-            let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/")!
-            let requestBody = ("client_secret_key=" + clientSecretKey).data(using: .utf8)!
-            var stub = StubRequest(method: .POST, url: url)
-            stub.bodyMatcher = DataMatcher(data: requestBody)
-            var response = StubResponse()
-            
-            var body = Data()
-            let path = Bundle(for: type(of: self)).path(forResource: "POST_people", ofType: "json")
-            do { body = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe) }
-            catch { assertionFailure() }
-            
-            response.body = body
-            stub.response = response
-            Hippolyte.shared.add(stubbedRequest: stub)
-            Hippolyte.shared.start()
-            
-            let expectation = testCase.expectation(description: "Stubs network call")
-            let task = URLSession.shared.dataTask(with: url) { data, response, _ in
-                //XCTAssertEqual(data, body)
-                expectation.fulfill()
-            }
-            task.resume()
-            
-            testCase.wait(for: [expectation], timeout: 1)
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
+                AppDataDependencyInjector.apiUrl + "/people/",
+                .POST, "POST_people", 201, "client_secret_key=" + clientSecretKey)
             return self
         }
         
         func given_an_stubbed_network_call_for_people_login(_ token: String) -> ScenarioMaker {
-            let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/me/login")!
-            let requestBody = ("token=" + token).data(using: .utf8)!
-            var stub = StubRequest(method: .POST, url: url)
-            stub.bodyMatcher = DataMatcher(data: requestBody)
-            var response = StubResponse()
-            
-            var body = Data()
-            let path = Bundle(for: type(of: self)).path(forResource: "POST_people_me_login", ofType: "json")
-            do { body = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe) }
-            catch { assertionFailure() }
-            
-            response.body = body
-            stub.response = response
-            Hippolyte.shared.add(stubbedRequest: stub)
-            Hippolyte.shared.start()
-            
-            let expectation = testCase.expectation(description: "Stubs network call")
-            let task = URLSession.shared.dataTask(with: url) { data, response, _ in
-                //XCTAssertEqual(data, body)
-                expectation.fulfill()
-            }
-            task.resume()
-            
-            testCase.wait(for: [expectation], timeout: 1)
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
+                AppDataDependencyInjector.apiUrl + "/people/me/login",
+                .POST, "POST_people_me_login", 201, "token=" + token)
             return self
         }
         
         func given_an_stubbed_network_call_for_people_login_email_post(_ email: String) -> ScenarioMaker {
-            let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/me/login-email")!
-            let requestBody = ("email=" + email).data(using: .utf8)!
-            var stub = StubRequest(method: .POST, url: url)
-            stub.bodyMatcher = DataMatcher(data: requestBody)
-            var response = StubResponse()
-            
-            response.body = Data()
-            stub.response = response
-            Hippolyte.shared.add(stubbedRequest: stub)
-            Hippolyte.shared.start()
-            
-            let expectation = testCase.expectation(description: "Stubs network call")
-            let task = URLSession.shared.dataTask(with: url) { data, response, _ in
-                //XCTAssertEqual(data, Data())
-                expectation.fulfill()
-            }
-            task.resume()
-            
-            testCase.wait(for: [expectation], timeout: 1)
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
+                AppDataDependencyInjector.apiUrl + "/people/me/login-email",
+                .POST, nil, 201, "email=" + email)
             return self
         }
         

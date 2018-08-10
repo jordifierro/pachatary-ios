@@ -34,30 +34,9 @@ class SceneApiRepositoryTests: XCTestCase {
         }
         
         func given_an_stubbed_network_call_for_scenes_experience_id() -> ScenarioMaker {
-            let url = URL(string: AppDataDependencyInjector.apiUrl +
-                                  "/scenes/?experience=" + experienceId)!
-            var stub = StubRequest(method: .GET, url: url)
-            var response = StubResponse()
-            
-            var body = Data()
-            let path = Bundle(for: type(of: self))
-                .path(forResource: "GET_scenes_experience_id", ofType: "json")
-            do { body = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe) }
-            catch { assertionFailure() }
-            
-            response.body = body
-            stub.response = response
-            Hippolyte.shared.add(stubbedRequest: stub)
-            Hippolyte.shared.start()
-            
-            let expectation = testCase.expectation(description: "Stubs network call")
-            let task = URLSession.shared.dataTask(with: url) { data, _, _ in
-                XCTAssertEqual(data, body)
-                expectation.fulfill()
-            }
-            task.resume()
-            
-            testCase.wait(for: [expectation], timeout: 1)
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
+                  AppDataDependencyInjector.apiUrl + "/scenes/?experience=" + experienceId,
+                  .GET, "GET_scenes_experience_id")
             return self
         }
 

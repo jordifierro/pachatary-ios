@@ -77,57 +77,16 @@ class SingleNetworkResponseTransformerTests: XCTestCase {
         }
 
         func given_an_stubbed_network_call_that_returns_success() -> ScenarioMaker {
-            let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/")!
-            let requestBody = ("client_secret_key=").data(using: .utf8)!
-            var stub = StubRequest(method: .POST, url: url)
-            stub.bodyMatcher = DataMatcher(data: requestBody)
-            var response = StubResponse()
-            
-            var body = Data()
-            let path = Bundle(for: type(of: self)).path(forResource: "POST_people", ofType: "json")
-            do { body = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe) }
-            catch { assertionFailure() }
-            
-            response.body = body
-            stub.response = response
-            Hippolyte.shared.add(stubbedRequest: stub)
-            Hippolyte.shared.start()
-            
-            let expectation = testCase.expectation(description: "Stubs network call")
-            let task = URLSession.shared.dataTask(with: url) { data, response, _ in
-                expectation.fulfill()
-            }
-            task.resume()
-            
-            testCase.wait(for: [expectation], timeout: 1)
+            DataTestUtils.stubNetworkCall(testCase, Bundle.init(for: type(of: self)),
+                AppDataDependencyInjector.apiUrl + "/people/", .POST, "POST_people",
+                201, "client_secret_key=")
             return self
         }
         
         func given_an_stubbed_network_call_that_returns_success_list() -> ScenarioMaker {
-            let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/")!
-            let requestBody = ("client_secret_key=").data(using: .utf8)!
-            var stub = StubRequest(method: .POST, url: url)
-            stub.bodyMatcher = DataMatcher(data: requestBody)
-            var response = StubResponse()
-            
-            var body = Data()
-            let path = Bundle(for: type(of: self))
-                .path(forResource: "GET_scenes_experience_id", ofType: "json")
-            do { body = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe) }
-            catch { assertionFailure() }
-            
-            response.body = body
-            stub.response = response
-            Hippolyte.shared.add(stubbedRequest: stub)
-            Hippolyte.shared.start()
-            
-            let expectation = testCase.expectation(description: "Stubs network call")
-            let task = URLSession.shared.dataTask(with: url) { data, response, _ in
-                expectation.fulfill()
-            }
-            task.resume()
-            
-            testCase.wait(for: [expectation], timeout: 1)
+            DataTestUtils.stubNetworkCall(testCase, Bundle.init(for: type(of: self)),
+                AppDataDependencyInjector.apiUrl + "/people/", .POST, "GET_scenes_experience_id",
+                201, "client_secret_key=")
             return self
         }
         
