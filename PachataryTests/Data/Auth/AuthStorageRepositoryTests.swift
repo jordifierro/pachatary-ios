@@ -5,10 +5,9 @@ class AuthStorageRepositoryTests: XCTestCase {
     
     func test_get_and_set_person_credentials() {
         ScenarioMaker().buildScenario()
-            .given_an_auth_token()
-            .given_set_person_credentials_with_that_auth_token()
+            .given_set_person_credentials(AuthToken(accessToken: "AT", refreshToken: "RT"))
             .when_get_person_credentials()
-            .then_should_return_that_auth_token()
+            .then_should_return(AuthToken(accessToken: "AT", refreshToken: "RT"))
     }
     
     func test_get_when_no_credentials_should_throw_no_logged_person_error() {
@@ -20,7 +19,6 @@ class AuthStorageRepositoryTests: XCTestCase {
     class ScenarioMaker {
         
         var authStorageRepo: AuthStorageRepository!
-        var authToken: AuthToken!
         var error: Error!
         var resultAuthToken: AuthToken!
         
@@ -28,32 +26,24 @@ class AuthStorageRepositoryTests: XCTestCase {
         
         func buildScenario() -> ScenarioMaker {
             
-            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             authStorageRepo = AuthStorageRepoImplementation()
+            (authStorageRepo as! AuthStorageRepoImplementation).removeAll()
             return self
         }
         
-        func given_an_auth_token() -> ScenarioMaker {
-            authToken = AuthToken(accessToken: "a", refreshToken: "r")
-            return self
-        }
-        
-        func given_set_person_credentials_with_that_auth_token() -> ScenarioMaker {
+        func given_set_person_credentials(_ authToken: AuthToken) -> ScenarioMaker {
             authStorageRepo.setPersonCredentials(authToken: authToken)
             return self
         }
         
         func when_get_person_credentials() -> ScenarioMaker {
-            do {
-                try resultAuthToken = authStorageRepo.getPersonCredentials()
-            } catch let error {
-                self.error = error
-            }
+            do { try resultAuthToken = authStorageRepo.getPersonCredentials() }
+            catch let error { self.error = error }
             return self
         }
         
         @discardableResult
-        func then_should_return_that_auth_token() -> ScenarioMaker {
+        func then_should_return(_ authToken: AuthToken) -> ScenarioMaker {
             assert(authToken == resultAuthToken)
             return self
         }
@@ -65,4 +55,3 @@ class AuthStorageRepositoryTests: XCTestCase {
         }
     }
 }
-

@@ -23,6 +23,7 @@ PODS:
   - RxBlocking (4.1.2):
     - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
+  - SwiftKeychainWrapper (3.0.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -34,6 +35,7 @@ DEPENDENCIES:
   - Moya/RxSwift (~> 11.0)
   - RxBlocking
   - RxSwift (~> 4.0)
+  - SwiftKeychainWrapper
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -48,6 +50,7 @@ SPEC REPOS:
     - Result
     - RxBlocking
     - RxSwift
+    - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
@@ -61,7 +64,8 @@ SPEC CHECKSUMS:
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RxBlocking: f6054985901412fc8c02daa84e92d4ba68c61389
   RxSwift: e49536837d9901277638493ea537394d4b55f570
+  SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
 
-PODFILE CHECKSUM: 98e61075c99ded9f12370cbb06c166a6854ad166
+PODFILE CHECKSUM: dcf2bbd01c2835d0ba736bd69e776e77999b4fec
 
 COCOAPODS: 1.5.3
