@@ -105,5 +105,29 @@
             </objects>
             <point key="canvasLocation" x="2342" y="-658"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="9y0-OO-XM1">
+            <objects>
+                <viewController storyboardIdentifier="loginViewController" id="meG-4u-taY" customClass="LoginViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4ua-G4-TAp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="2ft-BE-UDJ">
+                                <rect key="frame" x="143" y="294" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2ft-BE-UDJ" firstAttribute="centerX" secondItem="wLk-tC-Zao" secondAttribute="centerX" id="0Pq-nU-7yb"/>
+                            <constraint firstItem="2ft-BE-UDJ" firstAttribute="centerY" secondItem="wLk-tC-Zao" secondAttribute="centerY" id="gZF-5k-eyI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wLk-tC-Zao"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qda-eg-YEj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3209" y="-658"/>
+        </scene>
     </scenes>
 </document>

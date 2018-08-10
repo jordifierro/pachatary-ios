@@ -11,6 +11,8 @@ class AuthRepoMock: AuthRepository {
     var returnError: DataError? = nil
     var returnResult: Result<AuthToken>? = nil
     var askLoginEmailResult: Result<Bool>? = nil
+    var loginCalls = [String]()
+    var loginResults = [String:Result<AuthToken>]()
 
     func hasPersonCredentials() -> Bool {
         return self.hasPersonCredentialsResponse
@@ -27,5 +29,10 @@ class AuthRepoMock: AuthRepository {
     
     func askLoginEmail(_ email: String) -> Observable<Result<Bool>> {
         return Observable.just(askLoginEmailResult!)
+    }
+    
+    func login(_ token: String) -> Observable<Result<AuthToken>> {
+        loginCalls.append(token)
+        return Observable.just(loginResults[token]!)
     }
 }

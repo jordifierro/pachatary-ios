@@ -24,6 +24,14 @@ class AuthApiRepositoryTests: XCTestCase {
             .then_should_return_inprogress_and_result_success()
     }
 
+    func test_login_parses_auth_token_response() {
+        ScenarioMaker(self)
+            .given_an_api_repo()
+            .given_an_stubbed_network_call_for_people_login("TK")
+            .when_login("TK")
+            .then_should_return_inprogress_and_result_auth_token()
+    }
+
     class ScenarioMaker {
         
         var authApiRepo: AuthApiRepository!
@@ -80,6 +88,35 @@ class AuthApiRepositoryTests: XCTestCase {
             testCase.wait(for: [expectation], timeout: 1)
             return self
         }
+        
+        func given_an_stubbed_network_call_for_people_login(_ token: String) -> ScenarioMaker {
+            let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/me/login")!
+            let requestBody = ("token=" + token).data(using: .utf8)!
+            var stub = StubRequest(method: .POST, url: url)
+            stub.bodyMatcher = DataMatcher(data: requestBody)
+            var response = StubResponse()
+            
+            var body = Data()
+            let path = Bundle(for: type(of: self)).path(forResource: "POST_people_me_login", ofType: "json")
+            do { body = try Data(contentsOf: URL(fileURLWithPath: path!), options: .mappedIfSafe) }
+            catch { assertionFailure() }
+            
+            response.body = body
+            stub.response = response
+            Hippolyte.shared.add(stubbedRequest: stub)
+            Hippolyte.shared.start()
+            
+            let expectation = testCase.expectation(description: "Stubs network call")
+            let task = URLSession.shared.dataTask(with: url) { data, response, _ in
+                //XCTAssertEqual(data, body)
+                expectation.fulfill()
+            }
+            task.resume()
+            
+            testCase.wait(for: [expectation], timeout: 1)
+            return self
+        }
+        
         func given_an_stubbed_network_call_for_people_login_email_post(_ email: String) -> ScenarioMaker {
             let url = URL(string: AppDataDependencyInjector.apiUrl + "/people/me/login-email")!
             let requestBody = ("email=" + email).data(using: .utf8)!
@@ -110,6 +147,11 @@ class AuthApiRepositoryTests: XCTestCase {
         
         func when_ask_login_email(_ email: String) -> ScenarioMaker {
             askLoginEmailResultObservable = authApiRepo.askLoginEmail(email)
+            return self
+        }
+        
+        func when_login(_ token: String) -> ScenarioMaker {
+            resultObservable = authApiRepo.login(token)
             return self
         }
         

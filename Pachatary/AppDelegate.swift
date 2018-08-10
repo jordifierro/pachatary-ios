@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  Pachatary
-//
-//  Created by Jordi Fierro on 04/06/2018.
-//  Copyright © 2018 Pachatary. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
@@ -20,6 +12,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = RootViewController()
         window?.makeKeyAndVisible()
         
+        return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL,
+                     options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let urlPath = url.pathComponents[1]
+        if urlPath == "people" {
+            let thirdPath = url.pathComponents[3]
+            if thirdPath == "login" {
+                let token = url.query!.replacingOccurrences(of: "token=", with: "")
+                rootViewController.navigateToLogin(token: token)
+            }
+        }
         return true
     }
 

@@ -38,7 +38,7 @@ extension WelcomeViewController: WelcomeView {
     }
     
     func navigateToLogin() {
-        AppDelegate.shared.rootViewController.navigateToLogin()
+        AppDelegate.shared.rootViewController.navigateToAskLoginEmail()
     }
     
     func enableButtons() {

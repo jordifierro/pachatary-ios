@@ -51,9 +51,16 @@ class RootViewController: UIViewController {
         animateFadeTransition(to: mainViewController)
     }
     
-    func navigateToLogin() {
+    func navigateToAskLoginEmail() {
         let askLoginEmailViewController = UIStoryboard.init(name: "Person", bundle: nil)
             .instantiateViewController(withIdentifier: "askLoginEmailViewController")
         animateFadeTransition(to: askLoginEmailViewController)
+    }
+    
+    func navigateToLogin(token: String) {
+        let loginViewController = UIStoryboard.init(name: "Person", bundle: nil)
+            .instantiateViewController(withIdentifier: "loginViewController")
+        (loginViewController as! LoginViewController).token = token
+        animateFadeTransition(to: loginViewController)
     }
 }

@@ -6,11 +6,15 @@
 	<string>https://dev-api.domain.com</string>
 	<key>devClientSecretKey</key>
 	<string>86005b3</string>
+	<key>devDeeplinkScheme</key>
+	<string>dev-pachatary</string>
 
 	<key>apiUrl</key>
 	<string>https://api.domain.com</string>
 	<key>clientSecretKey</key>
 	<string>6b80503</string>
+	<key>deeplinkScheme</key>
+	<string>pachatary</string>
 
     <key>mapboxAccessToken</key>
     <string>pk.pey</string>

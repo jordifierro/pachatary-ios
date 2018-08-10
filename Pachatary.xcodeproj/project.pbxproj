@@ -10,6 +10,8 @@
 		36189B79170B1B17A56B4A8E /* Pods_Pachatary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F75C0457AE10B772911DA00 /* Pods_Pachatary.framework */; };
 		5120C255D2A1A3E4DC1DBDC6 /* Pods_PachataryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC6EE34BE667A62DEA5D3592 /* Pods_PachataryTests.framework */; };
 		721696F24410FC2F2C54AAEE /* Pods_PachataryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2ACA8339ABA2B763112FF08 /* Pods_PachataryUITests.framework */; };
+		AE07CB22211CA64500D98BC1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07CB21211CA64500D98BC1 /* LoginView.swift */; };
+		AE07CB24211CB3FB00D98BC1 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07CB23211CB3FB00D98BC1 /* LoginPresenter.swift */; };
 		AE0B27AE20E67D110060D923 /* ExperienceMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */; };
 		AE0C676C20E122F500E4BFA0 /* PaginationLoaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */; };
 		AE0F8F97211B549500A735B8 /* AskLoginEmailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F8F96211B549500A735B8 /* AskLoginEmailPresenter.swift */; };
@@ -77,6 +79,8 @@
 		AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A220C547D6001A4576 /* Assets.xcassets */; };
 		AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A420C547D6001A4576 /* LaunchScreen.storyboard */; };
 		AEBB62BC20C547D6001A4576 /* PachataryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */; };
+		AEC8DCE6211DEBAE007CCC68 /* LoginPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */; };
+		AEC8DCE8211DF1F0007CCC68 /* POST_people_me_login.json in Resources */ = {isa = PBXBuildFile; fileRef = AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */; };
 		AEDB0DB5211B37F9004F843E /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DB4211B37F9004F843E /* WelcomePresenter.swift */; };
 		AEDB0DB7211B3996004F843E /* PersonDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DB6211B3996004F843E /* PersonDependencyInjector.swift */; };
 		AEDB0DBB211B3FAC004F843E /* WelcomePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */; };
@@ -123,6 +127,8 @@
 		1DFE72F63DF3E7507D4FF8B8 /* Pods-PachataryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F75C0457AE10B772911DA00 /* Pods_Pachatary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pachatary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		386DAF74E9D4D63994E5E77E /* Pods-PachataryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AE07CB21211CA64500D98BC1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AE07CB23211CB3FB00D98BC1 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapPresenter.swift; sourceTree = "<group>"; };
 		AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationLoaderViewCell.swift; sourceTree = "<group>"; };
 		AE0F8F96211B549500A735B8 /* AskLoginEmailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskLoginEmailPresenter.swift; sourceTree = "<group>"; };
@@ -196,6 +202,8 @@
 		AEBB62B720C547D6001A4576 /* PachataryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PachataryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PachataryUITests.swift; sourceTree = "<group>"; };
 		AEBB62BD20C547D6001A4576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenterTests.swift; sourceTree = "<group>"; };
+		AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POST_people_me_login.json; sourceTree = "<group>"; };
 		AEDB0DB4211B37F9004F843E /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
 		AEDB0DB6211B3996004F843E /* PersonDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDependencyInjector.swift; sourceTree = "<group>"; };
 		AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenterTests.swift; sourceTree = "<group>"; };
@@ -312,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				AE73C7C120CE83F600B05DA2 /* POST_people.json */,
+				AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */,
 				AEEC749820CAADD000B86837 /* AuthStorageRepositoryTests.swift */,
 				AE73C7BE20CE80E200B05DA2 /* AuthApiRepositoryTests.swift */,
 				AE80DE7B20CEE0CB00A170F6 /* AuthRepositoryTests.swift */,
@@ -478,13 +487,13 @@
 		AEBB629A20C547D3001A4576 /* Pachatary */ = {
 			isa = PBXGroup;
 			children = (
-				AEEAC68E20C99963007C17EE /* ApiKeys.plist */,
 				AEEAC68920C97D70007C17EE /* Presentation */,
 				AE89AC3420C801C400443C23 /* Data */,
 				AEBB629B20C547D3001A4576 /* AppDelegate.swift */,
 				AEBB629F20C547D3001A4576 /* Main.storyboard */,
 				AEBB62A220C547D6001A4576 /* Assets.xcassets */,
 				AEBB62A420C547D6001A4576 /* LaunchScreen.storyboard */,
+				AEEAC68E20C99963007C17EE /* ApiKeys.plist */,
 				AEBB62A720C547D6001A4576 /* Info.plist */,
 			);
 			path = Pachatary;
@@ -514,6 +523,7 @@
 			children = (
 				AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */,
 				AE0F8F98211B61C300A735B8 /* AskLoginEmailPresenterTests.swift */,
+				AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */,
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -543,6 +553,8 @@
 			children = (
 				AEDB0DC2211B51E3004F843E /* AskLoginEmailView.swift */,
 				AE0F8F96211B549500A735B8 /* AskLoginEmailPresenter.swift */,
+				AE07CB21211CA64500D98BC1 /* LoginView.swift */,
+				AE07CB23211CB3FB00D98BC1 /* LoginPresenter.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -763,6 +775,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEC8DCE8211DF1F0007CCC68 /* POST_people_me_login.json in Resources */,
 				AE73C7C220CE83F600B05DA2 /* POST_people.json in Resources */,
 				AEAE26B720E29D6700E5D4E9 /* GET_scenes_experience_id.json in Resources */,
 				AEEAC68320C94904007C17EE /* GET_experiences_search.json in Resources */,
@@ -953,6 +966,7 @@
 				AE3BE3BE211A154C00D10A19 /* WelcomeView.swift in Sources */,
 				AEAE26B220E288C500E5D4E9 /* SceneMapper.swift in Sources */,
 				AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */,
+				AE07CB22211CA64500D98BC1 /* LoginView.swift in Sources */,
 				AEAE26B020E2885900E5D4E9 /* SceneApiRepository.swift in Sources */,
 				AE86639620D7D3B5008CE6D2 /* AuthDataDependencyInjector.swift in Sources */,
 				AE0F8F97211B549500A735B8 /* AskLoginEmailPresenter.swift in Sources */,
@@ -960,6 +974,7 @@
 				AEE1528A20D94E3E008707FF /* SingleResultMapper.swift in Sources */,
 				AE218B8520E2789E00E79E51 /* ExperienceMapView.swift in Sources */,
 				AE6C279E20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift in Sources */,
+				AE07CB24211CB3FB00D98BC1 /* LoginPresenter.swift in Sources */,
 				AE6C27A020D1324600C5F59F /* ToDomainMapper.swift in Sources */,
 				AE61DA8620C68F6400CFEE00 /* ExperienceApiRepository.swift in Sources */,
 				AEB6A66420DBE4C000F936DB /* ExperienceRepository.swift in Sources */,
@@ -1007,6 +1022,7 @@
 				AEDB0DBD211B4342004F843E /* AuthRepoMock.swift in Sources */,
 				AEB6A66620DBFDA900F936DB /* ExperienceRepositoryTests.swift in Sources */,
 				AE80DE7C20CEE0CB00A170F6 /* AuthRepositoryTests.swift in Sources */,
+				AEC8DCE6211DEBAE007CCC68 /* LoginPresenterTests.swift in Sources */,
 				AE73C7BF20CE80E200B05DA2 /* AuthApiRepositoryTests.swift in Sources */,
 				AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */,
 				AE598BB120EA79C200F3DBA9 /* ExperienceScenesPresenterTests.swift in Sources */,
@@ -1190,7 +1206,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pachatary.Pachatary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pachatary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1209,7 +1225,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pachatary.Pachatary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pachatary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
