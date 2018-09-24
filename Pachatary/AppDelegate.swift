@@ -8,6 +8,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        let HAS_RUN_BEFORE_KEY = "has_run_before"
+        let userDefaults = UserDefaults.standard
+        if userDefaults.bool(forKey: HAS_RUN_BEFORE_KEY) == false {
+           
+            AppDataDependencyInjector.authStorageRepository.removeAll()
+            
+            userDefaults.set(true, forKey: HAS_RUN_BEFORE_KEY)
+            userDefaults.synchronize()
+        }
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = RootViewController()
         window?.makeKeyAndVisible()
