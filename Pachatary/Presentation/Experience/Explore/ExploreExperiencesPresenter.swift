@@ -61,8 +61,8 @@ class ExploreExperiencesPresenter {
             }
     }
     
-    private func getFirstsExperiences() {
-        self.experienceRepo.getFirsts(kind: .explore)
+    private func getFirstsExperiences(_ text: String = "") {
+        self.experienceRepo.getFirsts(kind: .explore, params: Request.Params(text))
     }
     
     func lastItemShown() {
@@ -71,6 +71,10 @@ class ExploreExperiencesPresenter {
     
     func experienceClick(_ experienceId: String) {
         view.navigateToExperienceScenes(experienceId)
+    }
+    
+    func searchClick(_ text: String) {
+        getFirstsExperiences(text)
     }
 }
 

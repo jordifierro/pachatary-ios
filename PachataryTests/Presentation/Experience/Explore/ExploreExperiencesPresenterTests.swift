@@ -10,7 +10,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             .given_an_experience(id: "8")
             .given_an_experience_repo_that_returns_that_experiences()
             .when_create()
-            .then_should_call_get_firsts_kind_explore()
+            .then_should_call_get_firsts_kind_explore(with: Request.Params(""))
             .then_should_show_experiences()
             .then_should_show_loader(false)
             .then_should_show_pagination_loader(false)
@@ -22,7 +22,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
         ScenarioMaker()
             .given_an_experience_repo_that_returns_in_progress(.getFirsts)
             .when_create()
-            .then_should_call_get_firsts_kind_explore()
+            .then_should_call_get_firsts_kind_explore(with: Request.Params(""))
             .then_should_show_loader(true)
             .then_should_show_pagination_loader(false)
             .then_should_show_retry(false)
@@ -33,7 +33,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
         ScenarioMaker()
             .given_an_experience_repo_that_returns_in_progress(.paginate)
             .when_create()
-            .then_should_call_get_firsts_kind_explore()
+            .then_should_call_get_firsts_kind_explore(with: Request.Params(""))
             .then_should_show_loader(false)
             .then_should_show_pagination_loader(true)
             .then_should_show_retry(false)
@@ -44,7 +44,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
         ScenarioMaker()
             .given_an_experience_repo_that_returns_error()
             .when_create()
-            .then_should_call_get_firsts_kind_explore()
+            .then_should_call_get_firsts_kind_explore(with: Request.Params(""))
             .then_should_show_loader(false)
             .then_should_show_pagination_loader(false)
             .then_should_show_retry(true)
@@ -54,7 +54,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
     func test_on_retry_get_firsts_experiences() {
         ScenarioMaker()
             .when_retry()
-            .then_should_call_get_firsts_kind_explore()
+            .then_should_call_get_firsts_kind_explore(with: Request.Params(""))
     }
 
     func test_on_last_item_shown_should_call_repo_paginate() {
@@ -67,6 +67,12 @@ class ExploreExperiencesPresenterTests: XCTestCase {
         ScenarioMaker()
             .when_experience_click(experienceId: "4")
             .then_view_should_navigate_to_experience_map(with: "4")
+    }
+    
+    func test_on_search_call_get_firsts_with_word() {
+        ScenarioMaker()
+            .when_search("nature")
+            .then_should_call_get_firsts_kind_explore(with: Request.Params("nature"))
     }
 
     class ScenarioMaker {
@@ -131,6 +137,11 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             return self
         }
         
+        func when_search(_ word: String) -> ScenarioMaker {
+            presenter.searchClick(word)
+            return self
+        }
+        
         @discardableResult
         func then_view_should_navigate_to_experience_map(with experienceId: String)
                                                                                   -> ScenarioMaker {
@@ -155,8 +166,10 @@ class ExploreExperiencesPresenterTests: XCTestCase {
         }
         
         @discardableResult
-        func then_should_call_get_firsts_kind_explore() -> ScenarioMaker {
-            assert([Kind.explore] == mockExperienceRepo.getFirstsCalls)
+        func then_should_call_get_firsts_kind_explore(with params: Request.Params) -> ScenarioMaker {
+            assert(mockExperienceRepo.getFirstsCalls.count == 1)
+            assert(mockExperienceRepo.getFirstsCalls[0].0 == Kind.explore)
+            assert(mockExperienceRepo.getFirstsCalls[0].1 == params)
             return self
         }
         

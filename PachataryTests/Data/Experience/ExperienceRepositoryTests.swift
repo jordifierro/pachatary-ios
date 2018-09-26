@@ -24,14 +24,15 @@ class ExperienceRepositoryTests: XCTestCase {
     
     func test_get_firsts_emit_getfirsts_requests_through_explore_requester() {
         ScenarioMaker()
-            .when_get_firsts()
-            .then_should_emit_request_through_requester_actions_observer(.getFirsts)
+            .when_get_firsts(Request.Params("museum"))
+            .then_should_emit_request_through_requester_request_observer(
+                Request(.getFirsts, Request.Params("museum")))
     }
     
     func test_paginate_emit_paginate_request_through_explore_requester() {
         ScenarioMaker()
             .when_paginate()
-            .then_should_emit_request_through_requester_actions_observer(.paginate)
+            .then_should_emit_request_through_requester_request_observer(Request(.paginate))
     }
 
     func test_sets_up_requester_to_call_api_explore() {
@@ -116,7 +117,7 @@ class ExperienceRepositoryTests: XCTestCase {
         }
         
         func when_get_first_callable_from_requester_is_called() -> ScenarioMaker {
-            callableResult = mockRequester.getFirstsCallable(Request(.getFirsts))
+            callableResult = mockRequester.getFirstsCallable(Request.Params(""))
             return self
         }
 
@@ -135,8 +136,8 @@ class ExperienceRepositoryTests: XCTestCase {
             return self
         }
         
-        func when_get_firsts() -> ScenarioMaker {
-            repo.getFirsts(kind: .explore)
+        func when_get_firsts(_ params: Request.Params? = nil) -> ScenarioMaker {
+            repo.getFirsts(kind: .explore, params: params)
             return self
         }
         
@@ -151,9 +152,9 @@ class ExperienceRepositoryTests: XCTestCase {
         }
         
         @discardableResult
-        func then_should_emit_request_through_requester_actions_observer(
-            _ action: Request.Action) -> ScenarioMaker {
-            assert(mockRequester.actionsObserverCalls == [Request(action)])
+        func then_should_emit_request_through_requester_request_observer(
+            _ request: Request) -> ScenarioMaker {
+            assert(mockRequester.actionsObserverCalls == [request])
             return self
         }
         
@@ -205,7 +206,7 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     
     init() {}
     
-    func exploreExperiencesObservable() -> Observable<Result<[Experience]>> {
+    func exploreExperiencesObservable(_ text: String) -> Observable<Result<[Experience]>> {
         return apiGetFirstsCallResultObservable!
     }
 
@@ -222,7 +223,7 @@ class MockExperienceApiRepo: ExperienceApiRepository {
 class MockExperienceRequester: Requester {
     typealias requesterType = Experience
     
-    var getFirstsCallable: ((Request) -> Observable<Result<[Experience]>>)!
+    var getFirstsCallable: ((Request.Params?) -> Observable<Result<[Experience]>>)!
     var paginateCallable: ((String) -> Observable<Result<[Experience]>>)!
     
     var actionsObserver: AnyObserver<Request>

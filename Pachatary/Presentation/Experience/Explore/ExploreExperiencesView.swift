@@ -19,6 +19,7 @@ class ExploreExperiencesViewController: UIViewController {
     @IBOutlet weak var loaderIndicator: UIActivityIndicatorView!
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var lastItemShown = -1
     var cellHeights: [IndexPath : CGFloat] = [:]
@@ -35,6 +36,7 @@ class ExploreExperiencesViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         presenter.view = self
         retryButton.addTarget(self, action: #selector(retryClick), for: .touchUpInside)
+        self.searchBar.delegate = self
         
         presenter.create()
     }
@@ -147,5 +149,12 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
     func navigateToExperienceScenes(_ experienceId: String) {
         selectedExperienceId = experienceId
         performSegue(withIdentifier: "experienceScenesSegue", sender: self)
+    }
+}
+
+extension ExploreExperiencesViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        presenter.searchClick(searchBar.text!)
+        searchBar.endEditing(true)
     }
 }

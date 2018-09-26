@@ -6,46 +6,42 @@ import RxSwift
 
 class RequesterTests: XCTestCase {
     
-    func test_not_initialized_result_when_get_firsts_calls_callable() {
+    func test_get_firsts_calls_callable() {
         ScenarioMaker()
             .given_a_cache_result_flowable(Result<[IdEq]>(.success))
-            .given_a_getfirsts_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
-            .when_emit_action(.getFirsts)
+            .given_a_getfirsts_callable_that_returns(for: Request.Params("a"),
+                                                     Result<[IdEq]>(.success, data: [IdEq("2")]))
+            .when_emit_request(Request(.getFirsts, Request.Params("a")))
             .then_should_emit_through_cache_replace(
-                Result<[IdEq]>(.success, data: [IdEq("2")], nextUrl: nil, action: .getFirsts))
+                Result<[IdEq]>(.success, data: [IdEq("2")], nextUrl: nil, action: .getFirsts,
+                               params: Request.Params("a")))
     }
 
-    func test_error_result_when_get_firsts_calls_callable() {
-        ScenarioMaker()
-            .given_a_cache_result_flowable(Result<[IdEq]>(error: DataError.noInternetConnection))
-            .given_a_getfirsts_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
-            .when_emit_action(.getFirsts)
-            .then_should_emit_through_cache_replace(
-                Result<[IdEq]>(.success, data: [IdEq("2")], nextUrl: nil, action: .getFirsts))
-    }
-    
     func test_inprogress_result_when_get_firsts_does_nothing() {
         ScenarioMaker()
             .given_a_cache_result_flowable(Result<[IdEq]>(.inProgress))
-            .given_a_getfirsts_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
-            .when_emit_action(.getFirsts)
+            .given_a_getfirsts_callable_that_returns(for: Request.Params(""),
+                                                     Result<[IdEq]>(.success, data: [IdEq("2")]))
+            .when_emit_request(Request(.getFirsts))
             .then_should_not_emit_through_cache_replace()
     }
-    
-    func test_success_and_initialized_result_when_get_firsts_does_nothing() {
+
+    func test_inprogress_result_and_different_params_calls_callable() {
         ScenarioMaker()
-            .given_a_cache_result_flowable(
-                Result<[IdEq]>(.success, data: nil, nextUrl: nil, action: .getFirsts))
-            .given_a_getfirsts_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
-            .when_emit_action(.getFirsts)
-            .then_should_not_emit_through_cache_replace()
+            .given_a_cache_result_flowable(Result<[IdEq]>(.inProgress))
+            .given_a_getfirsts_callable_that_returns(for: Request.Params("a"),
+                                                     Result<[IdEq]>(.success, data: [IdEq("2")]))
+            .when_emit_request(Request(.getFirsts, Request.Params("a")))
+            .then_should_emit_through_cache_replace(
+                Result<[IdEq]>(.success, data: [IdEq("2")], nextUrl: nil, action: .getFirsts,
+                               params: Request.Params("a")))
     }
-    
+
     func test_inprogress_when_paginate_does_nothing() {
         ScenarioMaker()
             .given_a_cache_result_flowable(Result<[IdEq]>(.inProgress))
             .given_a_paginate_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
-            .when_emit_action(.paginate)
+            .when_emit_request(Request(.paginate))
             .then_should_not_emit_through_cache_replace()
     }
     
@@ -53,7 +49,7 @@ class RequesterTests: XCTestCase {
         ScenarioMaker()
             .given_a_cache_result_flowable(Result<[IdEq]>(.error, data: nil, nextUrl: nil, action: .paginate, error: DataError.noInternetConnection))
             .given_a_paginate_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
-            .when_emit_action(.paginate)
+            .when_emit_request(Request(.paginate))
             .then_should_not_emit_through_cache_replace()
     }
     
@@ -62,7 +58,7 @@ class RequesterTests: XCTestCase {
             .given_a_cache_result_flowable(Result<[IdEq]>(.success, data: nil, nextUrl: nil,
                                                           action: .none))
             .given_a_paginate_callable_that_returns(Result<[IdEq]>(.success, data: [IdEq("2")]))
-            .when_emit_action(.paginate)
+            .when_emit_request(Request(.paginate))
             .then_should_not_emit_through_cache_replace()
     }
     
@@ -71,7 +67,7 @@ class RequesterTests: XCTestCase {
             .given_a_cache_result_flowable(
                 Result<[IdEq]>(.success, data: [IdEq("9")], nextUrl: "some", action: .paginate))
             .given_a_paginate_callable_that_returns(Result<[IdEq]>(.inProgress))
-            .when_emit_action(.paginate)
+            .when_emit_request(Request(.paginate))
             .then_should_emit_through_cache_replace(
                 Result<[IdEq]>(.inProgress, data: [IdEq("9")], nextUrl: "some", action: .paginate))
     }
@@ -82,7 +78,7 @@ class RequesterTests: XCTestCase {
                 Result<[IdEq]>(.success, data: [IdEq("9")], nextUrl: "some", action: .getFirsts))
             .given_a_paginate_callable_that_returns(
                 Result<[IdEq]>( error: DataError.noInternetConnection))
-            .when_emit_action(.paginate)
+            .when_emit_request(Request(.paginate))
             .then_should_emit_through_cache_replace(
                 Result<[IdEq]>(.error, data: [IdEq("9")], nextUrl: "some", action: .paginate,
                                error: DataError.noInternetConnection))
@@ -95,7 +91,7 @@ class RequesterTests: XCTestCase {
                                nextUrl: "some", action: .getFirsts))
             .given_a_paginate_callable_that_returns(
                 Result<[IdEq]>(.success, data: [IdEq("1"), IdEq("3")], nextUrl: "new"))
-            .when_emit_action(.paginate)
+            .when_emit_request(Request(.paginate))
             .then_should_emit_through_cache_replace(
                 Result<[IdEq]>(.success, data: [IdEq("9"), IdEq("6"), IdEq("1"), IdEq("3")],
                                nextUrl: "new", action: .paginate))
@@ -115,8 +111,15 @@ class RequesterTests: XCTestCase {
             return self
         }
         
-        func given_a_getfirsts_callable_that_returns(_ result: Result<[IdEq]>) -> ScenarioMaker {
-            self.requester.getFirstsCallable = { request in return Observable.just(result) }
+        func given_a_getfirsts_callable_that_returns(for params: Request.Params?,
+                                                     _ result: Result<[IdEq]>) -> ScenarioMaker {
+            self.requester.getFirstsCallable = { requestParams in
+                                                   if requestParams == params {
+                                                       return Observable.just(result)
+                                                   }
+                                                   assertionFailure()
+                                                   return Observable.never()
+                                               }
             return self
         }
         
@@ -125,8 +128,8 @@ class RequesterTests: XCTestCase {
             return self
         }
         
-        func when_emit_action(_ action: Request.Action) -> ScenarioMaker {
-            self.requester.actionsObserver.onNext(Request(action))
+        func when_emit_request(_ request: Request) -> ScenarioMaker {
+            self.requester.actionsObserver.onNext(request)
             return self
         }
         

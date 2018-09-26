@@ -9,8 +9,8 @@ class ExperienceApiRepositoryTests: XCTestCase {
     
     func test_get_experiences_search_parses_experiences_response() {
         ScenarioMaker(self).buildScenario()
-            .given_an_stubbed_network_call_for_search()
-            .when_experiences_flowable()
+            .given_an_stubbed_network_call_for_search("museum")
+            .when_experiences_flowable("museum")
             .then_should_return_flowable_with_inprogress_and_result_experiences()
     }
     
@@ -58,9 +58,10 @@ class ExperienceApiRepositoryTests: XCTestCase {
             return self
         }
         
-        func given_an_stubbed_network_call_for_search() -> ScenarioMaker {
+        func given_an_stubbed_network_call_for_search(_ searchText: String) -> ScenarioMaker {
             DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
-                                          AppDataDependencyInjector.apiUrl + "/experiences/search",
+                                          AppDataDependencyInjector.apiUrl +
+                                            "/experiences/search?word=museum",
                                           .GET, "GET_experiences_search")
             return self
         }
@@ -79,8 +80,8 @@ class ExperienceApiRepositoryTests: XCTestCase {
             return self
         }
         
-        func when_experiences_flowable() -> ScenarioMaker {
-            resultObservable = repo.exploreExperiencesObservable()
+        func when_experiences_flowable(_ searchText: String) -> ScenarioMaker {
+            resultObservable = repo.exploreExperiencesObservable(searchText)
             return self
         }
         

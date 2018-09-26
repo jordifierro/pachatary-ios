@@ -19,8 +19,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="MI6-3U-Wwv">
+                                <rect key="frame" x="0.0" y="64" width="320" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zxP-Xl-HW6">
-                                <rect key="frame" x="0.0" y="44" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="120" width="320" height="316"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseLoader" id="gdW-s0-7yP" customClass="PaginatorLoaderViewCell" customModule="Pachatary" customModuleProvider="target">
@@ -69,16 +73,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="GGv-ec-L1z" firstAttribute="trailing" secondItem="zxP-Xl-HW6" secondAttribute="trailing" id="3F3-bH-q6B"/>
-                            <constraint firstItem="zxP-Xl-HW6" firstAttribute="leading" secondItem="GGv-ec-L1z" secondAttribute="leading" id="3G0-sd-PJ0"/>
                             <constraint firstItem="zxP-Xl-HW6" firstAttribute="width" secondItem="Nb9-Jq-y6d" secondAttribute="width" id="6Bo-L5-Fov"/>
-                            <constraint firstAttribute="height" secondItem="zxP-Xl-HW6" secondAttribute="height" id="8BD-gh-9Jc"/>
+                            <constraint firstItem="MI6-3U-Wwv" firstAttribute="leading" secondItem="GGv-ec-L1z" secondAttribute="leading" id="7PP-0z-Jdd"/>
                             <constraint firstItem="mhV-Wt-Bid" firstAttribute="top" secondItem="PE6-Vg-BXG" secondAttribute="bottom" constant="10" id="90v-KB-277"/>
                             <constraint firstItem="HlC-7u-Yhg" firstAttribute="centerX" secondItem="GGv-ec-L1z" secondAttribute="centerX" id="AmF-SL-XYm"/>
                             <constraint firstAttribute="width" secondItem="zxP-Xl-HW6" secondAttribute="width" id="Kiu-6k-cY6"/>
+                            <constraint firstItem="zxP-Xl-HW6" firstAttribute="bottom" secondItem="GGv-ec-L1z" secondAttribute="bottom" id="KvT-5b-9Hu"/>
+                            <constraint firstItem="zxP-Xl-HW6" firstAttribute="top" secondItem="MI6-3U-Wwv" secondAttribute="bottom" id="MED-ZS-ctp"/>
+                            <constraint firstItem="MI6-3U-Wwv" firstAttribute="top" secondItem="GGv-ec-L1z" secondAttribute="top" id="PgV-4W-0cT"/>
                             <constraint firstItem="PE6-Vg-BXG" firstAttribute="centerX" secondItem="GGv-ec-L1z" secondAttribute="centerX" id="Z56-GO-Jh2"/>
-                            <constraint firstItem="GGv-ec-L1z" firstAttribute="top" secondItem="zxP-Xl-HW6" secondAttribute="top" constant="20" id="aEz-DH-w4O"/>
                             <constraint firstItem="HlC-7u-Yhg" firstAttribute="centerY" secondItem="GGv-ec-L1z" secondAttribute="centerY" id="bOM-rY-eCJ"/>
                             <constraint firstItem="mhV-Wt-Bid" firstAttribute="centerY" secondItem="GGv-ec-L1z" secondAttribute="centerY" id="niS-MX-Euo"/>
+                            <constraint firstItem="MI6-3U-Wwv" firstAttribute="width" secondItem="Nb9-Jq-y6d" secondAttribute="width" id="qxM-Oq-TrB"/>
                             <constraint firstItem="mhV-Wt-Bid" firstAttribute="centerX" secondItem="GGv-ec-L1z" secondAttribute="centerX" id="uNu-0m-xTP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GGv-ec-L1z"/>
@@ -90,6 +96,7 @@
                         <outlet property="errorLabel" destination="PE6-Vg-BXG" id="Axa-D2-0rH"/>
                         <outlet property="loaderIndicator" destination="HlC-7u-Yhg" id="977-LJ-c0P"/>
                         <outlet property="retryButton" destination="mhV-Wt-Bid" id="kfM-Lz-1d4"/>
+                        <outlet property="searchBar" destination="MI6-3U-Wwv" id="vw1-Rk-HMj"/>
                         <outlet property="tableView" destination="zxP-Xl-HW6" id="5ag-cd-Mzw"/>
                         <segue destination="Qo6-bb-VbT" kind="show" identifier="experienceScenesSegue" id="NiL-UL-iij"/>
                     </connections>

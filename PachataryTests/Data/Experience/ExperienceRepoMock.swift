@@ -10,7 +10,7 @@ class ExperienceRepoMock: ExperienceRepository {
     var returnInProgress = false
     var returnAction = Request.Action.getFirsts
     var returnError: DataError? = nil
-    var getFirstsCalls = [Kind]()
+    var getFirstsCalls = [(Kind, Request.Params?)]()
     var paginateCalls = [Kind]()
     var singleExperienceCalls = [String]()
     var saveCalls = [(String, Bool)]()
@@ -25,8 +25,8 @@ class ExperienceRepoMock: ExperienceRepository {
         return Observable.just(result!)
     }
     
-    func getFirsts(kind: Kind) {
-        self.getFirstsCalls.append(kind)
+    func getFirsts(kind: Kind, params: Request.Params?) {
+        self.getFirstsCalls.append((kind, params))
     }
     
     func paginate(kind: Kind) {

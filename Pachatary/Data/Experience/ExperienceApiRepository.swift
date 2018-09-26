@@ -4,7 +4,7 @@ import Moya
 import Moya_ObjectMapper
 
 protocol ExperienceApiRepository {
-    func exploreExperiencesObservable() -> Observable<Result<[Experience]>>
+    func exploreExperiencesObservable(_ text: String) -> Observable<Result<[Experience]>>
     func paginateExperiences(_ url: String) -> Observable<Result<[Experience]>>
     func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>>
 }
@@ -19,8 +19,8 @@ class ExperienceApiRepoImplementation: ExperienceApiRepository {
         self.ioScheduler = ioScheduler
     }
     
-    func exploreExperiencesObservable() -> Observable<Result<[Experience]>> {
-        return self.api.request(.searchExperiences)
+    func exploreExperiencesObservable(_ text: String) -> Observable<Result<[Experience]>> {
+        return self.api.request(.searchExperiences(text))
             .transformNetworkResponse(PaginatedListResultMapper<ExperienceMapper>.self, ioScheduler)
     }
     

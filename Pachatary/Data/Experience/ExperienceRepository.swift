@@ -7,7 +7,7 @@ enum Kind {
 
 protocol ExperienceRepository {
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>>
-    func getFirsts(kind: Kind)
+    func getFirsts(kind: Kind, params: Request.Params?)
     func paginate(kind: Kind)
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>>
     func saveExperience(_ experienceId: String, save: Bool)
@@ -22,8 +22,9 @@ class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
     init(apiRepo: ExperienceApiRepository, exploreRequester: R) {
         self.apiRepo = apiRepo
         self.exploreRequester = exploreRequester
-        self.exploreRequester.getFirstsCallable = { request in
-                                                    self.apiRepo.exploreExperiencesObservable() }
+        self.exploreRequester.getFirstsCallable =
+            { params in
+                self.apiRepo.exploreExperiencesObservable(params!.word) }
         self.exploreRequester.paginateCallable = { url in
                                                     self.apiRepo.paginateExperiences(url)
         }
@@ -33,8 +34,8 @@ class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
         return self.exploreRequester.resultsObservable()
     }
     
-    func getFirsts(kind: Kind) {
-        self.exploreRequester.actionsObserver.onNext(Request(.getFirsts))
+    func getFirsts(kind: Kind, params: Request.Params? = nil) {
+        self.exploreRequester.actionsObserver.onNext(Request(.getFirsts, params))
     }
     
     func paginate(kind: Kind) {

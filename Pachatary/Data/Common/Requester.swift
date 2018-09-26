@@ -4,7 +4,7 @@ import RxSwift
 protocol Requester {
     associatedtype requesterType: Identifiable & Equatable
     
-    var getFirstsCallable: ((Request) -> Observable<Result<[requesterType]>>)! { get set }
+    var getFirstsCallable: ((Request.Params?) -> Observable<Result<[requesterType]>>)! { get set }
     var paginateCallable: ((String) -> Observable<Result<[requesterType]>>)! { get set }
     var actionsObserver: AnyObserver<Request> { get }
     func resultsObservable() -> Observable<Result<[requesterType]>>
@@ -13,7 +13,7 @@ protocol Requester {
 
 class RequesterImplementation<T: ResultCache>: Requester {
 
-    var getFirstsCallable: ((Request) -> Observable<Result<[T.cacheType]>>)!
+    var getFirstsCallable: ((Request.Params?) -> Observable<Result<[T.cacheType]>>)!
     var paginateCallable: ((String) -> Observable<Result<[T.cacheType]>>)!
     var actionsObserver: AnyObserver<Request>
     
@@ -32,14 +32,16 @@ class RequesterImplementation<T: ResultCache>: Requester {
                 case .next(let (request, result)):
                     switch request.action! {
                     case .getFirsts:
-                        if !(result.isInProgress()) &&
-                            (!result.hasBeenInitialized() || result.isError()) {
-                            _ = self.getFirstsCallable(request)
+                        if !result.isInProgress() || (request.params != result.params) {
+                            _ = self.getFirstsCallable(request.params)
                                 .subscribe { event in
                                     switch event {
                                     case .next(let result):
                                         self.cache.replaceResultObserver.onNext(
-                                            result.builder().action(.getFirsts).build())
+                                            result.builder()
+                                                    .action(.getFirsts)
+                                                    .params(request.params)
+                                                    .build())
                                     case .error: break
                                     case .completed: break
                                     }
@@ -66,6 +68,7 @@ class RequesterImplementation<T: ResultCache>: Requester {
                                         cache.replaceResultObserver.onNext(
                                             apiResult.builder()
                                                 .data(result.data! + apiResult.data!)
+                                                .params(request.params)
                                                 .action(.paginate)
                                             .build()
                                         )
