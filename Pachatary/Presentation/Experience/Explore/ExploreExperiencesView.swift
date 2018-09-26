@@ -36,6 +36,8 @@ class ExploreExperiencesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "PACHATARY"
+
         let nib = UINib.init(nibName: "ExtendedExperienceTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "extendedExperienceCell")
         // Do any additional setup after loading the view, typically from a nib.
