@@ -9,8 +9,8 @@ class ExperienceApiRepositoryTests: XCTestCase {
     
     func test_get_experiences_search_parses_experiences_response() {
         ScenarioMaker(self).buildScenario()
-            .given_an_stubbed_network_call_for_search("museum")
-            .when_experiences_flowable("museum")
+            .given_an_stubbed_network_call_for_search("museum", 2.4, -1.3)
+            .when_experiences_flowable("museum", 2.4, -1.3)
             .then_should_return_flowable_with_inprogress_and_result_experiences()
     }
     
@@ -58,10 +58,17 @@ class ExperienceApiRepositoryTests: XCTestCase {
             return self
         }
         
-        func given_an_stubbed_network_call_for_search(_ searchText: String) -> ScenarioMaker {
+        func given_an_stubbed_network_call_for_search(_ searchText: String,
+                                                      _ latitude: Double,
+                                                      _ longitude: Double) -> ScenarioMaker {
+            let latitudeString: String = String(format:"%.1f", latitude)
+            let longitudeString: String = String(format:"%.1f", longitude)
             DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
                                           AppDataDependencyInjector.apiUrl +
-                                            "/experiences/search?word=museum",
+                                            "/experiences/search?" +
+                                            "latitude=" + latitudeString +
+                                            "&longitude=" + longitudeString +
+                                            "&word=" + searchText,
                                           .GET, "GET_experiences_search")
             return self
         }
@@ -80,8 +87,9 @@ class ExperienceApiRepositoryTests: XCTestCase {
             return self
         }
         
-        func when_experiences_flowable(_ searchText: String) -> ScenarioMaker {
-            resultObservable = repo.exploreExperiencesObservable(searchText)
+        func when_experiences_flowable(_ searchText: String, _ latitude: Double,
+                                       _ longitude: Double) -> ScenarioMaker {
+            resultObservable = repo.exploreExperiencesObservable(searchText, latitude, longitude)
             return self
         }
         

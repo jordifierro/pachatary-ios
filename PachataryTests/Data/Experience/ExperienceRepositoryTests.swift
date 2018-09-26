@@ -206,7 +206,8 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     
     init() {}
     
-    func exploreExperiencesObservable(_ text: String) -> Observable<Result<[Experience]>> {
+    func exploreExperiencesObservable(_ text: String?, _ latitude: Double?,
+                                      _ longitude: Double?) -> Observable<Result<[Experience]>> {
         return apiGetFirstsCallResultObservable!
     }
 

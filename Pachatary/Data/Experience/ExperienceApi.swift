@@ -2,7 +2,7 @@ import Foundation
 import Moya
 
 enum ExperienceApi {
-    case searchExperiences(String)
+    case searchExperiences(String, Double?, Double?)
     case paginate(String)
     case save(String, Bool)
 }
@@ -40,9 +40,12 @@ extension ExperienceApi: TargetType {
         switch self {
         case .paginate, .save:
             return .requestPlain
-        case .searchExperiences(let text):
-            return .requestParameters(parameters: ["word": text],
-                                      encoding: URLEncoding.default)
+        case .searchExperiences(let text, let latitude, let longitude):
+            var params: [String: Any] = [:]
+            params["word"] = text
+            if latitude != nil { params["latitude"] = latitude }
+            if longitude != nil { params["longitude"] = longitude }
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         }
     }
     var sampleData: Data {

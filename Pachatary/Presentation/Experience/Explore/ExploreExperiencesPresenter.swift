@@ -7,6 +7,10 @@ class ExploreExperiencesPresenter {
     let mainScheduler: ImmediateSchedulerType
     
     var view: ExploreExperiencesView!
+    
+    var text: String? = nil
+    var latitude: Double? = nil
+    var longitude: Double? = nil
 
     init(_ experienceRepository: ExperienceRepository, _ mainScheduler: ImmediateSchedulerType) {
         self.experienceRepo = experienceRepository
@@ -15,6 +19,25 @@ class ExploreExperiencesPresenter {
     
     func create() {
         connectToExperiences()
+        if view.hasLocationPermission() { view.askLastKnownLocation() }
+        else { view.askLocationPermission() }
+    }
+    
+    func onPermissionAccepted() {
+        view.askLastKnownLocation()
+    }
+    
+    func onPermissionDenied() {
+        getFirstsExperiences()
+    }
+    
+    func onLastLocationFound(latitude: Double, longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
+        getFirstsExperiences()
+    }
+    
+    func onLastLocationNotFound() {
         getFirstsExperiences()
     }
     
@@ -61,8 +84,9 @@ class ExploreExperiencesPresenter {
             }
     }
     
-    private func getFirstsExperiences(_ text: String = "") {
-        self.experienceRepo.getFirsts(kind: .explore, params: Request.Params(text))
+    private func getFirstsExperiences() {
+        self.experienceRepo.getFirsts(kind: .explore,
+            params: Request.Params(self.text, self.latitude, self.longitude))
     }
     
     func lastItemShown() {
@@ -74,7 +98,8 @@ class ExploreExperiencesPresenter {
     }
     
     func searchClick(_ text: String) {
-        getFirstsExperiences(text)
+        self.text = text
+        getFirstsExperiences()
     }
 }
 

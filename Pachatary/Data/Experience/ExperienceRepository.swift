@@ -24,7 +24,8 @@ class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
         self.exploreRequester = exploreRequester
         self.exploreRequester.getFirstsCallable =
             { params in
-                self.apiRepo.exploreExperiencesObservable(params!.word) }
+                self.apiRepo.exploreExperiencesObservable(
+                    params!.word, params!.latitude, params!.longitude) }
         self.exploreRequester.paginateCallable = { url in
                                                     self.apiRepo.paginateExperiences(url)
         }

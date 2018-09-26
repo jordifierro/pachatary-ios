@@ -1,4 +1,5 @@
 import UIKit
+import CoreLocation
 import RxSwift
 import Moya
 
@@ -9,6 +10,9 @@ protocol ExploreExperiencesView {
     func showError(_ visibility: Bool)
     func showRetry(_ visibility: Bool)
     func navigateToExperienceScenes(_ experienceId: String)
+    func hasLocationPermission() -> Bool
+    func askLocationPermission()
+    func askLastKnownLocation()
 }
 
 class ExploreExperiencesViewController: UIViewController {
@@ -27,6 +31,7 @@ class ExploreExperiencesViewController: UIViewController {
     var experiences: [Experience] = []
     var showPaginationLoader = false
     var selectedExperienceId: String!
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,11 +155,59 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
         selectedExperienceId = experienceId
         performSegue(withIdentifier: "experienceScenesSegue", sender: self)
     }
+    
+    func hasLocationPermission() -> Bool {
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined, .restricted, .denied:
+                return false
+            case .authorizedAlways, .authorizedWhenInUse:
+                return true
+            }
+        } else {
+            return false
+        }
+    }
+    
+    func askLocationPermission() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.requestWhenInUseAuthorization()
+        }
+        else { presenter.onPermissionDenied() }
+    }
+    
+    func askLastKnownLocation() {
+        let location = locationManager.location
+        if location == nil { presenter.onLastLocationNotFound() }
+        else { presenter.onLastLocationFound(latitude: location!.coordinate.latitude,
+                                             longitude: location!.coordinate.longitude) }
+    }
 }
 
 extension ExploreExperiencesViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         presenter.searchClick(searchBar.text!)
         searchBar.endEditing(true)
+    }
+}
+
+extension ExploreExperiencesViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager,
+                         didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+            case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+                break
+            case .restricted, .denied:
+                presenter.onPermissionDenied()
+                break
+            case .authorizedWhenInUse:
+                presenter.onPermissionAccepted()
+                break
+            case .authorizedAlways:
+                presenter.onPermissionAccepted()
+                break
+        }
     }
 }

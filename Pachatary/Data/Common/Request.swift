@@ -11,14 +11,20 @@ class Request: Equatable {
 
     class Params: Equatable {
 
-        let word: String!
+        let word: String?
+        let latitude: Double?
+        let longitude: Double?
 
-        init(_ word: String) {
+        init(_ word: String? = nil, _ latitude: Double? = nil, _ longitude: Double? = nil) {
             self.word = word
+            self.latitude = latitude
+            self.longitude = longitude
         }
 
         public static func == (lhs: Params, rhs: Params) -> Bool {
             return lhs.word == rhs.word
+                && lhs.latitude == rhs.latitude
+                && lhs.longitude == rhs.longitude
         }
     }
 
