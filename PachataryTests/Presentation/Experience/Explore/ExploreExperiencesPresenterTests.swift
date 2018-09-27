@@ -96,6 +96,12 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             .then_should_call_get_firsts_kind_explore(with: Request.Params())
     }
 
+    func test_on_refresh_get_firsts_experiences() {
+        ScenarioMaker()
+            .when_refresh()
+            .then_should_call_get_firsts_kind_explore(with: Request.Params())
+    }
+
     func test_on_last_item_shown_should_call_repo_paginate() {
         ScenarioMaker()
             .when_last_item_shown()
@@ -168,6 +174,11 @@ class ExploreExperiencesPresenterTests: XCTestCase {
         
         func when_retry() -> ScenarioMaker {
             presenter.retryClick()
+            return self
+        }
+        
+        func when_refresh() -> ScenarioMaker {
+            presenter.refresh()
             return self
         }
         

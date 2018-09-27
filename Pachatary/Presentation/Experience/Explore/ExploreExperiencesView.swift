@@ -33,6 +33,15 @@ class ExploreExperiencesViewController: UIViewController {
     var selectedExperienceId: String!
     let locationManager = CLLocationManager()
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(ExploreExperiencesViewController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+
+        return refreshControl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,16 +49,23 @@ class ExploreExperiencesViewController: UIViewController {
 
         let nib = UINib.init(nibName: "ExtendedExperienceTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "extendedExperienceCell")
-        // Do any additional setup after loading the view, typically from a nib.
+
         presenter.view = self
+        
         retryButton.addTarget(self, action: #selector(retryClick), for: .touchUpInside)
         self.searchBar.delegate = self
+        self.tableView.addSubview(self.refreshControl)
         
         presenter.create()
     }
     
     @objc func retryClick(_ sender: UIButton!) {
         presenter.retryClick()
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        presenter.refresh()
+        refreshControl.endRefreshing()
     }
 
     override func didReceiveMemoryWarning() {

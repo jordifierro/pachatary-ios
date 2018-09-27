@@ -101,5 +101,9 @@ class ExploreExperiencesPresenter {
         self.text = text
         getFirstsExperiences()
     }
+    
+    func refresh() {
+        getFirstsExperiences()
+    }
 }
 
