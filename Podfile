@@ -14,6 +14,7 @@ target 'Pachatary' do
   pod 'Mapbox-iOS-SDK', '~> 4.1'
   pod 'MapboxStatic.swift', '~> 0.9'
   pod 'SwiftKeychainWrapper'
+  pod 'TTGSnackbar'
 
   target 'PachataryTests' do
     inherit! :search_paths

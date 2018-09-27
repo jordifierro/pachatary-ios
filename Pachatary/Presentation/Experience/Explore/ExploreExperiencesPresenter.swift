@@ -53,17 +53,12 @@ class ExploreExperiencesPresenter {
                 case .next(let result):
                     switch result.status {
                     case .success:
-                        self.view.showRetry(false)
                         self.view.showLoader(false)
-                        self.view.showError(false)
                         self.view.show(experiences: result.data!)
                     case .error:
                         self.view.showLoader(false)
-                        self.view.showError(true)
-                        self.view.showRetry(true)
+                        self.view.showRetry()
                     case .inProgress:
-                        self.view.showRetry(false)
-                        self.view.showError(false)
                         self.view.show(experiences: result.data!)
                         self.view.showLoader(true)
                     }

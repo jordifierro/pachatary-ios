@@ -2,12 +2,12 @@ import UIKit
 import CoreLocation
 import RxSwift
 import Moya
+import TTGSnackbar
 
 protocol ExploreExperiencesView {
     func show(experiences: [Experience])
     func showLoader(_ visibility: Bool)
-    func showError(_ visibility: Bool)
-    func showRetry(_ visibility: Bool)
+    func showRetry()
     func navigateToExperienceScenes(_ experienceId: String)
     func hasLocationPermission() -> Bool
     func askLocationPermission()
@@ -19,8 +19,6 @@ class ExploreExperiencesViewController: UIViewController {
     let presenter = ExperienceDependencyInjector.exploreExperiencePresenter
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var retryButton: UIButton!
-    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var searchBar: UISearchBar!
     
     var lastItemShown = -1
@@ -52,15 +50,10 @@ class ExploreExperiencesViewController: UIViewController {
 
         presenter.view = self
         
-        retryButton.addTarget(self, action: #selector(retryClick), for: .touchUpInside)
         self.searchBar.delegate = self
         self.tableView.addSubview(self.refreshControl)
         
         presenter.create()
-    }
-    
-    @objc func retryClick(_ sender: UIButton!) {
-        presenter.retryClick()
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -154,12 +147,15 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
         self.tableView!.reloadData()
     }
 
-    func showError(_ visibility: Bool) {
-        errorLabel.isHidden = !visibility
-    }
-
-    func showRetry(_ visibility: Bool) {
-        retryButton.isHidden = !visibility
+    func showRetry() {
+        let snackbar = TTGSnackbar(message: "Oops! Something went wrong. Please try again",
+                                   duration: .forever,
+                                   actionText: "RETRY",
+                                   actionBlock: { (snackbar) in
+                                                    self.presenter.retryClick()
+                                                    snackbar.dismiss()
+                                                })
+        snackbar.show()
     }
     
     func navigateToExperienceScenes(_ experienceId: String) {

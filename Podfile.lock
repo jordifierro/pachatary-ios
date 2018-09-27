@@ -24,6 +24,7 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
   - SwiftKeychainWrapper (3.0.1)
+  - TTGSnackbar (1.7.3)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - RxBlocking
   - RxSwift (~> 4.0)
   - SwiftKeychainWrapper
+  - TTGSnackbar
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -51,6 +53,7 @@ SPEC REPOS:
     - RxBlocking
     - RxSwift
     - SwiftKeychainWrapper
+    - TTGSnackbar
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
@@ -65,7 +68,8 @@ SPEC CHECKSUMS:
   RxBlocking: f6054985901412fc8c02daa84e92d4ba68c61389
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
+  TTGSnackbar: a66e929fd17d662152ec0964990a86e966310edb
 
-PODFILE CHECKSUM: dcf2bbd01c2835d0ba736bd69e776e77999b4fec
+PODFILE CHECKSUM: 4121d889a009df1c4f606ba9303c3519f2c77e85
 
 COCOAPODS: 1.5.3

@@ -13,8 +13,6 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             .when_create()
             .then_should_show_experiences()
             .then_should_show_loader(false)
-            .then_should_show_retry(false)
-            .then_should_show_error(false)
     }
 
     func test_on_experiences_response_inprogress() {
@@ -23,8 +21,6 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             .given_a_view_that_has_location_permission(false)
             .when_create()
             .then_should_show_loader(true)
-            .then_should_show_retry(false)
-            .then_should_show_error(false)
     }
 
     func test_on_experiences_response_error() {
@@ -33,8 +29,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             .given_a_view_that_has_location_permission(false)
             .when_create()
             .then_should_show_loader(false)
-            .then_should_show_retry(true)
-            .then_should_show_error(true)
+            .then_should_show_retry()
     }
     
     func test_on_create_ask_location_if_has_permission() {
@@ -217,6 +212,7 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             return self
         }
 
+        @discardableResult
         func then_should_show_loader(_ visibility: Bool) -> ScenarioMaker {
             assert(visibility == mockView.showLoaderCalls[0])
             return self
@@ -236,17 +232,11 @@ class ExploreExperiencesPresenterTests: XCTestCase {
         }
 
         @discardableResult
-        func then_should_show_retry(_ visibility: Bool) -> ScenarioMaker {
-            assert(visibility == mockView.showRetryCalls[0])
+        func then_should_show_retry() -> ScenarioMaker {
+            assert(mockView.showRetryCalls == 1)
             return self
         }
 
-        @discardableResult
-        func then_should_show_error(_ visibility: Bool) -> ScenarioMaker {
-            assert(visibility == mockView.showErrorCalls[0])
-            return self
-        }
-        
         @discardableResult
         func then_should_call_experience_repo_paginate() -> ScenarioMaker {
             assert([Kind.explore] == mockExperienceRepo.paginateCalls)
@@ -277,8 +267,7 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
 
     var showCalls: [[Experience]] = []
     var showLoaderCalls: [Bool] = []
-    var showErrorCalls: [Bool] = []
-    var showRetryCalls: [Bool] = []
+    var showRetryCalls = 0
     var navigateCalls: [String] = []
     var hasLocationPermissionResponse = false
     var hasLocationPermissionCalls = 0
@@ -293,12 +282,8 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
         self.showLoaderCalls.append(visibility)
     }
 
-    func showError(_ visibility: Bool) {
-        self.showErrorCalls.append(visibility)
-    }
-    
-    func showRetry(_ visibility: Bool) {
-        self.showRetryCalls.append(visibility)
+    func showRetry() {
+        self.showRetryCalls += 1
     }
     
     func navigateToExperienceScenes(_ experienceId: String) {
