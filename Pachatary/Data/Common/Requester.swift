@@ -39,6 +39,7 @@ class RequesterImplementation<T: ResultCache>: Requester {
                                     case .next(let result):
                                         self.cache.replaceResultObserver.onNext(
                                             result.builder()
+                                                    .data(result.data ?? [])
                                                     .action(.getFirsts)
                                                     .params(request.params)
                                                     .build())

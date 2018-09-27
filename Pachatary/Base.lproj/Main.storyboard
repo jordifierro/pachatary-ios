@@ -26,36 +26,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zxP-Xl-HW6">
                                 <rect key="frame" x="0.0" y="120" width="320" height="316"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseLoader" id="gdW-s0-7yP" customClass="PaginatorLoaderViewCell" customModule="Pachatary" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gdW-s0-7yP" id="iJI-24-6wr">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Fys-Bz-l2b" customClass="I">
-                                                    <rect key="frame" x="150" y="11" width="20" height="20"/>
-                                                </activityIndicatorView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Fys-Bz-l2b" firstAttribute="centerX" secondItem="iJI-24-6wr" secondAttribute="centerX" id="LtF-bh-5pF"/>
-                                                <constraint firstItem="Fys-Bz-l2b" firstAttribute="centerY" secondItem="iJI-24-6wr" secondAttribute="centerY" id="Y3J-LC-6o0"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="loader" destination="Fys-Bz-l2b" id="EED-ak-5Mb"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="NV9-7R-LyK" id="vaB-Ge-yRt"/>
                                     <outlet property="delegate" destination="NV9-7R-LyK" id="omX-8f-LBV"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="HlC-7u-Yhg">
-                                <rect key="frame" x="177" y="323" width="20" height="20"/>
-                            </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Error loading experiences..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PE6-Vg-BXG">
                                 <rect key="frame" x="53" y="254" width="278" height="61"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -76,13 +51,11 @@
                             <constraint firstItem="zxP-Xl-HW6" firstAttribute="width" secondItem="Nb9-Jq-y6d" secondAttribute="width" id="6Bo-L5-Fov"/>
                             <constraint firstItem="MI6-3U-Wwv" firstAttribute="leading" secondItem="GGv-ec-L1z" secondAttribute="leading" id="7PP-0z-Jdd"/>
                             <constraint firstItem="mhV-Wt-Bid" firstAttribute="top" secondItem="PE6-Vg-BXG" secondAttribute="bottom" constant="10" id="90v-KB-277"/>
-                            <constraint firstItem="HlC-7u-Yhg" firstAttribute="centerX" secondItem="GGv-ec-L1z" secondAttribute="centerX" id="AmF-SL-XYm"/>
                             <constraint firstAttribute="width" secondItem="zxP-Xl-HW6" secondAttribute="width" id="Kiu-6k-cY6"/>
                             <constraint firstItem="zxP-Xl-HW6" firstAttribute="bottom" secondItem="GGv-ec-L1z" secondAttribute="bottom" id="KvT-5b-9Hu"/>
                             <constraint firstItem="zxP-Xl-HW6" firstAttribute="top" secondItem="MI6-3U-Wwv" secondAttribute="bottom" id="MED-ZS-ctp"/>
                             <constraint firstItem="MI6-3U-Wwv" firstAttribute="top" secondItem="GGv-ec-L1z" secondAttribute="top" id="PgV-4W-0cT"/>
                             <constraint firstItem="PE6-Vg-BXG" firstAttribute="centerX" secondItem="GGv-ec-L1z" secondAttribute="centerX" id="Z56-GO-Jh2"/>
-                            <constraint firstItem="HlC-7u-Yhg" firstAttribute="centerY" secondItem="GGv-ec-L1z" secondAttribute="centerY" id="bOM-rY-eCJ"/>
                             <constraint firstItem="mhV-Wt-Bid" firstAttribute="centerY" secondItem="GGv-ec-L1z" secondAttribute="centerY" id="niS-MX-Euo"/>
                             <constraint firstItem="MI6-3U-Wwv" firstAttribute="width" secondItem="Nb9-Jq-y6d" secondAttribute="width" id="qxM-Oq-TrB"/>
                             <constraint firstItem="mhV-Wt-Bid" firstAttribute="centerX" secondItem="GGv-ec-L1z" secondAttribute="centerX" id="uNu-0m-xTP"/>
@@ -94,7 +67,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="errorLabel" destination="PE6-Vg-BXG" id="Axa-D2-0rH"/>
-                        <outlet property="loaderIndicator" destination="HlC-7u-Yhg" id="977-LJ-c0P"/>
                         <outlet property="retryButton" destination="mhV-Wt-Bid" id="kfM-Lz-1d4"/>
                         <outlet property="searchBar" destination="MI6-3U-Wwv" id="vw1-Rk-HMj"/>
                         <outlet property="tableView" destination="zxP-Xl-HW6" id="5ag-cd-Mzw"/>

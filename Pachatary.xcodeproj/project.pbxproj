@@ -13,7 +13,6 @@
 		AE07CB22211CA64500D98BC1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07CB21211CA64500D98BC1 /* LoginView.swift */; };
 		AE07CB24211CB3FB00D98BC1 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07CB23211CB3FB00D98BC1 /* LoginPresenter.swift */; };
 		AE0B27AE20E67D110060D923 /* ExperienceMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */; };
-		AE0C676C20E122F500E4BFA0 /* PaginationLoaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */; };
 		AE0F8F97211B549500A735B8 /* AskLoginEmailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F8F96211B549500A735B8 /* AskLoginEmailPresenter.swift */; };
 		AE0F8F99211B61C300A735B8 /* AskLoginEmailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F8F98211B61C300A735B8 /* AskLoginEmailPresenterTests.swift */; };
 		AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */; };
@@ -25,6 +24,8 @@
 		AE3116E720EBD2FC00720A95 /* ExperienceRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */; };
 		AE3BE3BB211A142500D10A19 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3BE3BA211A142500D10A19 /* RootViewController.swift */; };
 		AE3BE3BE211A154C00D10A19 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */; };
+		AE414BDA215D34EB0077284C /* LoaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */; };
+		AE414BDC215D358F0077284C /* LoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */; };
 		AE598BA820EA464600F3DBA9 /* ExperienceScenesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */; };
 		AE598BAA20EA4A9800F3DBA9 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */; };
 		AE598BAC20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */; };
@@ -131,7 +132,6 @@
 		AE07CB21211CA64500D98BC1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AE07CB23211CB3FB00D98BC1 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapPresenter.swift; sourceTree = "<group>"; };
-		AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationLoaderViewCell.swift; sourceTree = "<group>"; };
 		AE0F8F96211B549500A735B8 /* AskLoginEmailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskLoginEmailPresenter.swift; sourceTree = "<group>"; };
 		AE0F8F98211B61C300A735B8 /* AskLoginEmailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskLoginEmailPresenterTests.swift; sourceTree = "<group>"; };
 		AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Single+NetworkResponseTransformerTests.swift"; sourceTree = "<group>"; };
@@ -143,6 +143,8 @@
 		AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRepoMock.swift; sourceTree = "<group>"; };
 		AE3BE3BA211A142500D10A19 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoaderTableViewCell.xib; sourceTree = "<group>"; };
+		AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderTableViewCell.swift; sourceTree = "<group>"; };
 		AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesView.swift; sourceTree = "<group>"; };
 		AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTableViewCell.swift; sourceTree = "<group>"; };
 		AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesPresenter.swift; sourceTree = "<group>"; };
@@ -276,6 +278,15 @@
 				386DAF74E9D4D63994E5E77E /* Pods-PachataryUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		AE414BD8215D34B50077284C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */,
+				AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		AE598BA520EA45C600F3DBA9 /* Scene */ = {
@@ -594,6 +605,7 @@
 		AEEAC68920C97D70007C17EE /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				AE414BD8215D34B50077284C /* Common */,
 				AEDB0DB9211B3F62004F843E /* Person */,
 				AE598BA520EA45C600F3DBA9 /* Scene */,
 				AEEAC68A20C97D8E007C17EE /* Experience */,
@@ -608,7 +620,6 @@
 			children = (
 				AE89AC3520C801F200443C23 /* Explore */,
 				AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */,
-				AE0C676B20E122F500E4BFA0 /* PaginationLoaderViewCell.swift */,
 				AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */,
 				AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */,
 			);
@@ -770,6 +781,7 @@
 				AEDB0DBF211B4CB6004F843E /* Person.storyboard in Resources */,
 				AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */,
 				AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */,
+				AE414BDA215D34EB0077284C /* LoaderTableViewCell.xib in Resources */,
 				AEBB62A120C547D3001A4576 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -965,7 +977,6 @@
 				AE598BA820EA464600F3DBA9 /* ExperienceScenesView.swift in Sources */,
 				AEBB629E20C547D3001A4576 /* ExploreExperiencesView.swift in Sources */,
 				AEEC749F20CACCD800B86837 /* AuthTokenMapper.swift in Sources */,
-				AE0C676C20E122F500E4BFA0 /* PaginationLoaderViewCell.swift in Sources */,
 				AEAE26A820E284AC00E5D4E9 /* Scene.swift in Sources */,
 				AE86639420D7D22F008CE6D2 /* AppDataDependencyInjector.swift in Sources */,
 				AE3BE3BE211A154C00D10A19 /* WelcomeView.swift in Sources */,
@@ -982,6 +993,7 @@
 				AE07CB24211CB3FB00D98BC1 /* LoginPresenter.swift in Sources */,
 				AE6C27A020D1324600C5F59F /* ToDomainMapper.swift in Sources */,
 				AE61DA8620C68F6400CFEE00 /* ExperienceApiRepository.swift in Sources */,
+				AE414BDC215D358F0077284C /* LoaderTableViewCell.swift in Sources */,
 				AEB6A66420DBE4C000F936DB /* ExperienceRepository.swift in Sources */,
 				AE6F8B6B20DABA3D007CC36A /* Requester.swift in Sources */,
 				AEA5662F211375B100F0E1F3 /* ExperienceDetailTableViewCell.swift in Sources */,

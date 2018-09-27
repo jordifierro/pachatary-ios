@@ -18,7 +18,7 @@ class ExperienceRepoMock: ExperienceRepository {
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         assert(kind == .explore)
         var result: Result<[Experience]>?
-        if returnInProgress { result = Result(.inProgress, data: nil,
+        if returnInProgress { result = Result(.inProgress, data: [],
                                               nextUrl: nil, action: returnAction) }
         else if returnError != nil { result = Result(error: returnError!) }
         else { result =  Result(.success, data: returnExperiences)}

@@ -6,7 +6,6 @@ import Moya
 protocol ExploreExperiencesView {
     func show(experiences: [Experience])
     func showLoader(_ visibility: Bool)
-    func showPaginationLoader(_ visibility: Bool)
     func showError(_ visibility: Bool)
     func showRetry(_ visibility: Bool)
     func navigateToExperienceScenes(_ experienceId: String)
@@ -20,7 +19,6 @@ class ExploreExperiencesViewController: UIViewController {
     let presenter = ExperienceDependencyInjector.exploreExperiencePresenter
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var loaderIndicator: UIActivityIndicatorView!
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -29,7 +27,7 @@ class ExploreExperiencesViewController: UIViewController {
     var cellHeights: [IndexPath : CGFloat] = [:]
 
     var experiences: [Experience] = []
-    var showPaginationLoader = false
+    var isLoading = false
     var selectedExperienceId: String!
     let locationManager = CLLocationManager()
     
@@ -47,6 +45,8 @@ class ExploreExperiencesViewController: UIViewController {
         
         self.title = "PACHATARY"
 
+        let loaderNib = UINib.init(nibName: "LoaderTableViewCell", bundle: nil)
+        self.tableView.register(loaderNib, forCellReuseIdentifier: "loaderCell")
         let nib = UINib.init(nibName: "ExtendedExperienceTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "extendedExperienceCell")
 
@@ -85,22 +85,20 @@ class ExploreExperiencesViewController: UIViewController {
 extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if self.showPaginationLoader { return 2 }
-        else { return 1 }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 { return experiences.count }
-        else { return 1 }
+        if self.isLoading { return experiences.count + 1 }
+        return experiences.count
     }
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 1 {
-            let loadingCell: PaginatorLoaderViewCell =
-                tableView.dequeueReusableCell(withIdentifier: "reuseLoader", for: indexPath)
-                    as! PaginatorLoaderViewCell
-            loadingCell.bind()
+        if indexPath.row == experiences.count {
+            let loadingCell: LoaderTableViewCell =
+                tableView.dequeueReusableCell(withIdentifier: "loaderCell", for: indexPath)
+                    as! LoaderTableViewCell
             return loadingCell
         }
         else {
@@ -127,16 +125,16 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
             lastItemShown = maxRow
         }
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cellHeights[indexPath] = cell.frame.size.height
     }
-    
+
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let height = cellHeights[indexPath] else { return 70.0 }
         return height
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row <= experiences.count {
             presenter.experienceClick(experiences[indexPath.row].id)
@@ -151,14 +149,9 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
         self.tableView!.reloadData()
     }
     
-    func showPaginationLoader(_ visibility: Bool) {
-        self.showPaginationLoader = visibility
-        self.tableView!.reloadData()
-    }
-
     func showLoader(_ visibility: Bool) {
-        if visibility { loaderIndicator.startAnimating() }
-        else { loaderIndicator.stopAnimating() }
+        self.isLoading = visibility
+        self.tableView!.reloadData()
     }
 
     func showError(_ visibility: Bool) {

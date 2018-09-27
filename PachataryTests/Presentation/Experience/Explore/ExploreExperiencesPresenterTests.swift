@@ -13,28 +13,16 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             .when_create()
             .then_should_show_experiences()
             .then_should_show_loader(false)
-            .then_should_show_pagination_loader(false)
             .then_should_show_retry(false)
             .then_should_show_error(false)
     }
 
-    func test_on_experiences_response_inprogress_getfirsts() {
+    func test_on_experiences_response_inprogress() {
         ScenarioMaker()
             .given_an_experience_repo_that_returns_in_progress(.getFirsts)
             .given_a_view_that_has_location_permission(false)
             .when_create()
             .then_should_show_loader(true)
-            .then_should_show_pagination_loader(false)
-            .then_should_show_retry(false)
-            .then_should_show_error(false)
-    }
-
-    func test_on_experiences_response_inprogress_paginate() {
-        ScenarioMaker()
-            .given_an_experience_repo_that_returns_in_progress(.paginate)
-            .when_create()
-            .then_should_show_loader(false)
-            .then_should_show_pagination_loader(true)
             .then_should_show_retry(false)
             .then_should_show_error(false)
     }
@@ -45,7 +33,6 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             .given_a_view_that_has_location_permission(false)
             .when_create()
             .then_should_show_loader(false)
-            .then_should_show_pagination_loader(false)
             .then_should_show_retry(true)
             .then_should_show_error(true)
     }
@@ -235,11 +222,6 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             return self
         }
         
-        func then_should_show_pagination_loader(_ visibility: Bool) -> ScenarioMaker {
-            assert(visibility == mockView.showPaginationLoaderCalls[0])
-            return self
-        }
-        
         @discardableResult
         func then_should_call_get_firsts_kind_explore(with params: Request.Params) -> ScenarioMaker {
             assert(mockExperienceRepo.getFirstsCalls.count == 1)
@@ -295,7 +277,6 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
 
     var showCalls: [[Experience]] = []
     var showLoaderCalls: [Bool] = []
-    var showPaginationLoaderCalls: [Bool] = []
     var showErrorCalls: [Bool] = []
     var showRetryCalls: [Bool] = []
     var navigateCalls: [String] = []
@@ -311,11 +292,7 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
     func showLoader(_ visibility: Bool) {
         self.showLoaderCalls.append(visibility)
     }
-    
-    func showPaginationLoader(_ visibility: Bool) {
-        self.showPaginationLoaderCalls.append(visibility)
-    }
-    
+
     func showError(_ visibility: Bool) {
         self.showErrorCalls.append(visibility)
     }
