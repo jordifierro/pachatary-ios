@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="squareExperienceCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="squareExperienceCell" rowHeight="579" id="hWT-CX-P5v" customClass="SquareExperienceTableViewCell" customModule="Pachatary" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hWT-CX-P5v" id="ZLN-9e-KFV">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="399.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3ti-1q-CvR">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="399.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="3ti-1q-CvR" secondAttribute="height" multiplier="1:1" id="yiU-Pr-b7B"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hq-MZ-Jar" userLabel="Title Label">
+                        <rect key="frame" x="116" y="162" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="3ti-1q-CvR" firstAttribute="top" secondItem="ZLN-9e-KFV" secondAttribute="top" id="2uA-Rj-aX5"/>
+                    <constraint firstAttribute="trailing" secondItem="3ti-1q-CvR" secondAttribute="trailing" id="Bsf-BA-su6"/>
+                    <constraint firstItem="9hq-MZ-Jar" firstAttribute="centerX" secondItem="3ti-1q-CvR" secondAttribute="centerX" id="EOa-fu-qP4"/>
+                    <constraint firstItem="3ti-1q-CvR" firstAttribute="leading" secondItem="ZLN-9e-KFV" secondAttribute="leading" id="H57-mp-Dca"/>
+                    <constraint firstItem="9hq-MZ-Jar" firstAttribute="width" secondItem="3ti-1q-CvR" secondAttribute="width" multiplier="8:10" id="fCp-n3-y30"/>
+                    <constraint firstItem="9hq-MZ-Jar" firstAttribute="centerY" secondItem="3ti-1q-CvR" secondAttribute="centerY" id="jWo-2v-tBF"/>
+                    <constraint firstAttribute="bottom" secondItem="3ti-1q-CvR" secondAttribute="bottom" id="pjj-pG-qRh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="a9Y-Hv-Zeg"/>
+            <connections>
+                <outlet property="pictureImageView" destination="3ti-1q-CvR" id="a5t-Ip-mLb"/>
+                <outlet property="titleLabel" destination="9hq-MZ-Jar" id="Ubd-2B-9O0"/>
+            </connections>
+            <point key="canvasLocation" x="-45.5" y="301.5"/>
+        </tableViewCell>
+    </objects>
+</document>

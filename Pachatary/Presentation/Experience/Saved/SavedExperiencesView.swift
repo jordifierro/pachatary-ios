@@ -4,22 +4,18 @@ import RxSwift
 import Moya
 import TTGSnackbar
 
-protocol ExploreExperiencesView : class {
+protocol SavedExperiencesView : class {
     func show(experiences: [Experience])
     func showLoader(_ visibility: Bool)
     func showRetry()
     func navigateToExperienceScenes(_ experienceId: String)
-    func hasLocationPermission() -> Bool
-    func askLocationPermission()
-    func askLastKnownLocation()
 }
 
-class ExploreExperiencesViewController: UIViewController {
+class SavedExperiencesViewController: UIViewController {
     
-    var presenter: ExploreExperiencesPresenter!
-
+    var presenter: SavedExperiencesPresenter!
+    
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
     
     var lastItemShown = -1
     var cellHeights: [IndexPath : CGFloat] = [:]
@@ -27,50 +23,48 @@ class ExploreExperiencesViewController: UIViewController {
     var experiences: [Experience] = []
     var isLoading = false
     var selectedExperienceId: String!
-    let locationManager = CLLocationManager()
-    
+
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
-            #selector(ExploreExperiencesViewController.handleRefresh(_:)),
+            #selector(SavedExperiencesViewController.handleRefresh(_:)),
                                  for: UIControlEvents.valueChanged)
-
+        
         return refreshControl
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        presenter = ExperienceDependencyInjector.exploreExperiencePresenter(view: self)
-
-        self.title = "Explore"
-        self.navigationItem.title = "PACHATARY"
-
+        
+        presenter = ExperienceDependencyInjector.savedExperiencePresenter(view: self)
+        
+        self.title = "Saved"
+        self.navigationItem.title = "SAVED EXPERIENCES"
+        
         let loaderNib = UINib.init(nibName: "LoaderTableViewCell", bundle: nil)
         self.tableView.register(loaderNib, forCellReuseIdentifier: "loaderCell")
-        let nib = UINib.init(nibName: "ExtendedExperienceTableViewCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "extendedExperienceCell")
-
-        self.searchBar.delegate = self
+        let nib = UINib.init(nibName: "SquareExperienceTableViewCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "squareExperienceCell")
+        
         self.tableView.addSubview(self.refreshControl)
-
+        
         presenter.create()
     }
     
     deinit {
         self.presenter.destroy()
     }
-
+    
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         presenter.refresh()
         refreshControl.endRefreshing()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "experienceScenesSegue" {
             if let destinationVC = segue.destination as? ExperienceScenesViewController {
@@ -80,7 +74,7 @@ class ExploreExperiencesViewController: UIViewController {
     }
 }
 
-extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDelegate {
+extension SavedExperiencesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -100,9 +94,9 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
             return loadingCell
         }
         else {
-            let cell: ExtendedExperienceTableViewCell =
-                tableView.dequeueReusableCell(withIdentifier: "extendedExperienceCell", for: indexPath)
-                    as! ExtendedExperienceTableViewCell
+            let cell: SquareExperienceTableViewCell =
+                tableView.dequeueReusableCell(withIdentifier: "squareExperienceCell", for: indexPath)
+                    as! SquareExperienceTableViewCell
             cell.bind(experiences[indexPath.row])
             return cell
         }
@@ -122,16 +116,16 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
             lastItemShown = maxRow
         }
     }
-
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cellHeights[indexPath] = cell.frame.size.height
     }
-
+    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let height = cellHeights[indexPath] else { return 70.0 }
         return height
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row <= experiences.count {
             presenter.experienceClick(experiences[indexPath.row].id)
@@ -139,8 +133,8 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
     }
 }
 
-extension ExploreExperiencesViewController: ExploreExperiencesView {
-
+extension SavedExperiencesViewController: SavedExperiencesView {
+    
     func show(experiences: [Experience]) {
         self.experiences = experiences
         self.tableView!.reloadData()
@@ -150,75 +144,20 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
         self.isLoading = visibility
         self.tableView!.reloadData()
     }
-
+    
     func showRetry() {
         let snackbar = TTGSnackbar(message: "Oops! Something went wrong. Please try again",
                                    duration: .forever,
                                    actionText: "RETRY",
                                    actionBlock: { [weak self] snackbar in
-                                                    self?.presenter.retryClick()
-                                                    snackbar.dismiss()
-                                                })
+                                    self?.presenter.retryClick()
+                                    snackbar.dismiss()
+        })
         snackbar.show()
     }
     
     func navigateToExperienceScenes(_ experienceId: String) {
         selectedExperienceId = experienceId
         performSegue(withIdentifier: "experienceScenesSegue", sender: self)
-    }
-    
-    func hasLocationPermission() -> Bool {
-        if CLLocationManager.locationServicesEnabled() {
-            switch CLLocationManager.authorizationStatus() {
-            case .notDetermined, .restricted, .denied:
-                return false
-            case .authorizedAlways, .authorizedWhenInUse:
-                return true
-            }
-        } else {
-            return false
-        }
-    }
-    
-    func askLocationPermission() {
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.requestWhenInUseAuthorization()
-        }
-        else { presenter.onPermissionDenied() }
-    }
-    
-    func askLastKnownLocation() {
-        let location = locationManager.location
-        if location == nil { presenter.onLastLocationNotFound() }
-        else { presenter.onLastLocationFound(latitude: location!.coordinate.latitude,
-                                             longitude: location!.coordinate.longitude) }
-    }
-}
-
-extension ExploreExperiencesViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        presenter.searchClick(searchBar.text!)
-        searchBar.endEditing(true)
-    }
-}
-
-extension ExploreExperiencesViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager,
-                         didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-            case .notDetermined:
-                locationManager.requestWhenInUseAuthorization()
-                break
-            case .restricted, .denied:
-                presenter.onPermissionDenied()
-                break
-            case .authorizedWhenInUse:
-                presenter.onPermissionAccepted()
-                break
-            case .authorizedAlways:
-                presenter.onPermissionAccepted()
-                break
-        }
     }
 }

@@ -9,6 +9,11 @@ class ExperienceDependencyInjector {
                                            AppPresentationDependencyInjector.mainScheduler, view)
     }
     
+    static func savedExperiencePresenter(view: SavedExperiencesView) -> SavedExperiencesPresenter {
+        return SavedExperiencesPresenter(ExperienceDataDependencyInjector.experienceRepository,
+                                         AppPresentationDependencyInjector.mainScheduler, view)
+    }
+    
     static var experienceMapPresenter: ExperienceMapPresenter { get { return
         ExperienceMapPresenter(
         SceneDataDependencyInjector.sceneRepository,

@@ -9,6 +9,7 @@ protocol Requester {
     var actionsObserver: AnyObserver<Request> { get }
     func resultsObservable() -> Observable<Result<[requesterType]>>
     var updateObserver: AnyObserver<[requesterType]> { get }
+    var addOrUpdateObserver: AnyObserver<[requesterType]> { get }
 }
 
 class RequesterImplementation<T: ResultCache>: Requester {
@@ -19,6 +20,7 @@ class RequesterImplementation<T: ResultCache>: Requester {
     
     let cache: T!
     var updateObserver: AnyObserver<[T.cacheType]> { get { return cache.updateObserver } }
+    var addOrUpdateObserver: AnyObserver<[T.cacheType]> { get { return cache.addOrUpdateObserver } }
 
     init(_ cache: T) {
         self.cache = cache

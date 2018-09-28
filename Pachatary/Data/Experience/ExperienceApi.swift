@@ -2,7 +2,8 @@ import Foundation
 import Moya
 
 enum ExperienceApi {
-    case searchExperiences(String, Double?, Double?)
+    case search(String, Double?, Double?)
+    case saved
     case paginate(String)
     case save(String, Bool)
 }
@@ -11,16 +12,18 @@ enum ExperienceApi {
 extension ExperienceApi: TargetType {
     var baseURL: URL {
         switch self {
-        case .searchExperiences, .save:
-            return URL(string: AppDataDependencyInjector.apiUrl)!
         case .paginate(let url):
             return URL(string: url)!
+        default:
+            return URL(string: AppDataDependencyInjector.apiUrl)!
         }
     }
     var path: String {
         switch self {
-        case .searchExperiences:
+        case .search:
             return "/experiences/search"
+        case .saved:
+            return "/experiences/"
         case .paginate:
             return ""
         case .save(let (id, _)):
@@ -29,7 +32,7 @@ extension ExperienceApi: TargetType {
     }
     var method: Moya.Method {
         switch self {
-        case .searchExperiences, .paginate:
+        case .search, .saved, .paginate:
             return .get
         case .save(let (_, save)):
             if save { return .post }
@@ -38,14 +41,16 @@ extension ExperienceApi: TargetType {
     }
     var task: Task {
         switch self {
-        case .paginate, .save:
-            return .requestPlain
-        case .searchExperiences(let text, let latitude, let longitude):
+        case .search(let text, let latitude, let longitude):
             var params: [String: Any] = [:]
             params["word"] = text
             if latitude != nil { params["latitude"] = latitude }
             if longitude != nil { params["longitude"] = longitude }
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .saved:
+            return .requestParameters(parameters: ["saved": "true"], encoding: URLEncoding.default)
+        default:
+            return .requestPlain
         }
     }
     var sampleData: Data {
@@ -60,10 +65,10 @@ extension ExperienceApi: TargetType {
                       "\"savesCount\": 8,",
                       "}]").utf8Encoded
         switch self {
-        case .searchExperiences, .paginate:
-            return results
         case .save:
             return "".utf8Encoded
+        default:
+            return results
         }
     }
     var headers: [String: String]? {

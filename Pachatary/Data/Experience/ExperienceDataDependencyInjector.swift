@@ -15,9 +15,10 @@ class ExperienceDataDependencyInjector {
                             RequesterImplementation<ResultCacheImplementation<Experience>> { get {
         return RequesterImplementation<ResultCacheImplementation<Experience>>(experienceResultCache)
     }}
-    
+
     static let experienceRepository =
         ExperienceRepoImplementation(apiRepo: experienceApiRepository,
-                                     exploreRequester: experienceRequester)
+                                     exploreRequester: experienceRequester,
+                                     savedRequester: experienceRequester)
 }
 

@@ -3,6 +3,7 @@ import RxSwift
 
 enum Kind {
     case explore
+    case saved
 }
 
 protocol ExperienceRepository {
@@ -18,34 +19,60 @@ class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
 
     let apiRepo: ExperienceApiRepository!
     let exploreRequester: R!
+    let savedRequester: R!
 
-    init(apiRepo: ExperienceApiRepository, exploreRequester: R) {
+    init(apiRepo: ExperienceApiRepository, exploreRequester: R, savedRequester: R) {
         self.apiRepo = apiRepo
         self.exploreRequester = exploreRequester
+        self.savedRequester = savedRequester
+        
         self.exploreRequester.getFirstsCallable =
             { params in
                 self.apiRepo.exploreExperiencesObservable(
                     params!.word, params!.latitude, params!.longitude) }
         self.exploreRequester.paginateCallable = { url in
-                                                    self.apiRepo.paginateExperiences(url)
+                                                    self.apiRepo.paginateExperiences(url) }
+        self.savedRequester.getFirstsCallable =
+            { params in self.apiRepo.savedExperiencesObservable() }
+        self.savedRequester.paginateCallable = { url in self.apiRepo.paginateExperiences(url)
         }
     }
     
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
-        return self.exploreRequester.resultsObservable()
+        switch kind {
+        case .explore:
+            return self.exploreRequester.resultsObservable()
+        case .saved:
+            return self.savedRequester.resultsObservable()
+                .map({ (result) -> Result<[Experience]> in
+                    result.builder()
+                        .data(result.data!.filter({ (experience) -> Bool in experience.isSaved }))
+                        .build()
+                })
+        }
     }
     
     func getFirsts(kind: Kind, params: Request.Params? = nil) {
-        self.exploreRequester.actionsObserver.onNext(Request(.getFirsts, params))
+        switch kind {
+        case .explore:
+            self.exploreRequester.actionsObserver.onNext(Request(.getFirsts, params))
+        case .saved:
+            self.savedRequester.actionsObserver.onNext(Request(.getFirsts))
+        }
     }
     
     func paginate(kind: Kind) {
-        self.exploreRequester.actionsObserver.onNext(Request(.paginate))
+        switch kind {
+        case .explore:
+            self.exploreRequester.actionsObserver.onNext(Request(.paginate))
+        case .saved:
+            self.savedRequester.actionsObserver.onNext(Request(.paginate))
+        }
     }
     
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
         return Observable.combineLatest(experiencesObservable(kind: .explore),
-                                        experiencesObservable(kind: .explore))
+                                        experiencesObservable(kind: .saved))
                             { result, result2 in return result }
             .map { result in
                 return Result(.success, data:
@@ -85,6 +112,7 @@ class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
                 switch event {
                 case .next(let experience):
                     self.exploreRequester.updateObserver.onNext([experience])
+                    self.savedRequester.addOrUpdateObserver.onNext([experience])
                 case .error(let error): fatalError(error.localizedDescription)
                 case .completed: break
             }

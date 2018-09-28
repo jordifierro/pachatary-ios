@@ -26,6 +26,8 @@
 		AE3BE3BE211A154C00D10A19 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */; };
 		AE414BDA215D34EB0077284C /* LoaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */; };
 		AE414BDC215D358F0077284C /* LoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */; };
+		AE414BDE215E38E40077284C /* SquareExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE414BDD215E38E40077284C /* SquareExperienceTableViewCell.xib */; };
+		AE414BE0215E3A400077284C /* SquareExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE414BDF215E3A400077284C /* SquareExperienceTableViewCell.swift */; };
 		AE598BA820EA464600F3DBA9 /* ExperienceScenesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */; };
 		AE598BAA20EA4A9800F3DBA9 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */; };
 		AE598BAC20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */; };
@@ -51,6 +53,8 @@
 		AE86639820D7D4A1008CE6D2 /* AppPresentationDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE86639720D7D4A1008CE6D2 /* AppPresentationDependencyInjector.swift */; };
 		AE86639A20D7D4D5008CE6D2 /* ExperienceDataDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE86639920D7D4D5008CE6D2 /* ExperienceDataDependencyInjector.swift */; };
 		AE868AC420C7D4EF009AAF93 /* ExploreExperiencesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE868AC320C7D4EF009AAF93 /* ExploreExperiencesPresenter.swift */; };
+		AE86D9E5215E41B3003D2B34 /* SavedExperiencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE86D9E4215E41B3003D2B34 /* SavedExperiencesView.swift */; };
+		AE86D9E7215E429F003D2B34 /* SavedExperiencesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE86D9E6215E429F003D2B34 /* SavedExperiencesPresenter.swift */; };
 		AE89AC2C20C7E5A100443C23 /* ExperienceDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */; };
 		AE89AC2E20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE89AC2D20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift */; };
 		AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA0EE5520CFB98A0040E4C9 /* Result.swift */; };
@@ -145,6 +149,8 @@
 		AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoaderTableViewCell.xib; sourceTree = "<group>"; };
 		AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderTableViewCell.swift; sourceTree = "<group>"; };
+		AE414BDD215E38E40077284C /* SquareExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SquareExperienceTableViewCell.xib; sourceTree = "<group>"; };
+		AE414BDF215E3A400077284C /* SquareExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesView.swift; sourceTree = "<group>"; };
 		AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTableViewCell.swift; sourceTree = "<group>"; };
 		AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesPresenter.swift; sourceTree = "<group>"; };
@@ -170,6 +176,8 @@
 		AE86639720D7D4A1008CE6D2 /* AppPresentationDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPresentationDependencyInjector.swift; sourceTree = "<group>"; };
 		AE86639920D7D4D5008CE6D2 /* ExperienceDataDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDataDependencyInjector.swift; sourceTree = "<group>"; };
 		AE868AC320C7D4EF009AAF93 /* ExploreExperiencesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesPresenter.swift; sourceTree = "<group>"; };
+		AE86D9E4215E41B3003D2B34 /* SavedExperiencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedExperiencesView.swift; sourceTree = "<group>"; };
+		AE86D9E6215E429F003D2B34 /* SavedExperiencesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedExperiencesPresenter.swift; sourceTree = "<group>"; };
 		AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDependencyInjector.swift; sourceTree = "<group>"; };
 		AE89AC2D20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesPresenterTests.swift; sourceTree = "<group>"; };
 		AEA0EE5520CFB98A0040E4C9 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -353,6 +361,15 @@
 				AE1429ED20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		AE86D9E3215E4195003D2B34 /* Saved */ = {
+			isa = PBXGroup;
+			children = (
+				AE86D9E4215E41B3003D2B34 /* SavedExperiencesView.swift */,
+				AE86D9E6215E429F003D2B34 /* SavedExperiencesPresenter.swift */,
+			);
+			path = Saved;
 			sourceTree = "<group>";
 		};
 		AE89AC3420C801C400443C23 /* Data */ = {
@@ -618,10 +635,13 @@
 		AEEAC68A20C97D8E007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
+				AE86D9E3215E4195003D2B34 /* Saved */,
 				AE89AC3520C801F200443C23 /* Explore */,
 				AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */,
 				AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */,
 				AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */,
+				AE414BDD215E38E40077284C /* SquareExperienceTableViewCell.xib */,
+				AE414BDF215E3A400077284C /* SquareExperienceTableViewCell.swift */,
 			);
 			path = Experience;
 			sourceTree = "<group>";
@@ -782,6 +802,7 @@
 				AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */,
 				AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */,
 				AE414BDA215D34EB0077284C /* LoaderTableViewCell.xib in Resources */,
+				AE414BDE215E38E40077284C /* SquareExperienceTableViewCell.xib in Resources */,
 				AEBB62A120C547D3001A4576 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -965,6 +986,7 @@
 			files = (
 				AE868AC420C7D4EF009AAF93 /* ExploreExperiencesPresenter.swift in Sources */,
 				AEB326B320C6F26D000E07D8 /* PaginatedListResultMapper.swift in Sources */,
+				AE86D9E5215E41B3003D2B34 /* SavedExperiencesView.swift in Sources */,
 				AEE1528E20D96DC6008707FF /* ToResultMapper.swift in Sources */,
 				AEEC749620CA780F00B86837 /* DataError.swift in Sources */,
 				AEA5662B2113369D00F0E1F3 /* ProfileMapper.swift in Sources */,
@@ -973,6 +995,7 @@
 				AEEC749B20CAC9B300B86837 /* AuthApiRepository.swift in Sources */,
 				AEA566292113328400F0E1F3 /* LittlePictureMapper.swift in Sources */,
 				AEDB0DC3211B51E3004F843E /* AskLoginEmailView.swift in Sources */,
+				AE414BE0215E3A400077284C /* SquareExperienceTableViewCell.swift in Sources */,
 				AEAE26B420E28E3200E5D4E9 /* SceneDataDependencyInjector.swift in Sources */,
 				AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */,
 				AEB326B520C6F819000E07D8 /* BigPictureMapper.swift in Sources */,
@@ -999,6 +1022,7 @@
 				AEB6A66420DBE4C000F936DB /* ExperienceRepository.swift in Sources */,
 				AE6F8B6B20DABA3D007CC36A /* Requester.swift in Sources */,
 				AEA5662F211375B100F0E1F3 /* ExperienceDetailTableViewCell.swift in Sources */,
+				AE86D9E7215E429F003D2B34 /* SavedExperiencesPresenter.swift in Sources */,
 				AE598BAA20EA4A9800F3DBA9 /* SceneTableViewCell.swift in Sources */,
 				AEEC749420CA751D00B86837 /* AuthToken.swift in Sources */,
 				AEE1529220D983DB008707FF /* Identifiable.swift in Sources */,
