@@ -26,8 +26,7 @@
 		AE3BE3BE211A154C00D10A19 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */; };
 		AE414BDA215D34EB0077284C /* LoaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */; };
 		AE414BDC215D358F0077284C /* LoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */; };
-		AE414BDE215E38E40077284C /* SquareExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE414BDD215E38E40077284C /* SquareExperienceTableViewCell.xib */; };
-		AE414BE0215E3A400077284C /* SquareExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE414BDF215E3A400077284C /* SquareExperienceTableViewCell.swift */; };
+		AE414BE0215E3A400077284C /* SquareExperienceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE414BDF215E3A400077284C /* SquareExperienceCollectionViewCell.swift */; };
 		AE598BA820EA464600F3DBA9 /* ExperienceScenesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */; };
 		AE598BAA20EA4A9800F3DBA9 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */; };
 		AE598BAC20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */; };
@@ -55,6 +54,9 @@
 		AE868AC420C7D4EF009AAF93 /* ExploreExperiencesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE868AC320C7D4EF009AAF93 /* ExploreExperiencesPresenter.swift */; };
 		AE86D9E5215E41B3003D2B34 /* SavedExperiencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE86D9E4215E41B3003D2B34 /* SavedExperiencesView.swift */; };
 		AE86D9E7215E429F003D2B34 /* SavedExperiencesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE86D9E6215E429F003D2B34 /* SavedExperiencesPresenter.swift */; };
+		AE86D9E9215EAD98003D2B34 /* SquareExperienceCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE86D9E8215EAD98003D2B34 /* SquareExperienceCollectionViewCell.xib */; };
+		AE86D9EB215EAEAA003D2B34 /* LoaderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE86D9EA215EAEAA003D2B34 /* LoaderCollectionViewCell.xib */; };
+		AE86D9ED215EAF0C003D2B34 /* LoaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE86D9EC215EAF0C003D2B34 /* LoaderCollectionViewCell.swift */; };
 		AE89AC2C20C7E5A100443C23 /* ExperienceDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */; };
 		AE89AC2E20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE89AC2D20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift */; };
 		AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA0EE5520CFB98A0040E4C9 /* Result.swift */; };
@@ -149,8 +151,7 @@
 		AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoaderTableViewCell.xib; sourceTree = "<group>"; };
 		AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderTableViewCell.swift; sourceTree = "<group>"; };
-		AE414BDD215E38E40077284C /* SquareExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SquareExperienceTableViewCell.xib; sourceTree = "<group>"; };
-		AE414BDF215E3A400077284C /* SquareExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareExperienceTableViewCell.swift; sourceTree = "<group>"; };
+		AE414BDF215E3A400077284C /* SquareExperienceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareExperienceCollectionViewCell.swift; sourceTree = "<group>"; };
 		AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesView.swift; sourceTree = "<group>"; };
 		AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTableViewCell.swift; sourceTree = "<group>"; };
 		AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesPresenter.swift; sourceTree = "<group>"; };
@@ -178,6 +179,9 @@
 		AE868AC320C7D4EF009AAF93 /* ExploreExperiencesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesPresenter.swift; sourceTree = "<group>"; };
 		AE86D9E4215E41B3003D2B34 /* SavedExperiencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedExperiencesView.swift; sourceTree = "<group>"; };
 		AE86D9E6215E429F003D2B34 /* SavedExperiencesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedExperiencesPresenter.swift; sourceTree = "<group>"; };
+		AE86D9E8215EAD98003D2B34 /* SquareExperienceCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SquareExperienceCollectionViewCell.xib; sourceTree = "<group>"; };
+		AE86D9EA215EAEAA003D2B34 /* LoaderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoaderCollectionViewCell.xib; sourceTree = "<group>"; };
+		AE86D9EC215EAF0C003D2B34 /* LoaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDependencyInjector.swift; sourceTree = "<group>"; };
 		AE89AC2D20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesPresenterTests.swift; sourceTree = "<group>"; };
 		AEA0EE5520CFB98A0040E4C9 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -293,6 +297,8 @@
 			children = (
 				AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */,
 				AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */,
+				AE86D9EA215EAEAA003D2B34 /* LoaderCollectionViewCell.xib */,
+				AE86D9EC215EAF0C003D2B34 /* LoaderCollectionViewCell.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -640,8 +646,8 @@
 				AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */,
 				AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */,
 				AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */,
-				AE414BDD215E38E40077284C /* SquareExperienceTableViewCell.xib */,
-				AE414BDF215E3A400077284C /* SquareExperienceTableViewCell.swift */,
+				AE414BDF215E3A400077284C /* SquareExperienceCollectionViewCell.swift */,
+				AE86D9E8215EAD98003D2B34 /* SquareExperienceCollectionViewCell.xib */,
 			);
 			path = Experience;
 			sourceTree = "<group>";
@@ -796,13 +802,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEEAC69020C99979007C17EE /* ApiKeys.plist in Resources */,
+				AE86D9E9215EAD98003D2B34 /* SquareExperienceCollectionViewCell.xib in Resources */,
+				AE86D9EB215EAEAA003D2B34 /* LoaderCollectionViewCell.xib in Resources */,
 				AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */,
 				AEA5662D2113756300F0E1F3 /* ExperienceDetailTableViewCell.xib in Resources */,
 				AEDB0DBF211B4CB6004F843E /* Person.storyboard in Resources */,
 				AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */,
 				AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */,
 				AE414BDA215D34EB0077284C /* LoaderTableViewCell.xib in Resources */,
-				AE414BDE215E38E40077284C /* SquareExperienceTableViewCell.xib in Resources */,
 				AEBB62A120C547D3001A4576 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -995,7 +1002,7 @@
 				AEEC749B20CAC9B300B86837 /* AuthApiRepository.swift in Sources */,
 				AEA566292113328400F0E1F3 /* LittlePictureMapper.swift in Sources */,
 				AEDB0DC3211B51E3004F843E /* AskLoginEmailView.swift in Sources */,
-				AE414BE0215E3A400077284C /* SquareExperienceTableViewCell.swift in Sources */,
+				AE414BE0215E3A400077284C /* SquareExperienceCollectionViewCell.swift in Sources */,
 				AEAE26B420E28E3200E5D4E9 /* SceneDataDependencyInjector.swift in Sources */,
 				AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */,
 				AEB326B520C6F819000E07D8 /* BigPictureMapper.swift in Sources */,
@@ -1046,6 +1053,7 @@
 				AEEC74A320CADB8C00B86837 /* AuthHeaderPlugin.swift in Sources */,
 				AEAE26AA20E285AA00E5D4E9 /* SceneRepository.swift in Sources */,
 				AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */,
+				AE86D9ED215EAF0C003D2B34 /* LoaderCollectionViewCell.swift in Sources */,
 				AEE1529020D98395008707FF /* ResultCache.swift in Sources */,
 				AE0B27AE20E67D110060D923 /* ExperienceMapPresenter.swift in Sources */,
 				AEAE26AE20E2881A00E5D4E9 /* String+UrlEncoding.swift in Sources */,

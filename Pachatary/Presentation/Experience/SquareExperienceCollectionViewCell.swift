@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-class SquareExperienceTableViewCell: UITableViewCell {
+class SquareExperienceCollectionViewCell: UICollectionViewCell {
     
     //Mark: PROPERTIES
     @IBOutlet weak var pictureImageView: UIImageView!
@@ -12,15 +12,9 @@ class SquareExperienceTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
     func bind(_ experience: Experience) {
         if experience.picture != nil {
-            pictureImageView.kf.setImage(with: URL(string: experience.picture!.mediumUrl))
+            pictureImageView.kf.setImage(with: URL(string: experience.picture!.smallUrl))
         }
         else { pictureImageView.kf.setImage(with: nil) }
         titleLabel.text = experience.title

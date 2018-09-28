@@ -15,8 +15,8 @@ class SavedExperiencesViewController: UIViewController {
     
     var presenter: SavedExperiencesPresenter!
     
-    @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var collectionView: UICollectionView!
+
     var lastItemShown = -1
     var cellHeights: [IndexPath : CGFloat] = [:]
 
@@ -41,12 +41,12 @@ class SavedExperiencesViewController: UIViewController {
         self.title = "Saved"
         self.navigationItem.title = "SAVED EXPERIENCES"
         
-        let loaderNib = UINib.init(nibName: "LoaderTableViewCell", bundle: nil)
-        self.tableView.register(loaderNib, forCellReuseIdentifier: "loaderCell")
-        let nib = UINib.init(nibName: "SquareExperienceTableViewCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "squareExperienceCell")
+        let loaderNib = UINib.init(nibName: "LoaderCollectionViewCell", bundle: nil)
+        self.collectionView.register(loaderNib, forCellWithReuseIdentifier: "loaderCollectionCell")
+        let nib = UINib.init(nibName: "SquareExperienceCollectionViewCell", bundle: nil)
+        self.collectionView.register(nib, forCellWithReuseIdentifier: "squareExperienceCell")
         
-        self.tableView.addSubview(self.refreshControl)
+        self.collectionView.addSubview(self.refreshControl)
         
         presenter.create()
     }
@@ -74,39 +74,56 @@ class SavedExperiencesViewController: UIViewController {
     }
 }
 
-extension SavedExperiencesViewController: UITableViewDataSource, UITableViewDelegate {
+extension SavedExperiencesViewController: UICollectionViewDataSource, UICollectionViewDelegate,
+                                                                UICollectionViewDelegateFlowLayout {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.isLoading { return experiences.count + 1 }
         return experiences.count
     }
-    
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row == experiences.count {
-            let loadingCell: LoaderTableViewCell =
-                tableView.dequeueReusableCell(withIdentifier: "loaderCell", for: indexPath)
-                    as! LoaderTableViewCell
+            let loadingCell: LoaderCollectionViewCell =
+                collectionView.dequeueReusableCell(withReuseIdentifier: "loaderCollectionCell", for: indexPath)
+                    as! LoaderCollectionViewCell
+            loadingCell.setNeedsUpdateConstraints()
+            loadingCell.updateConstraintsIfNeeded()
+            loadingCell.layoutIfNeeded()
             return loadingCell
         }
         else {
-            let cell: SquareExperienceTableViewCell =
-                tableView.dequeueReusableCell(withIdentifier: "squareExperienceCell", for: indexPath)
-                    as! SquareExperienceTableViewCell
+            let cell: SquareExperienceCollectionViewCell =
+                collectionView.dequeueReusableCell(withReuseIdentifier: "squareExperienceCell", for: indexPath)
+                    as! SquareExperienceCollectionViewCell
             cell.bind(experiences[indexPath.row])
+            cell.setNeedsUpdateConstraints()
+            cell.updateConstraintsIfNeeded()
+            cell.layoutIfNeeded()
             return cell
         }
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let visibleRowsIndexPaths = self.tableView.indexPathsForVisibleRows
-        if visibleRowsIndexPaths != nil && visibleRowsIndexPaths!.count > 0 {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let availableWidth = view.frame.width
+        let widthPerItem = availableWidth / 2
+        
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(0, 0, 0, 0)
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let visibleRowsIndexPaths = self.collectionView.indexPathsForVisibleItems
+        if visibleRowsIndexPaths.count > 0 {
             var visibleRows = [Int]()
-            for indexPath in visibleRowsIndexPaths! {
+            for indexPath in visibleRowsIndexPaths {
                 visibleRows.append(indexPath.row)
             }
             let maxRow = visibleRows.max()!
@@ -116,17 +133,17 @@ extension SavedExperiencesViewController: UITableViewDataSource, UITableViewDele
             lastItemShown = maxRow
         }
     }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         cellHeights[indexPath] = cell.frame.size.height
     }
+
+    //func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    //    guard let height = cellHeights[indexPath] else { return 70.0 }
+    //    return height
+    //}
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let height = cellHeights[indexPath] else { return 70.0 }
-        return height
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row <= experiences.count {
             presenter.experienceClick(experiences[indexPath.row].id)
         }
@@ -137,12 +154,12 @@ extension SavedExperiencesViewController: SavedExperiencesView {
     
     func show(experiences: [Experience]) {
         self.experiences = experiences
-        self.tableView!.reloadData()
+        self.collectionView!.reloadData()
     }
     
     func showLoader(_ visibility: Bool) {
         self.isLoading = visibility
-        self.tableView!.reloadData()
+        self.collectionView!.reloadData()
     }
     
     func showRetry() {
