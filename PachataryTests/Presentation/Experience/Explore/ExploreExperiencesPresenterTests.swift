@@ -105,14 +105,13 @@ class ExploreExperiencesPresenterTests: XCTestCase {
     class ScenarioMaker {
         var experiences: [Experience] = []
         let mockExperienceRepo = ExperienceRepoMock()
-        var mockView: ExploreExperiencesViewMock!
+        let mockView = ExploreExperiencesViewMock()
         var presenter: ExploreExperiencesPresenter!
 
         init() {
-            mockView = ExploreExperiencesViewMock()
             presenter = ExploreExperiencesPresenter(mockExperienceRepo,
-                                                    CurrentThreadScheduler.instance)
-            presenter.view = mockView
+                                                    CurrentThreadScheduler.instance,
+                                                    mockView)
         }
 
         func given_a_view_that_has_location_permission(_ hasPermissions: Bool) -> ScenarioMaker {

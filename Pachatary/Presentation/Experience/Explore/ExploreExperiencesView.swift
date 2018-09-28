@@ -4,7 +4,7 @@ import RxSwift
 import Moya
 import TTGSnackbar
 
-protocol ExploreExperiencesView {
+protocol ExploreExperiencesView : class {
     func show(experiences: [Experience])
     func showLoader(_ visibility: Bool)
     func showRetry()
@@ -16,8 +16,8 @@ protocol ExploreExperiencesView {
 
 class ExploreExperiencesViewController: UIViewController {
     
-    let presenter = ExperienceDependencyInjector.exploreExperiencePresenter
-    
+    var presenter: ExploreExperiencesPresenter!
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -37,10 +37,12 @@ class ExploreExperiencesViewController: UIViewController {
 
         return refreshControl
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        presenter = ExperienceDependencyInjector.exploreExperiencePresenter(view: self)
+
         self.title = "PACHATARY"
 
         let loaderNib = UINib.init(nibName: "LoaderTableViewCell", bundle: nil)
@@ -48,14 +50,16 @@ class ExploreExperiencesViewController: UIViewController {
         let nib = UINib.init(nibName: "ExtendedExperienceTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "extendedExperienceCell")
 
-        presenter.view = self
-        
         self.searchBar.delegate = self
         self.tableView.addSubview(self.refreshControl)
-        
+
         presenter.create()
     }
     
+    deinit {
+        self.presenter.destroy()
+    }
+
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         presenter.refresh()
         refreshControl.endRefreshing()
@@ -65,7 +69,7 @@ class ExploreExperiencesViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "experienceScenesSegue" {
             if let destinationVC = segue.destination as? ExperienceScenesViewController {
@@ -99,7 +103,6 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
                 tableView.dequeueReusableCell(withIdentifier: "extendedExperienceCell", for: indexPath)
                     as! ExtendedExperienceTableViewCell
             cell.bind(experiences[indexPath.row])
-            
             return cell
         }
     }
@@ -151,8 +154,8 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
         let snackbar = TTGSnackbar(message: "Oops! Something went wrong. Please try again",
                                    duration: .forever,
                                    actionText: "RETRY",
-                                   actionBlock: { (snackbar) in
-                                                    self.presenter.retryClick()
+                                   actionBlock: { [weak self] snackbar in
+                                                    self?.presenter.retryClick()
                                                     snackbar.dismiss()
                                                 })
         snackbar.show()

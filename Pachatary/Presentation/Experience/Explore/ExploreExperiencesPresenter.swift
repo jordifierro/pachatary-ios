@@ -6,23 +6,32 @@ class ExploreExperiencesPresenter {
     let experienceRepo: ExperienceRepository
     let mainScheduler: ImmediateSchedulerType
     
-    var view: ExploreExperiencesView!
+    unowned let view: ExploreExperiencesView
+
+    var disposable: Disposable? = nil
     
     var text: String? = nil
     var latitude: Double? = nil
     var longitude: Double? = nil
 
-    init(_ experienceRepository: ExperienceRepository, _ mainScheduler: ImmediateSchedulerType) {
+    init(_ experienceRepository: ExperienceRepository,
+         _ mainScheduler: ImmediateSchedulerType,
+         _ view: ExploreExperiencesView) {
         self.experienceRepo = experienceRepository
         self.mainScheduler = mainScheduler
+        self.view = view
     }
-    
+
     func create() {
         connectToExperiences()
         if view.hasLocationPermission() { view.askLastKnownLocation() }
         else { view.askLocationPermission() }
     }
     
+    func destroy() {
+        self.disposable?.dispose()
+    }
+
     func onPermissionAccepted() {
         view.askLastKnownLocation()
     }
@@ -46,9 +55,9 @@ class ExploreExperiencesPresenter {
     }
 
     private func connectToExperiences() {
-        _ = self.experienceRepo.experiencesObservable(kind: .explore)
+        disposable = self.experienceRepo.experiencesObservable(kind: .explore)
             .observeOn(self.mainScheduler)
-            .subscribe { event in
+            .subscribe { [unowned self] event in
                 switch event {
                 case .next(let result):
                     switch result.status {
@@ -91,4 +100,3 @@ class ExploreExperiencesPresenter {
         getFirstsExperiences()
     }
 }
-

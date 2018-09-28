@@ -4,10 +4,9 @@ import Moya
 
 class ExperienceDependencyInjector {
     
-    static var exploreExperiencePresenter: ExploreExperiencesPresenter { get { return
-        ExploreExperiencesPresenter(
-            ExperienceDataDependencyInjector.experienceRepository,
-            AppPresentationDependencyInjector.mainScheduler) }
+    static func exploreExperiencePresenter(view: ExploreExperiencesView) -> ExploreExperiencesPresenter {
+        return ExploreExperiencesPresenter(ExperienceDataDependencyInjector.experienceRepository,
+                                           AppPresentationDependencyInjector.mainScheduler, view)
     }
     
     static var experienceMapPresenter: ExperienceMapPresenter { get { return
@@ -16,4 +15,3 @@ class ExperienceDependencyInjector {
         AppPresentationDependencyInjector.mainScheduler) }
     }
 }
-
