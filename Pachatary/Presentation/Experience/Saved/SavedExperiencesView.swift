@@ -18,7 +18,6 @@ class SavedExperiencesViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
     var lastItemShown = -1
-    var cellHeights: [IndexPath : CGFloat] = [:]
 
     var experiences: [Experience] = []
     var isLoading = false
@@ -110,9 +109,11 @@ extension SavedExperiencesViewController: UICollectionViewDataSource, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth = view.frame.width
-        let widthPerItem = availableWidth / 2
-        
-        return CGSize(width: widthPerItem, height: widthPerItem)
+
+        if indexPath.row == experiences.count {
+            return CGSize(width: availableWidth, height: availableWidth)
+        }
+        else { return CGSize(width: availableWidth / 2, height: availableWidth / 2) }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -134,15 +135,6 @@ extension SavedExperiencesViewController: UICollectionViewDataSource, UICollecti
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        cellHeights[indexPath] = cell.frame.size.height
-    }
-
-    //func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    //    guard let height = cellHeights[indexPath] else { return 70.0 }
-    //    return height
-    //}
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row <= experiences.count {
             presenter.experienceClick(experiences[indexPath.row].id)
