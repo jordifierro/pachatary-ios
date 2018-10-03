@@ -1,11 +1,6 @@
 import Swift
 import RxSwift
 
-enum Kind {
-    case explore
-    case saved
-}
-
 protocol ExperienceRepository {
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>>
     func getFirsts(kind: Kind, params: Request.Params?)
@@ -14,36 +9,22 @@ protocol ExperienceRepository {
     func saveExperience(_ experienceId: String, save: Bool)
 }
 
-class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
-                                                               where R.requesterType == Experience {
+class ExperienceRepoImplementation: ExperienceRepository {
 
     let apiRepo: ExperienceApiRepository!
-    let exploreRequester: R!
-    let savedRequester: R!
+    let requestersSwitch: ExperienceRequestersSwitch!
 
-    init(apiRepo: ExperienceApiRepository, exploreRequester: R, savedRequester: R) {
+    init(apiRepo: ExperienceApiRepository, requestersSwitch: ExperienceRequestersSwitch) {
         self.apiRepo = apiRepo
-        self.exploreRequester = exploreRequester
-        self.savedRequester = savedRequester
-        
-        self.exploreRequester.getFirstsCallable =
-            { params in
-                self.apiRepo.exploreExperiencesObservable(
-                    params!.word, params!.latitude, params!.longitude) }
-        self.exploreRequester.paginateCallable = { url in
-                                                    self.apiRepo.paginateExperiences(url) }
-        self.savedRequester.getFirstsCallable =
-            { params in self.apiRepo.savedExperiencesObservable() }
-        self.savedRequester.paginateCallable = { url in self.apiRepo.paginateExperiences(url)
-        }
+        self.requestersSwitch = requestersSwitch
     }
     
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         switch kind {
         case .explore:
-            return self.exploreRequester.resultsObservable()
+            return self.requestersSwitch.experiencesObservable(kind)
         case .saved:
-            return self.savedRequester.resultsObservable()
+            return self.requestersSwitch.experiencesObservable(.saved)
                 .map({ (result) -> Result<[Experience]> in
                     result.builder()
                         .data(result.data!.filter({ (experience) -> Bool in experience.isSaved }))
@@ -52,34 +33,18 @@ class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
         }
     }
     
+    func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
+        return self.requestersSwitch.experienceObservable(experienceId)
+    }
+    
     func getFirsts(kind: Kind, params: Request.Params? = nil) {
-        switch kind {
-        case .explore:
-            self.exploreRequester.actionsObserver.onNext(Request(.getFirsts, params))
-        case .saved:
-            self.savedRequester.actionsObserver.onNext(Request(.getFirsts))
-        }
+        self.requestersSwitch.executeAction(kind, Request(.getFirsts, params))
     }
     
     func paginate(kind: Kind) {
-        switch kind {
-        case .explore:
-            self.exploreRequester.actionsObserver.onNext(Request(.paginate))
-        case .saved:
-            self.savedRequester.actionsObserver.onNext(Request(.paginate))
-        }
+        self.requestersSwitch.executeAction(kind, Request(.paginate))
     }
-    
-    func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
-        return Observable.combineLatest(experiencesObservable(kind: .explore),
-                                        experiencesObservable(kind: .saved))
-                            { result, result2 in return result }
-            .map { result in
-                return Result(.success, data:
-                    result.data!.filter { experience in return experience.id == experienceId }[0])
-        }
-    }
-    
+
     func saveExperience(_ experienceId: String, save: Bool) {
         saveExperienceOnApiRepo(experienceId, save: save)
         updateCache(experienceId, save: save)
@@ -111,8 +76,10 @@ class ExperienceRepoImplementation<R: Requester>: ExperienceRepository
             .subscribe { event in
                 switch event {
                 case .next(let experience):
-                    self.exploreRequester.updateObserver.onNext([experience])
-                    self.savedRequester.addOrUpdateObserver.onNext([experience])
+                    self.requestersSwitch.modifyResult(.explore, .update,
+                                                       list: [experience], result: nil)
+                    self.requestersSwitch.modifyResult(.saved, .addOrUpdate,
+                                                       list: [experience], result: nil)
                 case .error(let error): fatalError(error.localizedDescription)
                 case .completed: break
             }

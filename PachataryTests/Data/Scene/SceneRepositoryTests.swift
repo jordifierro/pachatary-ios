@@ -162,6 +162,18 @@ class MockSceneResultCache: ResultCache {
         }
     }
     
+    func replaceResult(_ result: Result<[Scene]>) {
+        replaceResultObserver.onNext(result)
+    }
+
+    func addOrUpdate(_ list: [Scene]) {
+        addOrUpdateObserver.onNext(list)
+    }
+
+    func update(_ list: [Scene]) {
+        updateObserver.onNext(list)
+    }
+
     func waitForResult(_ waitedResult: Result<[Scene]>, xcTestCase: XCTestCase) {
         let expectation = XCTestExpectation(description: "wait for result")
         _ = resultObservable.subscribe { event in

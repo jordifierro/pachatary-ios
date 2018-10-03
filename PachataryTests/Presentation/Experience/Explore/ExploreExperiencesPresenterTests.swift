@@ -132,19 +132,20 @@ class ExploreExperiencesPresenterTests: XCTestCase {
         }
         
         func given_an_experience_repo_that_returns_that_experiences() -> ScenarioMaker {
-            mockExperienceRepo.returnExperiences = experiences
+            mockExperienceRepo.returnExploreObservable = Observable.just(Result(.success, data:experiences))
             return self
         }
         
         func given_an_experience_repo_that_returns_in_progress(_ action: Request.Action = .getFirsts)
                                                                                 -> ScenarioMaker {
-            mockExperienceRepo.returnInProgress = true
-            mockExperienceRepo.returnAction = action
+            mockExperienceRepo.returnExploreObservable =
+                Observable.just(Result(.inProgress, data: [], action: action))
             return self
         }
         
         func given_an_experience_repo_that_returns_error() -> ScenarioMaker {
-            mockExperienceRepo.returnError = DataError.noInternetConnection
+            mockExperienceRepo.returnExploreObservable =
+                Observable.just(Result(.error, error: .noInternetConnection))
             return self
         }
 

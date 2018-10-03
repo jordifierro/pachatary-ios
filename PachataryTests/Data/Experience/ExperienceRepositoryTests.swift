@@ -6,193 +6,172 @@ import RxSwift
 
 class ExperienceRepositoryTests: XCTestCase {
     
-    func test_experiences_observable_returns_explore_requester_results_observable() {
+    func kindValues() -> [Kind] { return [.explore, .saved] }
+    
+    func test_explore_experiences_observable_returns_from_switch_explore() {
         ScenarioMaker()
-            .given_a_requester_that_returns_results([Result(.success, data: [Experience("2")])])
-            .when_call_experiences_observable()
-            .then_should_return_flowable_with([Result(.success, data: [Experience("2")])])
+            .given_a_switch_that_returns_experiences_observable(.explore,
+                Result(.success, data: [Experience("3")]))
+            .when_experiences_observable(.explore)
+            .then_should_return_experiences_observable(Result(.success, data: [Experience("3")]))
     }
     
-    func test_experience_observable_returns_only_requested_experience() {
+    func test_saved_experiences_observable_returns_from_switch_saved_and_filters_saved() {
         ScenarioMaker()
-            .given_a_requester_that_returns_results(
-                [Result(.success, data: [Experience("2"), Experience("4"), Experience("7")])])
-            .when_call_experiences_observable()
-            .when_call_experience_observable("4")
-            .then_should_return_experience_observable_with(Result(.success, data: Experience("4")))
-    }
-    
-    func test_get_firsts_emit_getfirsts_requests_through_explore_requester() {
-        ScenarioMaker()
-            .when_get_firsts(Request.Params("museum"))
-            .then_should_emit_request_through_requester_request_observer(
-                Request(.getFirsts, Request.Params("museum")))
-    }
-    
-    func test_paginate_emit_paginate_request_through_explore_requester() {
-        ScenarioMaker()
-            .when_paginate()
-            .then_should_emit_request_through_requester_request_observer(Request(.paginate))
+            .given_a_switch_that_returns_experiences_observable(.saved,
+                Result(.success, data: [Experience("3", isSaved: false),
+                                        Experience("4", isSaved: true)]))
+            .when_experiences_observable(.saved)
+            .then_should_return_experiences_observable(
+                Result(.success, data: [Experience("4", isSaved: true)]))
     }
 
-    func test_sets_up_requester_to_call_api_explore() {
+    func test_experience_observable_returns_from_switch() {
         ScenarioMaker()
-            .given_an_api_that_returns_on_explore([Result(.success, data: [Experience("2")])])
-            .when_get_first_callable_from_requester_is_called()
-            .then_result_should_be_observable_with([Result(.success, data: [Experience("2")])])
+            .given_a_switch_that_returns_experience_observable("8",
+                Result(.success, data: Experience("8")))
+            .when_experience_observable("8")
+            .then_should_return_experience_observable(Result(.success, data: Experience("8")))
     }
     
-    func test_sets_up_requester_to_call_api_paginate() {
+    func test_getfirsts_executes_action() {
+        for kind in kindValues() {
+            ScenarioMaker()
+                .when_getfirts(kind, Request.Params("test"))
+                .then_should_call_execute_action(kind, Request(.getFirsts, Request.Params("test")))
+        }
+    }
+
+    func test_paginate_executes_action() {
+        for kind in kindValues() {
+            ScenarioMaker()
+                .when_paginate(kind)
+                .then_should_call_execute_action(kind, Request(.paginate))
+        }
+    }
+
+    func test_save_experience() {
         ScenarioMaker()
-            .given_an_api_that_returns_on_paginate([Result(.success, data: [Experience("2")])])
-            .when_paginate_callable_from_requester_is_called()
-            .then_result_should_be_observable_with([Result(.success, data: [Experience("2")])])
+            .given_a_switch_that_returns_experience_observable("4", Result(.success, data: Experience("4", isSaved: false, savesCount: 8)))
+            .when_save_experience("4")
+            .then_should_call_api_save("4")
+            .then_should_modify_switch_result(0, .explore, .update, [Experience("4", isSaved: true, savesCount: 9)])
+            .then_should_modify_switch_result(1, .saved, .addOrUpdate, [Experience("4", isSaved: true, savesCount: 9)])
     }
     
-    func test_switch_save_state_emits_on_update_and_calls_api_save_case() {
+    func test_unsave_experience() {
         ScenarioMaker()
-            .given_a_requester_that_returns_results([Result(.success, data: [Experience("2"),
-                 Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
-                            isSaved: false,
-                            authorProfile: Profile(username: "", bio: "",
-                                                   picture: nil, isMe: false),
-                            savesCount: 5)])])
-            .when_save_experience("4", save: true)
-            .then_should_emit_through_update_observer([
-                Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
-                           isSaved: true,
-                           authorProfile: Profile(username: "", bio: "",
-                                                  picture: nil, isMe: false),
-                           savesCount: 6)])
-            .then_should_call_api_save("4", save: true)
+            .given_a_switch_that_returns_experience_observable("4", Result(.success, data: Experience("4", isSaved: true, savesCount: 8)))
+            .when_unsave_experience("4")
+            .then_should_call_api_unsave("4")
+            .then_should_modify_switch_result(0, .explore, .update, [Experience("4", isSaved: false, savesCount: 7)])
+            .then_should_modify_switch_result(1, .saved, .addOrUpdate, [Experience("4", isSaved: false, savesCount: 7)])
     }
-    
-    func test_switch_save_state_emits_on_update_and_calls_api_unsave_case() {
-        ScenarioMaker()
-            .given_a_requester_that_returns_results([Result(.success, data: [Experience("2"),
-                 Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
-                            isSaved: true, authorProfile: Profile(username: "", bio: "",
-                                                                  picture: nil, isMe: false),
-                            savesCount: 5)])])
-            .when_save_experience("4", save: false)
-            .then_should_emit_through_update_observer([
-                Experience(id: "4", title: "", description: "", picture: nil, isMine: false,
-                           isSaved: false,
-                           authorProfile: Profile(username: "", bio: "", picture: nil, isMe:false),
-                           savesCount: 4)])
-            .then_should_call_api_save("4", save: false)
-    }
-    
+
     class ScenarioMaker {
         
         let mockApiRepo = MockExperienceApiRepo()
-        let mockRequester = MockExperienceRequester()
+        let mockRequestersSwitch = MockExperienceRequestersSwitch()
         let repo: ExperienceRepository
 
         var experiencesObservableResult: Observable<Result<[Experience]>>!
         var experienceObservableResult: Observable<Result<Experience>>!
-        var callableResult: Observable<Result<[Experience]>>!
 
         init() {
             repo = ExperienceRepoImplementation(apiRepo: mockApiRepo,
-                                                exploreRequester: mockRequester)
+                                                requestersSwitch: mockRequestersSwitch)
         }
         
-        func given_a_requester_that_returns_results(_ results: [Result<[Experience]>])
-                                                                                  -> ScenarioMaker {
-            mockRequester.results = results
+        func given_a_switch_that_returns_experience_observable(_ experienceId: String,
+                                               _ result: Result<Experience>) -> ScenarioMaker {
+            mockRequestersSwitch.experienceObservableResult[experienceId] = Observable.just(result)
             return self
         }
         
-        func given_an_api_that_returns_on_explore(_ results: [Result<[Experience]>])
-                                                                                  -> ScenarioMaker {
-            mockApiRepo.apiGetFirstsCallResultObservable = Observable.from(results)
+        func given_a_switch_that_returns_experiences_observable(_ kind: Kind,
+                                                                _ result: Result<[Experience]>) -> ScenarioMaker{
+            mockRequestersSwitch.experiencesObservableResult[kind] = Observable.just(result)
             return self
         }
         
-        func given_an_api_that_returns_on_paginate(_ results: [Result<[Experience]>])
-                                                                                  -> ScenarioMaker {
-                mockApiRepo.apiPaginateCallResultObservable = Observable.from(results)
-                return self
-        }
-        
-        func when_get_first_callable_from_requester_is_called() -> ScenarioMaker {
-            callableResult = mockRequester.getFirstsCallable(Request.Params(""))
+        func when_getfirts(_ kind: Kind, _ params: Request.Params) -> ScenarioMaker {
+            self.repo.getFirsts(kind: kind, params: params)
             return self
         }
 
-        func when_paginate_callable_from_requester_is_called() -> ScenarioMaker {
-            callableResult = mockRequester.paginateCallable("")
+        func when_paginate(_ kind: Kind) -> ScenarioMaker {
+            self.repo.paginate(kind: kind)
             return self
         }
 
-        func when_call_experiences_observable() -> ScenarioMaker {
-            experiencesObservableResult = repo.experiencesObservable(kind: .explore)
+        func when_experience_observable(_ experienceId: String) -> ScenarioMaker {
+            experienceObservableResult = self.repo.experienceObservable(experienceId)
             return self
         }
         
-        func when_call_experience_observable(_ experienceId: String) -> ScenarioMaker {
-            experienceObservableResult = repo.experienceObservable(experienceId)
+        func when_experiences_observable(_ kind: Kind) -> ScenarioMaker {
+            experiencesObservableResult = self.repo.experiencesObservable(kind: kind)
             return self
         }
         
-        func when_get_firsts(_ params: Request.Params? = nil) -> ScenarioMaker {
-            repo.getFirsts(kind: .explore, params: params)
+        func when_save_experience(_ experienceId: String) -> ScenarioMaker {
+            self.repo.saveExperience(experienceId, save: true)
             return self
         }
         
-        func when_paginate() -> ScenarioMaker {
-            repo.paginate(kind: .explore)
+        func when_unsave_experience(_ experienceId: String) -> ScenarioMaker {
+            self.repo.saveExperience(experienceId, save: false)
             return self
         }
         
-        func when_save_experience(_ experienceId: String, save: Bool) -> ScenarioMaker {
-            repo.saveExperience(experienceId, save: save)
-            return self
-        }
-        
-        @discardableResult
-        func then_should_emit_request_through_requester_request_observer(
-            _ request: Request) -> ScenarioMaker {
-            assert(mockRequester.actionsObserverCalls == [request])
-            return self
-        }
-        
-        @discardableResult
-        func then_should_return_flowable_with(_ expected: [Result<[Experience]>]) -> ScenarioMaker {
-            do { let real = try experiencesObservableResult.toBlocking().toArray()
-                assert(real == expected)
-            } catch { assertionFailure() }
-            return self
-        }
-        
-        @discardableResult
-        func then_result_should_be_observable_with(_ expected: [Result<[Experience]>])
-                                                                                  -> ScenarioMaker {
-            do { let real = try callableResult.toBlocking().toArray()
-                assert(real == expected)
-            } catch { assertionFailure() }
-            return self
-        }
-        
-        @discardableResult
-        func then_should_return_experience_observable_with(_ result: Result<Experience>) -> ScenarioMaker {
-            do { let real = try experienceObservableResult.toBlocking().toArray().last!
-                 assert(real == result)
-            } catch { assertionFailure() }
-            return self
-        }
-        
-        func then_should_emit_through_update_observer(_ experiences: [Experience]) -> ScenarioMaker {
-            assert(mockRequester.updateObserverCalls == [experiences])
-            return self
-        }
-        
-        @discardableResult
-        func then_should_call_api_save(_ experienceId: String, save: Bool) -> ScenarioMaker {
+        func then_should_call_api_save(_ experienceId: String) -> ScenarioMaker {
             assert(mockApiRepo.saveCalls.count == 1)
             assert(mockApiRepo.saveCalls[0].0 == experienceId)
-            assert(mockApiRepo.saveCalls[0].1 == save)
+            assert(mockApiRepo.saveCalls[0].1 == true)
+            return self
+        }
+        
+        func then_should_call_api_unsave(_ experienceId: String) -> ScenarioMaker {
+            assert(mockApiRepo.saveCalls.count == 1)
+            assert(mockApiRepo.saveCalls[0].0 == experienceId)
+            assert(mockApiRepo.saveCalls[0].1 == false)
+            return self
+        }
+        
+        @discardableResult
+        func then_should_call_execute_action(_ kind: Kind, _ request: Request) -> ScenarioMaker {
+            assert(mockRequestersSwitch.executeActionCalls.count == 1)
+            assert(mockRequestersSwitch.executeActionCalls[0].0 == kind)
+            assert(mockRequestersSwitch.executeActionCalls[0].1 == request)
+            return self
+        }
+        
+        @discardableResult
+        func then_should_return_experience_observable(_ expectedResult: Result<Experience>) -> ScenarioMaker {
+            do { let result = try experienceObservableResult.toBlocking().toArray()
+                assert(result.count == 1)
+                assert(expectedResult == result[0])
+            } catch { assertionFailure() }
+            return self
+        }
+        
+        @discardableResult
+        func then_should_return_experiences_observable(_ expectedResult: Result<[Experience]>) -> ScenarioMaker {
+            do { let result = try experiencesObservableResult.toBlocking().toArray()
+                assert(result.count == 1)
+                assert(expectedResult == result[0])
+            } catch { assertionFailure() }
+            return self
+        }
+        
+        @discardableResult
+        func then_should_modify_switch_result(_ index: Int, _ kind: Kind,
+                                              _ modification: Modification,
+                                              _ list: [Experience]) -> ScenarioMaker {
+            assert(mockRequestersSwitch.modifyResultCalls[index].0 == kind)
+            assert(mockRequestersSwitch.modifyResultCalls[index].1 == modification)
+            assert(mockRequestersSwitch.modifyResultCalls[index].2 == list)
+            assert(mockRequestersSwitch.modifyResultCalls[index].3 == nil)
             return self
         }
     }
@@ -200,15 +179,20 @@ class ExperienceRepositoryTests: XCTestCase {
 
 class MockExperienceApiRepo: ExperienceApiRepository {
 
-    var apiGetFirstsCallResultObservable: Observable<Result<[Experience]>>?
+    var apiExploreCallResultObservable: Observable<Result<[Experience]>>?
+    var apiSavedCallResultObservable: Observable<Result<[Experience]>>?
     var apiPaginateCallResultObservable: Observable<Result<[Experience]>>?
     var saveCalls = [(String, Bool)]()
-    
+
     init() {}
     
     func exploreExperiencesObservable(_ text: String?, _ latitude: Double?,
                                       _ longitude: Double?) -> Observable<Result<[Experience]>> {
-        return apiGetFirstsCallResultObservable!
+        return apiExploreCallResultObservable!
+    }
+
+    func savedExperiencesObservable() -> Observable<Result<[Experience]>> {
+        return apiSavedCallResultObservable!
     }
 
     func paginateExperiences(_ url: String) -> Observable<Result<[Experience]>> {
@@ -217,53 +201,30 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     
     func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>> {
         saveCalls.append((experienceId, save))
-        return Observable.empty()
+        return Observable.just(Result(.success, data: true))
     }
 }
 
-class MockExperienceRequester: Requester {
-    typealias requesterType = Experience
+class MockExperienceRequestersSwitch: ExperienceRequestersSwitch {
     
-    var getFirstsCallable: ((Request.Params?) -> Observable<Result<[Experience]>>)!
-    var paginateCallable: ((String) -> Observable<Result<[Experience]>>)!
+    var executeActionCalls = [(Kind, Request)]()
+    var modifyResultCalls = [(Kind, Modification, [Experience]?, Result<[Experience]>?)]()
+    var experiencesObservableResult = [Kind:Observable<Result<[Experience]>>]()
+    var experienceObservableResult = [String:Observable<Result<Experience>>]()
     
-    var actionsObserver: AnyObserver<Request>
-    var actionsObserverCalls = [Request]()
-    
-    var updateObserver: AnyObserver<[Experience]>
-    var updateObserverCalls = [[Experience]]()
-    
-    var results = [Result<[Experience]>]()
-    
-    init() {
-        let actionsSubject = PublishSubject<Request>()
-        actionsObserver = actionsSubject.asObserver()
-        
-        let updateSubject = PublishSubject<[Experience]>()
-        updateObserver = updateSubject.asObserver()
-        
-        _ = actionsSubject.asObservable()
-            .subscribe { event in
-                switch event {
-                case .next(let request):
-                    self.actionsObserverCalls.append(request)
-                case .error: break
-                case .completed: break
-            }
-        }
-        
-        _ = updateSubject.asObservable()
-            .subscribe { event in
-                switch event {
-                case .next(let experiences):
-                    self.updateObserverCalls.append(experiences)
-                case .error: break
-                case .completed: break
-                }
-        }
+    func executeAction(_ kind: Kind, _ request: Request) {
+        executeActionCalls.append((kind, request))
     }
     
-    func resultsObservable() -> Observable<Result<[Experience]>> {
-        return Observable.from(results)
+    func modifyResult(_ kind: Kind, _ modification: Modification, list: [Experience]?, result: Result<[Experience]>?) {
+        modifyResultCalls.append((kind, modification, list, result))
+    }
+    
+    func experiencesObservable(_ kind: Kind) -> Observable<Result<[Experience]>> {
+        return experiencesObservableResult[kind]!
+    }
+    
+    func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
+        return experienceObservableResult[experienceId]!
     }
 }

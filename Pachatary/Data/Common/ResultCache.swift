@@ -4,17 +4,17 @@ import RxSwift
 protocol ResultCache {
     associatedtype cacheType: Identifiable & Equatable
     
-    var replaceResultObserver: AnyObserver<Result<[cacheType]>> { get }
-    var addOrUpdateObserver: AnyObserver<[cacheType]> { get }
-    var updateObserver: AnyObserver<[cacheType]> { get }
+    func replaceResult(_ result: Result<[cacheType]>)
+    func addOrUpdate(_ list: [cacheType])
+    func update(_ list: [cacheType])
     var resultObservable: Observable<Result<[cacheType]>> { get }
 }
 
 class ResultCacheImplementation<T: Identifiable & Equatable>: ResultCache {
-    
-    let replaceResultObserver: AnyObserver<Result<[T]>>
-    let addOrUpdateObserver: AnyObserver<[T]>
-    let updateObserver: AnyObserver<[T]>
+
+    private let replaceResultObserver: AnyObserver<Result<[T]>>
+    private let addOrUpdateObserver: AnyObserver<[T]>
+    private let updateObserver: AnyObserver<[T]>
     let resultObservable: Observable<Result<[T]>>
     
     init() {
@@ -62,5 +62,16 @@ class ResultCacheImplementation<T: Identifiable & Equatable>: ResultCache {
         resultObservable = resultConnectable
         _ = resultConnectable.connect()
     }
-}
 
+    func replaceResult(_ result: Result<[T]>) {
+        replaceResultObserver.onNext(result)
+    }
+
+    func addOrUpdate(_ list: [T]) {
+        addOrUpdateObserver.onNext(list)
+    }
+
+    func update(_ list: [T]) {
+        updateObserver.onNext(list)
+    }
+}

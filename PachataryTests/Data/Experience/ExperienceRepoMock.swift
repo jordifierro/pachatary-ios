@@ -5,24 +5,22 @@ import RxSwift
 
 class ExperienceRepoMock: ExperienceRepository {
 
-    var returnExperiences: [Experience]!
-    var returnExperience = [String:Result<Experience>]()
-    var returnInProgress = false
-    var returnAction = Request.Action.getFirsts
-    var returnError: DataError? = nil
+    var returnExploreObservable: Observable<Result<[Experience]>>!
+    var returnSavedObservable: Observable<Result<[Experience]>>!
+    var returnExperienceObservable: Observable<Result<Experience>>!
+    var experiencesObservableCalls = [Kind]()
     var getFirstsCalls = [(Kind, Request.Params?)]()
     var paginateCalls = [Kind]()
     var singleExperienceCalls = [String]()
     var saveCalls = [(String, Bool)]()
     
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
-        assert(kind == .explore)
-        var result: Result<[Experience]>?
-        if returnInProgress { result = Result(.inProgress, data: [],
-                                              nextUrl: nil, action: returnAction) }
-        else if returnError != nil { result = Result(error: returnError!) }
-        else { result =  Result(.success, data: returnExperiences)}
-        return Observable.just(result!)
+        switch kind {
+        case .explore:
+            return returnExploreObservable
+        case .saved:
+            return returnSavedObservable
+        }
     }
     
     func getFirsts(kind: Kind, params: Request.Params?) {
@@ -35,7 +33,7 @@ class ExperienceRepoMock: ExperienceRepository {
     
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
         singleExperienceCalls.append(experienceId)
-        return Observable.just(returnExperience[experienceId]!)
+        return returnExperienceObservable
     }
     
     func saveExperience(_ experienceId: String, save: Bool) {

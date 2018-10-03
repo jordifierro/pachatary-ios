@@ -10,8 +10,7 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .given_an_experience_id_for_presenter("7")
             .given_an_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
                                               experienceId: "7")
-            .given_an_experience_observable_result(Result(.success, data: Experience("9")),
-                                                   experienceId: "7")
+            .given_an_experience_observable_result(Result(.success, data: Experience("9")))
             .when_create_presenter()
             .then_should_call_scene_repo_observable_with(experienceId: "7")
             .then_should_call_experience_repo_observable_with(experienceId: "7")
@@ -97,9 +96,8 @@ class ExperienceScenesPresenterTests: XCTestCase {
             return self
         }
         
-        func given_an_experience_observable_result(_ result: Result<Experience>,
-                                                   experienceId: String) -> ScenarioMaker {
-            mockExperienceRepo.returnExperience[experienceId] = result
+        func given_an_experience_observable_result(_ result: Result<Experience>) -> ScenarioMaker {
+            mockExperienceRepo.returnExperienceObservable = Observable.just(result)
             return self
         }
         

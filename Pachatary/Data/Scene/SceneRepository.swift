@@ -35,7 +35,6 @@ class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType
                 else { return true }
             })
             .map { (index: Int, result: Result<[Scene]>) -> Result<[Scene]> in return result }
-        
     }
     
     private func getScenes(experienceId: String) {
@@ -43,7 +42,7 @@ class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType
             .subscribe { event in
                 switch event {
                 case .next(let result):
-                    self.cacheStore[experienceId]?.replaceResultObserver.onNext(result)
+                    self.cacheStore[experienceId]?.replaceResult(result)
                 case .error(let error):
                     fatalError(error.localizedDescription)
                 case .completed: break

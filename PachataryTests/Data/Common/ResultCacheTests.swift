@@ -95,17 +95,17 @@ class ResultCacheTests: XCTestCase {
         }
         
         func given_emitted_result_on_replace_observer(result: Int) -> ScenarioMaker {
-            self.cache.replaceResultObserver.onNext(self.results[result-1])
+            self.cache.replaceResult(self.results[result-1])
             return self
         }
         
         func given_emitted_result_on_add_or_update_observer(result: Int) -> ScenarioMaker {
-            self.cache.addOrUpdateObserver.onNext(self.results[result-1].data!)
+            self.cache.addOrUpdate(self.results[result-1].data!)
             return self
         }
         
         func given_emitted_result_on_update_observer(result: Int) -> ScenarioMaker {
-            self.cache.updateObserver.onNext(self.results[result-1].data!)
+            self.cache.update(self.results[result-1].data!)
             return self
         }
         

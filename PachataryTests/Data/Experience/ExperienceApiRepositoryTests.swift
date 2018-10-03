@@ -14,6 +14,13 @@ class ExperienceApiRepositoryTests: XCTestCase {
             .then_should_return_flowable_with_inprogress_and_result_experiences()
     }
     
+    func test_get_saved_experiences_parses_experiences_response() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_stubbed_network_call_for_saved()
+            .when_saved_experiences_flowable()
+            .then_should_return_flowable_with_inprogress_and_result_experiences()
+    }
+
     func test_paginate_experiences_parses_experiences_response() {
         ScenarioMaker(self).buildScenario()
             .given_a_pagination_url()
@@ -69,13 +76,20 @@ class ExperienceApiRepositoryTests: XCTestCase {
                                             "latitude=" + latitudeString +
                                             "&longitude=" + longitudeString +
                                             "&word=" + searchText,
-                                          .GET, "GET_experiences_search")
+                                          .GET, "GET_experiences")
+            return self
+        }
+
+        func given_an_stubbed_network_call_for_saved() -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of:self)),
+                  AppDataDependencyInjector.apiUrl + "/experiences/?saved=true",
+                  .GET, "GET_experiences")
             return self
         }
         
         func given_an_stubbed_network_call_for_pagination() -> ScenarioMaker {
             DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
-                                          self.paginationUrl, .GET, "GET_experiences_search")
+                                          self.paginationUrl, .GET, "GET_experiences")
             return self
         }
         
@@ -93,6 +107,11 @@ class ExperienceApiRepositoryTests: XCTestCase {
             return self
         }
         
+        func when_saved_experiences_flowable() -> ScenarioMaker {
+            resultObservable = repo.savedExperiencesObservable()
+            return self
+        }
+
         func when_paginate_experiences_flowable() -> ScenarioMaker {
             resultObservable = repo.paginateExperiences(paginationUrl)
             return self

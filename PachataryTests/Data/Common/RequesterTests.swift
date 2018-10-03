@@ -97,51 +97,89 @@ class RequesterTests: XCTestCase {
                                nextUrl: "new", action: .paginate))
     }
     
+    func test_addorupdate_calls_cache_addorupdate() {
+        ScenarioMaker()
+            .when_addorupdate([IdEq("8"), IdEq("9")])
+            .then_should_call_cache_addorupdate(with: [IdEq("8"), IdEq("9")])
+    }
+
+    func test_update_calls_cache_addorupdate() {
+        ScenarioMaker()
+            .when_update([IdEq("8"), IdEq("9")])
+            .then_should_call_cache_update(with: [IdEq("8"), IdEq("9")])
+    }
+
     class ScenarioMaker {
         
         let mockCache = MockResultCache()
-        let requester: RequesterImplementation<MockResultCache>!
+        var requester: RequesterImplementation<MockResultCache>? = nil
+        var getFirstsReturn: Observable<Result<[IdEq]>>? = nil
+        var getFirstsCalls = [Request.Params?]()
+        var paginateReturn: Observable<Result<[IdEq]>>? = nil
+        var paginateCalls = [String]()
         
         init() {
-            requester = RequesterImplementation<MockResultCache>(mockCache)
+            requester = RequesterImplementation<MockResultCache>(mockCache,
+                 { params in
+                    self.getFirstsCalls.append(params)
+                    return self.getFirstsReturn! },
+                 { url in
+                    self.paginateCalls.append(url)
+                    return self.paginateReturn! })
         }
         
         func given_a_cache_result_flowable(_ result: Result<[IdEq]>) -> ScenarioMaker {
-            self.mockCache.emit_through_result(result)
+            self.mockCache.resultPublish.onNext(result)
             return self
         }
         
         func given_a_getfirsts_callable_that_returns(for params: Request.Params?,
                                                      _ result: Result<[IdEq]>) -> ScenarioMaker {
-            self.requester.getFirstsCallable = { requestParams in
-                                                   if requestParams == params {
-                                                       return Observable.just(result)
-                                                   }
-                                                   assertionFailure()
-                                                   return Observable.never()
-                                               }
+            getFirstsReturn = Observable.just(result)
             return self
         }
         
         func given_a_paginate_callable_that_returns(_ result: Result<[IdEq]>) -> ScenarioMaker {
-            self.requester.paginateCallable = { request in return Observable.just(result) }
+            paginateReturn = Observable.just(result)
             return self
         }
         
         func when_emit_request(_ request: Request) -> ScenarioMaker {
-            self.requester.actionsObserver.onNext(request)
+            self.requester!.request(request)
+            return self
+        }
+
+        func when_addorupdate(_ list: [IdEq]) -> ScenarioMaker {
+            self.requester!.addOrUpdate(list)
+            return self
+        }
+
+        func when_update(_ list: [IdEq]) -> ScenarioMaker {
+            self.requester!.update(list)
             return self
         }
         
         @discardableResult
         func then_should_emit_through_cache_replace(_ result: Result<[IdEq]>) -> ScenarioMaker {
-            assert(mockCache.replaces == [result])
+            assert(mockCache.replaceResultCalls == [result])
             return self
         }
         
         @discardableResult
         func then_should_not_emit_through_cache_replace() -> ScenarioMaker {
-            assert(mockCache.replaces.count == 0)
+            assert(mockCache.replaceResultCalls.count == 0)
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_cache_addorupdate(with list: [IdEq]) -> ScenarioMaker {
+            assert(mockCache.addOrUpdateCalls == [list])
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_cache_update(with list: [IdEq]) -> ScenarioMaker {
+            assert(mockCache.updateCalls == [list])
             return self
         }
     }
@@ -163,36 +201,26 @@ class IdEq: Identifiable & Equatable {
 class MockResultCache: ResultCache {
     typealias cacheType = IdEq
     
-    var replaceResultObserver: AnyObserver<Result<[IdEq]>>
-    var addOrUpdateObserver: AnyObserver<[IdEq]>
-    var updateObserver: AnyObserver<[IdEq]>
+    var resultPublish = PublishSubject<Result<[IdEq]>>()
     var resultObservable: Observable<Result<[IdEq]>>
-    
-    var resultObserver: AnyObserver<Result<[IdEq]>>
-    var replaces = [Result<[IdEq]>]()
+    var replaceResultCalls = [Result<[IdEq]>]()
+    var addOrUpdateCalls = [[IdEq]]()
+    var updateCalls = [[IdEq]]()
     
     init() {
-        let resultSubject = PublishSubject<Result<[IdEq]>>()
-        resultObservable = resultSubject.asObservable()
-        resultObserver = resultSubject.asObserver()
-        
-        let replaceSubject = PublishSubject<Result<[IdEq]>>()
-        replaceResultObserver = replaceSubject.asObserver()
+        resultObservable = Observable.empty()
+        resultObservable = resultPublish.asObservable()
+    }
 
-        updateObserver = PublishSubject<[IdEq]>().asObserver()
-        addOrUpdateObserver = PublishSubject<[IdEq]>().asObserver()
-        
-        _ = replaceSubject.subscribe { event in
-            switch event {
-            case .next(let result):
-                self.replaces.append(result)
-            case .error: break
-            case .completed: break
-            }
-        }
+    func replaceResult(_ result: Result<[IdEq]>) {
+        replaceResultCalls.append(result)
+    }
+
+    func addOrUpdate(_ list: [IdEq]) {
+        addOrUpdateCalls.append(list)
     }
     
-    func emit_through_result(_ result: Result<[IdEq]>) {
-        resultObserver.onNext(result)
+    func update(_ list: [IdEq]) {
+        updateCalls.append(list)
     }
 }
