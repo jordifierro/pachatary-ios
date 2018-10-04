@@ -21,8 +21,6 @@ class ExperienceRepoImplementation: ExperienceRepository {
     
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         switch kind {
-        case .explore:
-            return self.requestersSwitch.experiencesObservable(kind)
         case .saved:
             return self.requestersSwitch.experiencesObservable(.saved)
                 .map({ (result) -> Result<[Experience]> in
@@ -30,6 +28,8 @@ class ExperienceRepoImplementation: ExperienceRepository {
                         .data(result.data!.filter({ (experience) -> Bool in experience.isSaved }))
                         .build()
                 })
+        default:
+            return self.requestersSwitch.experiencesObservable(kind)
         }
     }
     
@@ -77,6 +77,8 @@ class ExperienceRepoImplementation: ExperienceRepository {
                 switch event {
                 case .next(let experience):
                     self.requestersSwitch.modifyResult(.explore, .update,
+                                                       list: [experience], result: nil)
+                    self.requestersSwitch.modifyResult(.persons, .update,
                                                        list: [experience], result: nil)
                     self.requestersSwitch.modifyResult(.saved, .addOrUpdate,
                                                        list: [experience], result: nil)

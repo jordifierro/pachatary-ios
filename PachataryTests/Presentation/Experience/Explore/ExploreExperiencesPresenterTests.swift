@@ -96,6 +96,12 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             .then_view_should_navigate_to_experience_map(with: "4")
     }
 
+    func test_on_profile_click_should_navigate_to_profile() {
+        ScenarioMaker()
+            .when_profile_click(username: "usr.nm")
+            .then_view_should_navigate_to_profile(with: "usr.nm")
+    }
+
     func test_on_search_call_get_firsts_with_word() {
         ScenarioMaker()
             .when_search("nature")
@@ -174,6 +180,11 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             return self
         }
 
+        func when_profile_click(username: String) -> ScenarioMaker {
+            presenter.profileClick(username)
+            return self
+        }
+
         func when_search(_ word: String) -> ScenarioMaker {
             presenter.searchClick(word)
             return self
@@ -204,6 +215,13 @@ class ExploreExperiencesPresenterTests: XCTestCase {
                                                                                   -> ScenarioMaker {
             assert([experienceId] == mockView.navigateCalls)
             return self
+        }
+
+        @discardableResult
+        func then_view_should_navigate_to_profile(with username: String)
+            -> ScenarioMaker {
+                assert([username] == mockView.navigateToProfileCalls)
+                return self
         }
 
         @discardableResult
@@ -269,6 +287,7 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
     var showLoaderCalls: [Bool] = []
     var showRetryCalls = 0
     var navigateCalls: [String] = []
+    var navigateToProfileCalls: [String] = []
     var hasLocationPermissionResponse = false
     var hasLocationPermissionCalls = 0
     var askLocationPermissionCalls = 0
@@ -288,6 +307,10 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
     
     func navigateToExperienceScenes(_ experienceId: String) {
         self.navigateCalls.append(experienceId)
+    }
+
+    func navigateToProfile(_ username: String) {
+        self.navigateToProfileCalls.append(username)
     }
 
     func hasLocationPermission() -> Bool {

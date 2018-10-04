@@ -7,6 +7,7 @@ protocol ExperienceApiRepository {
     func exploreExperiencesObservable(_ text: String?, _ latitude: Double?, _ longitude: Double?)
                                                                 -> Observable<Result<[Experience]>>
     func savedExperiencesObservable() -> Observable<Result<[Experience]>>
+    func personsExperiencesObservable(_ username: String) -> Observable<Result<[Experience]>>
     func paginateExperiences(_ url: String) -> Observable<Result<[Experience]>>
     func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>>
 }
@@ -29,6 +30,11 @@ class ExperienceApiRepoImplementation: ExperienceApiRepository {
     
     func savedExperiencesObservable() -> Observable<Result<[Experience]>> {
         return self.api.request(.saved)
+            .transformNetworkResponse(PaginatedListResultMapper<ExperienceMapper>.self, ioScheduler)
+    }
+
+    func personsExperiencesObservable(_ username: String) -> Observable<Result<[Experience]>> {
+        return self.api.request(.persons(username))
             .transformNetworkResponse(PaginatedListResultMapper<ExperienceMapper>.self, ioScheduler)
     }
 

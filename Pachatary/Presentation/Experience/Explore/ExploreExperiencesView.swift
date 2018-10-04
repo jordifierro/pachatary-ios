@@ -9,6 +9,7 @@ protocol ExploreExperiencesView : class {
     func showLoader(_ visibility: Bool)
     func showRetry()
     func navigateToExperienceScenes(_ experienceId: String)
+    func navigateToProfile(_ username: String)
     func hasLocationPermission() -> Bool
     func askLocationPermission()
     func askLastKnownLocation()
@@ -27,6 +28,7 @@ class ExploreExperiencesViewController: UIViewController {
     var experiences: [Experience] = []
     var isLoading = false
     var selectedExperienceId: String!
+    var selectedProfileUsername: String!
     let locationManager = CLLocationManager()
     
     lazy var refreshControl: UIRefreshControl = {
@@ -77,6 +79,11 @@ class ExploreExperiencesViewController: UIViewController {
                 destinationVC.experienceId = selectedExperienceId
             }
         }
+        else if segue.identifier == "profileSegue" {
+            if let destinationVC = segue.destination as? ProfileViewController {
+                destinationVC.username = selectedProfileUsername
+            }
+        }
     }
 }
 
@@ -103,7 +110,8 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
             let cell: ExtendedExperienceTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "extendedExperienceCell", for: indexPath)
                     as! ExtendedExperienceTableViewCell
-            cell.bind(experiences[indexPath.row])
+            cell.bind(experiences[indexPath.row],
+                      { [unowned self] username in self.presenter.profileClick(username) })
             return cell
         }
     }
@@ -167,6 +175,11 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
         performSegue(withIdentifier: "experienceScenesSegue", sender: self)
     }
     
+    func navigateToProfile(_ username: String) {
+        selectedProfileUsername = username
+        performSegue(withIdentifier: "profileSegue", sender: self)
+    }
+
     func hasLocationPermission() -> Bool {
         if CLLocationManager.locationServicesEnabled() {
             switch CLLocationManager.authorizationStatus() {

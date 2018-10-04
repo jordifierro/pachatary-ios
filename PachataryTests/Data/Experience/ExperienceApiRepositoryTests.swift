@@ -21,6 +21,13 @@ class ExperienceApiRepositoryTests: XCTestCase {
             .then_should_return_flowable_with_inprogress_and_result_experiences()
     }
 
+    func test_get_persons_experiences_parses_experiences_response() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_stubbed_network_call_for_persons("username")
+            .when_persons_experiences_flowable("username")
+            .then_should_return_flowable_with_inprogress_and_result_experiences()
+    }
+
     func test_paginate_experiences_parses_experiences_response() {
         ScenarioMaker(self).buildScenario()
             .given_a_pagination_url()
@@ -87,6 +94,14 @@ class ExperienceApiRepositoryTests: XCTestCase {
             return self
         }
         
+        func given_an_stubbed_network_call_for_persons(_ username: String) -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of:self)),
+                                          AppDataDependencyInjector.apiUrl +
+                                            "/experiences/?username=" + username,
+                                          .GET, "GET_experiences")
+            return self
+        }
+
         func given_an_stubbed_network_call_for_pagination() -> ScenarioMaker {
             DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
                                           self.paginationUrl, .GET, "GET_experiences")
@@ -109,6 +124,11 @@ class ExperienceApiRepositoryTests: XCTestCase {
         
         func when_saved_experiences_flowable() -> ScenarioMaker {
             resultObservable = repo.savedExperiencesObservable()
+            return self
+        }
+
+        func when_persons_experiences_flowable(_ username: String) -> ScenarioMaker {
+            resultObservable = repo.personsExperiencesObservable(username)
             return self
         }
 

@@ -21,5 +21,3 @@ struct Profile: Equatable {
             lhs.isMe == rhs.isMe
     }
 }
-
-

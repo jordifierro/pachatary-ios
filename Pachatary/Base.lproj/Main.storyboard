@@ -52,6 +52,7 @@
                         <outlet property="searchBar" destination="MI6-3U-Wwv" id="vw1-Rk-HMj"/>
                         <outlet property="tableView" destination="zxP-Xl-HW6" id="5ag-cd-Mzw"/>
                         <segue destination="Qo6-bb-VbT" kind="show" identifier="experienceScenesSegue" id="NiL-UL-iij"/>
+                        <segue destination="Eo5-Hf-rkj" kind="show" identifier="profileSegue" id="bUo-9v-NAM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oK-t8-Zs5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -90,7 +91,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bGi-RH-C5p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4239" y="105"/>
+            <point key="canvasLocation" x="4264" y="1040"/>
         </scene>
         <!--Experience Scenes View Controller-->
         <scene sceneID="JsP-DM-mvx">
@@ -101,7 +102,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zXF-YS-zzP">
-                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sceneCellIdentifier" id="feb-ZD-Lpy" customClass="SceneTableViewCell" customModule="Pachatary" customModuleProvider="target">
@@ -179,11 +180,12 @@
                     <connections>
                         <outlet property="tableView" destination="zXF-YS-zzP" id="elv-Ah-eOo"/>
                         <segue destination="AjU-og-TuU" kind="show" identifier="experienceMapSegue" id="WLB-c4-Bca"/>
+                        <segue destination="Eo5-Hf-rkj" kind="show" identifier="profileSegue" id="HRX-be-Ukd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dds-K4-IfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3369" y="105"/>
+            <point key="canvasLocation" x="3379" y="1040"/>
         </scene>
         <!--Saved Experiences View Controller-->
         <scene sceneID="HmI-rg-Hjf">
@@ -236,6 +238,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NhE-TQ-e2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2490" y="1040"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="iIc-oo-beO">
+            <objects>
+                <viewController id="Eo5-Hf-rkj" customClass="ProfileViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="P99-5d-vTY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WaI-AU-lfh">
+                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="w3P-su-BbN">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="uEI-tS-snN">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Eo5-Hf-rkj" id="Uln-jf-1ef"/>
+                                    <outlet property="delegate" destination="Eo5-Hf-rkj" id="fEM-ar-hxR"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WaI-AU-lfh" firstAttribute="leading" secondItem="es5-Pr-rXU" secondAttribute="leading" id="7gI-vA-ezK"/>
+                            <constraint firstItem="es5-Pr-rXU" firstAttribute="trailing" secondItem="WaI-AU-lfh" secondAttribute="trailing" id="Uqp-X5-fUp"/>
+                            <constraint firstItem="es5-Pr-rXU" firstAttribute="bottom" secondItem="WaI-AU-lfh" secondAttribute="bottom" id="yNZ-wT-v2J"/>
+                            <constraint firstItem="WaI-AU-lfh" firstAttribute="top" secondItem="es5-Pr-rXU" secondAttribute="top" id="zhv-nU-Yvb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="es5-Pr-rXU"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="WaI-AU-lfh" id="hYY-Yq-KM7"/>
+                        <segue destination="Qo6-bb-VbT" kind="show" identifier="experienceScenesSegue" id="9kW-P4-hvy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BDN-5e-Zzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3379" y="105"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Dg3-Nc-Pds">
@@ -293,6 +346,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="NKe-RQ-viq"/>
+        <segue reference="bUo-9v-NAM"/>
+        <segue reference="9kW-P4-hvy"/>
     </inferredMetricsTieBreakers>
 </document>

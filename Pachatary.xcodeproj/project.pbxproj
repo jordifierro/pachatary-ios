@@ -98,6 +98,18 @@
 		AEDB0DBD211B4342004F843E /* AuthRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DBC211B4342004F843E /* AuthRepoMock.swift */; };
 		AEDB0DBF211B4CB6004F843E /* Person.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEDB0DBE211B4CB6004F843E /* Person.storyboard */; };
 		AEDB0DC3211B51E3004F843E /* AskLoginEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDB0DC2211B51E3004F843E /* AskLoginEmailView.swift */; };
+		AEE03CEC216642EE0034AE0C /* ProfileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEE03CEB216642EE0034AE0C /* ProfileCollectionViewCell.xib */; };
+		AEE03CEE216645200034AE0C /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE03CED216645200034AE0C /* ProfileCollectionViewCell.swift */; };
+		AEE03CF0216646660034AE0C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE03CEF216646660034AE0C /* ProfileView.swift */; };
+		AEE03CF2216647860034AE0C /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE03CF1216647860034AE0C /* ProfilePresenter.swift */; };
+		AEE03CF421664C890034AE0C /* ProfileDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE03CF321664C890034AE0C /* ProfileDependencyInjector.swift */; };
+		AEE03CF6216677D30034AE0C /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE03CF5216677D30034AE0C /* ProfileRepository.swift */; };
+		AEE03CF821667C430034AE0C /* ProfileDataDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE03CF721667C430034AE0C /* ProfileDataDependencyInjector.swift */; };
+		AEE03CFA21667CBE0034AE0C /* ProfileSnifferExperienceApiRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE03CF921667CBE0034AE0C /* ProfileSnifferExperienceApiRepo.swift */; };
+		AEE03CFD2166A7EE0034AE0C /* ProfileRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE03CFC2166A7EE0034AE0C /* ProfileRepositoryTests.swift */; };
+		AEE03CFF2166AA670034AE0C /* ProfileSnifferExperienceApiRepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE03CFE2166AA670034AE0C /* ProfileSnifferExperienceApiRepoTests.swift */; };
+		AEE03D012166AF360034AE0C /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE03D002166AF360034AE0C /* Mock.swift */; };
+		AEE03D042166C0660034AE0C /* ProfilePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE03D032166C0660034AE0C /* ProfilePresenterTests.swift */; };
 		AEE1528A20D94E3E008707FF /* SingleResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528920D94E3E008707FF /* SingleResultMapper.swift */; };
 		AEE1528E20D96DC6008707FF /* ToResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528D20D96DC6008707FF /* ToResultMapper.swift */; };
 		AEE1529020D98395008707FF /* ResultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE1528F20D98395008707FF /* ResultCache.swift */; };
@@ -232,6 +244,18 @@
 		AEDB0DBC211B4342004F843E /* AuthRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepoMock.swift; sourceTree = "<group>"; };
 		AEDB0DBE211B4CB6004F843E /* Person.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Person.storyboard; sourceTree = "<group>"; };
 		AEDB0DC2211B51E3004F843E /* AskLoginEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskLoginEmailView.swift; sourceTree = "<group>"; };
+		AEE03CEB216642EE0034AE0C /* ProfileCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionViewCell.xib; sourceTree = "<group>"; };
+		AEE03CED216645200034AE0C /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		AEE03CEF216646660034AE0C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		AEE03CF1216647860034AE0C /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		AEE03CF321664C890034AE0C /* ProfileDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDependencyInjector.swift; sourceTree = "<group>"; };
+		AEE03CF5216677D30034AE0C /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
+		AEE03CF721667C430034AE0C /* ProfileDataDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataDependencyInjector.swift; sourceTree = "<group>"; };
+		AEE03CF921667CBE0034AE0C /* ProfileSnifferExperienceApiRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSnifferExperienceApiRepo.swift; sourceTree = "<group>"; };
+		AEE03CFC2166A7EE0034AE0C /* ProfileRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepositoryTests.swift; sourceTree = "<group>"; };
+		AEE03CFE2166AA670034AE0C /* ProfileSnifferExperienceApiRepoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSnifferExperienceApiRepoTests.swift; sourceTree = "<group>"; };
+		AEE03D002166AF360034AE0C /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
+		AEE03D032166C0660034AE0C /* ProfilePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenterTests.swift; sourceTree = "<group>"; };
 		AEE1528920D94E3E008707FF /* SingleResultMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleResultMapper.swift; sourceTree = "<group>"; };
 		AEE1528D20D96DC6008707FF /* ToResultMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToResultMapper.swift; sourceTree = "<group>"; };
 		AEE1528F20D98395008707FF /* ResultCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCache.swift; sourceTree = "<group>"; };
@@ -346,6 +370,7 @@
 				AE6F8B6620DA50BD007CC36A /* ResultCacheTests.swift */,
 				AE6F8B6E20DAC6A0007CC36A /* RequesterTests.swift */,
 				AEC8DCE9211DF9D3007CCC68 /* DataTestUtils.swift */,
+				AEE03D002166AF360034AE0C /* Mock.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -366,6 +391,7 @@
 		AE761ED920C925F300F80F9D /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				AEE03CFB2166A7CE0034AE0C /* Profile */,
 				AEEAC68420C97CBA007C17EE /* Experience */,
 				AEAE26B520E29A9600E5D4E9 /* Scene */,
 				AE73C7C020CE83AC00B05DA2 /* Auth */,
@@ -452,6 +478,9 @@
 			children = (
 				AEA5662421132F6A00F0E1F3 /* Profile.swift */,
 				AEA5662A2113369D00F0E1F3 /* ProfileMapper.swift */,
+				AEE03CF5216677D30034AE0C /* ProfileRepository.swift */,
+				AEE03CF721667C430034AE0C /* ProfileDataDependencyInjector.swift */,
+				AEE03CF921667CBE0034AE0C /* ProfileSnifferExperienceApiRepo.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -610,6 +639,35 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		AEE03CEA216642B50034AE0C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				AEE03CEB216642EE0034AE0C /* ProfileCollectionViewCell.xib */,
+				AEE03CED216645200034AE0C /* ProfileCollectionViewCell.swift */,
+				AEE03CEF216646660034AE0C /* ProfileView.swift */,
+				AEE03CF1216647860034AE0C /* ProfilePresenter.swift */,
+				AEE03CF321664C890034AE0C /* ProfileDependencyInjector.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		AEE03CFB2166A7CE0034AE0C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				AEE03CFC2166A7EE0034AE0C /* ProfileRepositoryTests.swift */,
+				AEE03CFE2166AA670034AE0C /* ProfileSnifferExperienceApiRepoTests.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		AEE03D022166C0520034AE0C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				AEE03D032166C0660034AE0C /* ProfilePresenterTests.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		AEEAC68420C97CBA007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
@@ -625,6 +683,7 @@
 		AEEAC68720C97CED007C17EE /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				AEE03D022166C0520034AE0C /* Profile */,
 				AEDB0DB8211B3EE2004F843E /* Person */,
 				AE598BAF20EA799D00F3DBA9 /* Scene */,
 				AEEAC68820C97D49007C17EE /* Experience */,
@@ -645,6 +704,7 @@
 			isa = PBXGroup;
 			children = (
 				AE414BD8215D34B50077284C /* Common */,
+				AEE03CEA216642B50034AE0C /* Profile */,
 				AEDB0DB9211B3F62004F843E /* Person */,
 				AE598BA520EA45C600F3DBA9 /* Scene */,
 				AEEAC68A20C97D8E007C17EE /* Experience */,
@@ -819,6 +879,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEEAC69020C99979007C17EE /* ApiKeys.plist in Resources */,
+				AEE03CEC216642EE0034AE0C /* ProfileCollectionViewCell.xib in Resources */,
 				AE86D9E9215EAD98003D2B34 /* SquareExperienceCollectionViewCell.xib in Resources */,
 				AE86D9EB215EAEAA003D2B34 /* LoaderCollectionViewCell.xib in Resources */,
 				AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */,
@@ -1020,6 +1081,7 @@
 				AEA566292113328400F0E1F3 /* LittlePictureMapper.swift in Sources */,
 				AEDB0DC3211B51E3004F843E /* AskLoginEmailView.swift in Sources */,
 				AE414BE0215E3A400077284C /* SquareExperienceCollectionViewCell.swift in Sources */,
+				AEE03CF0216646660034AE0C /* ProfileView.swift in Sources */,
 				AEAE26B420E28E3200E5D4E9 /* SceneDataDependencyInjector.swift in Sources */,
 				AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */,
 				AEB326B520C6F819000E07D8 /* BigPictureMapper.swift in Sources */,
@@ -1039,6 +1101,7 @@
 				AEA56627211331D400F0E1F3 /* LittlePicture.swift in Sources */,
 				AEE1528A20D94E3E008707FF /* SingleResultMapper.swift in Sources */,
 				AE218B8520E2789E00E79E51 /* ExperienceMapView.swift in Sources */,
+				AEE03CF6216677D30034AE0C /* ProfileRepository.swift in Sources */,
 				AE6C279E20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift in Sources */,
 				AE07CB24211CB3FB00D98BC1 /* LoginPresenter.swift in Sources */,
 				AE6C27A020D1324600C5F59F /* ToDomainMapper.swift in Sources */,
@@ -1063,12 +1126,17 @@
 				AEBB629C20C547D3001A4576 /* AppDelegate.swift in Sources */,
 				AE1D6D1D20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift in Sources */,
 				AEB326B120C6EDAA000E07D8 /* ExperienceMapper.swift in Sources */,
+				AEE03CEE216645200034AE0C /* ProfileCollectionViewCell.swift in Sources */,
+				AEE03CF2216647860034AE0C /* ProfilePresenter.swift in Sources */,
+				AEE03CFA21667CBE0034AE0C /* ProfileSnifferExperienceApiRepo.swift in Sources */,
 				AEEC74A520CAE0BF00B86837 /* ClientVersionPlugin.swift in Sources */,
 				AE86639820D7D4A1008CE6D2 /* AppPresentationDependencyInjector.swift in Sources */,
 				AE598BAC20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift in Sources */,
 				AEDB0DB5211B37F9004F843E /* WelcomePresenter.swift in Sources */,
 				AEAE26AC20E2860A00E5D4E9 /* SceneApi.swift in Sources */,
 				AEEC74A320CADB8C00B86837 /* AuthHeaderPlugin.swift in Sources */,
+				AEE03CF421664C890034AE0C /* ProfileDependencyInjector.swift in Sources */,
+				AEE03CF821667C430034AE0C /* ProfileDataDependencyInjector.swift in Sources */,
 				AEAE26AA20E285AA00E5D4E9 /* SceneRepository.swift in Sources */,
 				AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */,
 				AE86D9ED215EAF0C003D2B34 /* LoaderCollectionViewCell.swift in Sources */,
@@ -1089,17 +1157,21 @@
 				AE89AC2E20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift in Sources */,
 				AEEC749920CAADD000B86837 /* AuthStorageRepositoryTests.swift in Sources */,
 				AEDB0DBD211B4342004F843E /* AuthRepoMock.swift in Sources */,
+				AEE03D012166AF360034AE0C /* Mock.swift in Sources */,
+				AEE03CFF2166AA670034AE0C /* ProfileSnifferExperienceApiRepoTests.swift in Sources */,
 				AEB6A66620DBFDA900F936DB /* ExperienceRepositoryTests.swift in Sources */,
 				AE80DE7C20CEE0CB00A170F6 /* AuthRepositoryTests.swift in Sources */,
 				AEC8DCE6211DEBAE007CCC68 /* LoginPresenterTests.swift in Sources */,
 				AE73C7BF20CE80E200B05DA2 /* AuthApiRepositoryTests.swift in Sources */,
 				AED9ECA621652A6B008C46DC /* ExperienceRequestersSwitchTests.swift in Sources */,
+				AEE03CFD2166A7EE0034AE0C /* ProfileRepositoryTests.swift in Sources */,
 				AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */,
 				AED9ECA221650797008C46DC /* SavedExperiencesPresenterTests.swift in Sources */,
 				AE598BB120EA79C200F3DBA9 /* ExperienceScenesPresenterTests.swift in Sources */,
 				AE598BB320EA7A1000F3DBA9 /* SceneRepoMock.swift in Sources */,
 				AEC8DCEA211DF9D3007CCC68 /* DataTestUtils.swift in Sources */,
 				AE3116E720EBD2FC00720A95 /* ExperienceRepoMock.swift in Sources */,
+				AEE03D042166C0660034AE0C /* ProfilePresenterTests.swift in Sources */,
 				AE6F8B6F20DAC6A0007CC36A /* RequesterTests.swift in Sources */,
 				AEDB0DBB211B3FAC004F843E /* WelcomePresenterTests.swift in Sources */,
 				AEE47BE620E3A83A001DAB31 /* SceneRepositoryTests.swift in Sources */,

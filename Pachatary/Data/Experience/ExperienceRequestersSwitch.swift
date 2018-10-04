@@ -4,6 +4,7 @@ import RxSwift
 enum Kind {
     case explore
     case saved
+    case persons
 }
 
 enum Modification {
@@ -24,10 +25,12 @@ class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequeste
 
     let exploreRequester: R!
     let savedRequester: R!
+    let personsRequester: R!
 
-    init(_ exploreRequester: R, _ savedRequester: R) {
+    init(_ exploreRequester: R, _ savedRequester: R, _ personsRequester: R) {
         self.exploreRequester = exploreRequester
         self.savedRequester = savedRequester
+        self.personsRequester = personsRequester
     }
 
     func executeAction(_ kind: Kind, _ request: Request) {
@@ -50,8 +53,9 @@ class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequeste
 
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
         return Observable.combineLatest(experiencesObservable(.explore),
-                                        experiencesObservable(.saved))
-        { result, result2 in return result }
+                                        experiencesObservable(.saved),
+                                        experiencesObservable(.persons))
+        { result, result2, result3 in return result }
             .map { result in
                 return Result(.success, data:
                     result.data!.filter { experience in return experience.id == experienceId }[0])
@@ -64,6 +68,8 @@ class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequeste
             return self.exploreRequester
         case .saved:
             return self.savedRequester
+        case .persons:
+            return self.personsRequester
         }
     }
 }

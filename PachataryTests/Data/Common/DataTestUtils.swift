@@ -1,6 +1,7 @@
 import Swift
 import XCTest
 import Hippolyte
+@testable import Pachatary
 
 class DataTestUtils {
     

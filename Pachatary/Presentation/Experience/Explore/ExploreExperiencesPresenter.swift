@@ -99,4 +99,8 @@ class ExploreExperiencesPresenter {
     func refresh() {
         getFirstsExperiences()
     }
+
+    func profileClick(_ username: String) {
+        self.view.navigateToProfile(username)
+    }
 }

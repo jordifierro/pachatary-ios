@@ -7,6 +7,7 @@ class ExperienceRepoMock: ExperienceRepository {
 
     var returnExploreObservable: Observable<Result<[Experience]>>!
     var returnSavedObservable: Observable<Result<[Experience]>>!
+    var returnPersonsObservable: Observable<Result<[Experience]>>!
     var returnExperienceObservable: Observable<Result<Experience>>!
     var experiencesObservableCalls = [Kind]()
     var getFirstsCalls = [(Kind, Request.Params?)]()
@@ -20,6 +21,8 @@ class ExperienceRepoMock: ExperienceRepository {
             return returnExploreObservable
         case .saved:
             return returnSavedObservable
+        case .persons:
+            return returnPersonsObservable
         }
     }
     

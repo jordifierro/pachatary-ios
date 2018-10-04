@@ -10,10 +10,6 @@ class SavedExperiencesPresenter {
     
     var disposable: Disposable? = nil
     
-    var text: String? = nil
-    var latitude: Double? = nil
-    var longitude: Double? = nil
-    
     init(_ experienceRepository: ExperienceRepository,
          _ mainScheduler: ImmediateSchedulerType,
          _ view: SavedExperiencesView) {

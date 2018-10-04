@@ -6,13 +6,15 @@ import RxSwift
 
 class ExperienceRequestersSwitchTests: XCTestCase {
 
-    func kindValues() -> [Kind] { return [.explore, .saved] }
+    func kindValues() -> [Kind] { return [.explore, .saved, .persons] }
     func kindString(_ kind: Kind) -> String {
         switch kind {
         case .explore:
             return "explore"
         case .saved:
             return "saved"
+        case .persons:
+            return "persons"
         }
     }
     func modifyValues() -> [Modification] { return [.update, .addOrUpdate] }
@@ -54,6 +56,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                  Result(.success, data: [Experience("3"), Experience("4")]))
             .given_a_results_observable_that_returns(.saved,
                  Result(.success, data: [Experience("5"), Experience("6")]))
+            .given_a_results_observable_that_returns(.persons,
+                 Result(.success, data: [Experience("5"), Experience("6")]))
             .when_get_experiences_observable("4")
             .then_should_return_experience_observable(Result(.success, data: Experience("4")))
     }
@@ -63,12 +67,14 @@ class ExperienceRequestersSwitchTests: XCTestCase {
         let requestersSwitch: ExperienceRequestersSwitch!
         let exploreRequesterMock = RequesterMock()
         let savedRequesterMock = RequesterMock()
+        let personsRequesterMock = RequesterMock()
         var resultsObservable: Observable<Result<[Experience]>>
         var experienceObservable: Observable<Result<Experience>>
 
         init() {
             requestersSwitch = ExperienceRequestersSwitchImplementation(exploreRequesterMock,
-                                                                        savedRequesterMock)
+                                                                        savedRequesterMock,
+                                                                        personsRequesterMock)
             resultsObservable = Observable.empty()
             experienceObservable = Observable.empty()
         }
@@ -80,6 +86,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                 self.exploreRequesterMock.resultObservable = Observable.just(result)
             case .saved:
                 self.savedRequesterMock.resultObservable = Observable.just(result)
+            case .persons:
+                self.personsRequesterMock.resultObservable = Observable.just(result)
             }
             return self
         }
@@ -113,6 +121,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                 assert(exploreRequesterMock.requestCalls == [request])
             case .saved:
                 assert(savedRequesterMock.requestCalls == [request])
+            case .persons:
+                assert(personsRequesterMock.requestCalls == [request])
             }
             return self
         }
@@ -127,6 +137,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                     assert(exploreRequesterMock.updateCalls == [list])
                 case .saved:
                     assert(savedRequesterMock.updateCalls == [list])
+                case .persons:
+                    assert(personsRequesterMock.updateCalls == [list])
                 }
             case .addOrUpdate:
                 switch kind {
@@ -134,6 +146,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                     assert(exploreRequesterMock.addOrUpdateCalls == [list])
                 case .saved:
                     assert(savedRequesterMock.addOrUpdateCalls == [list])
+                case .persons:
+                    assert(personsRequesterMock.addOrUpdateCalls == [list])
                 }
             }
             return self
