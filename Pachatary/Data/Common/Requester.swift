@@ -84,7 +84,8 @@ class RequesterImplementation<T: ResultCache>: Requester {
                     case .refresh: break
                     case .none: break
                     }
-                case .error: break
+                case .error(let error):
+                    fatalError(error.localizedDescription)
                 case .completed: break
                 }
             }

@@ -33,7 +33,8 @@ class ExperienceScenesPresenter {
                     case .error: break
                     case .inProgress: break
                     }
-                case .error(_): break
+                case .error(let error):
+                    fatalError(error.localizedDescription)
                 case .completed: break
                 }
             }
