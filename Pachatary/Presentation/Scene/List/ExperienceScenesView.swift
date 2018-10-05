@@ -5,6 +5,7 @@ protocol ExperienceScenesView : class {
     func showScenes(_ scenes: [Scene], experience: Experience)
     func navigateToMap(_ sceneId: String?)
     func scrollToScene(_ sceneId: String)
+    func showUnsaveConfirmationDialog()
     func finish()
 }
 
@@ -51,7 +52,7 @@ class ExperienceScenesViewController: UIViewController {
 }
 
 extension ExperienceScenesViewController: ExperienceScenesView {
-    
+
     func showScenes(_ scenes: [Scene], experience: Experience) {
         self.scenes = scenes
         self.experience = experience
@@ -68,7 +69,20 @@ extension ExperienceScenesViewController: ExperienceScenesView {
         self.tableView.scrollToRow(at: IndexPath(item: scenePosition, section: 1),
                                    at: .top, animated: true)
     }
-    
+
+    func showUnsaveConfirmationDialog() {
+        let dialogMessage = UIAlertController(title: "REMOVE FROM SAVED",
+            message: "Are you sure you want to remove it from your saved experiences?",
+            preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .default)
+                   { [unowned self] (action) -> Void in self.presenter.onUnsaveDialogOk() }
+        dialogMessage.addAction(ok)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+                   { [unowned self] (action) -> Void in self.presenter.onUnsaveDialogCancel() }
+        dialogMessage.addAction(cancel)
+        self.present(dialogMessage, animated: true, completion: nil)
+    }
+
     func finish() {
         dismiss(animated: true, completion: nil)
     }

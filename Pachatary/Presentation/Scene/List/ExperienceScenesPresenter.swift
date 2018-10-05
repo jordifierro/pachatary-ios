@@ -64,6 +64,13 @@ class ExperienceScenesPresenter {
     }
     
     func saveExperience(save: Bool) {
-        experienceRepo.saveExperience(self.experienceId, save: save)
+        if save { experienceRepo.saveExperience(self.experienceId, save: save) }
+        else { view.showUnsaveConfirmationDialog() }
     }
+
+    func onUnsaveDialogOk() {
+        experienceRepo.saveExperience(self.experienceId, save: false)
+    }
+
+    func onUnsaveDialogCancel() {}
 }

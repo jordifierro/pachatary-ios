@@ -65,13 +65,20 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .then_should_call_repo_save("4", true)
     }
     
-    func test_unsave() {
+    func test_unsave_click_opens_confirmation_dialog() {
         ScenarioMaker()
             .given_a_presenter("4")
             .when_save_click(false)
+            .then_should_show_unsave_confirmation_dialog()
+    }
+
+    func test_unsave_confirmation_ok_unsaves_experience() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .when_unsave_dialog_ok()
             .then_should_call_repo_save("4", false)
     }
-    
+
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
         let mockExperienceRepo = ExperienceRepoMock()
@@ -126,6 +133,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
             presenter.onLocateSceneClick(sceneId)
             return self
         }
+
+        func when_unsave_dialog_ok() -> ScenarioMaker {
+            presenter.onUnsaveDialogOk()
+            return self
+        }
         
         @discardableResult
         func then_should_call_scene_repo_observable_with(experienceId: String) -> ScenarioMaker {
@@ -172,6 +184,12 @@ class ExperienceScenesPresenterTests: XCTestCase {
             assert(mockExperienceRepo.saveCalls[0].1 == save)
             return self
         }
+
+        @discardableResult
+        func then_should_show_unsave_confirmation_dialog() -> ScenarioMaker {
+            assert(mockView.showUnsaveConfirmationDialogCalls == 1)
+            return self
+        }
     }
 }
 
@@ -181,6 +199,7 @@ class ExperienceScenesViewMock: ExperienceScenesView {
     var navigateToMapCalls = [String?]()
     var finishCalls = 0
     var scrollToSceneCalls = [String]()
+    var showUnsaveConfirmationDialogCalls = 0
 
     func showScenes(_ scenes: [Scene], experience: Experience) {
         showScenesCalls.append((scenes, experience))
@@ -193,7 +212,11 @@ class ExperienceScenesViewMock: ExperienceScenesView {
     func scrollToScene(_ sceneId: String) {
         scrollToSceneCalls.append(sceneId)
     }
-    
+
+    func showUnsaveConfirmationDialog() {
+        showUnsaveConfirmationDialogCalls += 1
+    }
+
     func finish() {
         finishCalls += 1
     }
