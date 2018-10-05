@@ -68,7 +68,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xxD-qk-2lI" customClass="MGLMapView">
-                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/mapbox/light-v9"/>
@@ -120,12 +120,13 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZf-Ji-I2t">
                                                     <rect key="frame" x="20" y="124.5" width="230" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLj-d2-xsV">
                                                     <rect key="frame" x="260" y="134.5" width="50" height="30"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="QZU-dn-ARf"/>
                                                     </constraints>
@@ -143,15 +144,15 @@
                                                 <constraint firstAttribute="trailing" secondItem="MBZ-xa-mjn" secondAttribute="trailing" constant="20" id="AOA-7m-c6z"/>
                                                 <constraint firstItem="MBZ-xa-mjn" firstAttribute="leading" secondItem="VhN-Lg-eXI" secondAttribute="leading" constant="20" id="Fcb-wU-79S"/>
                                                 <constraint firstItem="tZf-Ji-I2t" firstAttribute="leading" secondItem="VhN-Lg-eXI" secondAttribute="leading" constant="20" id="IRi-E6-hQl"/>
-                                                <constraint firstItem="fLj-d2-xsV" firstAttribute="top" secondItem="wjd-a2-sOi" secondAttribute="bottom" constant="10" id="duf-O9-lAX"/>
+                                                <constraint firstItem="fLj-d2-xsV" firstAttribute="bottom" secondItem="wjd-a2-sOi" secondAttribute="bottom" constant="-10" id="duf-O9-lAX"/>
                                                 <constraint firstItem="fLj-d2-xsV" firstAttribute="leading" secondItem="tZf-Ji-I2t" secondAttribute="trailing" constant="10" id="jYZ-7U-tEl"/>
-                                                <constraint firstItem="MBZ-xa-mjn" firstAttribute="top" secondItem="tZf-Ji-I2t" secondAttribute="bottom" constant="10" id="l6X-wz-Yu9"/>
+                                                <constraint firstItem="MBZ-xa-mjn" firstAttribute="top" secondItem="wjd-a2-sOi" secondAttribute="bottom" constant="20" id="l6X-wz-Yu9"/>
                                                 <constraint firstAttribute="trailing" secondItem="fLj-d2-xsV" secondAttribute="trailing" constant="10" id="lHR-TK-yXh"/>
                                                 <constraint firstItem="wjd-a2-sOi" firstAttribute="width" secondItem="VhN-Lg-eXI" secondAttribute="width" id="q3T-aC-0ym"/>
                                                 <constraint firstAttribute="bottom" secondItem="MBZ-xa-mjn" secondAttribute="bottom" constant="30" id="r5B-pC-1Bm"/>
                                                 <constraint firstItem="wjd-a2-sOi" firstAttribute="top" secondItem="VhN-Lg-eXI" secondAttribute="top" id="uSD-Ep-iTt"/>
                                                 <constraint firstItem="tZf-Ji-I2t" firstAttribute="centerY" secondItem="fLj-d2-xsV" secondAttribute="centerY" id="vk5-e8-7Tw"/>
-                                                <constraint firstItem="tZf-Ji-I2t" firstAttribute="top" secondItem="wjd-a2-sOi" secondAttribute="bottom" constant="10" id="ydb-dg-lC5"/>
+                                                <constraint firstItem="tZf-Ji-I2t" firstAttribute="bottom" secondItem="wjd-a2-sOi" secondAttribute="bottom" constant="-10" id="ydb-dg-lC5"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -347,6 +348,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="bUo-9v-NAM"/>
-        <segue reference="9kW-P4-hvy"/>
+        <segue reference="NiL-UL-iij"/>
     </inferredMetricsTieBreakers>
 </document>

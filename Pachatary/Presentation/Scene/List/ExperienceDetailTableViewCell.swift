@@ -9,6 +9,7 @@ class ExperienceDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var savesCountLabel: UILabel!
+    @IBOutlet weak var authorImageView: UIImageView!
     @IBOutlet weak var authorUsernameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var mapImageView: UIImageView!
@@ -43,6 +44,13 @@ class ExperienceDetailTableViewCell: UITableViewCell {
         if experience.picture != nil {
             pictureImageView.kf.setImage(with: URL(string: experience.picture!.mediumUrl))
         }
+        else { pictureImageView.kf.setImage(with: nil) }
+        if experience.authorProfile.picture != nil {
+            authorImageView.kf.setImage(with: URL(string: experience.authorProfile.picture!.smallUrl))
+        }
+        else { authorImageView.kf.setImage(with: nil) }
+        authorImageView.layer.cornerRadius = 20
+        authorImageView.layer.masksToBounds = true
         titleLabel.text = experience.title
         savesCountLabel.text = String(experience.savesCount) + " ☆"
         authorUsernameLabel.text = "by " + experience.authorProfile.username
