@@ -10,6 +10,7 @@ protocol ExploreExperiencesView : class {
     func showRetry()
     func navigateToExperienceScenes(_ experienceId: String)
     func navigateToProfile(_ username: String)
+    func navigateToSelectLocation()
     func hasLocationPermission() -> Bool
     func askLocationPermission()
     func askLastKnownLocation()
@@ -21,6 +22,7 @@ class ExploreExperiencesViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var selectLocationButton: UIButton!
     
     var lastItemShown = -1
     var cellHeights: [IndexPath : CGFloat] = [:]
@@ -55,10 +57,17 @@ class ExploreExperiencesViewController: UIViewController {
 
         self.searchBar.delegate = self
         self.tableView.addSubview(self.refreshControl)
+        selectLocationButton.addTarget(self,
+               action: #selector(ExploreExperiencesViewController.selectLocactionButtonClick(_:)),
+               for: .touchUpInside)
 
         presenter.create()
     }
-    
+
+    @objc func selectLocactionButtonClick(_ sender: UIButton!) {
+        presenter.onSelectLocationClick()
+    }
+
     deinit {
         self.presenter.destroy()
     }
@@ -84,6 +93,7 @@ class ExploreExperiencesViewController: UIViewController {
                 destinationVC.username = selectedProfileUsername
             }
         }
+        else if segue.identifier == "selectLocationSegue" {}
     }
 }
 
@@ -178,6 +188,10 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
     func navigateToProfile(_ username: String) {
         selectedProfileUsername = username
         performSegue(withIdentifier: "profileSegue", sender: self)
+    }
+
+    func navigateToSelectLocation() {
+        performSegue(withIdentifier: "selectLocationSegue", sender: self)
     }
 
     func hasLocationPermission() -> Bool {

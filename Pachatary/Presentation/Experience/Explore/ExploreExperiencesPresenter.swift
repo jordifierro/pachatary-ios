@@ -103,4 +103,8 @@ class ExploreExperiencesPresenter {
     func profileClick(_ username: String) {
         self.view.navigateToProfile(username)
     }
+
+    func onSelectLocationClick() {
+        view.navigateToSelectLocation()
+    }
 }

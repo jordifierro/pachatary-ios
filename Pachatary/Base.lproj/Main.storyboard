@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,8 +20,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="MI6-3U-Wwv">
-                                <rect key="frame" x="0.0" y="64" width="320" height="56"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFF-N0-D0a" userLabel="Select Location Button">
+                                <rect key="frame" x="0.0" y="64" width="32" height="56"/>
+                                <state key="normal" title="M"/>
+                            </button>
+                            <searchBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MI6-3U-Wwv">
+                                <rect key="frame" x="32" y="64" width="288" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zxP-Xl-HW6">
@@ -36,12 +41,16 @@
                         <constraints>
                             <constraint firstItem="GGv-ec-L1z" firstAttribute="trailing" secondItem="zxP-Xl-HW6" secondAttribute="trailing" id="3F3-bH-q6B"/>
                             <constraint firstItem="zxP-Xl-HW6" firstAttribute="width" secondItem="Nb9-Jq-y6d" secondAttribute="width" id="6Bo-L5-Fov"/>
-                            <constraint firstItem="MI6-3U-Wwv" firstAttribute="leading" secondItem="GGv-ec-L1z" secondAttribute="leading" id="7PP-0z-Jdd"/>
+                            <constraint firstItem="MI6-3U-Wwv" firstAttribute="leading" secondItem="kFF-N0-D0a" secondAttribute="trailing" id="DN9-vR-o0A"/>
+                            <constraint firstItem="kFF-N0-D0a" firstAttribute="width" secondItem="Nb9-Jq-y6d" secondAttribute="width" multiplier="1:10" id="InH-bC-OB9"/>
                             <constraint firstAttribute="width" secondItem="zxP-Xl-HW6" secondAttribute="width" id="Kiu-6k-cY6"/>
                             <constraint firstItem="zxP-Xl-HW6" firstAttribute="bottom" secondItem="GGv-ec-L1z" secondAttribute="bottom" id="KvT-5b-9Hu"/>
                             <constraint firstItem="zxP-Xl-HW6" firstAttribute="top" secondItem="MI6-3U-Wwv" secondAttribute="bottom" id="MED-ZS-ctp"/>
+                            <constraint firstItem="kFF-N0-D0a" firstAttribute="leading" secondItem="GGv-ec-L1z" secondAttribute="leading" id="ORM-lN-3Gq"/>
                             <constraint firstItem="MI6-3U-Wwv" firstAttribute="top" secondItem="GGv-ec-L1z" secondAttribute="top" id="PgV-4W-0cT"/>
-                            <constraint firstItem="MI6-3U-Wwv" firstAttribute="width" secondItem="Nb9-Jq-y6d" secondAttribute="width" id="qxM-Oq-TrB"/>
+                            <constraint firstItem="kFF-N0-D0a" firstAttribute="height" secondItem="MI6-3U-Wwv" secondAttribute="height" id="WYl-9N-Jo9"/>
+                            <constraint firstItem="MI6-3U-Wwv" firstAttribute="width" secondItem="Nb9-Jq-y6d" secondAttribute="width" multiplier="9:10" id="gyk-89-c06"/>
+                            <constraint firstItem="kFF-N0-D0a" firstAttribute="top" secondItem="GGv-ec-L1z" secondAttribute="top" id="rKp-0O-UUI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GGv-ec-L1z"/>
                     </view>
@@ -50,9 +59,11 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="searchBar" destination="MI6-3U-Wwv" id="vw1-Rk-HMj"/>
+                        <outlet property="selectLocationButton" destination="kFF-N0-D0a" id="7G5-oz-K6k"/>
                         <outlet property="tableView" destination="zxP-Xl-HW6" id="5ag-cd-Mzw"/>
                         <segue destination="Qo6-bb-VbT" kind="show" identifier="experienceScenesSegue" id="NiL-UL-iij"/>
                         <segue destination="Eo5-Hf-rkj" kind="show" identifier="profileSegue" id="bUo-9v-NAM"/>
+                        <segue destination="4Nv-83-XWO" kind="show" identifier="selectLocationSegue" id="I5T-on-ruS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oK-t8-Zs5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -325,6 +336,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWu-6R-GZl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="336" y="546"/>
+        </scene>
+        <!--Select Location View Controller-->
+        <scene sceneID="PXQ-pi-RKd">
+            <objects>
+                <viewController id="4Nv-83-XWO" customClass="SelectLocationViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DKY-3h-9CE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iuJ-f7-g1I" userLabel="Map View" customClass="MGLMapView">
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/mapbox/light-v9"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bel-qT-YYH" firstAttribute="bottom" secondItem="iuJ-f7-g1I" secondAttribute="bottom" id="Cfr-jY-fve"/>
+                            <constraint firstItem="iuJ-f7-g1I" firstAttribute="leading" secondItem="bel-qT-YYH" secondAttribute="leading" id="Onm-Ko-ax6"/>
+                            <constraint firstItem="iuJ-f7-g1I" firstAttribute="top" secondItem="bel-qT-YYH" secondAttribute="top" id="ZCb-0q-1N3"/>
+                            <constraint firstItem="bel-qT-YYH" firstAttribute="trailing" secondItem="iuJ-f7-g1I" secondAttribute="trailing" id="ank-Vk-OQj"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bel-qT-YYH"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="iuJ-f7-g1I" id="EGL-cT-XtT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J5K-87-8qk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1493" y="-703"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A0p-PY-ein">
