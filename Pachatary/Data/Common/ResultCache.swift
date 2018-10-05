@@ -32,12 +32,11 @@ class ResultCacheImplementation<T: Identifiable & Equatable>: ResultCache {
             addOrUpdateSubject.asObservable()
                 .map { (newList: [T]) -> ((Result<[T]>) -> Result<[T]>) in
                     return { oldResult in
-                        var updatedList = oldResult.data!
-                        for elem in newList {
+                        var updatedList = newList
+                        for elem in oldResult.data! {
                             let duplicatedIndex = updatedList.index(where:
                             { (item: Identifiable) in return (elem.id == item.id) })
-                            if duplicatedIndex != nil { updatedList[duplicatedIndex!] = elem }
-                            else { updatedList.append(elem) }
+                            if duplicatedIndex == nil { updatedList.append(elem) }
                         }
                         return Result(.success, data: updatedList)
                     }},

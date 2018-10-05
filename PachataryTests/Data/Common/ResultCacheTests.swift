@@ -30,7 +30,7 @@ class ResultCacheTests: XCTestCase {
             .given_an_experience(id: "5")
             .given_a_result(status: .success, experiences: [2, 3])
             .when_emit_result_on_add_or_update_observer(result: 2)
-            .given_a_result(status: .success, experiences: [0, 2, 3])
+            .given_a_result(status: .success, experiences: [2, 3, 0])
             .then_should_emit_result_on_subscribe(result: 3)
     }
     
