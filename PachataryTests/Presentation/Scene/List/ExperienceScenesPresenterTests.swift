@@ -7,7 +7,7 @@ class ExperienceScenesPresenterTests: XCTestCase {
     
     func test_on_create_asks_scenes_and_experience_with_experience_id() {
         ScenarioMaker()
-            .given_an_experience_id_for_presenter("7")
+            .given_a_presenter("7")
             .given_an_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
                                               experienceId: "7")
             .given_an_experience_observable_result(Result(.success, data: Experience("9")))
@@ -20,20 +20,21 @@ class ExperienceScenesPresenterTests: XCTestCase {
     
     func test_on_go_to_map_click_navigates_to_map() {
         ScenarioMaker()
-            .given_an_experience_id_for_presenter("4")
+            .given_a_presenter("4")
             .when_go_to_map_click()
             .then_should_navigate_to_map()
     }
     
     func test_on_locate_scene_click_navigates_to_map_with_scene_id() {
         ScenarioMaker()
-            .given_an_experience_id_for_presenter("4")
+            .given_a_presenter("4")
             .when_locate_scene_click("7")
             .then_should_navigate_to_map(sceneId: "7")
     }
     
     func test_on_resume_scroll_to_scene_id_if_selected_scene_id() {
         ScenarioMaker()
+            .given_a_presenter("4")
             .given_a_selected_scene_id("5")
             .when_resume_presenter()
             .should_scroll_to_scene_id("5")
@@ -41,6 +42,7 @@ class ExperienceScenesPresenterTests: XCTestCase {
     
     func test_on_resume_scroll_to_scene_id_if_selected_scene_id_only_once() {
         ScenarioMaker()
+            .given_a_presenter("4")
             .given_a_selected_scene_id("5")
             .when_resume_presenter()
             .when_resume_presenter()
@@ -50,6 +52,7 @@ class ExperienceScenesPresenterTests: XCTestCase {
     
     func test_on_resume_doesnt_scroll_if_not_selected_scene_id() {
         ScenarioMaker()
+            .given_a_presenter("4")
             .given_a_selected_scene_id(nil)
             .when_resume_presenter()
             .should_not_scroll_to_scene_id()
@@ -57,14 +60,14 @@ class ExperienceScenesPresenterTests: XCTestCase {
     
     func test_save() {
         ScenarioMaker()
-            .given_an_experience_id_for_presenter("4")
+            .given_a_presenter("4")
             .when_save_click(true)
             .then_should_call_repo_save("4", true)
     }
     
     func test_unsave() {
         ScenarioMaker()
-            .given_an_experience_id_for_presenter("4")
+            .given_a_presenter("4")
             .when_save_click(false)
             .then_should_call_repo_save("4", false)
     }
@@ -75,14 +78,12 @@ class ExperienceScenesPresenterTests: XCTestCase {
         var mockView = ExperienceScenesViewMock()
         var presenter: ExperienceScenesPresenter!
         
-        init() {
-            presenter = ExperienceScenesPresenter(mockSceneRepo, mockExperienceRepo,
-                                           CurrentThreadScheduler.instance)
-            presenter.view = mockView
-        }
+        init() {}
         
-        func given_an_experience_id_for_presenter(_ experienceId: String) -> ScenarioMaker {
-            presenter.experienceId = experienceId
+        func given_a_presenter(_ experienceId: String) -> ScenarioMaker {
+            presenter = ExperienceScenesPresenter(mockSceneRepo, mockExperienceRepo,
+                                                  CurrentThreadScheduler.instance,
+                                                  mockView, experienceId)
             return self
         }
         

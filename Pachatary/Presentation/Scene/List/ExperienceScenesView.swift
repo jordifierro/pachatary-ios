@@ -1,7 +1,7 @@
 import Swift
 import UIKit
 
-protocol ExperienceScenesView {
+protocol ExperienceScenesView : class {
     func showScenes(_ scenes: [Scene], experience: Experience)
     func navigateToMap(_ sceneId: String?)
     func scrollToScene(_ sceneId: String)
@@ -11,7 +11,7 @@ protocol ExperienceScenesView {
 class ExperienceScenesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    let presenter = SceneDependencyInjector.sceneListPresenter
+    var presenter: ExperienceScenesPresenter!
     var cellHeights: [IndexPath : CGFloat] = [:]
     var experienceId: String!
     var selectedSceneId: String? = nil
@@ -20,13 +20,18 @@ class ExperienceScenesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        presenter = SceneDependencyInjector.sceneListPresenter(view: self,
+                                                               experienceId: experienceId)
+
         let nib = UINib.init(nibName: "ExperienceDetailTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "experienceDetailCell")
         
-        presenter.view = self
-        presenter.experienceId = experienceId
         presenter.create()
+    }
+
+    deinit {
+        presenter.destroy()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,7 +43,7 @@ class ExperienceScenesViewController: UIViewController {
             if let destinationVC = segue.destination as? ExperienceMapViewController {
                 destinationVC.selectedSceneId = self.selectedSceneId
                 destinationVC.experienceId = self.experienceId
-                destinationVC.setResultDelegate = { (sceneId: String) in
+                destinationVC.setResultDelegate = { [unowned self] (sceneId: String) in
                     self.presenter.selectedSceneId = sceneId }
             }
         }

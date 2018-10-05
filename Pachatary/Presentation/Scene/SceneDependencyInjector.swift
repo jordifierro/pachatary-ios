@@ -3,10 +3,12 @@ import RxSwift
 
 class SceneDependencyInjector {
     
-    static var sceneListPresenter: ExperienceScenesPresenter { get { return
-        ExperienceScenesPresenter(
+    static func sceneListPresenter(view: ExperienceScenesView,
+                                   experienceId: String) -> ExperienceScenesPresenter {
+        return ExperienceScenesPresenter(
             SceneDataDependencyInjector.sceneRepository,
             ExperienceDataDependencyInjector.experienceRepository,
-            AppPresentationDependencyInjector.mainScheduler) }
+            AppPresentationDependencyInjector.mainScheduler,
+            view, experienceId)
     }
 }
