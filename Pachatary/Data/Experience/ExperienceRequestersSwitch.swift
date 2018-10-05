@@ -55,10 +55,16 @@ class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequeste
         return Observable.combineLatest(experiencesObservable(.explore),
                                         experiencesObservable(.saved),
                                         experiencesObservable(.persons))
-        { result, result2, result3 in return result }
-            .map { result in
-                return Result(.success, data:
-                    result.data!.filter { experience in return experience.id == experienceId }[0])
+            { result1, result2, result3 in
+                var experiences = [Experience]()
+                if result1.data != nil { experiences += result1.data! }
+                if result2.data != nil { experiences += result2.data! }
+                if result3.data != nil { experiences += result3.data! }
+                return experiences
+            }
+            .map { (experiences: [Experience]) in
+                return Result(.success, data: experiences
+                    .filter { experience in return experience.id == experienceId }[0])
         }
     }
 

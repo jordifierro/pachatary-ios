@@ -50,14 +50,32 @@ class ExperienceRequestersSwitchTests: XCTestCase {
         }
     }
 
-    func test_experience_observable_joins_all_requester_and_filter_desired_experience() {
+    func test_experience_observable_when_is_in_explore_requester() {
         ScenarioMaker()
             .given_a_results_observable_that_returns(.explore,
                  Result(.success, data: [Experience("3"), Experience("4")]))
+            .given_a_results_observable_that_returns(.saved, Result(.inProgress))
+            .given_a_results_observable_that_returns(.persons, Result(.error, error: DataError.notCached))
+            .when_get_experiences_observable("4")
+            .then_should_return_experience_observable(Result(.success, data: Experience("4")))
+    }
+
+    func test_experience_observable_when_is_in_saved_requester() {
+        ScenarioMaker()
             .given_a_results_observable_that_returns(.saved,
-                 Result(.success, data: [Experience("5"), Experience("6")]))
+                                                     Result(.success, data: [Experience("3"), Experience("4")]))
+            .given_a_results_observable_that_returns(.explore, Result(.inProgress))
+            .given_a_results_observable_that_returns(.persons, Result(.error, error: DataError.notCached))
+            .when_get_experiences_observable("4")
+            .then_should_return_experience_observable(Result(.success, data: Experience("4")))
+    }
+
+    func test_experience_observable_when_is_in_persons_requester() {
+        ScenarioMaker()
             .given_a_results_observable_that_returns(.persons,
-                 Result(.success, data: [Experience("5"), Experience("6")]))
+                                                     Result(.success, data: [Experience("3"), Experience("4")]))
+            .given_a_results_observable_that_returns(.explore, Result(.inProgress))
+            .given_a_results_observable_that_returns(.saved, Result(.error, error: DataError.notCached))
             .when_get_experiences_observable("4")
             .then_should_return_experience_observable(Result(.success, data: Experience("4")))
     }
