@@ -132,3 +132,29 @@ class ResultCacheTests: XCTestCase {
      }
 }
 
+class ResultCacheMock: ResultCache {
+    typealias cacheType = IdEq
+
+    var resultPublish = PublishSubject<Result<[IdEq]>>()
+    var resultObservable: Observable<Result<[IdEq]>>
+    var replaceResultCalls = [Result<[IdEq]>]()
+    var addOrUpdateCalls = [[IdEq]]()
+    var updateCalls = [[IdEq]]()
+
+    init() {
+        resultObservable = Observable.empty()
+        resultObservable = resultPublish.asObservable()
+    }
+
+    func replaceResult(_ result: Result<[IdEq]>) {
+        replaceResultCalls.append(result)
+    }
+
+    func addOrUpdate(_ list: [IdEq]) {
+        addOrUpdateCalls.append(list)
+    }
+
+    func update(_ list: [IdEq]) {
+        updateCalls.append(list)
+    }
+}

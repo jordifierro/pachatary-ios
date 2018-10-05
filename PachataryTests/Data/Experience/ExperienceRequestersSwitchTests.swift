@@ -173,27 +173,26 @@ class ExperienceRequestersSwitchTests: XCTestCase {
     }
 }
 
-class RequesterMock: Requester {
-    typealias requesterType = Experience
+class ExperienceRequestersSwitchMock: ExperienceRequestersSwitch {
 
-    var requestCalls = [Request]()
-    var resultObservable: Observable<Result<[Experience]>>!
-    var updateCalls = [[Experience]]()
-    var addOrUpdateCalls = [[Experience]]()
+    var executeActionCalls = [(Kind, Request)]()
+    var modifyResultCalls = [(Kind, Modification, [Experience]?, Result<[Experience]>?)]()
+    var experiencesObservableResult = [Kind:Observable<Result<[Experience]>>]()
+    var experienceObservableResult = [String:Observable<Result<Experience>>]()
 
-    func request(_ request: Request) {
-        requestCalls.append(request)
+    func executeAction(_ kind: Kind, _ request: Request) {
+        executeActionCalls.append((kind, request))
     }
 
-    func resultsObservable() -> Observable<Result<[Experience]>> {
-        return resultObservable
+    func modifyResult(_ kind: Kind, _ modification: Modification, list: [Experience]?, result: Result<[Experience]>?) {
+        modifyResultCalls.append((kind, modification, list, result))
     }
 
-    func update(_ tList: [Experience]) {
-        updateCalls.append(tList)
+    func experiencesObservable(_ kind: Kind) -> Observable<Result<[Experience]>> {
+        return experiencesObservableResult[kind]!
     }
 
-    func addOrUpdate(_ tList: [Experience]) {
-        addOrUpdateCalls.append(tList)
+    func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
+        return experienceObservableResult[experienceId]!
     }
 }

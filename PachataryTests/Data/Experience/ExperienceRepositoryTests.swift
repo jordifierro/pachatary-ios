@@ -77,7 +77,7 @@ class ExperienceRepositoryTests: XCTestCase {
     class ScenarioMaker {
         
         let mockApiRepo = MockExperienceApiRepo()
-        let mockRequestersSwitch = MockExperienceRequestersSwitch()
+        let mockRequestersSwitch = ExperienceRequestersSwitchMock()
         let repo: ExperienceRepository
 
         var experiencesObservableResult: Observable<Result<[Experience]>>!
@@ -188,60 +188,43 @@ class ExperienceRepositoryTests: XCTestCase {
     }
 }
 
-class MockExperienceApiRepo: ExperienceApiRepository {
+class ExperienceRepoMock: ExperienceRepository {
 
-    var apiExploreCallResultObservable: Observable<Result<[Experience]>>?
-    var apiSavedCallResultObservable: Observable<Result<[Experience]>>?
-    var apiPersonsCallResultObservable: Observable<Result<[Experience]>>?
-    var apiPaginateCallResultObservable: Observable<Result<[Experience]>>?
-    var apiSaveCallResultObservable: Observable<Result<Bool>>?
+    var returnExploreObservable: Observable<Result<[Experience]>>!
+    var returnSavedObservable: Observable<Result<[Experience]>>!
+    var returnPersonsObservable: Observable<Result<[Experience]>>!
+    var returnExperienceObservable: Observable<Result<Experience>>!
+    var experiencesObservableCalls = [Kind]()
+    var getFirstsCalls = [(Kind, Request.Params?)]()
+    var paginateCalls = [Kind]()
+    var singleExperienceCalls = [String]()
     var saveCalls = [(String, Bool)]()
 
-    init() {}
-    
-    func exploreExperiencesObservable(_ text: String?, _ latitude: Double?,
-                                      _ longitude: Double?) -> Observable<Result<[Experience]>> {
-        return apiExploreCallResultObservable!
+    func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
+        switch kind {
+        case .explore:
+            return returnExploreObservable
+        case .saved:
+            return returnSavedObservable
+        case .persons:
+            return returnPersonsObservable
+        }
     }
 
-    func savedExperiencesObservable() -> Observable<Result<[Experience]>> {
-        return apiSavedCallResultObservable!
+    func getFirsts(kind: Kind, params: Request.Params?) {
+        self.getFirstsCalls.append((kind, params))
     }
 
-    func personsExperiencesObservable(_ username: String) -> Observable<Result<[Experience]>> {
-        return apiPersonsCallResultObservable!
+    func paginate(kind: Kind) {
+        self.paginateCalls.append(kind)
     }
 
-    func paginateExperiences(_ url: String) -> Observable<Result<[Experience]>> {
-        return apiPaginateCallResultObservable!
-    }
-    
-    func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>> {
-        saveCalls.append((experienceId, save))
-        return apiSaveCallResultObservable!
-    }
-}
-
-class MockExperienceRequestersSwitch: ExperienceRequestersSwitch {
-    
-    var executeActionCalls = [(Kind, Request)]()
-    var modifyResultCalls = [(Kind, Modification, [Experience]?, Result<[Experience]>?)]()
-    var experiencesObservableResult = [Kind:Observable<Result<[Experience]>>]()
-    var experienceObservableResult = [String:Observable<Result<Experience>>]()
-    
-    func executeAction(_ kind: Kind, _ request: Request) {
-        executeActionCalls.append((kind, request))
-    }
-    
-    func modifyResult(_ kind: Kind, _ modification: Modification, list: [Experience]?, result: Result<[Experience]>?) {
-        modifyResultCalls.append((kind, modification, list, result))
-    }
-    
-    func experiencesObservable(_ kind: Kind) -> Observable<Result<[Experience]>> {
-        return experiencesObservableResult[kind]!
-    }
-    
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
-        return experienceObservableResult[experienceId]!
+        singleExperienceCalls.append(experienceId)
+        return returnExperienceObservable
+    }
+
+    func saveExperience(_ experienceId: String, save: Bool) {
+        saveCalls.append((experienceId, save))
     }
 }

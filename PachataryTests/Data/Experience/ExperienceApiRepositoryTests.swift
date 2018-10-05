@@ -186,3 +186,37 @@ class ExperienceApiRepositoryTests: XCTestCase {
         }
     }
 }
+
+class MockExperienceApiRepo: ExperienceApiRepository {
+
+    var apiExploreCallResultObservable: Observable<Result<[Experience]>>?
+    var apiSavedCallResultObservable: Observable<Result<[Experience]>>?
+    var apiPersonsCallResultObservable: Observable<Result<[Experience]>>?
+    var apiPaginateCallResultObservable: Observable<Result<[Experience]>>?
+    var apiSaveCallResultObservable: Observable<Result<Bool>>?
+    var saveCalls = [(String, Bool)]()
+
+    init() {}
+
+    func exploreExperiencesObservable(_ text: String?, _ latitude: Double?,
+                                      _ longitude: Double?) -> Observable<Result<[Experience]>> {
+        return apiExploreCallResultObservable!
+    }
+
+    func savedExperiencesObservable() -> Observable<Result<[Experience]>> {
+        return apiSavedCallResultObservable!
+    }
+
+    func personsExperiencesObservable(_ username: String) -> Observable<Result<[Experience]>> {
+        return apiPersonsCallResultObservable!
+    }
+
+    func paginateExperiences(_ url: String) -> Observable<Result<[Experience]>> {
+        return apiPaginateCallResultObservable!
+    }
+
+    func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>> {
+        saveCalls.append((experienceId, save))
+        return apiSaveCallResultObservable!
+    }
+}

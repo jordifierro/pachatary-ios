@@ -21,7 +21,6 @@
 		AE1D6D2120C5712E00EA6DDD /* BigPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D2020C5712E00EA6DDD /* BigPicture.swift */; };
 		AE218B8520E2789E00E79E51 /* ExperienceMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE218B8420E2789E00E79E51 /* ExperienceMapView.swift */; };
 		AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */; };
-		AE3116E720EBD2FC00720A95 /* ExperienceRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */; };
 		AE3BE3BB211A142500D10A19 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3BE3BA211A142500D10A19 /* RootViewController.swift */; };
 		AE3BE3BE211A154C00D10A19 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */; };
 		AE414BDA215D34EB0077284C /* LoaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */; };
@@ -161,7 +160,6 @@
 		AE1D6D2020C5712E00EA6DDD /* BigPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPicture.swift; sourceTree = "<group>"; };
 		AE218B8420E2789E00E79E51 /* ExperienceMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapView.swift; sourceTree = "<group>"; };
 		AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtendedExperienceTableViewCell.xib; sourceTree = "<group>"; };
-		AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRepoMock.swift; sourceTree = "<group>"; };
 		AE3BE3BA211A142500D10A19 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		AE3BE3BD211A154C00D10A19 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoaderTableViewCell.xib; sourceTree = "<group>"; };
@@ -674,7 +672,6 @@
 				AEEAC68220C94904007C17EE /* GET_experiences.json */,
 				AE761EDB20C9268B00F80F9D /* ExperienceApiRepositoryTests.swift */,
 				AEB6A66520DBFDA900F936DB /* ExperienceRepositoryTests.swift */,
-				AE3116E620EBD2FC00720A95 /* ExperienceRepoMock.swift */,
 				AED9ECA521652A6B008C46DC /* ExperienceRequestersSwitchTests.swift */,
 			);
 			path = Experience;
@@ -1170,7 +1167,6 @@
 				AE598BB120EA79C200F3DBA9 /* ExperienceScenesPresenterTests.swift in Sources */,
 				AE598BB320EA7A1000F3DBA9 /* SceneRepoMock.swift in Sources */,
 				AEC8DCEA211DF9D3007CCC68 /* DataTestUtils.swift in Sources */,
-				AE3116E720EBD2FC00720A95 /* ExperienceRepoMock.swift in Sources */,
 				AEE03D042166C0660034AE0C /* ProfilePresenterTests.swift in Sources */,
 				AE6F8B6F20DAC6A0007CC36A /* RequesterTests.swift in Sources */,
 				AEDB0DBB211B3FAC004F843E /* WelcomePresenterTests.swift in Sources */,

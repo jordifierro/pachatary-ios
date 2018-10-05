@@ -111,15 +111,15 @@ class RequesterTests: XCTestCase {
 
     class ScenarioMaker {
         
-        let mockCache = MockResultCache()
-        var requester: RequesterImplementation<MockResultCache>? = nil
+        let mockCache = ResultCacheMock()
+        var requester: RequesterImplementation<ResultCacheMock>? = nil
         var getFirstsReturn: Observable<Result<[IdEq]>>? = nil
         var getFirstsCalls = [Request.Params?]()
         var paginateReturn: Observable<Result<[IdEq]>>? = nil
         var paginateCalls = [String]()
         
         init() {
-            requester = RequesterImplementation<MockResultCache>(mockCache,
+            requester = RequesterImplementation<ResultCacheMock>(mockCache,
                  { params in
                     self.getFirstsCalls.append(params)
                     return self.getFirstsReturn! },
@@ -198,29 +198,27 @@ class IdEq: Identifiable & Equatable {
     }
 }
 
-class MockResultCache: ResultCache {
-    typealias cacheType = IdEq
-    
-    var resultPublish = PublishSubject<Result<[IdEq]>>()
-    var resultObservable: Observable<Result<[IdEq]>>
-    var replaceResultCalls = [Result<[IdEq]>]()
-    var addOrUpdateCalls = [[IdEq]]()
-    var updateCalls = [[IdEq]]()
-    
-    init() {
-        resultObservable = Observable.empty()
-        resultObservable = resultPublish.asObservable()
+class RequesterMock: Requester {
+    typealias requesterType = Experience
+
+    var requestCalls = [Request]()
+    var resultObservable: Observable<Result<[Experience]>>!
+    var updateCalls = [[Experience]]()
+    var addOrUpdateCalls = [[Experience]]()
+
+    func request(_ request: Request) {
+        requestCalls.append(request)
     }
 
-    func replaceResult(_ result: Result<[IdEq]>) {
-        replaceResultCalls.append(result)
+    func resultsObservable() -> Observable<Result<[Experience]>> {
+        return resultObservable
     }
 
-    func addOrUpdate(_ list: [IdEq]) {
-        addOrUpdateCalls.append(list)
+    func update(_ tList: [Experience]) {
+        updateCalls.append(tList)
     }
-    
-    func update(_ list: [IdEq]) {
-        updateCalls.append(list)
+
+    func addOrUpdate(_ tList: [Experience]) {
+        addOrUpdateCalls.append(tList)
     }
 }
