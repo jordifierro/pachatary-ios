@@ -15,7 +15,7 @@
         <!--Explore Experiences View Controller-->
         <scene sceneID="Zsx-UD-RPq">
             <objects>
-                <viewController id="NV9-7R-LyK" customClass="ExploreExperiencesViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="NV9-7R-LyK" customClass="ExploreExperiencesViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nb9-Jq-y6d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -73,7 +73,7 @@
         <!--Experience Map View Controller-->
         <scene sceneID="dwX-eS-qCA">
             <objects>
-                <viewController id="AjU-og-TuU" customClass="ExperienceMapViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="AjU-og-TuU" customClass="ExperienceMapViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GMd-8z-A0I">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -107,13 +107,13 @@
         <!--Experience Scenes View Controller-->
         <scene sceneID="JsP-DM-mvx">
             <objects>
-                <viewController id="Qo6-bb-VbT" customClass="ExperienceScenesViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Qo6-bb-VbT" customClass="ExperienceScenesViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QnT-Ie-gz4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zXF-YS-zzP">
-                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sceneCellIdentifier" id="feb-ZD-Lpy" customClass="SceneTableViewCell" customModule="Pachatary" customModuleProvider="target">
@@ -202,7 +202,7 @@
         <!--Saved Experiences View Controller-->
         <scene sceneID="HmI-rg-Hjf">
             <objects>
-                <viewController id="yT1-jg-1Sd" customClass="SavedExperiencesViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="yT1-jg-1Sd" customClass="SavedExperiencesViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7GQ-GH-d2u">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -254,13 +254,13 @@
         <!--Profile View Controller-->
         <scene sceneID="iIc-oo-beO">
             <objects>
-                <viewController id="Eo5-Hf-rkj" customClass="ProfileViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Eo5-Hf-rkj" customClass="ProfileViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P99-5d-vTY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WaI-AU-lfh">
-                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="w3P-su-BbN">
                                     <size key="itemSize" width="50" height="50"/>
@@ -340,13 +340,13 @@
         <!--Select Location View Controller-->
         <scene sceneID="PXQ-pi-RKd">
             <objects>
-                <viewController id="4Nv-83-XWO" customClass="SelectLocationViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="4Nv-83-XWO" customClass="SelectLocationViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DKY-3h-9CE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iuJ-f7-g1I" userLabel="Map View" customClass="MGLMapView">
-                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/mapbox/light-v9"/>
@@ -391,7 +391,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="bUo-9v-NAM"/>
-        <segue reference="NiL-UL-iij"/>
+        <segue reference="HRX-be-Ukd"/>
+        <segue reference="9kW-P4-hvy"/>
     </inferredMetricsTieBreakers>
 </document>
