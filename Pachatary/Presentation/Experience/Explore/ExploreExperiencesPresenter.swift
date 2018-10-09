@@ -105,6 +105,6 @@ class ExploreExperiencesPresenter {
     }
 
     func onSelectLocationClick() {
-        view.navigateToSelectLocation()
+        view.navigateToSelectLocation(latitude, longitude)
     }
 }

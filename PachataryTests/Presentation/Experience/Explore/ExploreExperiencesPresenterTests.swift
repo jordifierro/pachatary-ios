@@ -108,6 +108,19 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             .then_should_call_get_firsts_kind_explore(with: Request.Params("nature"))
     }
 
+    func test_on_select_location_click_with_no_location() {
+        ScenarioMaker()
+            .when_select_location_click()
+            .then_should_navigate_to_select_location(nil, nil)
+    }
+
+    func test_on_select_location_click_with_previous_location() {
+        ScenarioMaker()
+            .when_last_location_found(1.2, -3.4)
+            .when_select_location_click()
+            .then_should_navigate_to_select_location(1.2, -3.4)
+    }
+
     class ScenarioMaker {
         var experiences: [Experience] = []
         let mockExperienceRepo = ExperienceRepoMock()
@@ -162,6 +175,11 @@ class ExploreExperiencesPresenterTests: XCTestCase {
         
         func when_retry() -> ScenarioMaker {
             presenter.retryClick()
+            return self
+        }
+
+        func when_select_location_click() -> ScenarioMaker {
+            presenter.onSelectLocationClick()
             return self
         }
         
@@ -278,6 +296,15 @@ class ExploreExperiencesPresenterTests: XCTestCase {
             assert(mockView.askLastKnownLocationCalls == 1)
             return self
         }
+
+        @discardableResult
+        func then_should_navigate_to_select_location(_ latitude: Double?,
+                                                     _ longitude: Double?) -> ScenarioMaker {
+            assert(mockView.navigateToSelectLocationCalls.count == 1)
+            assert(mockView.navigateToSelectLocationCalls[0].0 == latitude)
+            assert(mockView.navigateToSelectLocationCalls[0].1 == longitude)
+            return self
+        }
     }
 }
 
@@ -288,6 +315,7 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
     var showRetryCalls = 0
     var navigateCalls: [String] = []
     var navigateToProfileCalls: [String] = []
+    var navigateToSelectLocationCalls: [(Double?, Double?)] = []
     var hasLocationPermissionResponse = false
     var hasLocationPermissionCalls = 0
     var askLocationPermissionCalls = 0
@@ -311,6 +339,10 @@ class ExploreExperiencesViewMock: ExploreExperiencesView {
 
     func navigateToProfile(_ username: String) {
         self.navigateToProfileCalls.append(username)
+    }
+
+    func navigateToSelectLocation(_ latitude: Double?, _ longitude: Double?) {
+        self.navigateToSelectLocationCalls.append((latitude, longitude))
     }
 
     func hasLocationPermission() -> Bool {

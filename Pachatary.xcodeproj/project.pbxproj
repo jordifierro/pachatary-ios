@@ -26,12 +26,15 @@
 		AE414BDA215D34EB0077284C /* LoaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */; };
 		AE414BDC215D358F0077284C /* LoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */; };
 		AE414BE0215E3A400077284C /* SquareExperienceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE414BDF215E3A400077284C /* SquareExperienceCollectionViewCell.swift */; };
+		AE548AB0216D201B00335400 /* CommonDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */; };
+		AE548AB3216D3A6900335400 /* SelectLocationPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE548AB2216D3A6900335400 /* SelectLocationPresenterTests.swift */; };
 		AE598BA820EA464600F3DBA9 /* ExperienceScenesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */; };
 		AE598BAA20EA4A9800F3DBA9 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */; };
 		AE598BAC20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */; };
 		AE598BAE20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BAD20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift */; };
 		AE598BB120EA79C200F3DBA9 /* ExperienceScenesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BB020EA79C100F3DBA9 /* ExperienceScenesPresenterTests.swift */; };
 		AE598BB320EA7A1000F3DBA9 /* SceneRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BB220EA7A1000F3DBA9 /* SceneRepoMock.swift */; };
+		AE5CA99B216D05580071B4ED /* SelectLocationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5CA99A216D05580071B4ED /* SelectLocationPresenter.swift */; };
 		AE61DA8620C68F6400CFEE00 /* ExperienceApiRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE61DA8520C68F6400CFEE00 /* ExperienceApiRepository.swift */; };
 		AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE61DA8720C6967800CFEE00 /* ExperienceApi.swift */; };
 		AE6911CF20E78D0A00A05679 /* ExperienceMapPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6911CE20E78D0A00A05679 /* ExperienceMapPresenterTests.swift */; };
@@ -166,12 +169,15 @@
 		AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoaderTableViewCell.xib; sourceTree = "<group>"; };
 		AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderTableViewCell.swift; sourceTree = "<group>"; };
 		AE414BDF215E3A400077284C /* SquareExperienceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareExperienceCollectionViewCell.swift; sourceTree = "<group>"; };
+		AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDependencyInjector.swift; sourceTree = "<group>"; };
+		AE548AB2216D3A6900335400 /* SelectLocationPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationPresenterTests.swift; sourceTree = "<group>"; };
 		AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesView.swift; sourceTree = "<group>"; };
 		AE598BA920EA4A9800F3DBA9 /* SceneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTableViewCell.swift; sourceTree = "<group>"; };
 		AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesPresenter.swift; sourceTree = "<group>"; };
 		AE598BAD20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDependencyInjector.swift; sourceTree = "<group>"; };
 		AE598BB020EA79C100F3DBA9 /* ExperienceScenesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesPresenterTests.swift; sourceTree = "<group>"; };
 		AE598BB220EA7A1000F3DBA9 /* SceneRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneRepoMock.swift; sourceTree = "<group>"; };
+		AE5CA99A216D05580071B4ED /* SelectLocationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationPresenter.swift; sourceTree = "<group>"; };
 		AE61DA8520C68F6400CFEE00 /* ExperienceApiRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceApiRepository.swift; sourceTree = "<group>"; };
 		AE61DA8720C6967800CFEE00 /* ExperienceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceApi.swift; sourceTree = "<group>"; };
 		AE6911CE20E78D0A00A05679 /* ExperienceMapPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapPresenterTests.swift; sourceTree = "<group>"; };
@@ -330,6 +336,16 @@
 				AE86D9EA215EAEAA003D2B34 /* LoaderCollectionViewCell.xib */,
 				AE86D9EC215EAF0C003D2B34 /* LoaderCollectionViewCell.swift */,
 				AEB0B4142167DB33000BABC4 /* SelectLocationView.swift */,
+				AE5CA99A216D05580071B4ED /* SelectLocationPresenter.swift */,
+				AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		AE548AB1216D3A5200335400 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				AE548AB2216D3A6900335400 /* SelectLocationPresenterTests.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -683,6 +699,7 @@
 		AEEAC68720C97CED007C17EE /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				AE548AB1216D3A5200335400 /* Common */,
 				AEE03D022166C0520034AE0C /* Profile */,
 				AEDB0DB8211B3EE2004F843E /* Person */,
 				AE598BAF20EA799D00F3DBA9 /* Scene */,
@@ -1107,6 +1124,7 @@
 				AE07CB24211CB3FB00D98BC1 /* LoginPresenter.swift in Sources */,
 				AE6C27A020D1324600C5F59F /* ToDomainMapper.swift in Sources */,
 				AE61DA8620C68F6400CFEE00 /* ExperienceApiRepository.swift in Sources */,
+				AE5CA99B216D05580071B4ED /* SelectLocationPresenter.swift in Sources */,
 				AE414BDC215D358F0077284C /* LoaderTableViewCell.swift in Sources */,
 				AEB6A66420DBE4C000F936DB /* ExperienceRepository.swift in Sources */,
 				AE6F8B6B20DABA3D007CC36A /* Requester.swift in Sources */,
@@ -1133,6 +1151,7 @@
 				AEEC74A520CAE0BF00B86837 /* ClientVersionPlugin.swift in Sources */,
 				AE86639820D7D4A1008CE6D2 /* AppPresentationDependencyInjector.swift in Sources */,
 				AE598BAC20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift in Sources */,
+				AE548AB0216D201B00335400 /* CommonDependencyInjector.swift in Sources */,
 				AEDB0DB5211B37F9004F843E /* WelcomePresenter.swift in Sources */,
 				AEAE26AC20E2860A00E5D4E9 /* SceneApi.swift in Sources */,
 				AEEC74A320CADB8C00B86837 /* AuthHeaderPlugin.swift in Sources */,
@@ -1157,6 +1176,7 @@
 				AE6911CF20E78D0A00A05679 /* ExperienceMapPresenterTests.swift in Sources */,
 				AE89AC2E20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift in Sources */,
 				AEEC749920CAADD000B86837 /* AuthStorageRepositoryTests.swift in Sources */,
+				AE548AB3216D3A6900335400 /* SelectLocationPresenterTests.swift in Sources */,
 				AEDB0DBD211B4342004F843E /* AuthRepoMock.swift in Sources */,
 				AEE03D012166AF360034AE0C /* Mock.swift in Sources */,
 				AEE03CFF2166AA670034AE0C /* ProfileSnifferExperienceApiRepoTests.swift in Sources */,
@@ -1258,6 +1278,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4G5L83U7PS;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1319,6 +1340,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4G5L83U7PS;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

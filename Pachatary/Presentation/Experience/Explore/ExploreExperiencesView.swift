@@ -10,7 +10,7 @@ protocol ExploreExperiencesView : class {
     func showRetry()
     func navigateToExperienceScenes(_ experienceId: String)
     func navigateToProfile(_ username: String)
-    func navigateToSelectLocation()
+    func navigateToSelectLocation(_ latitude: Double?, _ longitude: Double?)
     func hasLocationPermission() -> Bool
     func askLocationPermission()
     func askLastKnownLocation()
@@ -31,6 +31,8 @@ class ExploreExperiencesViewController: UIViewController {
     var isLoading = false
     var selectedExperienceId: String!
     var selectedProfileUsername: String!
+    var selectLocationLatitude: Double? = nil
+    var selectLocationLongitude: Double? = nil
     let locationManager = CLLocationManager()
     
     lazy var refreshControl: UIRefreshControl = {
@@ -93,7 +95,16 @@ class ExploreExperiencesViewController: UIViewController {
                 destinationVC.username = selectedProfileUsername
             }
         }
-        else if segue.identifier == "selectLocationSegue" {}
+        else if segue.identifier == "selectLocationSegue" {
+            if let destinationVC = segue.destination as? SelectLocationViewController {
+                destinationVC.initialLatitude = selectLocationLatitude
+                destinationVC.initialLongitude = selectLocationLongitude
+                destinationVC.setResultDelegate =
+                    { [unowned self] (latitude: Double, longitude: Double) in
+                        self.presenter.onLastLocationFound(latitude: latitude, longitude: longitude)
+                    }
+            }
+        }
     }
 }
 
@@ -190,7 +201,9 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
         performSegue(withIdentifier: "profileSegue", sender: self)
     }
 
-    func navigateToSelectLocation() {
+    func navigateToSelectLocation(_ latitude: Double?, _ longitude: Double?) {
+        selectLocationLatitude = latitude
+        selectLocationLongitude = longitude
         performSegue(withIdentifier: "selectLocationSegue", sender: self)
     }
 
