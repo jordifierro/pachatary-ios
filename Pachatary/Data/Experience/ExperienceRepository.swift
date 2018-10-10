@@ -7,6 +7,7 @@ protocol ExperienceRepository {
     func paginate(kind: Kind)
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>>
     func saveExperience(_ experienceId: String, save: Bool)
+    func translateShareId(_ shareId: String) -> Observable<Result<String>>
 }
 
 class ExperienceRepoImplementation: ExperienceRepository {
@@ -49,7 +50,11 @@ class ExperienceRepoImplementation: ExperienceRepository {
         saveExperienceOnApiRepo(experienceId, save: save)
         updateCache(experienceId, save: save)
     }
-    
+
+    func translateShareId(_ shareId: String) -> Observable<Result<String>> {
+        return apiRepo.translateShareId(shareId)
+    }
+
     private func saveExperienceOnApiRepo(_ experienceId: String, save: Bool) {
         _ = apiRepo.saveExperience(experienceId, save: save)
             .subscribe { event in

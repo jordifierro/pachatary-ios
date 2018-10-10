@@ -46,4 +46,8 @@ class ProfileSnifferExperienceApiRepo: ExperienceApiRepository {
     func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>> {
         return self.realExperienceApiRepo.saveExperience(experienceId, save: save)
     }
+
+    func translateShareId(_ experienceShareId: String) -> Observable<Result<String>> {
+        return self.realExperienceApiRepo.translateShareId(experienceShareId)
+    }
 }

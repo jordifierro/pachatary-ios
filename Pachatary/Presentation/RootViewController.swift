@@ -67,6 +67,22 @@ class RootViewController: UIViewController {
         animateFadeTransition(to: profileViewController)
     }
 
+    func navigateToExperienceRouter(_ experienceShareId: String) {
+        let experienceRouterViewController = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "experienceRouterViewController")
+            as! ExperienceRouterViewController
+        experienceRouterViewController.experienceShareId = experienceShareId
+        animateFadeTransition(to: experienceRouterViewController)
+    }
+
+    func navigateToExperience(_ experienceId: String) {
+        let experienceViewController = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "experienceScenesViewController")
+            as! ExperienceScenesViewController
+        experienceViewController.experienceId = experienceId
+        animateFadeTransition(to: experienceViewController)
+    }
+
     func navigateToAskLoginEmail() {
         let askLoginEmailViewController = UIStoryboard.init(name: "Person", bundle: nil)
             .instantiateViewController(withIdentifier: "askLoginEmailViewController")

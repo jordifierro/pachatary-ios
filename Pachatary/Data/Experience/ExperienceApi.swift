@@ -7,6 +7,7 @@ enum ExperienceApi {
     case paginate(String)
     case save(String, Bool)
     case persons(String)
+    case translateShareId(String)
 }
 
 // MARK: - TargetType Protocol Implementation
@@ -29,11 +30,13 @@ extension ExperienceApi: TargetType {
             return ""
         case .save(let (id, _)):
             return "/experiences/" + id + "/save"
+        case .translateShareId(let shareId):
+            return "/experiences/" + shareId + "/id"
         }
     }
     var method: Moya.Method {
         switch self {
-        case .search, .saved, .paginate, .persons:
+        case .search, .saved, .paginate, .persons, .translateShareId:
             return .get
         case .save(let (_, save)):
             if save { return .post }

@@ -10,6 +10,7 @@ protocol ExperienceApiRepository {
     func personsExperiencesObservable(_ username: String) -> Observable<Result<[Experience]>>
     func paginateExperiences(_ url: String) -> Observable<Result<[Experience]>>
     func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>>
+    func translateShareId(_ experienceShareId: String) -> Observable<Result<String>>
 }
 
 class ExperienceApiRepoImplementation: ExperienceApiRepository {
@@ -46,5 +47,10 @@ class ExperienceApiRepoImplementation: ExperienceApiRepository {
     func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>> {
         return self.api.request(.save(experienceId, save))
             .transformNetworkVoidResponse(ioScheduler)
+    }
+
+    func translateShareId(_ experienceShareId: String) -> Observable<Result<String>> {
+        return self.api.request(.translateShareId(experienceShareId))
+            .transformNetworkResponse(SingleResultMapper<ExperienceIdMapper>.self, ioScheduler)
     }
 }

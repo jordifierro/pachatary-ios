@@ -48,6 +48,13 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
             .then_should_sniff([])
     }
 
+    func test_translate_share_id_is_not_sniffed() {
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_translate_share_id(Result(.success, data: "id"))
+            .when_translate_share_id("share_id")
+            .then_should_sniff([])
+    }
+
     class ScenarioMaker {
         
         let sniffer: ProfileSnifferExperienceApiRepo
@@ -82,6 +89,11 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
             mockExperienceApiRepo.apiSaveCallResultObservable = Observable.just(result)
             return self
         }
+
+        func given_an_api_repo_that_returns_on_translate_share_id(_ result: Result<String>) -> ScenarioMaker {
+            mockExperienceApiRepo.apiTranslateShareIdCallResultObservable = Observable.just(result)
+            return self
+        }
         
         func when_explore_experiences() -> ScenarioMaker {
             _ = sniffer.exploreExperiencesObservable(nil, nil, nil).subscribe()
@@ -105,6 +117,11 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
         
         func when_save_experience() -> ScenarioMaker {
             _ = sniffer.saveExperience("2", save: true).subscribe()
+            return self
+        }
+
+        func when_translate_share_id(_ experienceShareId: String) -> ScenarioMaker {
+            _ = sniffer.translateShareId(experienceShareId).subscribe()
             return self
         }
         

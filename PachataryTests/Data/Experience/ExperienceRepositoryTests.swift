@@ -74,6 +74,14 @@ class ExperienceRepositoryTests: XCTestCase {
             .then_should_modify_switch_result(2, .saved, .addOrUpdate, [Experience("4", isSaved: false, savesCount: 7)])
     }
 
+    func test_translate_share_id() {
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_translate(Result(.success, data: "id"))
+            .when_translate_share_id("share")
+            .then_should_call_api_translate_share_id("share")
+            .then_should_return_string_observable(Result(.success, data: "id"))
+    }
+
     class ScenarioMaker {
         
         let mockApiRepo = MockExperienceApiRepo()
@@ -82,6 +90,7 @@ class ExperienceRepositoryTests: XCTestCase {
 
         var experiencesObservableResult: Observable<Result<[Experience]>>!
         var experienceObservableResult: Observable<Result<Experience>>!
+        var stringObservableResult: Observable<Result<String>>!
 
         init() {
             repo = ExperienceRepoImplementation(apiRepo: mockApiRepo,
@@ -102,6 +111,11 @@ class ExperienceRepositoryTests: XCTestCase {
         
         func given_an_api_repo_that_returns_on_save(_ result: Result<Bool>) -> ScenarioMaker {
             mockApiRepo.apiSaveCallResultObservable = Observable.just(result)
+            return self
+        }
+
+        func given_an_api_repo_that_returns_on_translate(_ result: Result<String>) -> ScenarioMaker {
+            mockApiRepo.apiTranslateShareIdCallResultObservable = Observable.just(result)
             return self
         }
 
@@ -132,6 +146,11 @@ class ExperienceRepositoryTests: XCTestCase {
         
         func when_unsave_experience(_ experienceId: String) -> ScenarioMaker {
             self.repo.saveExperience(experienceId, save: false)
+            return self
+        }
+
+        func when_translate_share_id(_ experienceShareId: String) -> ScenarioMaker {
+            stringObservableResult = repo.translateShareId(experienceShareId)
             return self
         }
         
@@ -174,6 +193,15 @@ class ExperienceRepositoryTests: XCTestCase {
             } catch { assertionFailure() }
             return self
         }
+
+        @discardableResult
+        func then_should_return_string_observable(_ expectedResult: Result<String>) -> ScenarioMaker {
+            do { let result = try stringObservableResult.toBlocking().toArray()
+                assert(result.count == 1)
+                assert(expectedResult == result[0])
+            } catch { assertionFailure() }
+            return self
+        }
         
         @discardableResult
         func then_should_modify_switch_result(_ index: Int, _ kind: Kind,
@@ -185,6 +213,13 @@ class ExperienceRepositoryTests: XCTestCase {
             assert(mockRequestersSwitch.modifyResultCalls[index].3 == nil)
             return self
         }
+
+        @discardableResult
+        func then_should_call_api_translate_share_id(_ experienceShareId: String) -> ScenarioMaker {
+            assert(mockApiRepo.translateShareIdCalls.count == 1)
+            assert(mockApiRepo.translateShareIdCalls[0] == experienceShareId)
+            return self
+        }
     }
 }
 
@@ -194,6 +229,7 @@ class ExperienceRepoMock: ExperienceRepository {
     var returnSavedObservable: Observable<Result<[Experience]>>!
     var returnPersonsObservable: Observable<Result<[Experience]>>!
     var returnExperienceObservable: Observable<Result<Experience>>!
+    var returnTranslateShareIdObservable: Observable<Result<String>>!
     var experiencesObservableCalls = [Kind]()
     var getFirstsCalls = [(Kind, Request.Params?)]()
     var paginateCalls = [Kind]()
@@ -226,5 +262,9 @@ class ExperienceRepoMock: ExperienceRepository {
 
     func saveExperience(_ experienceId: String, save: Bool) {
         saveCalls.append((experienceId, save))
+    }
+
+    func translateShareId(_ shareId: String) -> Observable<Result<String>> {
+        return returnTranslateShareIdObservable
     }
 }

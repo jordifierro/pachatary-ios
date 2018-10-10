@@ -49,13 +49,21 @@ class ExperienceApiRepositoryTests: XCTestCase {
             .when_save("6", save: false)
             .then_should_return_flowable_with_inprogress_and_result_success()
     }
-    
+
+    func test_translate_share_id() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_stubbed_network_call_for_translate_share_id("some_share_id")
+            .when_translate_share_id("some_share_id")
+            .then_should_return_flowable_with_inprogress_and_result_experience_id()
+    }
+
     class ScenarioMaker {
         let api = MoyaProvider<ExperienceApi>().rx
         var repo: ExperienceApiRepository!
         var testCase: XCTestCase!
         var resultObservable: Observable<Result<[Experience]>>!
         var saveResultObservable: Observable<Result<Bool>>!
+        var stringResultObservable: Observable<Result<String>>!
         var paginationUrl = ""
         
         init(_ testCase: XCTestCase) {
@@ -92,6 +100,16 @@ class ExperienceApiRepositoryTests: XCTestCase {
                   AppDataDependencyInjector.apiUrl + "/experiences/?saved=true",
                   .GET, "GET_experiences")
             return self
+        }
+
+        func given_an_stubbed_network_call_for_translate_share_id(
+            _ experienceShareId: String) -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of:self)),
+                                          AppDataDependencyInjector.apiUrl + "/experiences/" +
+                                          experienceShareId + "/id",
+                                          .GET, "GET_experience_share_id")
+            return self
+
         }
         
         func given_an_stubbed_network_call_for_persons(_ username: String) -> ScenarioMaker {
@@ -141,6 +159,11 @@ class ExperienceApiRepositoryTests: XCTestCase {
             saveResultObservable = repo.saveExperience(experienceId, save: save)
             return self
         }
+
+        func when_translate_share_id(_ experienceShareId: String) -> ScenarioMaker {
+            stringResultObservable = repo.translateShareId(experienceShareId)
+            return self
+        }
         
         @discardableResult
         func then_should_return_flowable_with_inprogress_and_result_experiences() -> ScenarioMaker {
@@ -184,6 +207,16 @@ class ExperienceApiRepositoryTests: XCTestCase {
             } catch { assertionFailure() }
             return self
         }
+
+        @discardableResult
+        func then_should_return_flowable_with_inprogress_and_result_experience_id() -> ScenarioMaker {
+            do { let result = try stringResultObservable.toBlocking().toArray()
+                assert(result.count == 2)
+                assert(Result(.inProgress) == result[0])
+                assert(Result(.success, data: "A2D4") == result[1])
+            } catch { assertionFailure() }
+            return self
+        }
     }
 }
 
@@ -194,7 +227,9 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     var apiPersonsCallResultObservable: Observable<Result<[Experience]>>?
     var apiPaginateCallResultObservable: Observable<Result<[Experience]>>?
     var apiSaveCallResultObservable: Observable<Result<Bool>>?
+    var apiTranslateShareIdCallResultObservable: Observable<Result<String>>?
     var saveCalls = [(String, Bool)]()
+    var translateShareIdCalls = [String]()
 
     init() {}
 
@@ -218,5 +253,10 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>> {
         saveCalls.append((experienceId, save))
         return apiSaveCallResultObservable!
+    }
+
+    func translateShareId(_ experienceShareId: String) -> Observable<Result<String>> {
+        translateShareIdCalls.append(experienceShareId)
+        return apiTranslateShareIdCallResultObservable!
     }
 }

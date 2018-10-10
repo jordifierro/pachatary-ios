@@ -39,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let username = url.pathComponents[2]
             rootViewController.navigateToProfileRouter(username)
         }
+        else if urlPath == "experiences" {
+            let experienceShareId = url.pathComponents[2]
+            rootViewController.navigateToExperienceRouter(experienceShareId)
+        }
         return true
     }
 

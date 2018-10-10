@@ -19,4 +19,12 @@ class ExperienceDependencyInjector {
         SceneDataDependencyInjector.sceneRepository,
         AppPresentationDependencyInjector.mainScheduler) }
     }
+
+    static func experienceRouterPresenter(view: ExperienceRouterView,
+                                          experienceShareId: String) -> ExperienceRouterPresenter {
+        return ExperienceRouterPresenter(AuthDataDependencyInjector.authRepository,
+                                         ExperienceDataDependencyInjector.experienceRepository,
+                                         AppPresentationDependencyInjector.mainScheduler,
+                                         view, experienceShareId)
+    }
 }
