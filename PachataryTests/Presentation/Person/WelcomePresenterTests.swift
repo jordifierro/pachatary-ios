@@ -42,7 +42,7 @@ class WelcomePresenterTests: XCTestCase {
         }
         
         func given_an_auth_repo_that_returns(_ result: Result<AuthToken>) -> ScenarioMaker {
-            mockAuthRepo.returnResult = result
+            mockAuthRepo.getPersonInvitationResult = Observable.just(result)
             return self
         }
         

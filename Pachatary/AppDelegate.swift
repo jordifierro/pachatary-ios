@@ -35,6 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 rootViewController.navigateToLogin(token: token)
             }
         }
+        else if urlPath == "profiles" {
+            let username = url.pathComponents[2]
+            rootViewController.navigateToProfileRouter(username)
+        }
         return true
     }
 

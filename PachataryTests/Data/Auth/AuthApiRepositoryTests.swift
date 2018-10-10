@@ -119,3 +119,29 @@ class AuthApiRepositoryTests: XCTestCase {
         }
     }
 }
+
+class AuthRepoMock: AuthRepository {
+
+    var hasPersonCredentialsResult: Bool!
+    var getPersonInvitationResult: Observable<Result<AuthToken>>!
+    var askLoginEmailResult: Result<Bool>? = nil
+    var loginCalls = [String]()
+    var loginResults = [String:Result<AuthToken>]()
+
+    func hasPersonCredentials() -> Bool {
+        return self.hasPersonCredentialsResult
+    }
+
+    func getPersonInvitation() -> Observable<Result<AuthToken>> {
+        return getPersonInvitationResult
+    }
+
+    func askLoginEmail(_ email: String) -> Observable<Result<Bool>> {
+        return Observable.just(askLoginEmailResult!)
+    }
+
+    func login(_ token: String) -> Observable<Result<AuthToken>> {
+        loginCalls.append(token)
+        return Observable.just(loginResults[token]!)
+    }
+}

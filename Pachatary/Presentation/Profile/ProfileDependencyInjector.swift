@@ -14,6 +14,13 @@ class ProfileDependencyInjector {
                                 ProfileDataDependencyInjector.profileRepository,
                                 AppPresentationDependencyInjector.mainScheduler, view, username)
     }
+
+    static func profileRouterPresenter(view: ProfileRouterView,
+                                       username: String) -> ProfileRouterPresenter {
+        return ProfileRouterPresenter(AuthDataDependencyInjector.authRepository,
+                                      AppPresentationDependencyInjector.mainScheduler,
+                                      view, username)
+    }
 }
 
 

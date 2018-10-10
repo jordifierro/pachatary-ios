@@ -50,7 +50,23 @@ class RootViewController: UIViewController {
             .instantiateInitialViewController()!
         animateFadeTransition(to: mainViewController)
     }
-    
+
+    func navigateToProfileRouter(_ username: String) {
+        let profileRouterViewController = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "profileRouterViewController")
+            as! ProfileRouterViewController
+        profileRouterViewController.username = username
+        animateFadeTransition(to: profileRouterViewController)
+    }
+
+    func navigateToProfile(_ username: String) {
+        let profileViewController = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "profileViewController")
+                as! ProfileViewController
+        profileViewController.username = username
+        animateFadeTransition(to: profileViewController)
+    }
+
     func navigateToAskLoginEmail() {
         let askLoginEmailViewController = UIStoryboard.init(name: "Person", bundle: nil)
             .instantiateViewController(withIdentifier: "askLoginEmailViewController")
