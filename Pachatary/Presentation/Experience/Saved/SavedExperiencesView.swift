@@ -13,7 +13,7 @@ protocol SavedExperiencesView : class {
 
 class SavedExperiencesViewController: UIViewController {
     
-    var presenter: SavedExperiencesPresenter!
+    var presenter: SavedExperiencesPresenter?
     
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -47,7 +47,7 @@ class SavedExperiencesViewController: UIViewController {
         
         self.collectionView.addSubview(self.refreshControl)
         
-        presenter.create()
+        presenter!.create()
     }
     
     deinit {
@@ -55,7 +55,7 @@ class SavedExperiencesViewController: UIViewController {
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        presenter.refresh()
+        presenter!.refresh()
         refreshControl.endRefreshing()
     }
     
@@ -129,7 +129,7 @@ extension SavedExperiencesViewController: UICollectionViewDataSource, UICollecti
             }
             let maxRow = visibleRows.max()!
             if (maxRow == self.experiences.count - 1) && (maxRow > lastItemShown) {
-                presenter.lastItemShown()
+                presenter!.lastItemShown()
             }
             lastItemShown = maxRow
         }
@@ -137,7 +137,7 @@ extension SavedExperiencesViewController: UICollectionViewDataSource, UICollecti
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row <= experiences.count {
-            presenter.experienceClick(experiences[indexPath.row].id)
+            presenter!.experienceClick(experiences[indexPath.row].id)
         }
     }
 }
@@ -159,7 +159,7 @@ extension SavedExperiencesViewController: SavedExperiencesView {
                                    duration: .forever,
                                    actionText: "RETRY",
                                    actionBlock: { [weak self] snackbar in
-                                    self?.presenter.retryClick()
+                                    self?.presenter!.retryClick()
                                     snackbar.dismiss()
         })
         snackbar.show()

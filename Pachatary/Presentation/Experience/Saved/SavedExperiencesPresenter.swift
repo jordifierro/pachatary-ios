@@ -71,5 +71,3 @@ class SavedExperiencesPresenter {
         getFirstsExperiences()
     }
 }
-
-

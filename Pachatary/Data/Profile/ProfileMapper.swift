@@ -1,6 +1,6 @@
 import ObjectMapper
 
-struct ProfileMapper: Mappable {
+struct ProfileMapper: ToDomainMapper {
     
     var username: String!
     var bio: String!

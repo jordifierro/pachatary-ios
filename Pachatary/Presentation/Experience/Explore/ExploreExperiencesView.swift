@@ -18,7 +18,7 @@ protocol ExploreExperiencesView : class {
 
 class ExploreExperiencesViewController: UIViewController {
     
-    var presenter: ExploreExperiencesPresenter!
+    var presenter: ExploreExperiencesPresenter?
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -29,8 +29,8 @@ class ExploreExperiencesViewController: UIViewController {
 
     var experiences: [Experience] = []
     var isLoading = false
-    var selectedExperienceId: String!
-    var selectedProfileUsername: String!
+    var selectedExperienceId: String?
+    var selectedProfileUsername: String?
     var selectLocationLatitude: Double? = nil
     var selectLocationLongitude: Double? = nil
     let locationManager = CLLocationManager()
@@ -63,19 +63,19 @@ class ExploreExperiencesViewController: UIViewController {
                action: #selector(ExploreExperiencesViewController.selectLocactionButtonClick(_:)),
                for: .touchUpInside)
 
-        presenter.create()
+        presenter!.create()
     }
 
     @objc func selectLocactionButtonClick(_ sender: UIButton!) {
-        presenter.onSelectLocationClick()
+        presenter!.onSelectLocationClick()
     }
 
     deinit {
-        self.presenter.destroy()
+        self.presenter?.destroy()
     }
 
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        presenter.refresh()
+        presenter!.refresh()
         refreshControl.endRefreshing()
     }
 
@@ -101,7 +101,7 @@ class ExploreExperiencesViewController: UIViewController {
                 destinationVC.initialLongitude = selectLocationLongitude
                 destinationVC.setResultDelegate =
                     { [unowned self] (latitude: Double, longitude: Double) in
-                        self.presenter.onLastLocationFound(latitude: latitude, longitude: longitude)
+                        self.presenter!.onLastLocationFound(latitude: latitude, longitude: longitude)
                     }
             }
         }
@@ -132,7 +132,7 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
                 tableView.dequeueReusableCell(withIdentifier: "extendedExperienceCell", for: indexPath)
                     as! ExtendedExperienceTableViewCell
             cell.bind(experiences[indexPath.row],
-                      { [unowned self] username in self.presenter.profileClick(username) })
+                      { [unowned self] username in self.presenter!.profileClick(username) })
             return cell
         }
     }
@@ -146,7 +146,7 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
             }
             let maxRow = visibleRows.max()!
             if (maxRow == self.experiences.count - 1) && (maxRow > lastItemShown) {
-                presenter.lastItemShown()
+                presenter!.lastItemShown()
             }
             lastItemShown = maxRow
         }
@@ -163,7 +163,7 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row <= experiences.count {
-            presenter.experienceClick(experiences[indexPath.row].id)
+            presenter!.experienceClick(experiences[indexPath.row].id)
         }
     }
 }
@@ -185,7 +185,7 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
                                    duration: .forever,
                                    actionText: "RETRY",
                                    actionBlock: { [weak self] snackbar in
-                                                    self?.presenter.retryClick()
+                                                    self?.presenter!.retryClick()
                                                     snackbar.dismiss()
                                                 })
         snackbar.show()
@@ -225,20 +225,20 @@ extension ExploreExperiencesViewController: ExploreExperiencesView {
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
         }
-        else { presenter.onPermissionDenied() }
+        else { presenter!.onPermissionDenied() }
     }
     
     func askLastKnownLocation() {
         let location = locationManager.location
-        if location == nil { presenter.onLastLocationNotFound() }
-        else { presenter.onLastLocationFound(latitude: location!.coordinate.latitude,
+        if location == nil { presenter!.onLastLocationNotFound() }
+        else { presenter!.onLastLocationFound(latitude: location!.coordinate.latitude,
                                              longitude: location!.coordinate.longitude) }
     }
 }
 
 extension ExploreExperiencesViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        presenter.searchClick(searchBar.text!)
+        presenter!.searchClick(searchBar.text!)
         searchBar.endEditing(true)
     }
 }
@@ -251,13 +251,13 @@ extension ExploreExperiencesViewController: CLLocationManagerDelegate {
                 locationManager.requestWhenInUseAuthorization()
                 break
             case .restricted, .denied:
-                presenter.onPermissionDenied()
+                presenter!.onPermissionDenied()
                 break
             case .authorizedWhenInUse:
-                presenter.onPermissionAccepted()
+                presenter!.onPermissionAccepted()
                 break
             case .authorizedAlways:
-                presenter.onPermissionAccepted()
+                presenter!.onPermissionAccepted()
                 break
         }
     }

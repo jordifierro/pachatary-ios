@@ -1,0 +1,10 @@
+{
+    "username": "usr.nam",
+    "bio": "user info",
+    "picture": {
+        "tiny_url": "https://profiles/029d.tiny.jpg",
+        "small_url": "https://profiles/029d.small.jpg",
+        "medium_url": "https://profiles/029d.medium.jpg"
+    },
+    "is_me": false
+}

@@ -20,19 +20,44 @@ class ProfileRepositoryTests: XCTestCase {
             .when_get_profile("a")
             .then_should_return_profile(Mock.profile("a", bio: "2"))
     }
-    
+
+    func test_not_cached_returns_api_call() {
+        ScenarioMaker()
+            .given_an_api_that_returns_profile("a", Result(.success, data: Mock.profile("a")))
+            .when_get_profile("a")
+            .then_should_return_profile(Mock.profile("a"))
+    }
+
+    func test_not_cached_returns_api_call_and_caches_it() {
+        ScenarioMaker()
+            .given_an_api_that_returns_profile("a", Result(.success, data: Mock.profile("a")))
+            .when_get_profile("a")
+            .then_should_return_profile(Mock.profile("a"))
+            .given_an_api_that_returns_profile("a",
+                Result(.error, error: DataError.noInternetConnection))
+            .when_get_profile("a")
+            .then_should_return_profile(Mock.profile("a"))
+    }
+
     class ScenarioMaker {
         
         let repo: ProfileRepository
+        let mockApiRepo = ProfileApiRepoMock()
         
         var profileResult: Profile!
         
         init() {
-            repo = ProfileRepositoryImplementation()
+            repo = ProfileRepositoryImplementation(mockApiRepo, MainScheduler.instance)
         }
         
         func given_cached_profile(_ profile: Profile) -> ScenarioMaker {
             repo.cache(profile)
+            return self
+        }
+
+        func given_an_api_that_returns_profile(_ username: String,
+                                              _ result: Result<Profile>) -> ScenarioMaker {
+            mockApiRepo.profileObservableResults[username] = Observable.just(result)
             return self
         }
         
