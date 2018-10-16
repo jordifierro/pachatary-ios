@@ -8,14 +8,14 @@ class ExperienceScenesPresenterTests: XCTestCase {
     func test_on_create_asks_scenes_and_experience_with_experience_id() {
         ScenarioMaker()
             .given_a_presenter("7")
-            .given_an_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
+            .given_an_scenes_observable_result(Result(.success, data: [Mock.scene("1"), Mock.scene("3")]),
                                               experienceId: "7")
-            .given_an_experience_observable_result(Result(.success, data: Experience("9")))
+            .given_an_experience_observable_result(Result(.success, data: Mock.experience("9")))
             .when_create_presenter()
             .then_should_call_scene_repo_observable_with(experienceId: "7")
             .then_should_call_experience_repo_observable_with(experienceId: "7")
-            .then_should_call_show_scenes_with([Scene("1"), Scene("3")],
-                                               experience: Experience("9"))
+            .then_should_call_show_scenes_with([Mock.scene("1"), Mock.scene("3")],
+                                               experience: Mock.experience("9"))
     }
     
     func test_on_go_to_map_click_navigates_to_map() {

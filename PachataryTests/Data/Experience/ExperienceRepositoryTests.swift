@@ -12,28 +12,28 @@ class ExperienceRepositoryTests: XCTestCase {
         for kind in [Kind.explore, Kind.persons] {
             ScenarioMaker()
                 .given_a_switch_that_returns_experiences_observable(kind,
-                    Result(.success, data: [Experience("3")]))
+                    Result(.success, data: [Mock.experience("3")]))
                 .when_experiences_observable(kind)
-                .then_should_return_experiences_observable(Result(.success, data: [Experience("3")]))
+                .then_should_return_experiences_observable(Result(.success, data: [Mock.experience("3")]))
         }
     }
     
     func test_saved_experiences_observable_returns_from_switch_saved_and_filters_saved() {
         ScenarioMaker()
             .given_a_switch_that_returns_experiences_observable(.saved,
-                Result(.success, data: [Experience("3", isSaved: false),
-                                        Experience("4", isSaved: true)]))
+                Result(.success, data: [Mock.experience("3", isSaved: false),
+                                        Mock.experience("4", isSaved: true)]))
             .when_experiences_observable(.saved)
             .then_should_return_experiences_observable(
-                Result(.success, data: [Experience("4", isSaved: true)]))
+                Result(.success, data: [Mock.experience("4", isSaved: true)]))
     }
 
     func test_experience_observable_returns_from_switch() {
         ScenarioMaker()
             .given_a_switch_that_returns_experience_observable("8",
-                Result(.success, data: Experience("8")))
+                Result(.success, data: Mock.experience("8")))
             .when_experience_observable("8")
-            .then_should_return_experience_observable(Result(.success, data: Experience("8")))
+            .then_should_return_experience_observable(Result(.success, data: Mock.experience("8")))
     }
 
     func test_experience_observable_when_not_cached_returns_from_api_and_caches_on_other() {
@@ -65,26 +65,26 @@ class ExperienceRepositoryTests: XCTestCase {
 
     func test_save_experience() {
         ScenarioMaker()
-            .given_a_switch_that_returns_experience_observable("4", Result(.success, data: Experience("4", isSaved: false, savesCount: 8)))
+            .given_a_switch_that_returns_experience_observable("4", Result(.success, data: Mock.experience("4", isSaved: false, savesCount: 8)))
             .given_an_api_repo_that_returns_on_save(Result(.success, data: true))
             .when_save_experience("4")
             .then_should_call_api_save("4")
-            .then_should_modify_switch_result(0, .explore, .update, [Experience("4", isSaved: true, savesCount: 9)])
-            .then_should_modify_switch_result(1, .persons, .update, [Experience("4", isSaved: true, savesCount: 9)])
-            .then_should_modify_switch_result(2, .other, .update, [Experience("4", isSaved: true, savesCount: 9)])
-            .then_should_modify_switch_result(3, .saved, .addOrUpdate, [Experience("4", isSaved: true, savesCount: 9)])
+            .then_should_modify_switch_result(0, .explore, .update, [Mock.experience("4", isSaved: true, savesCount: 9)])
+            .then_should_modify_switch_result(1, .persons, .update, [Mock.experience("4", isSaved: true, savesCount: 9)])
+            .then_should_modify_switch_result(2, .other, .update, [Mock.experience("4", isSaved: true, savesCount: 9)])
+            .then_should_modify_switch_result(3, .saved, .addOrUpdate, [Mock.experience("4", isSaved: true, savesCount: 9)])
     }
     
     func test_unsave_experience() {
         ScenarioMaker()
-            .given_a_switch_that_returns_experience_observable("4", Result(.success, data: Experience("4", isSaved: true, savesCount: 8)))
+            .given_a_switch_that_returns_experience_observable("4", Result(.success, data: Mock.experience("4", isSaved: true, savesCount: 8)))
             .given_an_api_repo_that_returns_on_save(Result(.success, data: true))
             .when_unsave_experience("4")
             .then_should_call_api_unsave("4")
-            .then_should_modify_switch_result(0, .explore, .update, [Experience("4", isSaved: false, savesCount: 7)])
-            .then_should_modify_switch_result(1, .persons, .update, [Experience("4", isSaved: false, savesCount: 7)])
-            .then_should_modify_switch_result(2, .other, .update, [Experience("4", isSaved: false, savesCount: 7)])
-            .then_should_modify_switch_result(3, .saved, .addOrUpdate, [Experience("4", isSaved: false, savesCount: 7)])
+            .then_should_modify_switch_result(0, .explore, .update, [Mock.experience("4", isSaved: false, savesCount: 7)])
+            .then_should_modify_switch_result(1, .persons, .update, [Mock.experience("4", isSaved: false, savesCount: 7)])
+            .then_should_modify_switch_result(2, .other, .update, [Mock.experience("4", isSaved: false, savesCount: 7)])
+            .then_should_modify_switch_result(3, .saved, .addOrUpdate, [Mock.experience("4", isSaved: false, savesCount: 7)])
     }
 
     func test_translate_share_id() {

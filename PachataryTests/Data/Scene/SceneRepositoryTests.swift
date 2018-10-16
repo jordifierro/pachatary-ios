@@ -9,47 +9,49 @@ class SceneRepositoryTests: XCTestCase {
     func test_scenes_observable_call_api_and_creates_caches() {
         ScenarioMaker(self).buildScenario()
             .given_an_api_repo_that_returns(
-                Result(.success, data: [Scene("4"), Scene("5")]), forExperience: "1")
+                Result(.success, data: [Mock.scene("4"), Mock.scene("5")]), forExperience: "1")
             .given_an_api_repo_that_returns(
-                Result(.success, data: [Scene("6"), Scene("7")]), forExperience: "2")
+                Result(.success, data: [Mock.scene("6"), Mock.scene("7")]), forExperience: "2")
             .given_an_api_repo_that_returns(
-                Result(.success, data: [Scene("8")]), forExperience: "3")
+                Result(.success, data: [Mock.scene("8")]), forExperience: "3")
             
             .when_scenes_observable("3")
             .then_generate_cache_should_be_called(times: 1)
-            .then_should_return_observable_with(Result(.success, data: [Scene("8")]))
+            .then_should_return_observable_with(Result(.success, data: [Mock.scene("8")]))
             .when_scenes_observable("1")
             .then_generate_cache_should_be_called(times: 2)
-            .then_should_return_observable_with(Result(.success, data: [Scene("4"), Scene("5")]))
+            .then_should_return_observable_with(Result(.success, data: [Mock.scene("4"), Mock.scene("5")]))
             .when_scenes_observable("2")
             .then_generate_cache_should_be_called(times: 3)
-            .then_should_return_observable_with(Result(.success, data: [Scene("6"), Scene("7")]))
+            .then_should_return_observable_with(Result(.success, data: [Mock.scene("6"), Mock.scene("7")]))
             .then_should_call_api_with(["3", "1", "2"])
 
-            .given_an_api_repo_that_returns(Result(.success, data: [Scene("99")]),
+            .given_an_api_repo_that_returns(Result(.success, data: [Mock.scene("99")]),
                                             forExperience: "3")
             .when_scenes_observable("3")
-            .then_should_return_observable_with(Result(.success, data: [Scene("8")]))
+            .then_should_return_observable_with(Result(.success, data: [Mock.scene("8")]))
             .then_should_call_api_with(["3", "1", "2"])
             .then_generate_cache_should_be_called(times: 3)
     }
     
     func test_when_cached_response_is_error_calls_again_when_scenes_observable() {
         ScenarioMaker(self).buildScenario()
-            .given_an_api_repo_that_returns(Result(error: DataError.noInternetConnection),
+            .given_an_api_repo_that_returns(
+                Result(.error, error: DataError.noInternetConnection),
                                             forExperience: "1")
             .when_scenes_observable("1")
-            .then_should_return_observable_with(Result(error: DataError.noInternetConnection))
+            .then_should_return_observable_with(
+                Result(.error, error: DataError.noInternetConnection))
             .then_generate_cache_should_be_called(times: 1)
             .then_should_call_api_with(["1"])
 
             .given_an_api_repo_that_returns(
-                Result(.success, data: [Scene("4"), Scene("5")]), forExperience: "1")
+                Result(.success, data: [Mock.scene("4"), Mock.scene("5")]), forExperience: "1")
             .when_scenes_observable("1")
             .consume_result_observable()
             .when_scenes_observable("1")
-            .wait_for_result(Result(.success, data: [Scene("4"), Scene("5")]), experiendeId: "1")
-            .then_should_return_observable_with(Result(.success, data: [Scene("4"), Scene("5")]))
+            .wait_for_result(Result(.success, data: [Mock.scene("4"), Mock.scene("5")]), experiendeId: "1")
+            .then_should_return_observable_with(Result(.success, data: [Mock.scene("4"), Mock.scene("5")]))
             .then_generate_cache_should_be_called(times: 1)
             .then_should_call_api_with(["1", "1"])
     }

@@ -8,7 +8,7 @@ class ExperienceMapPresenterTests: XCTestCase {
     func test_on_create_asks_scenes_with_experience_id() {
         ScenarioMaker()
             .given_an_experience_id_for_presenter("7")
-            .given_an_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
+            .given_an_scenes_observable_result(Result(.success, data: [Mock.scene("1"), Mock.scene("3")]),
                                                experienceId: "7")
             .when_create_presenter()
             .then_should_call_scenes_repo_observable_with(experienceId: "7")
@@ -17,20 +17,20 @@ class ExperienceMapPresenterTests: XCTestCase {
     func test_on_response_success_shows_scenes() {
         ScenarioMaker()
             .given_an_experience_id_for_presenter("7")
-            .given_an_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
+            .given_an_scenes_observable_result(Result(.success, data: [Mock.scene("1"), Mock.scene("3")]),
                                               experienceId: "7")
             .when_create_presenter()
-            .then_should_call_show_scenes_with([Scene("1"), Scene("3")])
+            .then_should_call_show_scenes_with([Mock.scene("1"), Mock.scene("3")])
     }
     
     func test_on_response_success_shows_scenes_and_selects_scene_if_scene_id() {
         ScenarioMaker()
             .given_an_experience_id_for_presenter("7")
             .given_an_scene_id_for_presenter("9")
-            .given_an_scenes_observable_result(Result(.success, data: [Scene("1"), Scene("3")]),
+            .given_an_scenes_observable_result(Result(.success, data: [Mock.scene("1"), Mock.scene("3")]),
                                                experienceId: "7")
             .when_create_presenter()
-            .then_should_call_show_scenes_with([Scene("1"), Scene("3")])
+            .then_should_call_show_scenes_with([Mock.scene("1"), Mock.scene("3")])
             .then_should_call_select_scene("9")
     }
     
@@ -38,7 +38,8 @@ class ExperienceMapPresenterTests: XCTestCase {
     func test_on_response_error_finishes_view() {
         ScenarioMaker()
             .given_an_experience_id_for_presenter("7")
-            .given_an_scenes_observable_result(Result(error: DataError.noInternetConnection),
+            .given_an_scenes_observable_result(
+                Result(.error, error: DataError.noInternetConnection),
                                               experienceId: "7")
             .when_create_presenter()
             .then_should_call_finish()

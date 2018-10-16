@@ -34,9 +34,9 @@ class ExperienceRequestersSwitchTests: XCTestCase {
         for modification in modifyValues() {
             for kind in kindValues() {
                 ScenarioMaker()
-                    .when_modify_result(kind, modification, [Experience("2")])
+                    .when_modify_result(kind, modification, [Mock.experience("2")])
                     .then_should_call_modify_result_on_requester(kind, modification,
-                                                                 [Experience("2")])
+                                                                 [Mock.experience("2")])
             }
         }
     }
@@ -45,55 +45,55 @@ class ExperienceRequestersSwitchTests: XCTestCase {
         for kind in kindValues() {
             ScenarioMaker()
                 .given_a_results_observable_that_returns(kind,
-                    Result(.success, data: [Experience(kindString(kind))]))
+                    Result(.success, data: [Mock.experience(kindString(kind))]))
                 .when_get_results_observable(kind)
                 .then_should_return_observable(
-                    Result(.success, data: [Experience(kindString(kind))]))
+                    Result(.success, data: [Mock.experience(kindString(kind))]))
         }
     }
 
     func test_experience_observable_when_is_in_explore_requester() {
         ScenarioMaker()
             .given_a_results_observable_that_returns(.explore,
-                 Result(.success, data: [Experience("3"), Experience("4")]))
+                 Result(.success, data: [Mock.experience("3"), Mock.experience("4")]))
             .given_a_results_observable_that_returns(.saved, Result(.inProgress))
             .given_a_results_observable_that_returns(.persons, Result(.error, error: DataError.notCached))
             .given_a_results_observable_that_returns(.other, Result(.success, data: []))
             .when_get_experiences_observable("4")
-            .then_should_return_experience_observable(Result(.success, data: Experience("4")))
+            .then_should_return_experience_observable(Result(.success, data: Mock.experience("4")))
     }
 
     func test_experience_observable_when_is_in_saved_requester() {
         ScenarioMaker()
             .given_a_results_observable_that_returns(.saved,
-                                                     Result(.success, data: [Experience("3"), Experience("4")]))
+                                                     Result(.success, data: [Mock.experience("3"), Mock.experience("4")]))
             .given_a_results_observable_that_returns(.explore, Result(.inProgress))
             .given_a_results_observable_that_returns(.persons, Result(.error, error: DataError.notCached))
             .given_a_results_observable_that_returns(.other, Result(.success, data: []))
             .when_get_experiences_observable("4")
-            .then_should_return_experience_observable(Result(.success, data: Experience("4")))
+            .then_should_return_experience_observable(Result(.success, data: Mock.experience("4")))
     }
 
     func test_experience_observable_when_is_in_persons_requester() {
         ScenarioMaker()
             .given_a_results_observable_that_returns(.persons,
-                                                     Result(.success, data: [Experience("3"), Experience("4")]))
+                                                     Result(.success, data: [Mock.experience("3"), Mock.experience("4")]))
             .given_a_results_observable_that_returns(.explore, Result(.inProgress))
             .given_a_results_observable_that_returns(.saved, Result(.error, error: DataError.notCached))
             .given_a_results_observable_that_returns(.other, Result(.success, data: []))
             .when_get_experiences_observable("4")
-            .then_should_return_experience_observable(Result(.success, data: Experience("4")))
+            .then_should_return_experience_observable(Result(.success, data: Mock.experience("4")))
     }
 
     func test_experience_observable_when_is_in_other_requester() {
         ScenarioMaker()
             .given_a_results_observable_that_returns(.other,
-                                                     Result(.success, data: [Experience("3"), Experience("4")]))
+                                                     Result(.success, data: [Mock.experience("3"), Mock.experience("4")]))
             .given_a_results_observable_that_returns(.explore, Result(.inProgress))
             .given_a_results_observable_that_returns(.saved, Result(.error, error: DataError.notCached))
             .given_a_results_observable_that_returns(.persons, Result(.success, data: []))
             .when_get_experiences_observable("4")
-            .then_should_return_experience_observable(Result(.success, data: Experience("4")))
+            .then_should_return_experience_observable(Result(.success, data: Mock.experience("4")))
     }
 
     func test_experience_observable_when_is_not_cached() {

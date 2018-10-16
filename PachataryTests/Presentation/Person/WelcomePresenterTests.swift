@@ -19,7 +19,8 @@ class WelcomePresenterTests: XCTestCase {
 
     func test_start_when_result_error_enable_buttons() {
         ScenarioMaker()
-            .given_an_auth_repo_that_returns(Result<AuthToken>(error: .noInternetConnection))
+            .given_an_auth_repo_that_returns(
+                Result<AuthToken>(.error, error: .noInternetConnection))
             .when_start_click()
             .then_should_enable_buttons()
     }

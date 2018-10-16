@@ -7,10 +7,18 @@ class Mock {
         return Profile(username: username, bio: bio, picture: nil, isMe: false)
     }
     
-    static func experience(_ id: String, authorProfile: Profile = profile("")) -> Experience {
+    static func experience(_ id: String,
+                           authorProfile: Profile = profile(""),
+                           isSaved: Bool = false,
+                           savesCount: Int = 0) -> Experience {
         return Experience(id: id, title: "", description: "", picture: nil,
-                          isMine: false, isSaved: false, authorProfile: authorProfile,
-                          savesCount: 0)
+                          isMine: false, isSaved: isSaved, authorProfile: authorProfile,
+                          savesCount: savesCount)
+    }
+
+    static func scene(_ id: String) -> Scene {
+        return Scene(id: id, title: "", description: "", picture: nil,
+                     latitude: 0.0, longitude: 0.0, experienceId: "")
     }
 }
 

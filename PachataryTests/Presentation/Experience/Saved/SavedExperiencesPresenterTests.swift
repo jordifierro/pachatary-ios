@@ -7,9 +7,9 @@ class SavedExperiencesPresenterTests: XCTestCase {
     func test_on_experiences_response_success() {
         ScenarioMaker()
             .given_an_experience_repo_that_returns_for_saved(
-                Result(.success, data: [Experience("2"), Experience("3")]))
+                Result(.success, data: [Mock.experience("2"), Mock.experience("3")]))
             .when_create()
-            .then_should_show_experiences([Experience("2"), Experience("3")])
+            .then_should_show_experiences([Mock.experience("2"), Mock.experience("3")])
             .then_should_show_loader(false)
     }
 

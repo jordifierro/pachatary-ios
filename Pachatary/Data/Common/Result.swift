@@ -27,16 +27,7 @@ public struct Result<T: Equatable>: Equatable {
         self.action = action
         self.params = params
     }
-    
-    init(error: DataError) {
-        self.status = .error
-        self.data = nil
-        self.error = error
-        self.nextUrl = nil
-        self.action = .none
-        self.params = nil
-    }
-    
+
     func isInProgress() -> Bool { return (self.status == .inProgress) }
     func isSuccess() -> Bool { return (self.status == .success) }
     func isError() -> Bool { return (self.status == .error) }

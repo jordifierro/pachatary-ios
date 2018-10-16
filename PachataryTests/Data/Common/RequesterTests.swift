@@ -77,7 +77,7 @@ class RequesterTests: XCTestCase {
             .given_a_cache_result_flowable(
                 Result<[IdEq]>(.success, data: [IdEq("9")], nextUrl: "some", action: .getFirsts))
             .given_a_paginate_callable_that_returns(
-                Result<[IdEq]>( error: DataError.noInternetConnection))
+                Result<[IdEq]>(.error, error: DataError.noInternetConnection))
             .when_emit_request(Request(.paginate))
             .then_should_emit_through_cache_replace(
                 Result<[IdEq]>(.error, data: [IdEq("9")], nextUrl: "some", action: .paginate,

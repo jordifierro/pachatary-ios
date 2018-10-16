@@ -13,7 +13,7 @@ class AskLoginEmailPresenterTests: XCTestCase {
     
     func test_on_error_enables_button() {
         ScenarioMaker()
-            .given_an_auth_repo_that_returns(Result(error: .noInternetConnection))
+            .given_an_auth_repo_that_returns(Result(.error, error: .noInternetConnection))
             .when_ask_login(email: "a")
             .then_should_enable_button()
     }

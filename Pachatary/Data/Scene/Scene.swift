@@ -10,16 +10,6 @@ struct Scene: Equatable, Identifiable {
     let longitude: Double
     let experienceId: String
 
-    init(_ id: String) {
-        self.id = id
-        self.title = ""
-        self.description = ""
-        self.picture = nil
-        self.latitude = 0.0
-        self.longitude = 0.0
-        self.experienceId = ""
-    }
-    
     init(id: String, title: String, description: String, picture: BigPicture?,
          latitude: Double, longitude: Double, experienceId: String) {
         self.id = id

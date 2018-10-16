@@ -11,17 +11,6 @@ struct Experience: Equatable, Identifiable {
     let authorProfile: Profile
     let savesCount: Int
     
-    init(_ id: String, isSaved: Bool = false, savesCount: Int = 0) {
-        self.id = id
-        self.title = ""
-        self.description = ""
-        self.picture = nil
-        self.isMine = false
-        self.isSaved = isSaved
-        self.authorProfile = Profile(username: "", bio: "", picture: nil, isMe: false)
-        self.savesCount = savesCount
-    }
-    
     init(id: String, title: String, description: String, picture: BigPicture?,
          isMine: Bool, isSaved: Bool, authorProfile: Profile, savesCount: Int) {
         self.id = id

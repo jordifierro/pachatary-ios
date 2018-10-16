@@ -56,7 +56,7 @@ extension Observable {
                     case .underlying(let error, _):
                         if (error as NSError).code == NSURLErrorNotConnectedToInternet {
                             return Observable<Result<U>>.just(
-                                Result<U>(error: DataError.noInternetConnection))
+                                Result<U>(.error, error: DataError.noInternetConnection))
                         }
                     default:
                         throw moyaError

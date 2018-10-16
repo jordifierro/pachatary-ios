@@ -263,7 +263,7 @@ class SingleNetworkResponseTransformerTests: XCTestCase {
             do {
                 let result = try resultObservable.toBlocking().toArray()
                 assert(result[0] == Result(.inProgress))
-                assert(result[1] == Result(error: DataError.noInternetConnection))
+                assert(result[1] == Result(.error, error: DataError.noInternetConnection))
             } catch { assertionFailure() }
             return self
         }
@@ -273,7 +273,7 @@ class SingleNetworkResponseTransformerTests: XCTestCase {
             do {
                 let result = try resultListObservable.toBlocking().toArray()
                 assert(result[0] == Result(.inProgress))
-                assert(result[1] == Result(error: DataError.noInternetConnection))
+                assert(result[1] == Result(.error, error: DataError.noInternetConnection))
             } catch { assertionFailure() }
             return self
         }

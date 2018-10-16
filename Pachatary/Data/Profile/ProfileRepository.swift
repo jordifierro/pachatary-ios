@@ -42,7 +42,7 @@ class ProfileRepositoryImplementation: ProfileRepository {
         return profilesObservable
             .map({ profiles in profiles.filter({ profile in profile.username == username }) })
             .map({ profiles in
-                if profiles.isEmpty { return Result(error: DataError.notCached) }
+                if profiles.isEmpty { return Result(.error, error: DataError.notCached) }
                 else { return Result(.success, data: profiles[0]) }
             })
             .flatMap { (result: Result<Profile>) -> Observable<Result<Profile>> in
