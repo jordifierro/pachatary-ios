@@ -35,6 +35,17 @@ class ExperienceRepositoryTests: XCTestCase {
             .when_experience_observable("8")
             .then_should_return_experience_observable(Result(.success, data: Experience("8")))
     }
+
+    func test_experience_observable_when_not_cached_returns_from_api_and_caches_on_other() {
+        ScenarioMaker()
+            .given_a_switch_that_returns_experience_observable("8",
+                                                               Result(.error, error: DataError.notCached))
+            .given_an_api_repo_that_returns_on_experience(Result(.success, data: Mock.experience("9")))
+            .when_experience_observable("8")
+            .then_should_return_experience_observable(Result(.success, data: Mock.experience("9")))
+            .then_should_modify_switch_result(0, .other, .addOrUpdate, [Mock.experience("9")])
+    }
+
     
     func test_getfirsts_executes_action() {
         for kind in kindValues() {
@@ -60,7 +71,8 @@ class ExperienceRepositoryTests: XCTestCase {
             .then_should_call_api_save("4")
             .then_should_modify_switch_result(0, .explore, .update, [Experience("4", isSaved: true, savesCount: 9)])
             .then_should_modify_switch_result(1, .persons, .update, [Experience("4", isSaved: true, savesCount: 9)])
-            .then_should_modify_switch_result(2, .saved, .addOrUpdate, [Experience("4", isSaved: true, savesCount: 9)])
+            .then_should_modify_switch_result(2, .other, .update, [Experience("4", isSaved: true, savesCount: 9)])
+            .then_should_modify_switch_result(3, .saved, .addOrUpdate, [Experience("4", isSaved: true, savesCount: 9)])
     }
     
     func test_unsave_experience() {
@@ -71,7 +83,8 @@ class ExperienceRepositoryTests: XCTestCase {
             .then_should_call_api_unsave("4")
             .then_should_modify_switch_result(0, .explore, .update, [Experience("4", isSaved: false, savesCount: 7)])
             .then_should_modify_switch_result(1, .persons, .update, [Experience("4", isSaved: false, savesCount: 7)])
-            .then_should_modify_switch_result(2, .saved, .addOrUpdate, [Experience("4", isSaved: false, savesCount: 7)])
+            .then_should_modify_switch_result(2, .other, .update, [Experience("4", isSaved: false, savesCount: 7)])
+            .then_should_modify_switch_result(3, .saved, .addOrUpdate, [Experience("4", isSaved: false, savesCount: 7)])
     }
 
     func test_translate_share_id() {
@@ -119,6 +132,11 @@ class ExperienceRepositoryTests: XCTestCase {
             return self
         }
 
+        func given_an_api_repo_that_returns_on_experience(_ result: Result<Experience>) -> ScenarioMaker {
+            mockApiRepo.apiExperienceObservable = Observable.just(result)
+            return self
+        }
+
         func when_getfirsts(_ kind: Kind, _ params: Request.Params) -> ScenarioMaker {
             self.repo.getFirsts(kind: kind, params: params)
             return self
@@ -153,7 +171,7 @@ class ExperienceRepositoryTests: XCTestCase {
             stringObservableResult = repo.translateShareId(experienceShareId)
             return self
         }
-        
+
         func then_should_call_api_save(_ experienceId: String) -> ScenarioMaker {
             assert(mockApiRepo.saveCalls.count == 1)
             assert(mockApiRepo.saveCalls[0].0 == experienceId)
@@ -228,6 +246,7 @@ class ExperienceRepoMock: ExperienceRepository {
     var returnExploreObservable: Observable<Result<[Experience]>>!
     var returnSavedObservable: Observable<Result<[Experience]>>!
     var returnPersonsObservable: Observable<Result<[Experience]>>!
+    var returnOtherObservable: Observable<Result<[Experience]>>!
     var returnExperienceObservable: Observable<Result<Experience>>!
     var returnTranslateShareIdObservable: Observable<Result<String>>!
     var experiencesObservableCalls = [Kind]()
@@ -244,6 +263,8 @@ class ExperienceRepoMock: ExperienceRepository {
             return returnSavedObservable
         case .persons:
             return returnPersonsObservable
+        case .other:
+            return returnOtherObservable
         }
     }
 

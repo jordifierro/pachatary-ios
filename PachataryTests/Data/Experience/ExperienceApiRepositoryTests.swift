@@ -57,11 +57,19 @@ class ExperienceApiRepositoryTests: XCTestCase {
             .then_should_return_flowable_with_inprogress_and_result_experience_id()
     }
 
+    func test_get_experience_parses_experience_response() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_stubbed_network_call_for_experience("4")
+            .when_experience_flowable("4")
+            .then_should_return_flowable_with_inprogress_and_result_experience()
+    }
+
     class ScenarioMaker {
         let api = MoyaProvider<ExperienceApi>().rx
         var repo: ExperienceApiRepository!
         var testCase: XCTestCase!
         var resultObservable: Observable<Result<[Experience]>>!
+        var experienceObservable: Observable<Result<Experience>>!
         var saveResultObservable: Observable<Result<Bool>>!
         var stringResultObservable: Observable<Result<String>>!
         var paginationUrl = ""
@@ -120,6 +128,14 @@ class ExperienceApiRepositoryTests: XCTestCase {
             return self
         }
 
+        func given_an_stubbed_network_call_for_experience(_ experienceId: String) -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of:self)),
+                                          AppDataDependencyInjector.apiUrl +
+                                            "/experiences/" + experienceId,
+                                          .GET, "GET_experience")
+            return self
+        }
+
         func given_an_stubbed_network_call_for_pagination() -> ScenarioMaker {
             DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
                                           self.paginationUrl, .GET, "GET_experiences")
@@ -162,6 +178,11 @@ class ExperienceApiRepositoryTests: XCTestCase {
 
         func when_translate_share_id(_ experienceShareId: String) -> ScenarioMaker {
             stringResultObservable = repo.translateShareId(experienceShareId)
+            return self
+        }
+
+        func when_experience_flowable(_ experienceId: String) -> ScenarioMaker {
+            experienceObservable = repo.experienceObservable(experienceId)
             return self
         }
         
@@ -217,6 +238,31 @@ class ExperienceApiRepositoryTests: XCTestCase {
             } catch { assertionFailure() }
             return self
         }
+
+        @discardableResult
+        func then_should_return_flowable_with_inprogress_and_result_experience() -> ScenarioMaker {
+            let expectedExperience =
+                Experience( id: "2", title: "Baboóon", description: "Mystical place...",
+                            picture: BigPicture(smallUrl: "https://experiences/8c29.small.jpg",
+                                                mediumUrl: "https://experiences/8c29.medium.jpg",
+                                                largeUrl: "https://experiences/8c29.large.jpg"),
+                            isMine: false, isSaved: true,
+                            authorProfile: Profile(username: "usr.nam", bio: "user info",
+                                                   picture: LittlePicture(
+                                                    tinyUrl: "https://profiles/029d.tiny.jpg",
+                                                    smallUrl: "https://profiles/029d.small.jpg",
+                                                    mediumUrl: "https://profiles/029d.medium.jpg"),
+                                                   isMe: false),
+                            savesCount: 32)
+
+            do { let result = try experienceObservable.toBlocking().toArray()
+                assert(result.count == 2)
+                assert(Result(.inProgress) == result[0])
+                assert(Result(.success, data: expectedExperience) == result[1])
+            }
+            catch { assertionFailure() }
+            return self
+        }
     }
 }
 
@@ -228,6 +274,7 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     var apiPaginateCallResultObservable: Observable<Result<[Experience]>>?
     var apiSaveCallResultObservable: Observable<Result<Bool>>?
     var apiTranslateShareIdCallResultObservable: Observable<Result<String>>?
+    var apiExperienceObservable: Observable<Result<Experience>>?
     var saveCalls = [(String, Bool)]()
     var translateShareIdCalls = [String]()
 
@@ -258,5 +305,9 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     func translateShareId(_ experienceShareId: String) -> Observable<Result<String>> {
         translateShareIdCalls.append(experienceShareId)
         return apiTranslateShareIdCallResultObservable!
+    }
+
+    func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
+        return apiExperienceObservable!
     }
 }

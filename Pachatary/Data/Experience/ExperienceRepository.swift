@@ -36,6 +36,18 @@ class ExperienceRepoImplementation: ExperienceRepository {
     
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
         return self.requestersSwitch.experienceObservable(experienceId)
+            .flatMap { (result: Result<Experience>) -> Observable<Result<Experience>> in
+                if result.error == DataError.notCached {
+                    return self.apiRepo.experienceObservable(experienceId)
+                        .do(onNext: { result in
+                            if result.status == .success {
+                                self.requestersSwitch.modifyResult(
+                                    .other, .addOrUpdate, list: [result.data!], result: nil)
+                            }
+                        })
+                }
+                else { return Observable.just(result) }
+        }
     }
     
     func getFirsts(kind: Kind, params: Request.Params? = nil) {
@@ -84,6 +96,8 @@ class ExperienceRepoImplementation: ExperienceRepository {
                     self.requestersSwitch.modifyResult(.explore, .update,
                                                        list: [experience], result: nil)
                     self.requestersSwitch.modifyResult(.persons, .update,
+                                                       list: [experience], result: nil)
+                    self.requestersSwitch.modifyResult(.other, .update,
                                                        list: [experience], result: nil)
                     self.requestersSwitch.modifyResult(.saved, .addOrUpdate,
                                                        list: [experience], result: nil)

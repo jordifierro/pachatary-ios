@@ -104,6 +104,7 @@
 		AEC8DCEA211DF9D3007CCC68 /* DataTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC8DCE9211DF9D3007CCC68 /* DataTestUtils.swift */; };
 		AED682B52175FBAF00B61891 /* ProfileApiRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED682B42175FBAF00B61891 /* ProfileApiRepositoryTests.swift */; };
 		AED682B72175FC8600B61891 /* GET_profile.json in Resources */ = {isa = PBXBuildFile; fileRef = AED682B62175FC8600B61891 /* GET_profile.json */; };
+		AED682B9217639F200B61891 /* GET_experience.json in Resources */ = {isa = PBXBuildFile; fileRef = AED682B8217639F200B61891 /* GET_experience.json */; };
 		AED9ECA221650797008C46DC /* SavedExperiencesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9ECA121650797008C46DC /* SavedExperiencesPresenterTests.swift */; };
 		AED9ECA421651440008C46DC /* ExperienceRequestersSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9ECA321651440008C46DC /* ExperienceRequestersSwitch.swift */; };
 		AED9ECA621652A6B008C46DC /* ExperienceRequestersSwitchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9ECA521652A6B008C46DC /* ExperienceRequestersSwitchTests.swift */; };
@@ -264,6 +265,7 @@
 		AEC8DCE9211DF9D3007CCC68 /* DataTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestUtils.swift; sourceTree = "<group>"; };
 		AED682B42175FBAF00B61891 /* ProfileApiRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileApiRepositoryTests.swift; sourceTree = "<group>"; };
 		AED682B62175FC8600B61891 /* GET_profile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GET_profile.json; sourceTree = "<group>"; };
+		AED682B8217639F200B61891 /* GET_experience.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GET_experience.json; sourceTree = "<group>"; };
 		AED9ECA121650797008C46DC /* SavedExperiencesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedExperiencesPresenterTests.swift; sourceTree = "<group>"; };
 		AED9ECA321651440008C46DC /* ExperienceRequestersSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRequestersSwitch.swift; sourceTree = "<group>"; };
 		AED9ECA521652A6B008C46DC /* ExperienceRequestersSwitchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRequestersSwitchTests.swift; sourceTree = "<group>"; };
@@ -716,6 +718,7 @@
 		AEEAC68420C97CBA007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
+				AED682B8217639F200B61891 /* GET_experience.json */,
 				AE603831216E98AC0023F3BB /* GET_experiences.json */,
 				AEEAC68220C94904007C17EE /* GET_experience_share_id.json */,
 				AE761EDB20C9268B00F80F9D /* ExperienceApiRepositoryTests.swift */,
@@ -950,6 +953,7 @@
 				AEC8DCE8211DF1F0007CCC68 /* POST_people_me_login.json in Resources */,
 				AE603832216E98AC0023F3BB /* GET_experiences.json in Resources */,
 				AE73C7C220CE83F600B05DA2 /* POST_people.json in Resources */,
+				AED682B9217639F200B61891 /* GET_experience.json in Resources */,
 				AEAE26B720E29D6700E5D4E9 /* GET_scenes_experience_id.json in Resources */,
 				AEEAC68320C94904007C17EE /* GET_experience_share_id.json in Resources */,
 			);

@@ -6,7 +6,7 @@ import RxSwift
 
 class ExperienceRequestersSwitchTests: XCTestCase {
 
-    func kindValues() -> [Kind] { return [.explore, .saved, .persons] }
+    func kindValues() -> [Kind] { return [.explore, .saved, .persons, .other] }
     func kindString(_ kind: Kind) -> String {
         switch kind {
         case .explore:
@@ -15,6 +15,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
             return "saved"
         case .persons:
             return "persons"
+        case .other:
+            return "other"
         }
     }
     func modifyValues() -> [Modification] { return [.update, .addOrUpdate] }
@@ -56,6 +58,7 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                  Result(.success, data: [Experience("3"), Experience("4")]))
             .given_a_results_observable_that_returns(.saved, Result(.inProgress))
             .given_a_results_observable_that_returns(.persons, Result(.error, error: DataError.notCached))
+            .given_a_results_observable_that_returns(.other, Result(.success, data: []))
             .when_get_experiences_observable("4")
             .then_should_return_experience_observable(Result(.success, data: Experience("4")))
     }
@@ -66,6 +69,7 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                                                      Result(.success, data: [Experience("3"), Experience("4")]))
             .given_a_results_observable_that_returns(.explore, Result(.inProgress))
             .given_a_results_observable_that_returns(.persons, Result(.error, error: DataError.notCached))
+            .given_a_results_observable_that_returns(.other, Result(.success, data: []))
             .when_get_experiences_observable("4")
             .then_should_return_experience_observable(Result(.success, data: Experience("4")))
     }
@@ -76,8 +80,30 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                                                      Result(.success, data: [Experience("3"), Experience("4")]))
             .given_a_results_observable_that_returns(.explore, Result(.inProgress))
             .given_a_results_observable_that_returns(.saved, Result(.error, error: DataError.notCached))
+            .given_a_results_observable_that_returns(.other, Result(.success, data: []))
             .when_get_experiences_observable("4")
             .then_should_return_experience_observable(Result(.success, data: Experience("4")))
+    }
+
+    func test_experience_observable_when_is_in_other_requester() {
+        ScenarioMaker()
+            .given_a_results_observable_that_returns(.other,
+                                                     Result(.success, data: [Experience("3"), Experience("4")]))
+            .given_a_results_observable_that_returns(.explore, Result(.inProgress))
+            .given_a_results_observable_that_returns(.saved, Result(.error, error: DataError.notCached))
+            .given_a_results_observable_that_returns(.persons, Result(.success, data: []))
+            .when_get_experiences_observable("4")
+            .then_should_return_experience_observable(Result(.success, data: Experience("4")))
+    }
+
+    func test_experience_observable_when_is_not_cached() {
+        ScenarioMaker()
+            .given_a_results_observable_that_returns(.other, Result(.inProgress))
+            .given_a_results_observable_that_returns(.explore, Result(.inProgress))
+            .given_a_results_observable_that_returns(.saved, Result(.error, error: DataError.notCached))
+            .given_a_results_observable_that_returns(.persons, Result(.success, data: []))
+            .when_get_experiences_observable("4")
+            .then_should_return_experience_observable(Result(.error, error: DataError.notCached))
     }
 
     class ScenarioMaker {
@@ -86,13 +112,15 @@ class ExperienceRequestersSwitchTests: XCTestCase {
         let exploreRequesterMock = RequesterMock()
         let savedRequesterMock = RequesterMock()
         let personsRequesterMock = RequesterMock()
+        let otherRequesterMock = RequesterMock()
         var resultsObservable: Observable<Result<[Experience]>>
         var experienceObservable: Observable<Result<Experience>>
 
         init() {
             requestersSwitch = ExperienceRequestersSwitchImplementation(exploreRequesterMock,
                                                                         savedRequesterMock,
-                                                                        personsRequesterMock)
+                                                                        personsRequesterMock,
+                                                                        otherRequesterMock)
             resultsObservable = Observable.empty()
             experienceObservable = Observable.empty()
         }
@@ -106,6 +134,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                 self.savedRequesterMock.resultObservable = Observable.just(result)
             case .persons:
                 self.personsRequesterMock.resultObservable = Observable.just(result)
+            case .other:
+                self.otherRequesterMock.resultObservable = Observable.just(result)
             }
             return self
         }
@@ -141,6 +171,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                 assert(savedRequesterMock.requestCalls == [request])
             case .persons:
                 assert(personsRequesterMock.requestCalls == [request])
+            case .other:
+                assert(otherRequesterMock.requestCalls == [request])
             }
             return self
         }
@@ -157,6 +189,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                     assert(savedRequesterMock.updateCalls == [list])
                 case .persons:
                     assert(personsRequesterMock.updateCalls == [list])
+                case .other:
+                    assert(otherRequesterMock.updateCalls == [list])
                 }
             case .addOrUpdate:
                 switch kind {
@@ -166,6 +200,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                     assert(savedRequesterMock.addOrUpdateCalls == [list])
                 case .persons:
                     assert(personsRequesterMock.addOrUpdateCalls == [list])
+                case .other:
+                    assert(otherRequesterMock.addOrUpdateCalls == [list])
                 }
             }
             return self

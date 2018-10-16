@@ -5,6 +5,7 @@ enum Kind {
     case explore
     case saved
     case persons
+    case other
 }
 
 enum Modification {
@@ -26,11 +27,13 @@ class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequeste
     let exploreRequester: R!
     let savedRequester: R!
     let personsRequester: R!
+    let otherRequester: R!
 
-    init(_ exploreRequester: R, _ savedRequester: R, _ personsRequester: R) {
+    init(_ exploreRequester: R, _ savedRequester: R, _ personsRequester: R, _ otherRequester: R) {
         self.exploreRequester = exploreRequester
         self.savedRequester = savedRequester
         self.personsRequester = personsRequester
+        self.otherRequester = otherRequester
     }
 
     func executeAction(_ kind: Kind, _ request: Request) {
@@ -54,18 +57,26 @@ class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequeste
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
         return Observable.combineLatest(experiencesObservable(.explore),
                                         experiencesObservable(.saved),
-                                        experiencesObservable(.persons))
-            { result1, result2, result3 in
+                                        experiencesObservable(.persons),
+                                        experiencesObservable(.other))
+            { result1, result2, result3, result4 in
                 var experiences = [Experience]()
                 if result1.data != nil { experiences += result1.data! }
                 if result2.data != nil { experiences += result2.data! }
                 if result3.data != nil { experiences += result3.data! }
+                if result4.data != nil { experiences += result4.data! }
                 return experiences
             }
-            .map { (experiences: [Experience]) in
-                return Result(.success, data: experiences
-                    .filter { experience in return experience.id == experienceId }[0])
-        }
+            .map { (experiences: [Experience]) -> Experience? in
+                let filteredExperiences =
+                    experiences.filter { experience in return experience.id == experienceId }
+                if filteredExperiences.isEmpty { return nil }
+                else { return filteredExperiences.first }
+            }
+            .map { experience in
+                if experience == nil { return Result(.error, error: DataError.notCached) }
+                else { return Result(.success, data: experience) }
+            }
     }
 
     private func requester(_ kind: Kind) -> R {
@@ -76,6 +87,8 @@ class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequeste
             return self.savedRequester
         case .persons:
             return self.personsRequester
+        case .other:
+            return self.otherRequester
         }
     }
 }

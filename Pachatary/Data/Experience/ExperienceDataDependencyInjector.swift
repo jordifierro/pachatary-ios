@@ -1,4 +1,5 @@
 import Swift
+import RxSwift
 import Moya
 
 class ExperienceDataDependencyInjector {
@@ -25,7 +26,11 @@ class ExperienceDataDependencyInjector {
            { url in experienceApiRepository.paginateExperiences(url) }),
         RequesterImplementation<ResultCacheImplementation<Experience>>(experienceResultCache,
            { params in experienceApiRepository.personsExperiencesObservable(params!.username!) },
-           { url in experienceApiRepository.paginateExperiences(url) })
+           { url in experienceApiRepository.paginateExperiences(url) }),
+        RequesterImplementation<ResultCacheImplementation<Experience>>(
+            experienceResultCache,
+            { _ in return Observable.empty() },
+            { _ in return Observable.empty() })
         )
 
     static let experienceRepository =

@@ -2,10 +2,11 @@ import Swift
 import RxSwift
 
 class ProfileSnifferExperienceApiRepo: ExperienceApiRepository {
-    
+
     let realExperienceApiRepo: ExperienceApiRepository
     let profileRepo: ProfileRepository
     let sniffProfiles: (Result<[Experience]>) -> ()
+    let sniffProfile: (Result<Experience>) -> ()
 
     init(_ experienceApiRepo: ExperienceApiRepository,
          _ profileRepo: ProfileRepository) {
@@ -18,6 +19,14 @@ class ProfileSnifferExperienceApiRepo: ExperienceApiRepository {
                 for experience in result.data! {
                     profileRepo.cache(experience.authorProfile)
                 }
+            default: break
+            }
+        }
+
+        sniffProfile = { result in
+            switch result.status {
+            case .success:
+                profileRepo.cache(result.data!.authorProfile)
             default: break
             }
         }
@@ -49,5 +58,10 @@ class ProfileSnifferExperienceApiRepo: ExperienceApiRepository {
 
     func translateShareId(_ experienceShareId: String) -> Observable<Result<String>> {
         return self.realExperienceApiRepo.translateShareId(experienceShareId)
+    }
+
+    func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
+        return self.realExperienceApiRepo.experienceObservable(experienceId)
+            .do(onNext: sniffProfile)
     }
 }

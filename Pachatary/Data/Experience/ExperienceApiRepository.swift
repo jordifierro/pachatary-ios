@@ -11,10 +11,11 @@ protocol ExperienceApiRepository {
     func paginateExperiences(_ url: String) -> Observable<Result<[Experience]>>
     func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>>
     func translateShareId(_ experienceShareId: String) -> Observable<Result<String>>
+    func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>>
 }
 
 class ExperienceApiRepoImplementation: ExperienceApiRepository {
-    
+
     let api: Reactive<MoyaProvider<ExperienceApi>>!
     let ioScheduler: ImmediateSchedulerType!
 
@@ -52,5 +53,10 @@ class ExperienceApiRepoImplementation: ExperienceApiRepository {
     func translateShareId(_ experienceShareId: String) -> Observable<Result<String>> {
         return self.api.request(.translateShareId(experienceShareId))
             .transformNetworkResponse(SingleResultMapper<ExperienceIdMapper>.self, ioScheduler)
+    }
+
+    func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
+        return self.api.request(.experience(experienceId))
+            .transformNetworkResponse(SingleResultMapper<ExperienceMapper>.self, ioScheduler)
     }
 }

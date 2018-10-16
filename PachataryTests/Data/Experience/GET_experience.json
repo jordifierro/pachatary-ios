@@ -1,0 +1,23 @@
+{
+    "id": "2",
+    "title": "Baboóon",
+    "description": "Mystical place...",
+    "picture": {
+        "small_url": "https://experiences/8c29.small.jpg",
+        "medium_url": "https://experiences/8c29.medium.jpg",
+        "large_url": "https://experiences/8c29.large.jpg"
+    },
+    "author_profile": {
+        "username": "usr.nam",
+        "bio": "user info",
+        "picture": {
+            "tiny_url": "https://profiles/029d.tiny.jpg",
+            "small_url": "https://profiles/029d.small.jpg",
+            "medium_url": "https://profiles/029d.medium.jpg"
+        },
+        "is_me": false
+    },
+    "is_mine": false,
+    "is_saved": true,
+    "saves_count": 32
+}
