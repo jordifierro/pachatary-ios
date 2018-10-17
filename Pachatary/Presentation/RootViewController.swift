@@ -64,7 +64,7 @@ class RootViewController: UIViewController {
             .instantiateViewController(withIdentifier: "profileViewController")
                 as! ProfileViewController
         profileViewController.username = username
-        animateFadeTransition(to: profileViewController)
+        animateFadeTransition(to: UINavigationController(rootViewController: profileViewController))
     }
 
     func navigateToExperienceRouter(_ experienceShareId: String) {
@@ -80,7 +80,8 @@ class RootViewController: UIViewController {
             .instantiateViewController(withIdentifier: "experienceScenesViewController")
             as! ExperienceScenesViewController
         experienceViewController.experienceId = experienceId
-        animateFadeTransition(to: experienceViewController)
+        animateFadeTransition(to: UINavigationController(rootViewController:
+                                                                        experienceViewController))
     }
 
     func navigateToAskLoginEmail() {
