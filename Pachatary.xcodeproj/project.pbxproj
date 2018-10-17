@@ -106,6 +106,8 @@
 		AED682B72175FC8600B61891 /* GET_profile.json in Resources */ = {isa = PBXBuildFile; fileRef = AED682B62175FC8600B61891 /* GET_profile.json */; };
 		AED682B9217639F200B61891 /* GET_experience.json in Resources */ = {isa = PBXBuildFile; fileRef = AED682B8217639F200B61891 /* GET_experience.json */; };
 		AED682BD2177490000B61891 /* UIColor+ThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED682BC2177490000B61891 /* UIColor+ThemeColors.swift */; };
+		AED682BF21777D2300B61891 /* GET_experience_share_url.json in Resources */ = {isa = PBXBuildFile; fileRef = AED682BE21777D2200B61891 /* GET_experience_share_url.json */; };
+		AED682C121777DF700B61891 /* ExperienceShareUrlMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED682C021777DF700B61891 /* ExperienceShareUrlMapper.swift */; };
 		AED9ECA221650797008C46DC /* SavedExperiencesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9ECA121650797008C46DC /* SavedExperiencesPresenterTests.swift */; };
 		AED9ECA421651440008C46DC /* ExperienceRequestersSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9ECA321651440008C46DC /* ExperienceRequestersSwitch.swift */; };
 		AED9ECA621652A6B008C46DC /* ExperienceRequestersSwitchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9ECA521652A6B008C46DC /* ExperienceRequestersSwitchTests.swift */; };
@@ -268,6 +270,8 @@
 		AED682B62175FC8600B61891 /* GET_profile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GET_profile.json; sourceTree = "<group>"; };
 		AED682B8217639F200B61891 /* GET_experience.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GET_experience.json; sourceTree = "<group>"; };
 		AED682BC2177490000B61891 /* UIColor+ThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ThemeColors.swift"; sourceTree = "<group>"; };
+		AED682BE21777D2200B61891 /* GET_experience_share_url.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GET_experience_share_url.json; sourceTree = "<group>"; };
+		AED682C021777DF700B61891 /* ExperienceShareUrlMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceShareUrlMapper.swift; sourceTree = "<group>"; };
 		AED9ECA121650797008C46DC /* SavedExperiencesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedExperiencesPresenterTests.swift; sourceTree = "<group>"; };
 		AED9ECA321651440008C46DC /* ExperienceRequestersSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRequestersSwitch.swift; sourceTree = "<group>"; };
 		AED9ECA521652A6B008C46DC /* ExperienceRequestersSwitchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRequestersSwitchTests.swift; sourceTree = "<group>"; };
@@ -721,6 +725,7 @@
 		AEEAC68420C97CBA007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
+				AED682BE21777D2200B61891 /* GET_experience_share_url.json */,
 				AED682B8217639F200B61891 /* GET_experience.json */,
 				AE603831216E98AC0023F3BB /* GET_experiences.json */,
 				AEEAC68220C94904007C17EE /* GET_experience_share_id.json */,
@@ -794,6 +799,7 @@
 				AEB6A66320DBE4C000F936DB /* ExperienceRepository.swift */,
 				AED9ECA321651440008C46DC /* ExperienceRequestersSwitch.swift */,
 				AE60382D216E83AA0023F3BB /* ExperienceIdMapper.swift */,
+				AED682C021777DF700B61891 /* ExperienceShareUrlMapper.swift */,
 			);
 			path = Experience;
 			sourceTree = "<group>";
@@ -952,6 +958,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AED682BF21777D2300B61891 /* GET_experience_share_url.json in Resources */,
 				AED682B72175FC8600B61891 /* GET_profile.json in Resources */,
 				AEC8DCE8211DF1F0007CCC68 /* POST_people_me_login.json in Resources */,
 				AE603832216E98AC0023F3BB /* GET_experiences.json in Resources */,
@@ -1189,6 +1196,7 @@
 				AEEC74A120CACF0F00B86837 /* AuthRepository.swift in Sources */,
 				AE3BE3BB211A142500D10A19 /* RootViewController.swift in Sources */,
 				AEA5662521132F6A00F0E1F3 /* Profile.swift in Sources */,
+				AED682C121777DF700B61891 /* ExperienceShareUrlMapper.swift in Sources */,
 				AEEC749D20CACA5A00B86837 /* AuthApi.swift in Sources */,
 				AE6F8B6D20DABB21007CC36A /* Request.swift in Sources */,
 				AEBB629C20C547D3001A4576 /* AppDelegate.swift in Sources */,

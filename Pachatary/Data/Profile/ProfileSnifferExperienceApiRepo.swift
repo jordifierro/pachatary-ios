@@ -64,4 +64,8 @@ class ProfileSnifferExperienceApiRepo: ExperienceApiRepository {
         return self.realExperienceApiRepo.experienceObservable(experienceId)
             .do(onNext: sniffProfile)
     }
+
+    func shareUrl(_ experienceId: String) -> Observable<Result<String>> {
+        return self.realExperienceApiRepo.shareUrl(experienceId)
+    }
 }

@@ -62,6 +62,13 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
             .then_should_sniff([Mock.profile("u")])
     }
 
+    func test_share_url_is_not_sniffed() {
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_share_url(Result(.success, data: "url"))
+            .when_share_url("4")
+            .then_should_sniff([])
+    }
+
     class ScenarioMaker {
         
         let sniffer: ProfileSnifferExperienceApiRepo
@@ -103,10 +110,14 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
         }
 
         func given_an_api_repo_that_returns_on_experience(_ result: Result<Experience>) -> ScenarioMaker {
-            mockExperienceApiRepo.apiExperienceObservable = Observable.just(result)
+            mockExperienceApiRepo.apiExperienceCallResultObservable = Observable.just(result)
             return self
         }
 
+        func given_an_api_repo_that_returns_on_share_url(_ result: Result<String>) -> ScenarioMaker {
+            mockExperienceApiRepo.apiShareUrlCallResultObservable = Observable.just(result)
+            return self
+        }
         
         func when_explore_experiences() -> ScenarioMaker {
             _ = sniffer.exploreExperiencesObservable(nil, nil, nil).subscribe()
@@ -142,7 +153,12 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
             _ = sniffer.experienceObservable(experienceId).subscribe()
             return self
         }
-        
+
+        func when_share_url(_ experienceId: String) -> ScenarioMaker {
+            _ = sniffer.shareUrl(experienceId).subscribe()
+            return self
+        }
+
         @discardableResult
         func then_should_sniff(_ profiles: [Profile]) -> ScenarioMaker {
             assert(mockProfileRepo.cacheCalls == profiles)

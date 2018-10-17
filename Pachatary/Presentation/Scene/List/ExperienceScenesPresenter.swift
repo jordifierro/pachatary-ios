@@ -10,6 +10,7 @@ class ExperienceScenesPresenter {
     let experienceId: String!
     var selectedSceneId: String? = nil
     var disposable: Disposable?
+    var shareDisposable: Disposable?
     
     init(_ sceneRepo: SceneRepository, _ experienceRepo: ExperienceRepository,
          _ mainScheduler: ImmediateSchedulerType, _ view: ExperienceScenesView,
@@ -53,6 +54,7 @@ class ExperienceScenesPresenter {
 
     func destroy() {
         self.disposable?.dispose()
+        self.shareDisposable?.dispose()
     }
     
     func onGoToMapClick() {
@@ -73,4 +75,23 @@ class ExperienceScenesPresenter {
     }
 
     func onUnsaveDialogCancel() {}
+
+    func shareClick() {
+        shareDisposable = experienceRepo.shareUrl(experienceId)
+            .observeOn(mainScheduler)
+            .subscribe { [unowned self] event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success:
+                        self.view.showShareDialog(result.data!)
+                    case .error: break
+                    case .inProgress: break
+                    }
+                case .error(let error):
+                    fatalError(error.localizedDescription)
+                case .completed: break
+                }
+            }
+    }
 }

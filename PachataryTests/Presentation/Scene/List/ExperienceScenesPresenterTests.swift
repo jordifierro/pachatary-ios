@@ -79,6 +79,33 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .then_should_call_repo_save("4", false)
     }
 
+    func test_share() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .given_an_experience_share_url_observable_result(Result(.success, data: "exp-url"))
+            .when_share_click()
+            .then_should_call_repo_share_url("4")
+            .then_should_show_share_dialog(with: "exp-url")
+    }
+
+    func test_share_inprogress() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .given_an_experience_share_url_observable_result(Result(.inProgress))
+            .when_share_click()
+            .then_should_call_repo_share_url("4")
+            .then_should_not_show_share_dialog()
+    }
+
+    func test_share_error() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .given_an_experience_share_url_observable_result(Result(.error, error: DataError.noInternetConnection))
+            .when_share_click()
+            .then_should_call_repo_share_url("4")
+            .then_should_not_show_share_dialog()
+    }
+
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
         let mockExperienceRepo = ExperienceRepoMock()
@@ -108,7 +135,12 @@ class ExperienceScenesPresenterTests: XCTestCase {
             mockExperienceRepo.returnExperienceObservable = Observable.just(result)
             return self
         }
-        
+
+        func given_an_experience_share_url_observable_result(_ result: Result<String>) -> ScenarioMaker {
+            mockExperienceRepo.returnShareUrlObservable = Observable.just(result)
+            return self
+        }
+
         func when_create_presenter() -> ScenarioMaker {
             presenter.create()
             return self
@@ -136,6 +168,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
 
         func when_unsave_dialog_ok() -> ScenarioMaker {
             presenter.onUnsaveDialogOk()
+            return self
+        }
+
+        func when_share_click() -> ScenarioMaker {
+            presenter.shareClick()
             return self
         }
         
@@ -186,8 +223,28 @@ class ExperienceScenesPresenterTests: XCTestCase {
         }
 
         @discardableResult
+        func then_should_call_repo_share_url(_ experienceId: String) -> ScenarioMaker {
+            assert(mockExperienceRepo.shareUrlCalls.count == 1)
+            assert(mockExperienceRepo.shareUrlCalls[0] == experienceId)
+            return self
+
+        }
+
+        @discardableResult
         func then_should_show_unsave_confirmation_dialog() -> ScenarioMaker {
             assert(mockView.showUnsaveConfirmationDialogCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_share_dialog(with url: String) -> ScenarioMaker {
+            assert(mockView.showShareDialogCalls == [url])
+            return self
+        }
+
+        @discardableResult
+        func then_should_not_show_share_dialog() -> ScenarioMaker {
+            assert(mockView.showShareDialogCalls.count == 0)
             return self
         }
     }
@@ -200,6 +257,7 @@ class ExperienceScenesViewMock: ExperienceScenesView {
     var finishCalls = 0
     var scrollToSceneCalls = [String]()
     var showUnsaveConfirmationDialogCalls = 0
+    var showShareDialogCalls = [String]()
 
     func showScenes(_ scenes: [Scene], experience: Experience) {
         showScenesCalls.append((scenes, experience))
@@ -219,5 +277,9 @@ class ExperienceScenesViewMock: ExperienceScenesView {
 
     func finish() {
         finishCalls += 1
+    }
+
+    func showShareDialog(_ url: String) {
+        showShareDialogCalls.append(url)
     }
 }

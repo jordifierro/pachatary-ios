@@ -64,6 +64,13 @@ class ExperienceApiRepositoryTests: XCTestCase {
             .then_should_return_flowable_with_inprogress_and_result_experience()
     }
 
+    func test_share_url_parses_response() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_stubbed_network_call_for_share_url("4")
+            .when_share_url("4")
+            .then_should_return_flowable_with_inprogress_and_result_share_url()
+    }
+
     class ScenarioMaker {
         let api = MoyaProvider<ExperienceApi>().rx
         var repo: ExperienceApiRepository!
@@ -119,7 +126,16 @@ class ExperienceApiRepositoryTests: XCTestCase {
             return self
 
         }
-        
+
+        func given_an_stubbed_network_call_for_share_url(_ experienceId: String) -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of:self)),
+                                          AppDataDependencyInjector.apiUrl + "/experiences/" +
+                                            experienceId + "/share-url",
+                                          .GET, "GET_experience_share_url")
+            return self
+
+        }
+
         func given_an_stubbed_network_call_for_persons(_ username: String) -> ScenarioMaker {
             DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of:self)),
                                           AppDataDependencyInjector.apiUrl +
@@ -185,6 +201,11 @@ class ExperienceApiRepositoryTests: XCTestCase {
             experienceObservable = repo.experienceObservable(experienceId)
             return self
         }
+
+        func when_share_url(_ experienceId: String) -> ScenarioMaker {
+            stringResultObservable = repo.shareUrl(experienceId)
+            return self
+        }
         
         @discardableResult
         func then_should_return_flowable_with_inprogress_and_result_experiences() -> ScenarioMaker {
@@ -240,6 +261,16 @@ class ExperienceApiRepositoryTests: XCTestCase {
         }
 
         @discardableResult
+        func then_should_return_flowable_with_inprogress_and_result_share_url() -> ScenarioMaker {
+            do { let result = try stringResultObservable.toBlocking().toArray()
+                assert(result.count == 2)
+                assert(Result(.inProgress) == result[0])
+                assert(Result(.success, data: "http://domain.com/experiences/4S") == result[1])
+            } catch { assertionFailure() }
+            return self
+        }
+
+        @discardableResult
         func then_should_return_flowable_with_inprogress_and_result_experience() -> ScenarioMaker {
             let expectedExperience =
                 Experience( id: "2", title: "Baboóon", description: "Mystical place...",
@@ -274,9 +305,11 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     var apiPaginateCallResultObservable: Observable<Result<[Experience]>>?
     var apiSaveCallResultObservable: Observable<Result<Bool>>?
     var apiTranslateShareIdCallResultObservable: Observable<Result<String>>?
-    var apiExperienceObservable: Observable<Result<Experience>>?
+    var apiExperienceCallResultObservable: Observable<Result<Experience>>?
+    var apiShareUrlCallResultObservable: Observable<Result<String>>?
     var saveCalls = [(String, Bool)]()
     var translateShareIdCalls = [String]()
+    var shareUrlCalls = [String]()
 
     init() {}
 
@@ -308,6 +341,11 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     }
 
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
-        return apiExperienceObservable!
+        return apiExperienceCallResultObservable!
+    }
+
+    func shareUrl(_ experienceId: String) -> Observable<Result<String>> {
+        shareUrlCalls.append(experienceId)
+        return apiShareUrlCallResultObservable!
     }
 }

@@ -95,6 +95,14 @@ class ExperienceRepositoryTests: XCTestCase {
             .then_should_return_string_observable(Result(.success, data: "id"))
     }
 
+    func test_share_url() {
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_share_url(Result(.success, data: "exp_url"))
+            .when_share_url("5")
+            .then_should_call_api_share_url("5")
+            .then_should_return_string_observable(Result(.success, data: "exp_url"))
+    }
+
     class ScenarioMaker {
         
         let mockApiRepo = MockExperienceApiRepo()
@@ -132,8 +140,13 @@ class ExperienceRepositoryTests: XCTestCase {
             return self
         }
 
+        func given_an_api_repo_that_returns_on_share_url(_ result: Result<String>) -> ScenarioMaker {
+            mockApiRepo.apiShareUrlCallResultObservable = Observable.just(result)
+            return self
+        }
+
         func given_an_api_repo_that_returns_on_experience(_ result: Result<Experience>) -> ScenarioMaker {
-            mockApiRepo.apiExperienceObservable = Observable.just(result)
+            mockApiRepo.apiExperienceCallResultObservable = Observable.just(result)
             return self
         }
 
@@ -167,8 +180,18 @@ class ExperienceRepositoryTests: XCTestCase {
             return self
         }
 
+        func when_share_url(_ experienceId: String) -> ScenarioMaker {
+            stringObservableResult = self.repo.shareUrl(experienceId)
+            return self
+        }
+
         func when_translate_share_id(_ experienceShareId: String) -> ScenarioMaker {
             stringObservableResult = repo.translateShareId(experienceShareId)
+            return self
+        }
+
+        func then_should_call_api_translate_share_url(_ experienceId: String) -> ScenarioMaker {
+            stringObservableResult = repo.shareUrl(experienceId)
             return self
         }
 
@@ -238,6 +261,13 @@ class ExperienceRepositoryTests: XCTestCase {
             assert(mockApiRepo.translateShareIdCalls[0] == experienceShareId)
             return self
         }
+
+        @discardableResult
+        func then_should_call_api_share_url(_ experienceId: String) -> ScenarioMaker {
+            assert(mockApiRepo.shareUrlCalls.count == 1)
+            assert(mockApiRepo.shareUrlCalls[0] == experienceId)
+            return self
+        }
     }
 }
 
@@ -249,11 +279,13 @@ class ExperienceRepoMock: ExperienceRepository {
     var returnOtherObservable: Observable<Result<[Experience]>>!
     var returnExperienceObservable: Observable<Result<Experience>>!
     var returnTranslateShareIdObservable: Observable<Result<String>>!
+    var returnShareUrlObservable: Observable<Result<String>>!
     var experiencesObservableCalls = [Kind]()
     var getFirstsCalls = [(Kind, Request.Params?)]()
     var paginateCalls = [Kind]()
     var singleExperienceCalls = [String]()
     var saveCalls = [(String, Bool)]()
+    var shareUrlCalls = [String]()
 
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         switch kind {
@@ -287,5 +319,10 @@ class ExperienceRepoMock: ExperienceRepository {
 
     func translateShareId(_ shareId: String) -> Observable<Result<String>> {
         return returnTranslateShareIdObservable
+    }
+
+    func shareUrl(_ experienceId: String) -> Observable<Result<String>> {
+        shareUrlCalls.append(experienceId)
+        return returnShareUrlObservable
     }
 }

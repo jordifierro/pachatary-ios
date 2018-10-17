@@ -6,6 +6,7 @@ protocol ExperienceScenesView : class {
     func navigateToMap(_ sceneId: String?)
     func scrollToScene(_ sceneId: String)
     func showUnsaveConfirmationDialog()
+    func showShareDialog(_ url: String)
     func finish()
 }
 
@@ -27,7 +28,13 @@ class ExperienceScenesViewController: UIViewController {
 
         let nib = UINib.init(nibName: "ExperienceDetailTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "experienceDetailCell")
-        
+
+        let shareBarButtonItem = UIBarButtonItem(title: "Share", style: .done,
+                                                 target: self, action: #selector(shareClick))
+        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
+        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
+        self.navigationItem.rightBarButtonItem = shareBarButtonItem
+
         presenter.create()
     }
 
@@ -38,7 +45,11 @@ class ExperienceScenesViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         presenter.resume()
     }
-    
+
+    @objc func shareClick(){
+        presenter.shareClick()
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "experienceMapSegue" {
             if let destinationVC = segue.destination as? ExperienceMapViewController {
@@ -81,6 +92,14 @@ extension ExperienceScenesViewController: ExperienceScenesView {
                    { [unowned self] (action) -> Void in self.presenter.onUnsaveDialogCancel() }
         dialogMessage.addAction(cancel)
         self.present(dialogMessage, animated: true, completion: nil)
+    }
+
+    func showShareDialog(_ url: String) {
+        let url: URL = URL(string: url)!
+        let sharedObjects: [AnyObject] = [url as AnyObject]
+        let activityViewController = UIActivityViewController(activityItems : sharedObjects, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
     }
 
     func finish() {

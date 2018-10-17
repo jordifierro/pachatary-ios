@@ -12,6 +12,7 @@ protocol ExperienceApiRepository {
     func saveExperience(_ experienceId: String, save: Bool) -> Observable<Result<Bool>>
     func translateShareId(_ experienceShareId: String) -> Observable<Result<String>>
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>>
+    func shareUrl(_ experienceId: String) -> Observable<Result<String>>
 }
 
 class ExperienceApiRepoImplementation: ExperienceApiRepository {
@@ -59,4 +60,10 @@ class ExperienceApiRepoImplementation: ExperienceApiRepository {
         return self.api.request(.experience(experienceId))
             .transformNetworkResponse(SingleResultMapper<ExperienceMapper>.self, ioScheduler)
     }
+
+    func shareUrl(_ experienceId: String) -> Observable<Result<String>> {
+        return self.api.request(.shareUrl(experienceId))
+            .transformNetworkResponse(SingleResultMapper<ExperienceShareUrlMapper>.self, ioScheduler)
+    }
+
 }

@@ -8,6 +8,7 @@ protocol ExperienceRepository {
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>>
     func saveExperience(_ experienceId: String, save: Bool)
     func translateShareId(_ shareId: String) -> Observable<Result<String>>
+    func shareUrl(_ experienceId: String) -> Observable<Result<String>>
 }
 
 class ExperienceRepoImplementation: ExperienceRepository {
@@ -61,6 +62,10 @@ class ExperienceRepoImplementation: ExperienceRepository {
     func saveExperience(_ experienceId: String, save: Bool) {
         saveExperienceOnApiRepo(experienceId, save: save)
         updateCache(experienceId, save: save)
+    }
+
+    func shareUrl(_ experienceId: String) -> Observable<Result<String>> {
+        return apiRepo.shareUrl(experienceId)
     }
 
     func translateShareId(_ shareId: String) -> Observable<Result<String>> {
