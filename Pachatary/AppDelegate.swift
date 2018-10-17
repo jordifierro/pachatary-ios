@@ -6,8 +6,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions:
+                        [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        setupUI()
+
         let HAS_RUN_BEFORE_KEY = "has_run_before"
         let userDefaults = UserDefaults.standard
         if userDefaults.bool(forKey: HAS_RUN_BEFORE_KEY) == false {
@@ -72,10 +76,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
+
     static var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
+
     var rootViewController: RootViewController {
         return window!.rootViewController as! RootViewController
+    }
+
+    private func setupUI() {
+        UITabBar.appearance().backgroundColor = UIColor.white
+        UITabBar.appearance().isTranslucent = false
+        UITabBar.appearance().tintColor = UIColor.themeGreen
+
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.clear], for: UIControlState.highlighted)
+
+        UINavigationBar.appearance().barTintColor = UIColor.white
+        UINavigationBar.appearance().tintColor = UIColor.black
+        UINavigationBar.appearance().backgroundColor = UIColor.white
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
     }
 }

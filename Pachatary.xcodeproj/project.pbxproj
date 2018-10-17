@@ -105,6 +105,7 @@
 		AED682B52175FBAF00B61891 /* ProfileApiRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED682B42175FBAF00B61891 /* ProfileApiRepositoryTests.swift */; };
 		AED682B72175FC8600B61891 /* GET_profile.json in Resources */ = {isa = PBXBuildFile; fileRef = AED682B62175FC8600B61891 /* GET_profile.json */; };
 		AED682B9217639F200B61891 /* GET_experience.json in Resources */ = {isa = PBXBuildFile; fileRef = AED682B8217639F200B61891 /* GET_experience.json */; };
+		AED682BD2177490000B61891 /* UIColor+ThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED682BC2177490000B61891 /* UIColor+ThemeColors.swift */; };
 		AED9ECA221650797008C46DC /* SavedExperiencesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9ECA121650797008C46DC /* SavedExperiencesPresenterTests.swift */; };
 		AED9ECA421651440008C46DC /* ExperienceRequestersSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9ECA321651440008C46DC /* ExperienceRequestersSwitch.swift */; };
 		AED9ECA621652A6B008C46DC /* ExperienceRequestersSwitchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9ECA521652A6B008C46DC /* ExperienceRequestersSwitchTests.swift */; };
@@ -266,6 +267,7 @@
 		AED682B42175FBAF00B61891 /* ProfileApiRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileApiRepositoryTests.swift; sourceTree = "<group>"; };
 		AED682B62175FC8600B61891 /* GET_profile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GET_profile.json; sourceTree = "<group>"; };
 		AED682B8217639F200B61891 /* GET_experience.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GET_experience.json; sourceTree = "<group>"; };
+		AED682BC2177490000B61891 /* UIColor+ThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ThemeColors.swift"; sourceTree = "<group>"; };
 		AED9ECA121650797008C46DC /* SavedExperiencesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedExperiencesPresenterTests.swift; sourceTree = "<group>"; };
 		AED9ECA321651440008C46DC /* ExperienceRequestersSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRequestersSwitch.swift; sourceTree = "<group>"; };
 		AED9ECA521652A6B008C46DC /* ExperienceRequestersSwitchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRequestersSwitchTests.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				AEB0B4142167DB33000BABC4 /* SelectLocationView.swift */,
 				AE5CA99A216D05580071B4ED /* SelectLocationPresenter.swift */,
 				AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */,
+				AED682BC2177490000B61891 /* UIColor+ThemeColors.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1163,6 +1166,7 @@
 				AE603826216E4C6A0023F3BB /* ProfileRouterPresenter.swift in Sources */,
 				AE218B8520E2789E00E79E51 /* ExperienceMapView.swift in Sources */,
 				AEE03CF6216677D30034AE0C /* ProfileRepository.swift in Sources */,
+				AED682BD2177490000B61891 /* UIColor+ThemeColors.swift in Sources */,
 				AE6C279E20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift in Sources */,
 				AE07CB24211CB3FB00D98BC1 /* LoginPresenter.swift in Sources */,
 				AE6C27A020D1324600C5F59F /* ToDomainMapper.swift in Sources */,
