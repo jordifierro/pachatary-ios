@@ -12,8 +12,8 @@ class RootViewController: UIViewController {
         }
         else {
             let welcomeViewController = UIStoryboard.init(name: "Person", bundle: nil)
-                .instantiateViewController(withIdentifier: "welcomeViewController")
-            self.current = welcomeViewController
+                .instantiateInitialViewController()
+            self.current = welcomeViewController!
         }
         super.init(nibName: nil, bundle: nil)
     }
@@ -84,12 +84,6 @@ class RootViewController: UIViewController {
                                                                         experienceViewController))
     }
 
-    func navigateToAskLoginEmail() {
-        let askLoginEmailViewController = UIStoryboard.init(name: "Person", bundle: nil)
-            .instantiateViewController(withIdentifier: "askLoginEmailViewController")
-        animateFadeTransition(to: askLoginEmailViewController)
-    }
-    
     func navigateToLogin(token: String) {
         let loginViewController = UIStoryboard.init(name: "Person", bundle: nil)
             .instantiateViewController(withIdentifier: "loginViewController")
