@@ -106,6 +106,13 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .then_should_not_show_share_dialog()
     }
 
+    func test_profile_click() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .when_profile_click("user")
+            .then_should_navigate_to_profile("user")
+    }
+
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
         let mockExperienceRepo = ExperienceRepoMock()
@@ -173,6 +180,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
 
         func when_share_click() -> ScenarioMaker {
             presenter.shareClick()
+            return self
+        }
+
+        func when_profile_click(_ username: String) -> ScenarioMaker {
+            presenter.profileClick(username)
             return self
         }
         
@@ -247,6 +259,12 @@ class ExperienceScenesPresenterTests: XCTestCase {
             assert(mockView.showShareDialogCalls.count == 0)
             return self
         }
+
+        @discardableResult
+        func then_should_navigate_to_profile(_ username: String) -> ScenarioMaker {
+            assert(mockView.navigateToProfileCalls == [username])
+            return self
+        }
     }
 }
 
@@ -254,6 +272,7 @@ class ExperienceScenesViewMock: ExperienceScenesView {
 
     var showScenesCalls = [([Scene], Experience)]()
     var navigateToMapCalls = [String?]()
+    var navigateToProfileCalls = [String]()
     var finishCalls = 0
     var scrollToSceneCalls = [String]()
     var showUnsaveConfirmationDialogCalls = 0
@@ -281,5 +300,9 @@ class ExperienceScenesViewMock: ExperienceScenesView {
 
     func showShareDialog(_ url: String) {
         showShareDialogCalls.append(url)
+    }
+
+    func navigateToProfile(_ username: String) {
+        navigateToProfileCalls.append(username)
     }
 }

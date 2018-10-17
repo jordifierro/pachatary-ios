@@ -94,4 +94,8 @@ class ExperienceScenesPresenter {
                 }
             }
     }
+
+    func profileClick(_ username: String) {
+        view.navigateToProfile(username)
+    }
 }

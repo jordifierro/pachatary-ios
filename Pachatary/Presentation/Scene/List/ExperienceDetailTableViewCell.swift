@@ -16,6 +16,7 @@ class ExperienceDetailTableViewCell: UITableViewCell {
     var experience: Experience!
     var onGoToMapClickListener: (() -> ())!
     var saveButtonListener: ((Bool) -> ())!
+    var profileClickListener: ((String) -> ())!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,23 +38,33 @@ class ExperienceDetailTableViewCell: UITableViewCell {
 
     func bind(_ experience: Experience, _ scenes: [Scene],
               _ onGoToMapClickListener: @escaping () -> Void,
-              _ saveButtonListener: @escaping (Bool) -> ()) {
+              _ saveButtonListener: @escaping (Bool) -> (),
+              _ profileClickListener: @escaping (String) -> ()) {
         self.onGoToMapClickListener = onGoToMapClickListener
         self.saveButtonListener = saveButtonListener
+        self.profileClickListener = profileClickListener
         self.experience = experience
         if experience.picture != nil {
             pictureImageView.kf.setImage(with: URL(string: experience.picture!.mediumUrl))
         }
         else { pictureImageView.kf.setImage(with: nil) }
+
         if experience.authorProfile.picture != nil {
             authorImageView.kf.setImage(with: URL(string: experience.authorProfile.picture!.smallUrl))
         }
         else { authorImageView.kf.setImage(with: nil) }
         authorImageView.layer.cornerRadius = 20
         authorImageView.layer.masksToBounds = true
+        authorUsernameLabel.text = experience.authorProfile.username
+        let imageTap = UITapGestureRecognizer(target: self, action: #selector(ExperienceDetailTableViewCell.profileTap))
+        authorImageView.isUserInteractionEnabled = true
+        authorImageView.addGestureRecognizer(imageTap)
+        let labelTap = UITapGestureRecognizer(target: self, action: #selector(ExperienceDetailTableViewCell.profileTap))
+        authorUsernameLabel.isUserInteractionEnabled = true
+        authorUsernameLabel.addGestureRecognizer(labelTap)
+
         titleLabel.text = experience.title
         savesCountLabel.text = String(experience.savesCount) + " ☆"
-        authorUsernameLabel.text = "by " + experience.authorProfile.username
         descriptionLabel.text = experience.description
         if (!scenes.isEmpty) {
             let screenWidth = UIScreen.main.bounds.width
@@ -83,5 +94,9 @@ class ExperienceDetailTableViewCell: UITableViewCell {
     
     @objc func saveButtonClick(_ sender: UIButton!) {
         self.saveButtonListener(!experience.isSaved)
+    }
+
+    @objc func profileTap(sender: UITapGestureRecognizer) {
+        profileClickListener(self.experience.authorProfile.username)
     }
 }

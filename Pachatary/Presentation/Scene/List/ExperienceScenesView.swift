@@ -4,6 +4,7 @@ import UIKit
 protocol ExperienceScenesView : class {
     func showScenes(_ scenes: [Scene], experience: Experience)
     func navigateToMap(_ sceneId: String?)
+    func navigateToProfile(_ username: String)
     func scrollToScene(_ sceneId: String)
     func showUnsaveConfirmationDialog()
     func showShareDialog(_ url: String)
@@ -17,6 +18,7 @@ class ExperienceScenesViewController: UIViewController {
     var cellHeights: [IndexPath : CGFloat] = [:]
     var experienceId: String!
     var selectedSceneId: String? = nil
+    var selectedProfileUsername: String? = nil
     var scenes = [Scene]()
     var experience: Experience!
     
@@ -59,6 +61,11 @@ class ExperienceScenesViewController: UIViewController {
                     self.presenter.selectedSceneId = sceneId }
             }
         }
+        else if segue.identifier == "profileSegue" {
+            if let destinationVC = segue.destination as? ProfileViewController {
+                destinationVC.username = self.selectedProfileUsername
+            }
+        }
     }
 }
 
@@ -73,6 +80,11 @@ extension ExperienceScenesViewController: ExperienceScenesView {
     func navigateToMap(_ sceneId: String? = nil) {
         self.selectedSceneId = sceneId
         performSegue(withIdentifier: "experienceMapSegue", sender: self)
+    }
+
+    func navigateToProfile(_ username: String) {
+        self.selectedProfileUsername = username
+        performSegue(withIdentifier: "profileSegue", sender: self)
     }
     
     func scrollToScene(_ sceneId: String) {
@@ -127,7 +139,7 @@ extension ExperienceScenesViewController: UITableViewDataSource, UITableViewDele
             let cell: ExperienceDetailTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "experienceDetailCell", for: indexPath)
                     as! ExperienceDetailTableViewCell
-            cell.bind(self.experience, self.scenes, presenter.onGoToMapClick, presenter.saveExperience)
+            cell.bind(self.experience, self.scenes, presenter.onGoToMapClick, presenter.saveExperience, presenter.profileClick)
             
             return cell
         }
