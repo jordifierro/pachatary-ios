@@ -6,7 +6,6 @@ class ExperienceDetailTableViewCell: UITableViewCell {
     
     //Mark: PROPERTIES
     @IBOutlet weak var pictureImageView: UIImageView!
-    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var savesCountLabel: UILabel!
     @IBOutlet weak var authorImageView: UIImageView!
@@ -15,14 +14,11 @@ class ExperienceDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var mapImageView: UIImageView!
     var experience: Experience!
     var onGoToMapClickListener: (() -> ())!
-    var saveButtonListener: ((Bool) -> ())!
     var profileClickListener: ((String) -> ())!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        saveButton.layer.shadowRadius = 0.5
-        saveButton.addTarget(self, action: #selector(saveButtonClick), for: .touchUpInside)
         mapImageView.isUserInteractionEnabled = true
         let singleTap = UITapGestureRecognizer(target: self,
                                                action: #selector(goToMapButtonListener(_:)))
@@ -41,7 +37,6 @@ class ExperienceDetailTableViewCell: UITableViewCell {
               _ saveButtonListener: @escaping (Bool) -> (),
               _ profileClickListener: @escaping (String) -> ()) {
         self.onGoToMapClickListener = onGoToMapClickListener
-        self.saveButtonListener = saveButtonListener
         self.profileClickListener = profileClickListener
         self.experience = experience
         if experience.picture != nil {
@@ -84,16 +79,10 @@ class ExperienceDetailTableViewCell: UITableViewCell {
                 accessToken: AppDataDependencyInjector.mapboxAccessToken)
             mapImageView.image = snapshot.image
         }
-        if experience.isSaved { saveButton.setTitle("Saved", for: .normal) }
-        else { saveButton.setTitle("Save", for: .normal) }
     }
     
     @objc func goToMapButtonListener(_ sender: UIButton!) {
         self.onGoToMapClickListener()
-    }
-    
-    @objc func saveButtonClick(_ sender: UIButton!) {
-        self.saveButtonListener(!experience.isSaved)
     }
 
     @objc func profileTap(sender: UITapGestureRecognizer) {

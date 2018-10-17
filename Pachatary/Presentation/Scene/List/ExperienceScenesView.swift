@@ -31,12 +31,6 @@ class ExperienceScenesViewController: UIViewController {
         let nib = UINib.init(nibName: "ExperienceDetailTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "experienceDetailCell")
 
-        let shareBarButtonItem = UIBarButtonItem(title: "Share", style: .done,
-                                                 target: self, action: #selector(shareClick))
-        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
-        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
-        self.navigationItem.rightBarButtonItem = shareBarButtonItem
-
         presenter.create()
     }
 
@@ -50,6 +44,14 @@ class ExperienceScenesViewController: UIViewController {
 
     @objc func shareClick(){
         presenter.shareClick()
+    }
+
+    @objc func saveExperience(){
+        presenter.saveExperience(save: true)
+    }
+
+    @objc func unsaveExperience(){
+        presenter.saveExperience(save: false)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -72,6 +74,8 @@ class ExperienceScenesViewController: UIViewController {
 extension ExperienceScenesViewController: ExperienceScenesView {
 
     func showScenes(_ scenes: [Scene], experience: Experience) {
+        configureNavigationItems(experience)
+
         self.scenes = scenes
         self.experience = experience
         self.tableView!.reloadData()
@@ -116,6 +120,29 @@ extension ExperienceScenesViewController: ExperienceScenesView {
 
     func finish() {
         dismiss(animated: true, completion: nil)
+    }
+
+    private func configureNavigationItems(_ experience: Experience) {
+        self.navigationItem.rightBarButtonItems = []
+
+        let shareBarButtonItem = UIBarButtonItem(title: "Share", style: .done,
+                                                 target: self, action: #selector(shareClick))
+        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
+        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
+        self.navigationItem.rightBarButtonItems?.append(shareBarButtonItem)
+
+        var saveBarButtonItem: UIBarButtonItem!
+        if experience.isSaved {
+            saveBarButtonItem = UIBarButtonItem(title: "Saved", style: .done,
+                                                target: self, action: #selector(unsaveExperience))
+        }
+        else {
+            saveBarButtonItem = UIBarButtonItem(title: "Save", style: .done,
+                                                target: self, action: #selector(saveExperience))
+        }
+        saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
+        saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
+        self.navigationItem.rightBarButtonItems?.append(saveBarButtonItem)
     }
 }
 
