@@ -11,6 +11,7 @@ protocol ProfileView : class {
     func showLoadingProfile(_ visibility: Bool)
     func showRetry()
     func navigateToExperienceScenes(_ experienceId: String)
+    func showShareDialog(_ username: String)
 }
 
 class ProfileViewController: UIViewController {
@@ -50,7 +51,13 @@ class ProfileViewController: UIViewController {
         self.collectionView.register(profileNib, forCellWithReuseIdentifier: "profileCell")
         
         self.collectionView.addSubview(self.refreshControl)
-        
+
+        let shareBarButtonItem = UIBarButtonItem(title: "Share", style: .done,
+                                                 target: self, action: #selector(shareClick))
+        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
+        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
+        self.navigationItem.rightBarButtonItem = shareBarButtonItem
+
         presenter.create()
     }
     
@@ -61,6 +68,10 @@ class ProfileViewController: UIViewController {
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         presenter.refresh()
         refreshControl.endRefreshing()
+    }
+
+    @objc func shareClick(){
+        presenter.shareClick()
     }
     
     override func didReceiveMemoryWarning() {
@@ -219,6 +230,12 @@ extension ProfileViewController: ProfileView {
         selectedExperienceId = experienceId
         performSegue(withIdentifier: "experienceScenesSegue", sender: self)
     }
+
+    func showShareDialog(_ username: String) {
+        let url: URL = URL(string: AppDataDependencyInjector.publicUrl + "/p/" + username)!
+        let sharedObjects: [AnyObject] = [url as AnyObject]
+        let activityViewController = UIActivityViewController(activityItems : sharedObjects, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
+    }
 }
-
-

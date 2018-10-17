@@ -17,6 +17,10 @@ class AppDataDependencyInjector {
         if debug { return apiKeysDict!["devApiUrl"] as! String }
         else { return apiKeysDict!["apiUrl"] as! String }
     }}
+    static var publicUrl: String { get {
+        if debug { return apiKeysDict!["devPublicUrl"] as! String }
+        else { return apiKeysDict!["publicUrl"] as! String }
+        }}
     static var clientSecretKey: String { get {
         if debug { return apiKeysDict!["devClientSecretKey"] as! String }
         else { return apiKeysDict!["clientSecretKey"] as! String }

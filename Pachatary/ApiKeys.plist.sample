@@ -8,6 +8,8 @@
 	<string>86005b3</string>
 	<key>devDeeplinkScheme</key>
 	<string>dev-pachatary</string>
+	<key>devPublicUrl</key>
+	<string>http://dev.domain.com</string>
 
 	<key>apiUrl</key>
 	<string>https://api.domain.com</string>
@@ -15,6 +17,8 @@
 	<string>6b80503</string>
 	<key>deeplinkScheme</key>
 	<string>pachatary</string>
+	<key>publicUrl</key>
+	<string>http://domain.com</string>
 
     <key>mapboxAccessToken</key>
     <string>pk.pey</string>

@@ -104,4 +104,8 @@ class ProfilePresenter {
     func refresh() {
         getFirstsExperiences()
     }
+
+    func shareClick() {
+        view.showShareDialog(username)
+    }
 }
