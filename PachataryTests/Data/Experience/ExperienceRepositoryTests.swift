@@ -103,6 +103,17 @@ class ExperienceRepositoryTests: XCTestCase {
             .then_should_return_string_observable(Result(.success, data: "exp_url"))
     }
 
+    func test_refresh_experience() {
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_experience(Result(.success, data: Mock.experience("4")))
+            .when_refresh_experience("4")
+            .then_should_call_api_experience("4")
+            .then_should_modify_switch_result(0, .explore, .update, [Mock.experience("4")])
+            .then_should_modify_switch_result(1, .persons, .update, [Mock.experience("4")])
+            .then_should_modify_switch_result(2, .other, .update, [Mock.experience("4")])
+            .then_should_modify_switch_result(3, .saved, .update, [Mock.experience("4")])
+    }
+
     class ScenarioMaker {
         
         let mockApiRepo = MockExperienceApiRepo()
@@ -115,7 +126,8 @@ class ExperienceRepositoryTests: XCTestCase {
 
         init() {
             repo = ExperienceRepoImplementation(apiRepo: mockApiRepo,
-                                                requestersSwitch: mockRequestersSwitch)
+                                                requestersSwitch: mockRequestersSwitch,
+                                                ioScheduler: MainScheduler.instance)
         }
         
         func given_a_switch_that_returns_experience_observable(_ experienceId: String,
@@ -187,6 +199,11 @@ class ExperienceRepositoryTests: XCTestCase {
 
         func when_translate_share_id(_ experienceShareId: String) -> ScenarioMaker {
             stringObservableResult = repo.translateShareId(experienceShareId)
+            return self
+        }
+
+        func when_refresh_experience(_ experienceId: String) -> ScenarioMaker {
+            repo.refreshExperience(experienceId)
             return self
         }
 
@@ -268,6 +285,12 @@ class ExperienceRepositoryTests: XCTestCase {
             assert(mockApiRepo.shareUrlCalls[0] == experienceId)
             return self
         }
+
+        @discardableResult
+        func then_should_call_api_experience(_ experienceId: String) -> ScenarioMaker {
+            assert(mockApiRepo.experienceObservableCalls == [experienceId])
+            return self
+        }
     }
 }
 
@@ -286,6 +309,7 @@ class ExperienceRepoMock: ExperienceRepository {
     var singleExperienceCalls = [String]()
     var saveCalls = [(String, Bool)]()
     var shareUrlCalls = [String]()
+    var refreshExperienceCalls = [String]()
 
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         switch kind {
@@ -311,6 +335,10 @@ class ExperienceRepoMock: ExperienceRepository {
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
         singleExperienceCalls.append(experienceId)
         return returnExperienceObservable
+    }
+
+    func refreshExperience(_ experienceId: String) {
+        refreshExperienceCalls.append(experienceId)
     }
 
     func saveExperience(_ experienceId: String, save: Bool) {

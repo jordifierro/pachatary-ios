@@ -35,6 +35,7 @@ class ExperienceDataDependencyInjector {
 
     static let experienceRepository =
         ExperienceRepoImplementation(apiRepo: experienceApiRepository,
-                                     requestersSwitch: requestersSwitch)
+                                     requestersSwitch: requestersSwitch,
+                                     ioScheduler: AppDataDependencyInjector.ioScheduler)
 }
 

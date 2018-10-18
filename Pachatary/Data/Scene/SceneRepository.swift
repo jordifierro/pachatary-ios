@@ -3,6 +3,7 @@ import RxSwift
 
 protocol SceneRepository {
     func scenesObservable(experienceId: String) -> Observable<Result<[Scene]>>
+    func refreshScenes(experienceId: String)
 }
 
 class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType == Scene {
@@ -35,6 +36,10 @@ class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType
                 else { return true }
             })
             .map { (index: Int, result: Result<[Scene]>) -> Result<[Scene]> in return result }
+    }
+
+    func refreshScenes(experienceId: String) {
+        getScenes(experienceId: experienceId)
     }
     
     private func getScenes(experienceId: String) {

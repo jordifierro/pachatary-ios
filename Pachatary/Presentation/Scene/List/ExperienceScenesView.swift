@@ -28,7 +28,16 @@ class ExperienceScenesViewController: UIViewController {
     var experience: Experience?
     var isLoadingExperience = false
     var isLoadingScenes = false
-    
+
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(ExperienceScenesViewController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+
+        return refreshControl
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,6 +48,7 @@ class ExperienceScenesViewController: UIViewController {
         self.tableView.register(nib, forCellReuseIdentifier: "experienceDetailCell")
         let loaderNib = UINib.init(nibName: "LoaderTableViewCell", bundle: nil)
         self.tableView.register(loaderNib, forCellReuseIdentifier: "loaderCell")
+        self.tableView.addSubview(self.refreshControl)
 
         presenter.create()
     }
@@ -61,6 +71,11 @@ class ExperienceScenesViewController: UIViewController {
 
     @objc func unsaveExperience(){
         presenter.saveExperience(save: false)
+    }
+
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        presenter.refresh()
+        refreshControl.endRefreshing()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

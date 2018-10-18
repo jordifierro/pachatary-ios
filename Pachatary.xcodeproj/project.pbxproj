@@ -33,7 +33,6 @@
 		AE598BAC20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */; };
 		AE598BAE20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BAD20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift */; };
 		AE598BB120EA79C200F3DBA9 /* ExperienceScenesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BB020EA79C100F3DBA9 /* ExperienceScenesPresenterTests.swift */; };
-		AE598BB320EA7A1000F3DBA9 /* SceneRepoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BB220EA7A1000F3DBA9 /* SceneRepoMock.swift */; };
 		AE5CA99B216D05580071B4ED /* SelectLocationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5CA99A216D05580071B4ED /* SelectLocationPresenter.swift */; };
 		AE603824216E48C70023F3BB /* ProfileRouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE603823216E48C70023F3BB /* ProfileRouterView.swift */; };
 		AE603826216E4C6A0023F3BB /* ProfileRouterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE603825216E4C6A0023F3BB /* ProfileRouterPresenter.swift */; };
@@ -191,7 +190,6 @@
 		AE598BAB20EA4CD800F3DBA9 /* ExperienceScenesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesPresenter.swift; sourceTree = "<group>"; };
 		AE598BAD20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDependencyInjector.swift; sourceTree = "<group>"; };
 		AE598BB020EA79C100F3DBA9 /* ExperienceScenesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesPresenterTests.swift; sourceTree = "<group>"; };
-		AE598BB220EA7A1000F3DBA9 /* SceneRepoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneRepoMock.swift; sourceTree = "<group>"; };
 		AE5CA99A216D05580071B4ED /* SelectLocationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationPresenter.swift; sourceTree = "<group>"; };
 		AE603823216E48C70023F3BB /* ProfileRouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouterView.swift; sourceTree = "<group>"; };
 		AE603825216E4C6A0023F3BB /* ProfileRouterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouterPresenter.swift; sourceTree = "<group>"; };
@@ -578,7 +576,6 @@
 				AEAE26B620E29D6700E5D4E9 /* GET_scenes_experience_id.json */,
 				AEAE26B820E29DD600E5D4E9 /* SceneApiRepositoryTests.swift */,
 				AEE47BE520E3A83A001DAB31 /* SceneRepositoryTests.swift */,
-				AE598BB220EA7A1000F3DBA9 /* SceneRepoMock.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -1248,7 +1245,6 @@
 				AED9ECA221650797008C46DC /* SavedExperiencesPresenterTests.swift in Sources */,
 				AE603828216E55780023F3BB /* ProfileRouterPresenterTests.swift in Sources */,
 				AE598BB120EA79C200F3DBA9 /* ExperienceScenesPresenterTests.swift in Sources */,
-				AE598BB320EA7A1000F3DBA9 /* SceneRepoMock.swift in Sources */,
 				AEC8DCEA211DF9D3007CCC68 /* DataTestUtils.swift in Sources */,
 				AEE03D042166C0660034AE0C /* ProfilePresenterTests.swift in Sources */,
 				AE6F8B6F20DAC6A0007CC36A /* RequesterTests.swift in Sources */,

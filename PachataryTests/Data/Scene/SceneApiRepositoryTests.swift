@@ -74,3 +74,16 @@ class SceneApiRepositoryTests: XCTestCase {
         }
     }
 }
+
+class MockSceneApiRepo: SceneApiRepository {
+
+    var resultScenesForExperienceId = [String:Result<[Scene]>]()
+    var calls = [String]()
+
+    init() {}
+
+    func scenesObservable(experienceId: String) -> Observable<Result<[Scene]>> {
+        calls.append(experienceId)
+        return Observable.just(resultScenesForExperienceId[experienceId]!)
+    }
+}

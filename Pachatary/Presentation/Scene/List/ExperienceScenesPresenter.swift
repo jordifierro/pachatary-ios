@@ -29,6 +29,11 @@ class ExperienceScenesPresenter {
         getExperienceAndScenes()
     }
 
+    func refresh() {
+        experienceRepo.refreshExperience(experienceId)
+        sceneRepo.refreshScenes(experienceId: experienceId)
+    }
+
     func resume() {
         if (selectedSceneId != nil) {
             view.scrollToScene(selectedSceneId!)

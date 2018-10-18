@@ -14,7 +14,6 @@ class SceneRepositoryTests: XCTestCase {
                 Result(.success, data: [Mock.scene("6"), Mock.scene("7")]), forExperience: "2")
             .given_an_api_repo_that_returns(
                 Result(.success, data: [Mock.scene("8")]), forExperience: "3")
-            
             .when_scenes_observable("3")
             .then_generate_cache_should_be_called(times: 1)
             .then_should_return_observable_with(Result(.success, data: [Mock.scene("8")]))
@@ -56,6 +55,21 @@ class SceneRepositoryTests: XCTestCase {
             .then_should_call_api_with(["1", "1"])
     }
 
+    func test_refresh_scenes_calls_api_again_and_emits() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_api_repo_that_returns(
+                Result(.success, data: [Mock.scene("4"), Mock.scene("5")]), forExperience: "1")
+            .when_scenes_observable("1")
+            .wait_for_result(Result(.success, data: [Mock.scene("4"), Mock.scene("5")]), experiendeId: "1")
+            .given_an_api_repo_that_returns(
+                Result(.success, data: [Mock.scene("6"), Mock.scene("7")]), forExperience: "1")
+            .when_refresh("1")
+            .wait_for_result(Result(.success, data: [Mock.scene("6"), Mock.scene("7")]), experiendeId: "1")
+            .when_scenes_observable("1")
+            .then_generate_cache_should_be_called(times: 1)
+            .then_should_return_observable_with(Result(.success, data: [Mock.scene("6"), Mock.scene("7")]))
+    }
+
     class ScenarioMaker {
         
         let xcTestCase: XCTestCase!
@@ -89,7 +103,12 @@ class SceneRepositoryTests: XCTestCase {
             resultObservable = repo.scenesObservable(experienceId: experienceId)
             return self
         }
-        
+
+        func when_refresh(_ experienceId: String) -> ScenarioMaker {
+            repo.refreshScenes(experienceId: experienceId)
+            return self
+        }
+
         func wait_for_result(_ sceneResult: Result<[Scene]>, experiendeId: String) -> ScenarioMaker {
             repo.cacheStore[experiendeId]?.waitForResult(sceneResult, xcTestCase: self.xcTestCase)
             return self
@@ -106,7 +125,7 @@ class SceneRepositoryTests: XCTestCase {
             } catch { assertionFailure() }
             return self
         }
-        
+
         @discardableResult
         func then_should_call_api_with(_ experienceIds: [String]) -> ScenarioMaker {
             assert(mockApiRepo.calls == experienceIds)
@@ -118,19 +137,6 @@ class SceneRepositoryTests: XCTestCase {
             assert(caches.count == times)
             return self
         }
-    }
-}
-
-class MockSceneApiRepo: SceneApiRepository {
-
-    var resultScenesForExperienceId = [String:Result<[Scene]>]()
-    var calls = [String]()
-    
-    init() {}
-    
-    func scenesObservable(experienceId: String) -> Observable<Result<[Scene]>> {
-        calls.append(experienceId)
-        return Observable.just(resultScenesForExperienceId[experienceId]!)
     }
 }
 
@@ -187,5 +193,21 @@ class MockSceneResultCache: ResultCache {
                 }
         }
         xcTestCase.wait(for: [expectation], timeout: 0.1)
+    }
+}
+
+class SceneRepoMock: SceneRepository {
+
+    var scenesObservableCalls = [String]()
+    var resultSceneForExperience = [String:Result<[Scene]>]()
+    var refreshScenesCalls = [String]()
+
+    func scenesObservable(experienceId: String) -> Observable<Result<[Scene]>> {
+        scenesObservableCalls.append(experienceId)
+        return Observable.just(resultSceneForExperience[experienceId]!)
+    }
+
+    func refreshScenes(experienceId: String) {
+        refreshScenesCalls.append(experienceId)
     }
 }

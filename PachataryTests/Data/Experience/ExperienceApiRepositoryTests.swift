@@ -310,6 +310,7 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     var saveCalls = [(String, Bool)]()
     var translateShareIdCalls = [String]()
     var shareUrlCalls = [String]()
+    var experienceObservableCalls = [String]()
 
     init() {}
 
@@ -341,6 +342,7 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     }
 
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
+        experienceObservableCalls.append(experienceId)
         return apiExperienceCallResultObservable!
     }
 

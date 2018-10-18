@@ -6,6 +6,7 @@ protocol ExperienceRepository {
     func getFirsts(kind: Kind, params: Request.Params?)
     func paginate(kind: Kind)
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>>
+    func refreshExperience(_ experienceId: String)
     func saveExperience(_ experienceId: String, save: Bool)
     func translateShareId(_ shareId: String) -> Observable<Result<String>>
     func shareUrl(_ experienceId: String) -> Observable<Result<String>>
@@ -15,10 +16,13 @@ class ExperienceRepoImplementation: ExperienceRepository {
 
     let apiRepo: ExperienceApiRepository!
     let requestersSwitch: ExperienceRequestersSwitch!
+    let ioScheduler: ImmediateSchedulerType!
 
-    init(apiRepo: ExperienceApiRepository, requestersSwitch: ExperienceRequestersSwitch) {
+    init(apiRepo: ExperienceApiRepository, requestersSwitch: ExperienceRequestersSwitch,
+         ioScheduler: ImmediateSchedulerType) {
         self.apiRepo = apiRepo
         self.requestersSwitch = requestersSwitch
+        self.ioScheduler = ioScheduler
     }
     
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
@@ -49,6 +53,33 @@ class ExperienceRepoImplementation: ExperienceRepository {
                 }
                 else { return Observable.just(result) }
         }
+    }
+
+    func refreshExperience(_ experienceId: String) {
+        _ = self.apiRepo.experienceObservable(experienceId)
+            .observeOn(ioScheduler)
+            .subscribe { event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success:
+                        let experience = result.data!
+                        self.requestersSwitch.modifyResult(
+                            .explore, .update, list: [experience], result: nil)
+                        self.requestersSwitch.modifyResult(
+                            .persons, .update, list: [experience], result: nil)
+                        self.requestersSwitch.modifyResult(
+                            .other, .update, list: [experience], result: nil)
+                        self.requestersSwitch.modifyResult(
+                            .saved, .update, list: [experience], result: nil)
+                    case .inProgress: break
+                    case .error: break
+                    }
+                case .error(let error):
+                    fatalError(error.localizedDescription)
+                case .completed: break
+                }
+            }
     }
     
     func getFirsts(kind: Kind, params: Request.Params? = nil) {

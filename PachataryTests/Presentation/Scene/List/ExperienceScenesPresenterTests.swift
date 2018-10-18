@@ -183,6 +183,14 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .then_should_navigate_to_profile("user")
     }
 
+    func test_refresh_calls_repo_refreshes() {
+        ScenarioMaker()
+            .given_a_presenter("5")
+            .when_refresh()
+            .then_should_call_experience_repo_refresh("5")
+            .then_should_call_scene_repo_refresh("5")
+    }
+
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
         let mockExperienceRepo = ExperienceRepoMock()
@@ -260,6 +268,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
 
         func when_profile_click(_ username: String) -> ScenarioMaker {
             presenter.profileClick(username)
+            return self
+        }
+
+        func when_refresh() -> ScenarioMaker {
+            presenter.refresh()
             return self
         }
         
@@ -360,6 +373,18 @@ class ExperienceScenesPresenterTests: XCTestCase {
         @discardableResult
         func then_should_show_retry() -> ScenarioMaker {
             assert(mockView.showRetryCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_experience_repo_refresh(_ experienceId: String) -> ScenarioMaker {
+            assert(mockExperienceRepo.refreshExperienceCalls == [experienceId])
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_scene_repo_refresh(_ experienceId: String) -> ScenarioMaker {
+            assert(mockSceneRepo.refreshScenesCalls == [experienceId])
             return self
         }
     }
