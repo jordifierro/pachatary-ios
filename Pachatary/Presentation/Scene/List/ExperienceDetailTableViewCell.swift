@@ -10,11 +10,13 @@ class ExperienceDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var savesCountLabel: UILabel!
     @IBOutlet weak var authorImageView: UIImageView!
     @IBOutlet weak var authorUsernameLabel: UILabel!
+    @IBOutlet weak var showMoreLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var mapImageView: UIImageView!
     var experience: Experience!
     var onGoToMapClickListener: (() -> ())!
     var profileClickListener: ((String) -> ())!
+    var showMoreListener: (() -> ())!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,10 +37,13 @@ class ExperienceDetailTableViewCell: UITableViewCell {
     func bind(_ experience: Experience, _ scenes: [Scene],
               _ onGoToMapClickListener: @escaping () -> Void,
               _ saveButtonListener: @escaping (Bool) -> (),
-              _ profileClickListener: @escaping (String) -> ()) {
+              _ profileClickListener: @escaping (String) -> (),
+              _ showMoreListener: @escaping () -> (),
+              _ expandDescription: Bool) {
         self.onGoToMapClickListener = onGoToMapClickListener
         self.profileClickListener = profileClickListener
         self.experience = experience
+        self.showMoreListener = showMoreListener
         if experience.picture != nil {
             pictureImageView.kf.setImage(with: URL(string: experience.picture!.mediumUrl))
         }
@@ -79,8 +84,24 @@ class ExperienceDetailTableViewCell: UITableViewCell {
                 accessToken: AppDataDependencyInjector.mapboxAccessToken)
             mapImageView.image = snapshot.image
         }
+
+        if expandDescription {
+            showMoreLabel.isHidden = true
+            descriptionLabel.numberOfLines = 0
+        }
+        else {
+            let showMoreLabelTap = UITapGestureRecognizer(target: self, action: #selector(ExperienceDetailTableViewCell.showMoreTap))
+            showMoreLabel.isHidden = false
+            showMoreLabel.isUserInteractionEnabled = true
+            showMoreLabel.addGestureRecognizer(showMoreLabelTap)
+            descriptionLabel.numberOfLines = 4
+        }
     }
-    
+
+    @objc func showMoreTap(sender: UITapGestureRecognizer) {
+        self.showMoreListener()
+    }
+
     @objc func goToMapButtonListener(_ sender: UIButton!) {
         self.onGoToMapClickListener()
     }

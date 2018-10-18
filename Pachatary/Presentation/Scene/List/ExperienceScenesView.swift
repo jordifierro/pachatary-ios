@@ -28,6 +28,8 @@ class ExperienceScenesViewController: UIViewController {
     var experience: Experience?
     var isLoadingExperience = false
     var isLoadingScenes = false
+    var isExperienceDescriptionExpanded = false
+    var isSceneDescriptionExpanded = [String:Bool]()
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -229,14 +231,24 @@ extension ExperienceScenesViewController: UITableViewDataSource, UITableViewDele
                     as! ExperienceDetailTableViewCell
             if experience != nil {
                 cell.bind(self.experience!, self.scenes,
-                          presenter.onGoToMapClick, presenter.saveExperience, presenter.profileClick)
+                          presenter.onGoToMapClick, presenter.saveExperience, presenter.profileClick,
+                          { [unowned self] in
+                            self.isExperienceDescriptionExpanded = true
+                            self.tableView.reloadData()
+                          },
+                          isExperienceDescriptionExpanded)
             }
             return cell
         case .scene:
             let cell: SceneTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "sceneCellIdentifier", for: indexPath)
                     as! SceneTableViewCell
-            cell.bind(scenes[indexPath.row - 1], presenter.onLocateSceneClick(_:))
+            cell.bind(scenes[indexPath.row - 1], presenter.onLocateSceneClick(_:),
+                      { [unowned self] (sceneId: String) in
+                        self.isSceneDescriptionExpanded[sceneId] = true
+                        self.tableView.reloadData()
+                      },
+                      isSceneDescriptionExpanded[self.scenes[indexPath.row - 1].id] ?? false)
             return cell
         case .loader:
             let loadingCell: LoaderTableViewCell =

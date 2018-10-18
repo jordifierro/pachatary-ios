@@ -124,19 +124,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wjd-a2-sOi">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="114.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="wjd-a2-sOi" secondAttribute="height" multiplier="1:1" id="dH2-90-AKq"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZf-Ji-I2t">
-                                                    <rect key="frame" x="20" y="124.5" width="230" height="21"/>
+                                                    <rect key="frame" x="20" y="274" width="230" height="36"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLj-d2-xsV">
-                                                    <rect key="frame" x="260" y="134.5" width="50" height="30"/>
+                                                    <rect key="frame" x="260" y="274" width="50" height="36"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="QZU-dn-ARf"/>
@@ -145,22 +145,30 @@
                                                     <state key="normal" title="&gt;"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBZ-xa-mjn">
-                                                    <rect key="frame" x="20" y="155.5" width="280" height="17"/>
+                                                    <rect key="frame" x="20" y="340" width="280" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="show more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yYW-Gd-UiB" userLabel="Show More Label">
+                                                    <rect key="frame" x="229" y="367" width="71" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.1450980392" green="0.80392156859999997" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="yYW-Gd-UiB" secondAttribute="trailing" constant="20" id="6nH-5t-GXi"/>
                                                 <constraint firstAttribute="trailing" secondItem="MBZ-xa-mjn" secondAttribute="trailing" constant="20" id="AOA-7m-c6z"/>
                                                 <constraint firstItem="MBZ-xa-mjn" firstAttribute="leading" secondItem="VhN-Lg-eXI" secondAttribute="leading" constant="20" id="Fcb-wU-79S"/>
                                                 <constraint firstItem="tZf-Ji-I2t" firstAttribute="leading" secondItem="VhN-Lg-eXI" secondAttribute="leading" constant="20" id="IRi-E6-hQl"/>
+                                                <constraint firstItem="yYW-Gd-UiB" firstAttribute="top" secondItem="MBZ-xa-mjn" secondAttribute="bottom" constant="10" id="Ikg-gd-Idz"/>
+                                                <constraint firstAttribute="bottom" secondItem="yYW-Gd-UiB" secondAttribute="bottom" constant="10" id="cz8-FJ-Mfw"/>
                                                 <constraint firstItem="fLj-d2-xsV" firstAttribute="bottom" secondItem="wjd-a2-sOi" secondAttribute="bottom" constant="-10" id="duf-O9-lAX"/>
                                                 <constraint firstItem="fLj-d2-xsV" firstAttribute="leading" secondItem="tZf-Ji-I2t" secondAttribute="trailing" constant="10" id="jYZ-7U-tEl"/>
                                                 <constraint firstItem="MBZ-xa-mjn" firstAttribute="top" secondItem="wjd-a2-sOi" secondAttribute="bottom" constant="20" id="l6X-wz-Yu9"/>
                                                 <constraint firstAttribute="trailing" secondItem="fLj-d2-xsV" secondAttribute="trailing" constant="10" id="lHR-TK-yXh"/>
                                                 <constraint firstItem="wjd-a2-sOi" firstAttribute="width" secondItem="VhN-Lg-eXI" secondAttribute="width" id="q3T-aC-0ym"/>
-                                                <constraint firstAttribute="bottom" secondItem="MBZ-xa-mjn" secondAttribute="bottom" constant="30" id="r5B-pC-1Bm"/>
                                                 <constraint firstItem="wjd-a2-sOi" firstAttribute="top" secondItem="VhN-Lg-eXI" secondAttribute="top" id="uSD-Ep-iTt"/>
                                                 <constraint firstItem="tZf-Ji-I2t" firstAttribute="centerY" secondItem="fLj-d2-xsV" secondAttribute="centerY" id="vk5-e8-7Tw"/>
                                                 <constraint firstItem="tZf-Ji-I2t" firstAttribute="bottom" secondItem="wjd-a2-sOi" secondAttribute="bottom" constant="-10" id="ydb-dg-lC5"/>
@@ -170,6 +178,7 @@
                                             <outlet property="descriptionLabel" destination="MBZ-xa-mjn" id="C4o-ks-VK8"/>
                                             <outlet property="navigateToSceneButton" destination="fLj-d2-xsV" id="pm7-7m-APE"/>
                                             <outlet property="pictureImageView" destination="wjd-a2-sOi" id="vvA-Jf-O5K"/>
+                                            <outlet property="showMoreLabel" destination="yYW-Gd-UiB" id="TWr-9w-Tde"/>
                                             <outlet property="titleLabel" destination="tZf-Ji-I2t" id="dFs-Od-tnk"/>
                                         </connections>
                                     </tableViewCell>

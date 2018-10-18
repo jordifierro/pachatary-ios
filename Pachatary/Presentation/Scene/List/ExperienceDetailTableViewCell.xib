@@ -57,6 +57,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="show more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tX1-nw-dwh" userLabel="Show More Label">
+                        <rect key="frame" x="309" y="289" width="71" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.1450980392" green="0.80392156859999997" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4i0-yi-jl3" userLabel="Map Image View">
                         <rect key="frame" x="80" y="507" width="240" height="200"/>
                         <constraints>
@@ -78,8 +84,9 @@
                     <constraint firstItem="51f-q8-neO" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-20" id="4Hf-Pu-WWr"/>
                     <constraint firstItem="jB3-Xz-CKp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="78s-ko-Qmp"/>
                     <constraint firstItem="Le8-Dg-u5X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="BaP-AU-9zT"/>
-                    <constraint firstItem="4i0-yi-jl3" firstAttribute="top" secondItem="voI-VH-337" secondAttribute="bottom" constant="20" id="FEC-lj-UYf"/>
+                    <constraint firstItem="4i0-yi-jl3" firstAttribute="top" secondItem="tX1-nw-dwh" secondAttribute="bottom" constant="10" id="FEC-lj-UYf"/>
                     <constraint firstItem="jB3-Xz-CKp" firstAttribute="bottom" secondItem="Le8-Dg-u5X" secondAttribute="bottom" constant="-10" id="GQG-oN-ydW"/>
+                    <constraint firstAttribute="trailing" secondItem="tX1-nw-dwh" secondAttribute="trailing" constant="20" id="Iez-E1-FEA"/>
                     <constraint firstItem="voI-VH-337" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="IlN-CS-3Rc"/>
                     <constraint firstItem="h9K-Eb-7ez" firstAttribute="top" secondItem="Le8-Dg-u5X" secondAttribute="bottom" constant="10" id="KAi-8C-jZ1"/>
                     <constraint firstAttribute="trailing" secondItem="voI-VH-337" secondAttribute="trailing" constant="20" id="VbJ-Hm-Mh3"/>
@@ -91,6 +98,7 @@
                     <constraint firstAttribute="bottom" secondItem="gcN-qh-fhN" secondAttribute="bottom" constant="20" id="g34-tt-UvW"/>
                     <constraint firstItem="fwb-zo-Uoh" firstAttribute="centerY" secondItem="h9K-Eb-7ez" secondAttribute="centerY" id="h9W-at-Av5"/>
                     <constraint firstItem="gcN-qh-fhN" firstAttribute="top" secondItem="4i0-yi-jl3" secondAttribute="bottom" constant="20" id="tbe-EW-a74"/>
+                    <constraint firstItem="tX1-nw-dwh" firstAttribute="top" secondItem="voI-VH-337" secondAttribute="bottom" constant="10" id="tiC-OX-8bR"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -101,6 +109,7 @@
                 <outlet property="mapImageView" destination="4i0-yi-jl3" id="fje-h4-YXk"/>
                 <outlet property="pictureImageView" destination="Le8-Dg-u5X" id="pAu-zk-v7l"/>
                 <outlet property="savesCountLabel" destination="51f-q8-neO" id="9Up-7s-F2Q"/>
+                <outlet property="showMoreLabel" destination="tX1-nw-dwh" id="Iu2-jK-OOW"/>
                 <outlet property="titleLabel" destination="jB3-Xz-CKp" id="vf0-Ga-FA5"/>
             </connections>
             <point key="canvasLocation" x="81" y="309.5"/>
