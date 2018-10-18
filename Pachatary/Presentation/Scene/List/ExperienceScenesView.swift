@@ -1,8 +1,13 @@
 import Swift
 import UIKit
+import TTGSnackbar
 
 protocol ExperienceScenesView : class {
-    func showScenes(_ scenes: [Scene], experience: Experience)
+    func showScenes(_ scenes: [Scene])
+    func showExperience(_ experience: Experience)
+    func showExperienceLoading(_ isLoading: Bool)
+    func showSceneLoading(_ isLoading: Bool)
+    func showRetry()
     func navigateToMap(_ sceneId: String?)
     func navigateToProfile(_ username: String)
     func scrollToScene(_ sceneId: String)
@@ -20,7 +25,9 @@ class ExperienceScenesViewController: UIViewController {
     var selectedSceneId: String? = nil
     var selectedProfileUsername: String? = nil
     var scenes = [Scene]()
-    var experience: Experience!
+    var experience: Experience?
+    var isLoadingExperience = false
+    var isLoadingScenes = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +37,8 @@ class ExperienceScenesViewController: UIViewController {
 
         let nib = UINib.init(nibName: "ExperienceDetailTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "experienceDetailCell")
+        let loaderNib = UINib.init(nibName: "LoaderTableViewCell", bundle: nil)
+        self.tableView.register(loaderNib, forCellReuseIdentifier: "loaderCell")
 
         presenter.create()
     }
@@ -73,14 +82,38 @@ class ExperienceScenesViewController: UIViewController {
 
 extension ExperienceScenesViewController: ExperienceScenesView {
 
-    func showScenes(_ scenes: [Scene], experience: Experience) {
+    func showExperience(_ experience: Experience) {
         configureNavigationItems(experience)
-
-        self.scenes = scenes
         self.experience = experience
         self.tableView!.reloadData()
     }
-    
+
+    func showScenes(_ scenes: [Scene]) {
+        self.scenes = scenes
+        self.tableView!.reloadData()
+    }
+
+    func showExperienceLoading(_ isLoading: Bool) {
+        self.isLoadingExperience = isLoading
+        self.tableView!.reloadData()
+    }
+
+    func showSceneLoading(_ isLoading: Bool) {
+        self.isLoadingScenes = isLoading
+        self.tableView!.reloadData()
+    }
+
+    func showRetry() {
+        let snackbar = TTGSnackbar(message: "Oops! Something went wrong. Please try again",
+                                   duration: .forever,
+                                   actionText: "RETRY",
+                                   actionBlock: { [weak self] snackbar in
+                                                    self?.presenter.retry()
+                                                    snackbar.dismiss()
+                                                })
+        snackbar.show()
+    }
+
     func navigateToMap(_ sceneId: String? = nil) {
         self.selectedSceneId = sceneId
         performSegue(withIdentifier: "experienceMapSegue", sender: self)
@@ -147,36 +180,54 @@ extension ExperienceScenesViewController: ExperienceScenesView {
 }
 
 extension ExperienceScenesViewController: UITableViewDataSource, UITableViewDelegate {
+
+    enum ViewType {
+        case experience
+        case scene
+        case loader
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            if self.experience != nil { return 1 }
-            else { return 0 }
+        if isLoadingScenes { return 1 + scenes.count + 1 }
+        else { return 1 + scenes.count }
+    }
+
+    private func viewType(_ position: Int) -> ViewType {
+        if position == 0 {
+            if isLoadingExperience { return .loader }
+            else { return .experience }
         }
-        else { return scenes.count }
+        else if position == scenes.count + 1 { return .loader }
+        else { return .scene }
     }
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        switch viewType(indexPath.row) {
+        case .experience:
             let cell: ExperienceDetailTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "experienceDetailCell", for: indexPath)
                     as! ExperienceDetailTableViewCell
-            cell.bind(self.experience, self.scenes, presenter.onGoToMapClick, presenter.saveExperience, presenter.profileClick)
-            
+            if experience != nil {
+                cell.bind(self.experience!, self.scenes,
+                          presenter.onGoToMapClick, presenter.saveExperience, presenter.profileClick)
+            }
             return cell
-        }
-        else {
+        case .scene:
             let cell: SceneTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "sceneCellIdentifier", for: indexPath)
                     as! SceneTableViewCell
-            cell.bind(scenes[indexPath.row], presenter.onLocateSceneClick(_:))
-    
+            cell.bind(scenes[indexPath.row - 1], presenter.onLocateSceneClick(_:))
             return cell
+        case .loader:
+            let loadingCell: LoaderTableViewCell =
+                tableView.dequeueReusableCell(withIdentifier: "loaderCell", for: indexPath)
+                    as! LoaderTableViewCell
+            return loadingCell
         }
     }
     

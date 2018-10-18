@@ -4,20 +4,90 @@ import RxSwift
 @testable import Pachatary
 
 class ExperienceScenesPresenterTests: XCTestCase {
-    
-    func test_on_create_asks_scenes_and_experience_with_experience_id() {
-        ScenarioMaker()
-            .given_a_presenter("7")
-            .given_an_scenes_observable_result(Result(.success, data: [Mock.scene("1"), Mock.scene("3")]),
-                                              experienceId: "7")
-            .given_an_experience_observable_result(Result(.success, data: Mock.experience("9")))
-            .when_create_presenter()
-            .then_should_call_scene_repo_observable_with(experienceId: "7")
-            .then_should_call_experience_repo_observable_with(experienceId: "7")
-            .then_should_call_show_scenes_with([Mock.scene("1"), Mock.scene("3")],
-                                               experience: Mock.experience("9"))
+
+    enum Action {
+        case create
+        case retry
     }
     
+    func test_experience_response_success() {
+        for action in [Action.create, Action.retry] {
+            ScenarioMaker()
+                .given_a_presenter("7")
+                .given_an_scenes_observable_result(Result(.inProgress), experienceId: "7")
+                .given_an_experience_observable_result(Result(.success, data: Mock.experience("9")))
+                .when(do: action)
+                .then_should_call_experience_repo_observable_with(experienceId: "7")
+                .then_should_call_show_experience(Mock.experience("9"))
+                .then_should_call_show_experience_loader(false)
+        }
+    }
+
+    func test_experience_response_inprogress() {
+        for action in [Action.create, Action.retry] {
+            ScenarioMaker()
+                .given_a_presenter("7")
+                .given_an_scenes_observable_result(Result(.inProgress), experienceId: "7")
+                .given_an_experience_observable_result(Result(.inProgress))
+                .when(do: action)
+                .then_should_call_experience_repo_observable_with(experienceId: "7")
+                .then_should_call_show_experience_loader(true)
+        }
+    }
+
+    func test_experience_response_error() {
+        for action in [Action.create, Action.retry] {
+            ScenarioMaker()
+                .given_a_presenter("7")
+                .given_an_scenes_observable_result(Result(.inProgress), experienceId: "7")
+                .given_an_experience_observable_result(Result(.error, error: DataError.noInternetConnection))
+                .when(do: action)
+                .then_should_call_experience_repo_observable_with(experienceId: "7")
+                .then_should_show_retry()
+                .then_should_call_show_experience_loader(false)
+        }
+    }
+
+    func test_scenes_response_success() {
+        for action in [Action.create, Action.retry] {
+            ScenarioMaker()
+                .given_a_presenter("7")
+                .given_an_scenes_observable_result(Result(.success, data:
+                    [Mock.scene("1"), Mock.scene("2")]), experienceId: "7")
+                .given_an_experience_observable_result(Result(.inProgress))
+                .when(do: action)
+                .then_should_call_scene_repo_observable_with(experienceId: "7")
+                .then_should_call_show_scenes([Mock.scene("1"), Mock.scene("2")])
+                .then_should_show_scenes_loader(false)
+        }
+    }
+
+    func test_scenes_response_inprogress() {
+        for action in [Action.create, Action.retry] {
+            ScenarioMaker()
+                .given_a_presenter("7")
+                .given_an_scenes_observable_result(Result(.inProgress), experienceId: "7")
+                .given_an_experience_observable_result(Result(.inProgress))
+                .when(do: action)
+                .then_should_call_scene_repo_observable_with(experienceId: "7")
+                .then_should_show_scenes_loader(true)
+        }
+    }
+
+    func test_scenes_response_error() {
+        for action in [Action.create, Action.retry] {
+            ScenarioMaker()
+                .given_a_presenter("7")
+                .given_an_scenes_observable_result(
+                    Result(.error, error: DataError.noInternetConnection), experienceId: "7")
+                .given_an_experience_observable_result(Result(.inProgress))
+                .when(do: action)
+                .then_should_call_scene_repo_observable_with(experienceId: "7")
+                .then_should_show_retry()
+                .then_should_show_scenes_loader(false)
+        }
+    }
+
     func test_on_go_to_map_click_navigates_to_map() {
         ScenarioMaker()
             .given_a_presenter("4")
@@ -148,8 +218,13 @@ class ExperienceScenesPresenterTests: XCTestCase {
             return self
         }
 
-        func when_create_presenter() -> ScenarioMaker {
-            presenter.create()
+        func when(do action: Action) -> ScenarioMaker {
+            switch action {
+            case .create:
+                presenter.create()
+            case .retry:
+                presenter.retry()
+            }
             return self
         }
         
@@ -201,13 +276,23 @@ class ExperienceScenesPresenterTests: XCTestCase {
         }
         
         @discardableResult
-        func then_should_call_show_scenes_with(_ scenes: [Scene], experience: Experience)
-                                                                                  -> ScenarioMaker {
-            assert(scenes == mockView.showScenesCalls[0].0)
-            assert(experience == mockView.showScenesCalls[0].1)
+        func then_should_call_show_scenes(_ scenes: [Scene]) -> ScenarioMaker {
+            assert(scenes == mockView.showScenesCalls[0])
             return self
         }
-        
+
+        @discardableResult
+        func then_should_show_scenes_loader(_ isLoading: Bool) -> ScenarioMaker {
+            assert(mockView.showLoadingScenesCalls == [isLoading])
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_show_experience(_ experience: Experience) -> ScenarioMaker {
+            assert([experience] == mockView.showExperienceCalls)
+            return self
+        }
+
         @discardableResult
         func then_should_navigate_to_map(sceneId: String? = nil) -> ScenarioMaker {
             assert(mockView.navigateToMapCalls == [sceneId])
@@ -265,12 +350,28 @@ class ExperienceScenesPresenterTests: XCTestCase {
             assert(mockView.navigateToProfileCalls == [username])
             return self
         }
+
+        @discardableResult
+        func then_should_call_show_experience_loader(_ isLoading: Bool) -> ScenarioMaker {
+            assert(mockView.showLoadingExperienceCalls == [isLoading])
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_retry() -> ScenarioMaker {
+            assert(mockView.showRetryCalls == 1)
+            return self
+        }
     }
 }
 
 class ExperienceScenesViewMock: ExperienceScenesView {
 
-    var showScenesCalls = [([Scene], Experience)]()
+    var showScenesCalls = [[Scene]]()
+    var showExperienceCalls = [Experience]()
+    var showLoadingExperienceCalls = [Bool]()
+    var showLoadingScenesCalls = [Bool]()
+    var showRetryCalls = 0
     var navigateToMapCalls = [String?]()
     var navigateToProfileCalls = [String]()
     var finishCalls = 0
@@ -278,10 +379,26 @@ class ExperienceScenesViewMock: ExperienceScenesView {
     var showUnsaveConfirmationDialogCalls = 0
     var showShareDialogCalls = [String]()
 
-    func showScenes(_ scenes: [Scene], experience: Experience) {
-        showScenesCalls.append((scenes, experience))
+    func showScenes(_ scenes: [Scene]) {
+        showScenesCalls.append(scenes)
     }
-    
+
+    func showExperience(_ experience: Experience) {
+        showExperienceCalls.append(experience)
+    }
+
+    func showExperienceLoading(_ isLoading: Bool) {
+        showLoadingExperienceCalls.append(isLoading)
+    }
+
+    func showSceneLoading(_ isLoading: Bool) {
+        showLoadingScenesCalls.append(isLoading)
+    }
+
+    func showRetry() {
+        showRetryCalls += 1
+    }
+
     func navigateToMap(_ sceneId: String?) {
         navigateToMapCalls.append(sceneId)
     }

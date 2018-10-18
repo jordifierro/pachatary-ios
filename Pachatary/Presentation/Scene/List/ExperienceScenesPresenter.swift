@@ -9,9 +9,8 @@ class ExperienceScenesPresenter {
     unowned let view: ExperienceScenesView
     let experienceId: String!
     var selectedSceneId: String? = nil
-    var disposable: Disposable?
-    var shareDisposable: Disposable?
-    
+    var disposeBag: DisposeBag? = DisposeBag()
+
     init(_ sceneRepo: SceneRepository, _ experienceRepo: ExperienceRepository,
          _ mainScheduler: ImmediateSchedulerType, _ view: ExperienceScenesView,
          _ experienceId: String) {
@@ -23,26 +22,11 @@ class ExperienceScenesPresenter {
     }
     
     func create() {
-        disposable = Observable.combineLatest(sceneRepo.scenesObservable(experienceId: experienceId)
-                                                    .filter { result in return result.isSuccess() },
-                                     experienceRepo.experienceObservable(experienceId))
-        { sceneResult, experienceResult in return (sceneResult, experienceResult) }
-            .observeOn(mainScheduler)
-            .subscribe { [unowned self] event in
-                switch event {
-                case .next(let (sceneResult, experienceResult)):
-                    switch sceneResult.status {
-                    case .success:
-                        self.view.showScenes(sceneResult.data!,
-                                             experience: experienceResult.data!)
-                    case .error: break
-                    case .inProgress: break
-                    }
-                case .error(let error):
-                    fatalError(error.localizedDescription)
-                case .completed: break
-                }
-            }
+        getExperienceAndScenes()
+    }
+
+    func retry() {
+        getExperienceAndScenes()
     }
 
     func resume() {
@@ -53,8 +37,7 @@ class ExperienceScenesPresenter {
     }
 
     func destroy() {
-        self.disposable?.dispose()
-        self.shareDisposable?.dispose()
+        self.disposeBag = nil
     }
     
     func onGoToMapClick() {
@@ -77,7 +60,7 @@ class ExperienceScenesPresenter {
     func onUnsaveDialogCancel() {}
 
     func shareClick() {
-        shareDisposable = experienceRepo.shareUrl(experienceId)
+        experienceRepo.shareUrl(experienceId)
             .observeOn(mainScheduler)
             .subscribe { [unowned self] event in
                 switch event {
@@ -93,9 +76,63 @@ class ExperienceScenesPresenter {
                 case .completed: break
                 }
             }
+            .disposed(by: disposeBag!)
     }
 
     func profileClick(_ username: String) {
         view.navigateToProfile(username)
+    }
+
+    private func getExperienceAndScenes() {
+        connectToExperience()
+        connectToScenes()
+    }
+
+    private func connectToExperience() {
+        experienceRepo.experienceObservable(experienceId)
+            .observeOn(mainScheduler)
+            .subscribe { [unowned self] event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success:
+                        self.view.showExperience(result.data!)
+                        self.view.showExperienceLoading(false)
+                    case .error:
+                        self.view.showExperienceLoading(false)
+                        self.view.showRetry()
+                    case .inProgress:
+                        self.view.showExperienceLoading(true)
+                    }
+                case .error(let error):
+                    fatalError(error.localizedDescription)
+                case .completed: break
+                }
+            }
+            .disposed(by: disposeBag!)
+    }
+
+    private func connectToScenes() {
+        sceneRepo.scenesObservable(experienceId: experienceId)
+            .observeOn(mainScheduler)
+            .subscribe { [unowned self] event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success:
+                        self.view.showScenes(result.data!)
+                        self.view.showSceneLoading(false)
+                    case .error:
+                        self.view.showSceneLoading(false)
+                        self.view.showRetry()
+                    case .inProgress:
+                        self.view.showSceneLoading(true)
+                    }
+                case .error(let error):
+                    fatalError(error.localizedDescription)
+                case .completed: break
+                }
+            }
+            .disposed(by: disposeBag!)
     }
 }
