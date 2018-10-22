@@ -1,16 +1,20 @@
 import UIKit
+import TTGSnackbar
 
 protocol WelcomeView {
     func navigateToMain()
     func navigateToLogin()
     func enableButtons()
     func disableButtons()
+    func showLoader(_ visibility: Bool)
+    func showError()
 }
 
 class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let presenter = PersonDependencyInjector.welcomePresenter
     
@@ -32,7 +36,7 @@ class WelcomeViewController: UIViewController {
 }
 
 extension WelcomeViewController: WelcomeView {
-    
+
     func navigateToMain() {
         AppDelegate.shared.rootViewController.navigateToMain()
     }
@@ -49,5 +53,16 @@ extension WelcomeViewController: WelcomeView {
     func disableButtons() {
         startButton.isEnabled = false
         loginButton.isEnabled = false
+    }
+
+    func showLoader(_ visibility: Bool) {
+        if visibility { activityIndicator.startAnimating() }
+        else { activityIndicator.stopAnimating() }
+    }
+
+    func showError() {
+        let snackbar = TTGSnackbar(message: "Oops! Something went wrong. Please try again",
+                                   duration: .middle)
+        snackbar.show()
     }
 }

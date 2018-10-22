@@ -23,8 +23,11 @@ class WelcomePresenter {
                         self.view.navigateToMain()
                     case .error:
                         self.view.enableButtons()
+                        self.view.showLoader(false)
+                        self.view.showError()
                     case .inProgress:
                         self.view.disableButtons()
+                        self.view.showLoader(true)
                     }
                 case .error(let error):
                     fatalError(error.localizedDescription)

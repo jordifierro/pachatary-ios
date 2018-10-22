@@ -98,6 +98,8 @@
 		AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A220C547D6001A4576 /* Assets.xcassets */; };
 		AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A420C547D6001A4576 /* LaunchScreen.storyboard */; };
 		AEBB62BC20C547D6001A4576 /* PachataryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */; };
+		AEC2FF86217E1059000E3F1B /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC2FF85217E1059000E3F1B /* CustomButtons.swift */; };
+		AEC2FF88217E186F000E3F1B /* Bahiana-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEC2FF87217E186F000E3F1B /* Bahiana-Regular.ttf */; };
 		AEC8DCE6211DEBAE007CCC68 /* LoginPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */; };
 		AEC8DCE8211DF1F0007CCC68 /* POST_people_me_login.json in Resources */ = {isa = PBXBuildFile; fileRef = AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */; };
 		AEC8DCEA211DF9D3007CCC68 /* DataTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC8DCE9211DF9D3007CCC68 /* DataTestUtils.swift */; };
@@ -261,6 +263,8 @@
 		AEBB62B720C547D6001A4576 /* PachataryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PachataryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PachataryUITests.swift; sourceTree = "<group>"; };
 		AEBB62BD20C547D6001A4576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEC2FF85217E1059000E3F1B /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
+		AEC2FF87217E186F000E3F1B /* Bahiana-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bahiana-Regular.ttf"; sourceTree = "<group>"; };
 		AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenterTests.swift; sourceTree = "<group>"; };
 		AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POST_people_me_login.json; sourceTree = "<group>"; };
 		AEC8DCE9211DF9D3007CCC68 /* DataTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestUtils.swift; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 				AE5CA99A216D05580071B4ED /* SelectLocationPresenter.swift */,
 				AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */,
 				AED682BC2177490000B61891 /* UIColor+ThemeColors.swift */,
+				AEC2FF85217E1059000E3F1B /* CustomButtons.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -613,6 +618,7 @@
 				AEBB62A420C547D6001A4576 /* LaunchScreen.storyboard */,
 				AEEAC68E20C99963007C17EE /* ApiKeys.plist */,
 				AEBB62A720C547D6001A4576 /* Info.plist */,
+				AEC2FF83217E0CAD000E3F1B /* fonts */,
 			);
 			path = Pachatary;
 			sourceTree = "<group>";
@@ -634,6 +640,14 @@
 				AEBB62BD20C547D6001A4576 /* Info.plist */,
 			);
 			path = PachataryUITests;
+			sourceTree = "<group>";
+		};
+		AEC2FF83217E0CAD000E3F1B /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				AEC2FF87217E186F000E3F1B /* Bahiana-Regular.ttf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		AED9ECA02165077A008C46DC /* Saved */ = {
@@ -943,6 +957,7 @@
 				AE86D9EB215EAEAA003D2B34 /* LoaderCollectionViewCell.xib in Resources */,
 				AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */,
 				AEA5662D2113756300F0E1F3 /* ExperienceDetailTableViewCell.xib in Resources */,
+				AEC2FF88217E186F000E3F1B /* Bahiana-Regular.ttf in Resources */,
 				AEDB0DBF211B4CB6004F843E /* Person.storyboard in Resources */,
 				AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */,
 				AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */,
@@ -1188,6 +1203,7 @@
 				AEE1529220D983DB008707FF /* Identifiable.swift in Sources */,
 				AE598BAE20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift in Sources */,
 				AEDB0DB7211B3996004F843E /* PersonDependencyInjector.swift in Sources */,
+				AEC2FF86217E1059000E3F1B /* CustomButtons.swift in Sources */,
 				AE1D6D2120C5712E00EA6DDD /* BigPicture.swift in Sources */,
 				AE86639A20D7D4D5008CE6D2 /* ExperienceDataDependencyInjector.swift in Sources */,
 				AEEC74A120CACF0F00B86837 /* AuthRepository.swift in Sources */,

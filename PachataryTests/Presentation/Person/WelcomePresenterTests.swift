@@ -15,6 +15,7 @@ class WelcomePresenterTests: XCTestCase {
             .given_an_auth_repo_that_returns(Result<AuthToken>(.inProgress))
             .when_start_click()
             .then_should_disable_buttons()
+            .then_should_show_loader(true)
     }
 
     func test_start_when_result_error_enable_buttons() {
@@ -23,6 +24,8 @@ class WelcomePresenterTests: XCTestCase {
                 Result<AuthToken>(.error, error: .noInternetConnection))
             .when_start_click()
             .then_should_enable_buttons()
+            .then_should_show_loader(false)
+            .then_should_show_error()
     }
 
     func test_start_when_result_success_navigates_to_main() {
@@ -80,6 +83,18 @@ class WelcomePresenterTests: XCTestCase {
             assert(mockView.enableButtonsCalls == 1)
             return self
         }
+
+        @discardableResult
+        func then_should_show_loader(_ visibility: Bool) -> ScenarioMaker {
+            assert(mockView.showLoaderCalls == [visibility])
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_error() -> ScenarioMaker {
+            assert(mockView.showErrorCalls == 1)
+            return self
+        }
     }
 }
 
@@ -89,9 +104,13 @@ class WelcomeViewMock: WelcomeView {
     var navigateToLoginCalls = 0
     var enableButtonsCalls = 0
     var disableButtonsCalls = 0
+    var showLoaderCalls = [Bool]()
+    var showErrorCalls = 0
 
     func navigateToMain() { navigateToMainCalls += 1 }
     func navigateToLogin() { navigateToLoginCalls += 1 }
     func enableButtons() { enableButtonsCalls += 1 }
     func disableButtons() { disableButtonsCalls += 1 }
+    func showLoader(_ visibility: Bool) { showLoaderCalls.append(visibility) }
+    func showError() { showErrorCalls += 1 }
 }
