@@ -1,5 +1,4 @@
 import UIKit
-import TTGSnackbar
 
 protocol AskLoginEmailView {
     func enableButton()
@@ -50,9 +49,7 @@ extension AskLoginEmailViewController: AskLoginEmailView {
     }
     
     func showSuccessMessage() {
-        let snackbar = TTGSnackbar(message: "We've send an email to you, open it!",
-                                   duration: .long)
-        snackbar.show()
+        Snackbar.show("We've send an email to you, open it!", .long)
     }
 
     func showLoader(_ visibility: Bool) {
@@ -61,14 +58,11 @@ extension AskLoginEmailViewController: AskLoginEmailView {
     }
 
     func showError() {
-        let snackbar = TTGSnackbar(message: "Oops! Something went wrong. Please try again",
-                                   duration: .middle)
-        snackbar.show()
+        Snackbar.showError()
     }
 
     func showEmptyEmailError() {
-        let snackbar = TTGSnackbar(message: "Introduce your email", duration: .middle)
-        snackbar.show()
+        Snackbar.show("Introduce your email", .short)
     }
 }
 

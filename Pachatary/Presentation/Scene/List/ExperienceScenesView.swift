@@ -1,6 +1,5 @@
 import Swift
 import UIKit
-import TTGSnackbar
 
 protocol ExperienceScenesView : class {
     func showScenes(_ scenes: [Scene])
@@ -121,14 +120,7 @@ extension ExperienceScenesViewController: ExperienceScenesView {
     }
 
     func showRetry() {
-        let snackbar = TTGSnackbar(message: "Oops! Something went wrong. Please try again",
-                                   duration: .forever,
-                                   actionText: "RETRY",
-                                   actionBlock: { [weak self] snackbar in
-                                                    self?.presenter.retry()
-                                                    snackbar.dismiss()
-                                                })
-        snackbar.show()
+        Snackbar.showErrorWithRetry({ [weak self] () in self?.presenter.retry() })
     }
 
     func navigateToMap(_ sceneId: String? = nil) {

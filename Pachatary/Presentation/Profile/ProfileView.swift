@@ -2,7 +2,6 @@ import UIKit
 import CoreLocation
 import RxSwift
 import Moya
-import TTGSnackbar
 
 protocol ProfileView : class {
     func showExperiences(_ experiences: [Experience])
@@ -216,14 +215,7 @@ extension ProfileViewController: ProfileView {
     }
     
     func showRetry() {
-        let snackbar = TTGSnackbar(message: "Oops! Something went wrong. Please try again",
-                                   duration: .forever,
-                                   actionText: "RETRY",
-                                   actionBlock: { [weak self] snackbar in
-                                    self?.presenter.retryClick()
-                                    snackbar.dismiss()
-        })
-        snackbar.show()
+        Snackbar.showErrorWithRetry({ [weak self] () in self?.presenter.retryClick() })
     }
     
     func navigateToExperienceScenes(_ experienceId: String) {

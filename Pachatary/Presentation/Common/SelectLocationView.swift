@@ -1,6 +1,5 @@
 import UIKit
 import Mapbox
-import TTGSnackbar
 import CoreLocation
 
 protocol SelectLocationView : class {
@@ -97,8 +96,7 @@ extension SelectLocationViewController: SelectLocationView {
     }
 
     func showAddressNotFound() {
-        let snackbar = TTGSnackbar(message: "Location not found!", duration: .middle)
-        snackbar.show()
+        Snackbar.show("Location not found!", .short)
     }
 
     func hasLocationPermission() -> Bool {
@@ -130,8 +128,7 @@ extension SelectLocationViewController: SelectLocationView {
     }
 
     func showCannotKnowLocation() {
-        let snackbar = TTGSnackbar(message: "Cannot find your location!", duration: .middle)
-        snackbar.show()
+        Snackbar.show("Cannot find your location!", .short)
     }
 
     func finishWith(latitude: Double, longitude: Double) {

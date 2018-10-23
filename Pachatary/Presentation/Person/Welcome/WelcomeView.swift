@@ -1,5 +1,4 @@
 import UIKit
-import TTGSnackbar
 
 protocol WelcomeView {
     func navigateToMain()
@@ -88,9 +87,7 @@ extension WelcomeViewController: WelcomeView {
     }
 
     func showError() {
-        let snackbar = TTGSnackbar(message: "Oops! Something went wrong. Please try again",
-                                   duration: .middle)
-        snackbar.show()
+        Snackbar.showError()
     }
 
     func navigateToPrivacyPolicy() {

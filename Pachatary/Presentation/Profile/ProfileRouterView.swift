@@ -1,5 +1,4 @@
 import UIKit
-import TTGSnackbar
 
 protocol ProfileRouterView : class {
     func navigateToProfile(_ username: String)
@@ -33,14 +32,7 @@ extension ProfileRouterViewController: ProfileRouterView {
     }
 
     func showRetry() {
-        let snackbar = TTGSnackbar(message: "Oops! Something went wrong. Please try again",
-                                   duration: .forever,
-                                   actionText: "RETRY",
-                                   actionBlock: { [weak self] snackbar in
-                                    self?.presenter.retry()
-                                    snackbar.dismiss()
-        })
-        snackbar.show()
+        Snackbar.showErrorWithRetry({ [weak self] () in self?.presenter.retry() })
     }
 
     func showLoading(_ visibility: Bool) {
