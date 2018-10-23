@@ -35,6 +35,18 @@ class WelcomePresenterTests: XCTestCase {
             .then_should_navigate_to_main()
     }
 
+    func test_on_privacy_policy_click_navigates_to_privacy_policy() {
+        ScenarioMaker()
+            .when_privacy_policy_click()
+            .then_should_navigate_to_privacy_policy()
+    }
+
+    func test_on_terms_and_conditions_click_navigates_to_terms_and_conditions() {
+        ScenarioMaker()
+            .when_terms_and_conditions_click()
+            .then_should_navigate_to_terms_and_conditions()
+    }
+
     class ScenarioMaker {
         let mockView = WelcomeViewMock()
         let mockAuthRepo = AuthRepoMock()
@@ -57,6 +69,16 @@ class WelcomePresenterTests: XCTestCase {
         
         func when_start_click() -> ScenarioMaker {
             presenter.onStartClick()
+            return self
+        }
+
+        func when_privacy_policy_click() -> ScenarioMaker {
+            presenter.onPrivacyPolicyClick()
+            return self
+        }
+
+        func when_terms_and_conditions_click() -> ScenarioMaker {
+            presenter.onTermsAndConditionsClick()
             return self
         }
         
@@ -95,6 +117,18 @@ class WelcomePresenterTests: XCTestCase {
             assert(mockView.showErrorCalls == 1)
             return self
         }
+
+        @discardableResult
+        func then_should_navigate_to_privacy_policy() -> ScenarioMaker {
+            assert(mockView.navigateToPrivacyPolicyCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_navigate_to_terms_and_conditions() -> ScenarioMaker {
+            assert(mockView.navigateToTermsAndConditionsCalls == 1)
+            return self
+        }
     }
 }
 
@@ -102,6 +136,8 @@ class WelcomeViewMock: WelcomeView {
     
     var navigateToMainCalls = 0
     var navigateToLoginCalls = 0
+    var navigateToPrivacyPolicyCalls = 0
+    var navigateToTermsAndConditionsCalls = 0
     var enableButtonsCalls = 0
     var disableButtonsCalls = 0
     var showLoaderCalls = [Bool]()
@@ -109,6 +145,8 @@ class WelcomeViewMock: WelcomeView {
 
     func navigateToMain() { navigateToMainCalls += 1 }
     func navigateToLogin() { navigateToLoginCalls += 1 }
+    func navigateToPrivacyPolicy() { navigateToPrivacyPolicyCalls += 1 }
+    func navigateToTermsAndConditions() { navigateToTermsAndConditionsCalls += 1 }
     func enableButtons() { enableButtonsCalls += 1 }
     func disableButtons() { disableButtonsCalls += 1 }
     func showLoader(_ visibility: Bool) { showLoaderCalls.append(visibility) }

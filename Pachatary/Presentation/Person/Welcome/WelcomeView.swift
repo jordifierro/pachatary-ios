@@ -4,6 +4,8 @@ import TTGSnackbar
 protocol WelcomeView {
     func navigateToMain()
     func navigateToLogin()
+    func navigateToPrivacyPolicy()
+    func navigateToTermsAndConditions()
     func enableButtons()
     func disableButtons()
     func showLoader(_ visibility: Bool)
@@ -16,7 +18,10 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var termsAndConditionsLabel: UILabel!
+    @IBOutlet weak var privacyPolicyLabel: UILabel!
     let presenter = PersonDependencyInjector.welcomePresenter
+    var webViewType: WebViewController.WebViewType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +29,12 @@ class WelcomeViewController: UIViewController {
         presenter.view = self
         startButton.addTarget(self, action: #selector(start), for: .touchUpInside)
         loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
+        let privacyPolicyTap = UITapGestureRecognizer(target: self, action: #selector(WelcomeViewController.privacyPolicyTap(sender:)))
+        privacyPolicyLabel.isUserInteractionEnabled = true
+        privacyPolicyLabel.addGestureRecognizer(privacyPolicyTap)
+        let termsAndConditionsTap = UITapGestureRecognizer(target: self, action: #selector(WelcomeViewController.termsAndConditionsTap(sender:)))
+        termsAndConditionsLabel.isUserInteractionEnabled = true
+        termsAndConditionsLabel.addGestureRecognizer(termsAndConditionsTap)
     }
     
     @objc func start(_ sender: UIButton!) {
@@ -32,6 +43,22 @@ class WelcomeViewController: UIViewController {
     
     @objc func login(_ sender: UIButton!) {
         presenter.onLoginClick()
+    }
+
+    @objc func privacyPolicyTap(sender: UITapGestureRecognizer) {
+        presenter.onPrivacyPolicyClick()
+    }
+
+    @objc func termsAndConditionsTap(sender: UITapGestureRecognizer) {
+        presenter.onTermsAndConditionsClick()
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "webViewSegue" {
+            if let destinationVC = segue.destination as? WebViewController {
+                destinationVC.webViewType = self.webViewType
+            }
+        }
     }
 }
 
@@ -64,5 +91,15 @@ extension WelcomeViewController: WelcomeView {
         let snackbar = TTGSnackbar(message: "Oops! Something went wrong. Please try again",
                                    duration: .middle)
         snackbar.show()
+    }
+
+    func navigateToPrivacyPolicy() {
+        self.webViewType = .privacyPolicy
+        performSegue(withIdentifier: "webViewSegue", sender: self)
+    }
+
+    func navigateToTermsAndConditions() {
+        self.webViewType = .termsAndConditions
+        performSegue(withIdentifier: "webViewSegue", sender: self)
     }
 }

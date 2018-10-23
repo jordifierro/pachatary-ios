@@ -39,5 +39,13 @@ class WelcomePresenter {
     func onLoginClick() {
         view.navigateToLogin()
     }
+
+    func onPrivacyPolicyClick() {
+        view.navigateToPrivacyPolicy()
+    }
+
+    func onTermsAndConditionsClick() {
+        view.navigateToTermsAndConditions()
+    }
 }
 

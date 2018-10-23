@@ -68,7 +68,7 @@
                                 <rect key="frame" x="0.0" y="333.5" width="375" height="333.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXc-mz-V7u" userLabel="Inner B View">
-                                        <rect key="frame" x="0.0" y="82" width="375" height="170.5"/>
+                                        <rect key="frame" x="0.0" y="87" width="375" height="160.5"/>
                                         <subviews>
                                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JgD-Iz-YzU" customClass="GreenButton" customModule="Pachatary" customModuleProvider="target">
                                                 <rect key="frame" x="75" y="0.0" width="225" height="46"/>
@@ -119,10 +119,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cLY-Zx-MYa">
-                                                <rect key="frame" x="177.5" y="89.5" width="20" height="20"/>
+                                                <rect key="frame" x="177.5" y="84.5" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5em-OM-7AK" customClass="WhiteBorderedButton" customModule="Pachatary" customModuleProvider="target">
-                                                <rect key="frame" x="75" y="124.5" width="225" height="46"/>
+                                                <rect key="frame" x="75" y="114.5" width="225" height="46"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="225" id="35L-kM-lgd"/>
                                                     <constraint firstAttribute="height" constant="46" id="Aor-RB-JvM"/>
@@ -133,7 +133,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Agv-th-abf" firstAttribute="top" secondItem="9Tr-vl-kod" secondAttribute="bottom" id="AJd-HY-OOO"/>
-                                            <constraint firstItem="cLY-Zx-MYa" firstAttribute="top" secondItem="Agv-th-abf" secondAttribute="bottom" constant="15" id="IzU-Hb-W1H"/>
+                                            <constraint firstItem="cLY-Zx-MYa" firstAttribute="top" secondItem="Agv-th-abf" secondAttribute="bottom" constant="10" id="IzU-Hb-W1H"/>
                                             <constraint firstItem="JgD-Iz-YzU" firstAttribute="centerX" secondItem="gXc-mz-V7u" secondAttribute="centerX" id="Kma-kP-lK6"/>
                                             <constraint firstItem="cLY-Zx-MYa" firstAttribute="centerX" secondItem="gXc-mz-V7u" secondAttribute="centerX" id="LzF-wL-8Zt"/>
                                             <constraint firstItem="ffy-uC-PGb" firstAttribute="centerY" secondItem="Agv-th-abf" secondAttribute="centerY" id="Orh-mi-oZG"/>
@@ -145,7 +145,7 @@
                                             <constraint firstAttribute="bottom" secondItem="5em-OM-7AK" secondAttribute="bottom" id="nho-dK-Jyj"/>
                                             <constraint firstItem="5em-OM-7AK" firstAttribute="centerX" secondItem="gXc-mz-V7u" secondAttribute="centerX" id="oDM-Hi-baJ"/>
                                             <constraint firstItem="JeH-eh-fQS" firstAttribute="centerY" secondItem="Agv-th-abf" secondAttribute="centerY" id="sug-HE-KDv"/>
-                                            <constraint firstItem="5em-OM-7AK" firstAttribute="top" secondItem="cLY-Zx-MYa" secondAttribute="bottom" constant="15" id="tkn-x4-2E6"/>
+                                            <constraint firstItem="5em-OM-7AK" firstAttribute="top" secondItem="cLY-Zx-MYa" secondAttribute="bottom" constant="10" id="tkn-x4-2E6"/>
                                             <constraint firstItem="JgD-Iz-YzU" firstAttribute="top" secondItem="gXc-mz-V7u" secondAttribute="top" id="u6h-W2-U3C"/>
                                         </constraints>
                                     </view>
@@ -184,8 +184,11 @@
                     <connections>
                         <outlet property="activityIndicator" destination="cLY-Zx-MYa" id="c43-ZS-1GW"/>
                         <outlet property="loginButton" destination="5em-OM-7AK" id="zCA-Kb-cRd"/>
+                        <outlet property="privacyPolicyLabel" destination="ffy-uC-PGb" id="Fv6-Tq-Ido"/>
                         <outlet property="startButton" destination="JgD-Iz-YzU" id="JAP-nS-nNw"/>
+                        <outlet property="termsAndConditionsLabel" destination="JeH-eh-fQS" id="6a7-lG-Mbg"/>
                         <segue destination="19m-ND-7nL" kind="show" identifier="askLoginEmailSegue" id="S8o-eH-O2C"/>
+                        <segue destination="WVW-4g-7ox" kind="show" identifier="webViewSegue" id="S8R-cZ-fFY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PHq-FS-5pL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -254,6 +257,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKl-s4-8Jd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2342" y="-658"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="EII-Yy-qXS">
+            <objects>
+                <viewController id="WVW-4g-7ox" customClass="WebViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7IO-vF-fMr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="pFq-la-fs0"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9la-Qd-EIa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1489" y="147"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="9y0-OO-XM1">
