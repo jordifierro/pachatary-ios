@@ -118,7 +118,8 @@ class SceneRepositoryTests: XCTestCase {
             _ = resultObservable.subscribe()
             return self
         }
-        
+
+        @discardableResult
         func then_should_return_observable_with(_ sceneResult: Result<[Scene]>) -> ScenarioMaker {
             do { let results = try resultObservable.take(1).toBlocking().toArray()
                 assert(results == [sceneResult])

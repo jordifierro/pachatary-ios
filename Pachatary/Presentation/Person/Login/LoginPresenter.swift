@@ -7,30 +7,45 @@ class LoginPresenter {
     var mainScheduler: ImmediateSchedulerType!
     var view: LoginView!
     var token: String!
+    var disposeBag: DisposeBag? = DisposeBag()
     
     init(_ authRepository: AuthRepository, _ mainScheduler: ImmediateSchedulerType) {
         self.authRepository = authRepository
         self.mainScheduler = mainScheduler
     }
+
+    deinit {
+        self.disposeBag = nil
+    }
     
     func create() {
-        _ = authRepository.login(token)
+        login()
+    }
+
+    func retry() {
+        login()
+    }
+
+    private func login() {
+        authRepository.login(token)
             .observeOn(mainScheduler)
-            .subscribe { event in
+            .subscribe { [unowned self] event in
                 switch event {
                 case .next(let result):
                     switch result.status {
                     case .success:
                         self.view.navigateToMain()
-                    case .error: break
-                    case .inProgress: break
+                    case .error:
+                        self.view.showLoader(false)
+                        self.view.showRetry()
+                    case .inProgress:
+                        self.view.showLoader(true)
                     }
                 case .error(let error):
                     fatalError(error.localizedDescription)
                 case .completed: break
                 }
-        }
+            }
+            .disposed(by: disposeBag!)
     }
 }
-
-

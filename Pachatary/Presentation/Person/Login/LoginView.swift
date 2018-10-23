@@ -3,10 +3,14 @@ import RxSwift
 
 protocol LoginView {
     func navigateToMain()
+    func showLoader(_ visibility: Bool)
+    func showRetry()
 }
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
     var token: String!
     let presenter = PersonDependencyInjector.loginPresenter
     
@@ -23,5 +27,14 @@ extension LoginViewController: LoginView {
     
     func navigateToMain() {
         AppDelegate.shared.rootViewController.navigateToMain()
+    }
+
+    func showLoader(_ visibility: Bool) {
+        if visibility { activityIndicator.startAnimating() }
+        else { activityIndicator.stopAnimating() }
+    }
+
+    func showRetry() {
+        Snackbar.showErrorWithRetry { [unowned self] () in self.presenter.retry() }
     }
 }
