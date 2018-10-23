@@ -219,37 +219,64 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l52-D6-aMc">
-                                <rect key="frame" x="20" y="84" width="45.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Introduce your email here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GYB-IC-Xsi">
-                                <rect key="frame" x="19" y="115" width="337.5" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="email"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llV-tZ-1We">
-                                <rect key="frame" x="19" y="617" width="337.5" height="30"/>
-                                <state key="normal" title="Ask login email"/>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ry-WP-hsb" userLabel="Container View">
+                                <rect key="frame" x="37" y="174" width="300" height="200.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We will send an email to you with a login link" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mc-LX-tB6" userLabel="Info Label">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="38.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email..." adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="GYB-IC-Xsi">
+                                        <rect key="frame" x="0.0" y="68.5" width="300" height="46"/>
+                                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.1450980392" green="0.80392156859999997" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="Tdx-wR-gWM"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" textContentType="email"/>
+                                    </textField>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Wfc-Yh-qsr">
+                                        <rect key="frame" x="140" y="124.5" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llV-tZ-1We" customClass="GreenButton" customModule="Pachatary" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="154.5" width="300" height="46"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="BIc-Lj-sf1"/>
+                                        </constraints>
+                                        <state key="normal" title="Ask login email"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="GYB-IC-Xsi" firstAttribute="leading" secondItem="8ry-WP-hsb" secondAttribute="leading" id="2aD-q5-Dvm"/>
+                                    <constraint firstAttribute="trailing" secondItem="3Mc-LX-tB6" secondAttribute="trailing" id="Gno-rz-yQW"/>
+                                    <constraint firstItem="GYB-IC-Xsi" firstAttribute="top" secondItem="3Mc-LX-tB6" secondAttribute="bottom" constant="30" id="M2f-Mh-3Qc"/>
+                                    <constraint firstItem="llV-tZ-1We" firstAttribute="leading" secondItem="8ry-WP-hsb" secondAttribute="leading" id="Ti1-f7-2nN"/>
+                                    <constraint firstItem="Wfc-Yh-qsr" firstAttribute="top" secondItem="GYB-IC-Xsi" secondAttribute="bottom" constant="10" id="VVW-Qp-LWQ"/>
+                                    <constraint firstItem="llV-tZ-1We" firstAttribute="top" secondItem="Wfc-Yh-qsr" secondAttribute="bottom" constant="10" id="VxF-FI-LCP"/>
+                                    <constraint firstAttribute="trailing" secondItem="llV-tZ-1We" secondAttribute="trailing" id="XsS-bW-Q9M"/>
+                                    <constraint firstItem="3Mc-LX-tB6" firstAttribute="top" secondItem="8ry-WP-hsb" secondAttribute="top" id="mUR-ou-pjC"/>
+                                    <constraint firstItem="3Mc-LX-tB6" firstAttribute="leading" secondItem="8ry-WP-hsb" secondAttribute="leading" id="sma-MU-A26"/>
+                                    <constraint firstItem="Wfc-Yh-qsr" firstAttribute="centerX" secondItem="8ry-WP-hsb" secondAttribute="centerX" id="weJ-sZ-dWX"/>
+                                    <constraint firstAttribute="bottom" secondItem="llV-tZ-1We" secondAttribute="bottom" id="xFu-zP-PrV"/>
+                                    <constraint firstAttribute="trailing" secondItem="GYB-IC-Xsi" secondAttribute="trailing" id="zJm-wg-Knb"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="l52-D6-aMc" firstAttribute="leading" secondItem="xIh-w8-2ed" secondAttribute="leading" constant="20" id="00H-NF-ICq"/>
-                            <constraint firstItem="llV-tZ-1We" firstAttribute="width" secondItem="KNI-98-IT5" secondAttribute="width" multiplier="9:10" id="60y-L7-VHx"/>
-                            <constraint firstItem="GYB-IC-Xsi" firstAttribute="centerX" secondItem="xIh-w8-2ed" secondAttribute="centerX" id="JS3-g6-LRE"/>
-                            <constraint firstItem="l52-D6-aMc" firstAttribute="top" secondItem="xIh-w8-2ed" secondAttribute="top" constant="20" id="Q4A-mE-Jdx"/>
-                            <constraint firstItem="xIh-w8-2ed" firstAttribute="bottom" secondItem="llV-tZ-1We" secondAttribute="bottom" constant="20" id="aFm-kn-C5q"/>
-                            <constraint firstItem="GYB-IC-Xsi" firstAttribute="width" secondItem="KNI-98-IT5" secondAttribute="width" multiplier="9:10" id="aOy-Bx-RNP"/>
-                            <constraint firstItem="GYB-IC-Xsi" firstAttribute="top" secondItem="l52-D6-aMc" secondAttribute="bottom" constant="10" id="nTH-h7-cEv"/>
-                            <constraint firstItem="llV-tZ-1We" firstAttribute="centerX" secondItem="xIh-w8-2ed" secondAttribute="centerX" id="znD-X3-k4z"/>
+                            <constraint firstItem="8ry-WP-hsb" firstAttribute="centerX" secondItem="xIh-w8-2ed" secondAttribute="centerX" id="G4A-uJ-YST"/>
+                            <constraint firstItem="8ry-WP-hsb" firstAttribute="centerY" secondItem="xIh-w8-2ed" secondAttribute="centerY" multiplier="3:4" id="vLF-VZ-K6F"/>
+                            <constraint firstItem="8ry-WP-hsb" firstAttribute="width" secondItem="KNI-98-IT5" secondAttribute="width" multiplier="8:10" id="vRS-LZ-XdU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xIh-w8-2ed"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Wfc-Yh-qsr" id="u6B-N9-Z5M"/>
                         <outlet property="askButton" destination="llV-tZ-1We" id="CoF-6H-ubh"/>
                         <outlet property="emailTextField" destination="GYB-IC-Xsi" id="cpa-Js-bgc"/>
                     </connections>

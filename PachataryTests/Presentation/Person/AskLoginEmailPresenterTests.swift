@@ -9,6 +9,7 @@ class AskLoginEmailPresenterTests: XCTestCase {
             .given_an_auth_repo_that_returns(Result(.inProgress))
             .when_ask_login(email: "a")
             .then_should_disable_button()
+            .then_should_show_loader(true)
     }
     
     func test_on_error_enables_button() {
@@ -16,13 +17,24 @@ class AskLoginEmailPresenterTests: XCTestCase {
             .given_an_auth_repo_that_returns(Result(.error, error: .noInternetConnection))
             .when_ask_login(email: "a")
             .then_should_enable_button()
+            .then_should_show_loader(false)
+            .then_should_show_error()
     }
     
     func test_on_success_finishes_app() {
         ScenarioMaker()
             .given_an_auth_repo_that_returns(Result(.success))
             .when_ask_login(email: "a")
-            .then_should_finish_app()
+            .then_should_show_success_message()
+            .then_should_enable_button()
+            .then_should_show_loader(false)
+    }
+
+    func test_on_empty_email_shows_empty_email_error() {
+        ScenarioMaker()
+            .given_an_auth_repo_that_returns(Result(.success))
+            .when_ask_login(email: "")
+            .then_should_show_empty_email_error()
     }
 
     class ScenarioMaker {
@@ -58,8 +70,26 @@ class AskLoginEmailPresenterTests: XCTestCase {
         }
         
         @discardableResult
-        func then_should_finish_app() -> ScenarioMaker {
-            assert(mockView.finishAppCalls == 1)
+        func then_should_show_success_message() -> ScenarioMaker {
+            assert(mockView.showSuccessMessageCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_empty_email_error() -> ScenarioMaker {
+            assert(mockView.showEmptyEmailErrorCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_loader(_ visibility: Bool) -> ScenarioMaker {
+            assert(mockView.showLoaderCalls == [visibility])
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_error() -> ScenarioMaker {
+            assert(mockView.showErrorCalls == 1)
             return self
         }
     }
@@ -69,11 +99,15 @@ class AskLoginEmailViewMock: AskLoginEmailView {
     
     var enableButtonCalls = 0
     var disableButtonCalls = 0
-    var finishAppCalls = 0
+    var showSuccessMessageCalls = 0
+    var showErrorCalls = 0
+    var showEmptyEmailErrorCalls = 0
+    var showLoaderCalls = [Bool]()
     
     func enableButton() { enableButtonCalls += 1 }
     func disableButton() { disableButtonCalls += 1 }
-    func finishApp() { finishAppCalls += 1 }
+    func showSuccessMessage() { showSuccessMessageCalls += 1 }
+    func showLoader(_ visibility: Bool) { showLoaderCalls.append(visibility) }
+    func showError() { showErrorCalls += 1 }
+    func showEmptyEmailError() { showEmptyEmailErrorCalls += 1 }
 }
-
-
