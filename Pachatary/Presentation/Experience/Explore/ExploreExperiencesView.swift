@@ -48,8 +48,9 @@ class ExploreExperiencesViewController: UIViewController {
 
         presenter = ExperienceDependencyInjector.exploreExperiencePresenter(view: self)
 
-        self.title = "Explore"
         self.navigationItem.title = "PACHATARY"
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSAttributedStringKey.font: UIFont(name: "Bahiana-Regular", size: 40)!]
 
         let loaderNib = UINib.init(nibName: "LoaderTableViewCell", bundle: nil)
         self.tableView.register(loaderNib, forCellReuseIdentifier: "loaderCell")
@@ -115,11 +116,15 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.isLoading { return experiences.count + 1 }
-        return experiences.count
+        if experiences.count > 0 { return experiences.count }
+        return 1
     }
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 && experiences.count == 0 && !isLoading {
+            return tableView.dequeueReusableCell(withIdentifier: "noResultsFoundCell", for: indexPath)
+        }
         if indexPath.row == experiences.count {
             let loadingCell: LoaderTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "loaderCell", for: indexPath)
@@ -135,7 +140,7 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
             return cell
         }
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let visibleRowsIndexPaths = self.tableView.indexPathsForVisibleRows
         if visibleRowsIndexPaths != nil && visibleRowsIndexPaths!.count > 0 {

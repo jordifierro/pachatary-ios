@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
+                <rect key="frame" x="0.0" y="0.0" width="400" height="599.5"/>
                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Le8-Dg-u5X">
@@ -27,32 +27,35 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jB3-Xz-CKp">
-                        <rect key="frame" x="20" y="366" width="360" height="24"/>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <rect key="frame" x="20" y="368.5" width="360" height="21.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saves count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51f-q8-neO">
-                        <rect key="frame" x="301" y="422" width="79" height="17"/>
+                        <rect key="frame" x="281" y="426" width="79" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icStarSmall" translatesAutoresizingMaskIntoConstraints="NO" id="j4d-gb-cFU" userLabel="Star Image View">
+                        <rect key="frame" x="365" y="427" width="15" height="14"/>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author username" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwb-zo-Uoh">
-                        <rect key="frame" x="70" y="421.5" width="111.5" height="17"/>
+                        <rect key="frame" x="78" y="425.5" width="111.5" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gKV-br-c2P" userLabel="Author Image View">
-                        <rect key="frame" x="20" y="410" width="40" height="40"/>
+                        <rect key="frame" x="20" y="410" width="48" height="48"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="0Cr-0b-bz7"/>
-                            <constraint firstAttribute="height" constant="40" id="hUP-7v-VdO"/>
+                            <constraint firstAttribute="width" constant="48" id="0Cr-0b-bz7"/>
+                            <constraint firstAttribute="height" constant="48" id="hUP-7v-VdO"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wC-zH-znf" userLabel="Description Label">
-                        <rect key="frame" x="20" y="470" width="360" height="109.5"/>
+                        <rect key="frame" x="20" y="478" width="360" height="101.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -61,13 +64,15 @@
                 <constraints>
                     <constraint firstItem="Le8-Dg-u5X" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="1YH-ZW-M4F"/>
                     <constraint firstItem="Le8-Dg-u5X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2Gz-Y9-U9x"/>
-                    <constraint firstItem="51f-q8-neO" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-20" id="4Hf-Pu-WWr"/>
                     <constraint firstItem="fwb-zo-Uoh" firstAttribute="centerY" secondItem="gKV-br-c2P" secondAttribute="centerY" id="4hY-mg-rEx"/>
                     <constraint firstAttribute="bottom" secondItem="9wC-zH-znf" secondAttribute="bottom" constant="20" id="4jF-3B-Uf0"/>
                     <constraint firstItem="jB3-Xz-CKp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="78s-ko-Qmp"/>
                     <constraint firstItem="Le8-Dg-u5X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="BaP-AU-9zT"/>
                     <constraint firstItem="9wC-zH-znf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="BpG-Vf-Q2t"/>
+                    <constraint firstItem="j4d-gb-cFU" firstAttribute="leading" secondItem="51f-q8-neO" secondAttribute="trailing" constant="5" id="D5L-jL-297"/>
                     <constraint firstItem="jB3-Xz-CKp" firstAttribute="bottom" secondItem="Le8-Dg-u5X" secondAttribute="bottom" constant="-10" id="GQG-oN-ydW"/>
+                    <constraint firstAttribute="trailing" secondItem="j4d-gb-cFU" secondAttribute="trailing" constant="20" id="LbK-Ne-S7s"/>
+                    <constraint firstItem="j4d-gb-cFU" firstAttribute="centerY" secondItem="gKV-br-c2P" secondAttribute="centerY" id="Mdv-zz-Sbw"/>
                     <constraint firstAttribute="trailing" secondItem="9wC-zH-znf" secondAttribute="trailing" constant="20" id="Pyb-7H-hkg"/>
                     <constraint firstAttribute="trailing" secondItem="jB3-Xz-CKp" secondAttribute="trailing" constant="20" id="Xht-eJ-nV6"/>
                     <constraint firstItem="9wC-zH-znf" firstAttribute="top" secondItem="gKV-br-c2P" secondAttribute="bottom" constant="20" id="cfu-sU-jvT"/>
@@ -84,9 +89,13 @@
                 <outlet property="descriptionLabel" destination="9wC-zH-znf" id="N13-qm-Vmv"/>
                 <outlet property="pictureImageView" destination="Le8-Dg-u5X" id="zxR-yS-81Y"/>
                 <outlet property="savesCountLabel" destination="51f-q8-neO" id="FfZ-Id-hc3"/>
+                <outlet property="starImageView" destination="j4d-gb-cFU" id="DLL-kh-OoQ"/>
                 <outlet property="titleLabel" destination="jB3-Xz-CKp" id="gvg-kx-mF7"/>
             </connections>
             <point key="canvasLocation" x="81" y="309.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icStarSmall" width="15" height="14"/>
+    </resources>
 </document>
