@@ -137,7 +137,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zXF-YS-zzP">
-                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sceneCellIdentifier" id="feb-ZD-Lpy" customClass="SceneTableViewCell" customModule="Pachatary" customModuleProvider="target">
@@ -352,13 +352,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="K9b-kS-r0O">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="K9b-kS-r0O">
                                 <rect key="frame" x="150" y="240" width="20" height="20"/>
                             </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="3LJ-pm-uMA" userLabel="Background Image View">
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.25844516629999997" blue="0.1454507709" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="dOG-fu-OYZ" firstAttribute="trailing" secondItem="3LJ-pm-uMA" secondAttribute="trailing" id="5Sv-XS-tJ1"/>
+                            <constraint firstItem="3LJ-pm-uMA" firstAttribute="leading" secondItem="dOG-fu-OYZ" secondAttribute="leading" id="JTn-Lu-Via"/>
+                            <constraint firstItem="3LJ-pm-uMA" firstAttribute="top" secondItem="dOG-fu-OYZ" secondAttribute="top" id="OTv-NI-i4r"/>
                             <constraint firstItem="K9b-kS-r0O" firstAttribute="centerX" secondItem="dOG-fu-OYZ" secondAttribute="centerX" id="Pog-0e-bHg"/>
+                            <constraint firstItem="3LJ-pm-uMA" firstAttribute="bottom" secondItem="dOG-fu-OYZ" secondAttribute="bottom" id="Y1J-T8-aVX"/>
                             <constraint firstItem="K9b-kS-r0O" firstAttribute="centerY" secondItem="dOG-fu-OYZ" secondAttribute="centerY" id="dJQ-Mw-lkN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dOG-fu-OYZ"/>
@@ -381,7 +388,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WaI-AU-lfh">
-                                <rect key="frame" x="0.0" y="64" width="320" height="323"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="w3P-su-BbN">
                                     <size key="itemSize" width="50" height="50"/>
@@ -546,12 +553,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="background" width="375" height="667"/>
         <image name="icMap" width="24" height="24"/>
         <image name="icSearch" width="18" height="18"/>
         <image name="icStar" width="20" height="19"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bUo-9v-NAM"/>
-        <segue reference="NiL-UL-iij"/>
+        <segue reference="gKD-YF-F98"/>
+        <segue reference="Dhj-kY-KCM"/>
     </inferredMetricsTieBreakers>
 </document>
