@@ -40,9 +40,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="NO RESULTS WERE FOUND" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJ4-h3-nJi" userLabel="No Results Label">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="NO RESULTS WERE FOUND" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJ4-h3-nJi" userLabel="No Results Label">
                                                     <rect key="frame" x="139" y="11" width="215" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -275,16 +275,48 @@
                                     <size key="itemSize" width="200" height="200"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="CvW-Ya-MGA">
-                                        <rect key="frame" x="60" y="0.0" width="200" height="200"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="noContentCell" id="CvW-Ya-MGA">
+                                        <rect key="frame" x="60" y="5" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fbn-VW-dNW">
+                                                    <rect key="frame" x="-20" y="36" width="240" height="128"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="YOU HAVEN'T SAVED ANY EXPERIENCE YET." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0EB-YN-FjL" userLabel="Label 1">
+                                                            <rect key="frame" x="99" y="53" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="SAVE ANY EXPERIENCE CLICKING TOP STAR ICON ON EXPERIENCE DETAIL." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NaO-5L-Z2e" userLabel="Label 2">
+                                                            <rect key="frame" x="99" y="53" width="559" height="20"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="NaO-5L-Z2e" firstAttribute="width" secondItem="Fbn-VW-dNW" secondAttribute="width" multiplier="8:10" id="5qh-UK-Xqr"/>
+                                                        <constraint firstItem="NaO-5L-Z2e" firstAttribute="top" secondItem="0EB-YN-FjL" secondAttribute="bottom" constant="30" id="GDa-X4-ZCl"/>
+                                                        <constraint firstItem="0EB-YN-FjL" firstAttribute="centerX" secondItem="Fbn-VW-dNW" secondAttribute="centerX" id="Sgy-KD-ePe"/>
+                                                        <constraint firstItem="0EB-YN-FjL" firstAttribute="top" secondItem="Fbn-VW-dNW" secondAttribute="top" constant="30" id="f91-4a-nTl"/>
+                                                        <constraint firstItem="NaO-5L-Z2e" firstAttribute="centerX" secondItem="Fbn-VW-dNW" secondAttribute="centerX" id="pUM-B1-GR9"/>
+                                                        <constraint firstItem="0EB-YN-FjL" firstAttribute="width" secondItem="Fbn-VW-dNW" secondAttribute="width" multiplier="8:10" id="r7i-Fn-BZr"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="Fbn-VW-dNW" firstAttribute="height" secondItem="CvW-Ya-MGA" secondAttribute="height" id="0ny-l4-EoY"/>
+                                            <constraint firstItem="Fbn-VW-dNW" firstAttribute="width" secondItem="CvW-Ya-MGA" secondAttribute="width" id="KuY-rf-BUX"/>
+                                        </constraints>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>

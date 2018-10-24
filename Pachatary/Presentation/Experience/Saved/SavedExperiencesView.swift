@@ -80,10 +80,14 @@ extension SavedExperiencesViewController: UICollectionViewDataSource, UICollecti
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.isLoading { return experiences.count + 1 }
-        return experiences.count
+        if experiences.count > 0 { return experiences.count }
+        return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.row == experiences.count && !isLoading {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "noContentCell", for: indexPath)
+        }
         if indexPath.row == experiences.count {
             let loadingCell: LoaderCollectionViewCell =
                 collectionView.dequeueReusableCell(withReuseIdentifier: "loaderCollectionCell", for: indexPath)
@@ -109,15 +113,11 @@ extension SavedExperiencesViewController: UICollectionViewDataSource, UICollecti
         let availableWidth = view.frame.width
 
         if indexPath.row == experiences.count {
-            return CGSize(width: availableWidth, height: availableWidth)
+            return CGSize(width: availableWidth - 10, height: availableWidth - 10)
         }
-        else { return CGSize(width: availableWidth / 2, height: availableWidth / 2) }
+        else { return CGSize(width: availableWidth / 2 - 5, height: availableWidth / 2 - 5) }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0, 0, 0, 0)
-    }
-
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let visibleRowsIndexPaths = self.collectionView.indexPathsForVisibleItems
         if visibleRowsIndexPaths.count > 0 {
