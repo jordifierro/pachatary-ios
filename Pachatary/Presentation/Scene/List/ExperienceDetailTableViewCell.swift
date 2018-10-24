@@ -13,6 +13,8 @@ class ExperienceDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var showMoreLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var mapImageView: UIImageView!
+
+    var gradientLayer: CAGradientLayer?
     var experience: Experience!
     var onGoToMapClickListener: (() -> ())!
     var profileClickListener: ((String) -> ())!
@@ -53,7 +55,7 @@ class ExperienceDetailTableViewCell: UITableViewCell {
             authorImageView.kf.setImage(with: URL(string: experience.authorProfile.picture!.smallUrl))
         }
         else { authorImageView.kf.setImage(with: nil) }
-        authorImageView.layer.cornerRadius = 20
+        authorImageView.layer.cornerRadius = 24
         authorImageView.layer.masksToBounds = true
         authorUsernameLabel.text = experience.authorProfile.username
         let imageTap = UITapGestureRecognizer(target: self, action: #selector(ExperienceDetailTableViewCell.profileTap))
@@ -64,7 +66,7 @@ class ExperienceDetailTableViewCell: UITableViewCell {
         authorUsernameLabel.addGestureRecognizer(labelTap)
 
         titleLabel.text = experience.title
-        savesCountLabel.text = String(experience.savesCount) + " ☆"
+        savesCountLabel.text = String(experience.savesCount)
         descriptionLabel.text = experience.description
         if (!scenes.isEmpty) {
             let screenWidth = UIScreen.main.bounds.width
@@ -96,6 +98,8 @@ class ExperienceDetailTableViewCell: UITableViewCell {
             showMoreLabel.addGestureRecognizer(showMoreLabelTap)
             descriptionLabel.numberOfLines = 4
         }
+
+        setupGradientMask()
     }
 
     @objc func showMoreTap(sender: UITapGestureRecognizer) {
@@ -108,5 +112,23 @@ class ExperienceDetailTableViewCell: UITableViewCell {
 
     @objc func profileTap(sender: UITapGestureRecognizer) {
         profileClickListener(self.experience.authorProfile.username)
+    }
+
+    private func setupGradientMask() {
+        if self.gradientLayer == nil {
+            gradientLayer = CAGradientLayer.init(layer: self.pictureImageView.layer)
+            gradientLayer!.frame = self.pictureImageView.bounds;
+            gradientLayer!.colors = [UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
+                                     UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor]
+            gradientLayer!.locations = [0.5, 1]
+            gradientLayer!.zPosition = 1000
+            self.pictureImageView.layer.addSublayer(gradientLayer!)
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.gradientLayer?.frame = self.pictureImageView.bounds
     }
 }

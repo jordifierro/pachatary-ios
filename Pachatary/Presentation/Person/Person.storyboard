@@ -338,4 +338,5 @@
     <resources>
         <image name="background" width="375" height="667"/>
     </resources>
+    <color key="tintColor" red="0.1450980392" green="0.80392156859999997" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

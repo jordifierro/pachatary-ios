@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
+                <rect key="frame" x="0.0" y="0.0" width="400" height="599.5"/>
                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Le8-Dg-u5X">
@@ -28,29 +28,36 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jB3-Xz-CKp">
                         <rect key="frame" x="20" y="366" width="360" height="24"/>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h9K-Eb-7ez" userLabel="Author Image View">
-                        <rect key="frame" x="20" y="410" width="40" height="40"/>
+                        <rect key="frame" x="20" y="410" width="48" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="HbS-oc-XUX"/>
-                            <constraint firstAttribute="height" constant="40" id="rLC-4i-Ejh"/>
+                            <constraint firstAttribute="width" constant="48" id="HbS-oc-XUX"/>
+                            <constraint firstAttribute="height" constant="48" id="rLC-4i-Ejh"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Author username" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwb-zo-Uoh">
-                        <rect key="frame" x="70" y="421.5" width="111.5" height="17"/>
+                        <rect key="frame" x="78" y="421.5" width="111.5" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Saves count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51f-q8-neO">
-                        <rect key="frame" x="301" y="421.5" width="79" height="17"/>
+                        <rect key="frame" x="281" y="421.5" width="79" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="icStar" translatesAutoresizingMaskIntoConstraints="NO" id="4jp-gV-5ED" userLabel="Star Image View">
+                        <rect key="frame" x="360" y="236" width="15" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="E1t-5R-4U8"/>
+                            <constraint firstAttribute="width" constant="15" id="ehg-Wp-EbJ"/>
+                        </constraints>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" ambiguous="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voI-VH-337">
                         <rect key="frame" x="20" y="470" width="360" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -81,7 +88,8 @@
                     <constraint firstItem="Le8-Dg-u5X" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="1YH-ZW-M4F"/>
                     <constraint firstItem="Le8-Dg-u5X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2Gz-Y9-U9x"/>
                     <constraint firstItem="4i0-yi-jl3" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="409-g4-WhU"/>
-                    <constraint firstItem="51f-q8-neO" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-20" id="4Hf-Pu-WWr"/>
+                    <constraint firstItem="4jp-gV-5ED" firstAttribute="leading" secondItem="51f-q8-neO" secondAttribute="trailing" constant="5" id="6l5-1L-MvR"/>
+                    <constraint firstAttribute="trailing" secondItem="4jp-gV-5ED" secondAttribute="trailing" constant="20" id="6vg-uh-Zh6"/>
                     <constraint firstItem="jB3-Xz-CKp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="78s-ko-Qmp"/>
                     <constraint firstItem="Le8-Dg-u5X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="BaP-AU-9zT"/>
                     <constraint firstItem="4i0-yi-jl3" firstAttribute="top" secondItem="tX1-nw-dwh" secondAttribute="bottom" constant="10" id="FEC-lj-UYf"/>
@@ -89,6 +97,7 @@
                     <constraint firstAttribute="trailing" secondItem="tX1-nw-dwh" secondAttribute="trailing" constant="20" id="Iez-E1-FEA"/>
                     <constraint firstItem="voI-VH-337" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="IlN-CS-3Rc"/>
                     <constraint firstItem="h9K-Eb-7ez" firstAttribute="top" secondItem="Le8-Dg-u5X" secondAttribute="bottom" constant="10" id="KAi-8C-jZ1"/>
+                    <constraint firstItem="4jp-gV-5ED" firstAttribute="centerY" secondItem="h9K-Eb-7ez" secondAttribute="centerY" id="RD7-kP-TTg"/>
                     <constraint firstAttribute="trailing" secondItem="voI-VH-337" secondAttribute="trailing" constant="20" id="VbJ-Hm-Mh3"/>
                     <constraint firstAttribute="trailing" secondItem="jB3-Xz-CKp" secondAttribute="trailing" constant="20" id="Xht-eJ-nV6"/>
                     <constraint firstItem="51f-q8-neO" firstAttribute="centerY" secondItem="h9K-Eb-7ez" secondAttribute="centerY" id="ZBf-oE-EPS"/>
@@ -115,4 +124,7 @@
             <point key="canvasLocation" x="81" y="309.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icStar" width="20" height="19"/>
+    </resources>
 </document>

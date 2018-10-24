@@ -167,20 +167,22 @@ extension ExperienceScenesViewController: ExperienceScenesView {
     private func configureNavigationItems(_ experience: Experience) {
         self.navigationItem.rightBarButtonItems = []
 
-        let shareBarButtonItem = UIBarButtonItem(title: "Share", style: .done,
-                                                 target: self, action: #selector(shareClick))
-        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
-        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
+        let shareBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "icShare.png")?.withRenderingMode(.alwaysTemplate),
+            style: .done, target: self, action: #selector(shareClick))
         self.navigationItem.rightBarButtonItems?.append(shareBarButtonItem)
 
         var saveBarButtonItem: UIBarButtonItem!
+        let starIcon = UIImage(named: "icStar.png")?.withRenderingMode(.alwaysTemplate)
         if experience.isSaved {
-            saveBarButtonItem = UIBarButtonItem(title: "Saved", style: .done,
-                                                target: self, action: #selector(unsaveExperience))
+            saveBarButtonItem = UIBarButtonItem(image: starIcon,
+                style: .done, target: self, action: #selector(unsaveExperience))
+            saveBarButtonItem.tintColor = UIColor.themeGreen
         }
         else {
-            saveBarButtonItem = UIBarButtonItem(title: "Save", style: .done,
-                                                target: self, action: #selector(saveExperience))
+            saveBarButtonItem = UIBarButtonItem(image: starIcon,
+                style: .done, target: self, action: #selector(saveExperience))
+            saveBarButtonItem.tintColor = UIColor.black
         }
         saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
         saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
