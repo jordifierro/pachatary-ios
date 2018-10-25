@@ -173,16 +173,15 @@ extension ExperienceScenesViewController: ExperienceScenesView {
         self.navigationItem.rightBarButtonItems?.append(shareBarButtonItem)
 
         var saveBarButtonItem: UIBarButtonItem!
-        let starIcon = UIImage(named: "icStar.png")?.withRenderingMode(.alwaysTemplate)
         if experience.isSaved {
-            saveBarButtonItem = UIBarButtonItem(image: starIcon,
+            let starActiveIcon = UIImage(named: "icStarActive.png")?.withRenderingMode(.alwaysOriginal)
+            saveBarButtonItem = UIBarButtonItem(image: starActiveIcon,
                 style: .done, target: self, action: #selector(unsaveExperience))
-            saveBarButtonItem.tintColor = UIColor.themeGreen
         }
         else {
+            let starIcon = UIImage(named: "icStar.png")?.withRenderingMode(.alwaysOriginal)
             saveBarButtonItem = UIBarButtonItem(image: starIcon,
                 style: .done, target: self, action: #selector(saveExperience))
-            saveBarButtonItem.tintColor = UIColor.black
         }
         saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
         saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)

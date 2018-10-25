@@ -8,6 +8,7 @@ class ExperienceDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var pictureImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var savesCountLabel: UILabel!
+    @IBOutlet weak var starImageView: UIImageView!
     @IBOutlet weak var authorImageView: UIImageView!
     @IBOutlet weak var authorUsernameLabel: UILabel!
     @IBOutlet weak var showMoreLabel: UILabel!
@@ -64,6 +65,10 @@ class ExperienceDetailTableViewCell: UITableViewCell {
         let labelTap = UITapGestureRecognizer(target: self, action: #selector(ExperienceDetailTableViewCell.profileTap))
         authorUsernameLabel.isUserInteractionEnabled = true
         authorUsernameLabel.addGestureRecognizer(labelTap)
+
+        starImageView.image = starImageView.image!.withRenderingMode(.alwaysTemplate)
+        if experience.isSaved { starImageView.tintColor = UIColor.themeGreen }
+        else { starImageView.tintColor = UIColor.gray }
 
         titleLabel.text = experience.title
         savesCountLabel.text = String(experience.savesCount)

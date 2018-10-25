@@ -119,6 +119,7 @@
                 <outlet property="pictureImageView" destination="Le8-Dg-u5X" id="pAu-zk-v7l"/>
                 <outlet property="savesCountLabel" destination="51f-q8-neO" id="9Up-7s-F2Q"/>
                 <outlet property="showMoreLabel" destination="tX1-nw-dwh" id="Iu2-jK-OOW"/>
+                <outlet property="starImageView" destination="4jp-gV-5ED" id="G2b-iP-N85"/>
                 <outlet property="titleLabel" destination="jB3-Xz-CKp" id="vf0-Ga-FA5"/>
             </connections>
             <point key="canvasLocation" x="81" y="309.5"/>
