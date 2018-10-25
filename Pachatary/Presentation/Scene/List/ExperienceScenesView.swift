@@ -135,7 +135,7 @@ extension ExperienceScenesViewController: ExperienceScenesView {
     
     func scrollToScene(_ sceneId: String) {
         let scenePosition = scenes.index(where: { scene in scene.id == sceneId })!
-        self.tableView.scrollToRow(at: IndexPath(item: scenePosition, section: 1),
+        self.tableView.scrollToRow(at: IndexPath(item: scenePosition + 1, section: 0),
                                    at: .top, animated: true)
     }
 
