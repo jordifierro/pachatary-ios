@@ -102,6 +102,7 @@
 		AEC2FF88217E186F000E3F1B /* Bahiana-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEC2FF87217E186F000E3F1B /* Bahiana-Regular.ttf */; };
 		AEC2FF8A217E4A82000E3F1B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC2FF89217E4A82000E3F1B /* WebViewController.swift */; };
 		AEC2FF8C217FAE87000E3F1B /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC2FF8B217FAE87000E3F1B /* Snackbar.swift */; };
+		AEC2FF8E2181C920000E3F1B /* UIImage+Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC2FF8D2181C91F000E3F1B /* UIImage+Circle.swift */; };
 		AEC8DCE6211DEBAE007CCC68 /* LoginPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */; };
 		AEC8DCE8211DF1F0007CCC68 /* POST_people_me_login.json in Resources */ = {isa = PBXBuildFile; fileRef = AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */; };
 		AEC8DCEA211DF9D3007CCC68 /* DataTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC8DCE9211DF9D3007CCC68 /* DataTestUtils.swift */; };
@@ -269,6 +270,7 @@
 		AEC2FF87217E186F000E3F1B /* Bahiana-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bahiana-Regular.ttf"; sourceTree = "<group>"; };
 		AEC2FF89217E4A82000E3F1B /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		AEC2FF8B217FAE87000E3F1B /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
+		AEC2FF8D2181C91F000E3F1B /* UIImage+Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Circle.swift"; sourceTree = "<group>"; };
 		AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenterTests.swift; sourceTree = "<group>"; };
 		AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POST_people_me_login.json; sourceTree = "<group>"; };
 		AEC8DCE9211DF9D3007CCC68 /* DataTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestUtils.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				AEC2FF85217E1059000E3F1B /* CustomButtons.swift */,
 				AEC2FF89217E4A82000E3F1B /* WebViewController.swift */,
 				AEC2FF8B217FAE87000E3F1B /* Snackbar.swift */,
+				AEC2FF8D2181C91F000E3F1B /* UIImage+Circle.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1185,6 +1188,7 @@
 				AE07CB22211CA64500D98BC1 /* LoginView.swift in Sources */,
 				AEAE26B020E2885900E5D4E9 /* SceneApiRepository.swift in Sources */,
 				AE86639620D7D3B5008CE6D2 /* AuthDataDependencyInjector.swift in Sources */,
+				AEC2FF8E2181C920000E3F1B /* UIImage+Circle.swift in Sources */,
 				AE0F8F97211B549500A735B8 /* AskLoginEmailPresenter.swift in Sources */,
 				AEC2FF8A217E4A82000E3F1B /* WebViewController.swift in Sources */,
 				AEA56627211331D400F0E1F3 /* LittlePicture.swift in Sources */,

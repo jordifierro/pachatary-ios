@@ -48,6 +48,17 @@ extension ExperienceMapViewController: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
         presenter.sceneClick(annotationSceneId[annotation.hash]!)
     }
+
+    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        var annotationImage = mapView.dequeueReusableAnnotationImage(withIdentifier: "circle")
+
+        if annotationImage == nil {
+            let image = UIImage.circle(diameter: 10, color: UIColor.themeGreen)
+            annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "circle")
+        }
+
+        return annotationImage
+    }
 }
 
 extension ExperienceMapViewController: ExperienceMapView {
