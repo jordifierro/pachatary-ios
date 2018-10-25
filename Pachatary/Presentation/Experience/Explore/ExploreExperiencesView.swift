@@ -47,6 +47,8 @@ class ExploreExperiencesViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationItem.title = "PACHATARY"
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSAttributedStringKey.font: UIFont(name: "Bahiana-Regular", size: 40)!]
 
         presenter = ExperienceDependencyInjector.exploreExperiencePresenter(view: self)
 
