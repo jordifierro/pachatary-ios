@@ -46,11 +46,9 @@ class ExploreExperiencesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        presenter = ExperienceDependencyInjector.exploreExperiencePresenter(view: self)
-
         self.navigationItem.title = "PACHATARY"
-        self.navigationController?.navigationBar.titleTextAttributes =
-            [NSAttributedStringKey.font: UIFont(name: "Bahiana-Regular", size: 40)!]
+
+        presenter = ExperienceDependencyInjector.exploreExperiencePresenter(view: self)
 
         let loaderNib = UINib.init(nibName: "LoaderTableViewCell", bundle: nil)
         self.tableView.register(loaderNib, forCellReuseIdentifier: "loaderCell")
@@ -64,6 +62,12 @@ class ExploreExperiencesViewController: UIViewController {
                for: .touchUpInside)
 
         presenter!.create()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSAttributedStringKey.font: UIFont(name: "Bahiana-Regular", size: 40)!]
+        self.navigationItem.title = "PACHATARY"
     }
 
     @objc func selectLocactionButtonClick(_ sender: UIButton!) {
@@ -85,6 +89,7 @@ class ExploreExperiencesViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.navigationItem.title = " "
         if segue.identifier == "experienceScenesSegue" {
             if let destinationVC = segue.destination as? ExperienceScenesViewController {
                 destinationVC.experienceId = selectedExperienceId

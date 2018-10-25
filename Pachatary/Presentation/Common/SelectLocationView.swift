@@ -34,13 +34,20 @@ class SelectLocationViewController: UIViewController {
         presenter = CommonDependencyInjector.selectLocationPresenter(self, initialLatitude,
                                                                      initialLongitude)
 
-        mapView.delegate = self
         self.navigationItem.title = "SELECT LOCATION"
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.semibold)]
+
+        self.mapView.delegate = self
+        self.mapView.zoomLevel = 1
         self.searchBar.delegate = self
 
         locateButton.addTarget(self,
            action: #selector(SelectLocationViewController.locateButtonClick(_:)),
            for: .touchUpInside)
+        locateButton.layer.cornerRadius = 20
+        locateButton.layer.masksToBounds = true
+        
         doneButton.addTarget(self,
            action: #selector(SelectLocationViewController.doneButtonClick(_:)),
            for: .touchUpInside)
