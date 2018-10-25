@@ -394,8 +394,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WaI-AU-lfh">
-                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WaI-AU-lfh">
+                                <rect key="frame" x="5" y="20" width="310" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="w3P-su-BbN">
                                     <size key="itemSize" width="50" height="50"/>
@@ -421,8 +421,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="WaI-AU-lfh" firstAttribute="leading" secondItem="es5-Pr-rXU" secondAttribute="leading" id="7gI-vA-ezK"/>
-                            <constraint firstItem="es5-Pr-rXU" firstAttribute="trailing" secondItem="WaI-AU-lfh" secondAttribute="trailing" id="Uqp-X5-fUp"/>
+                            <constraint firstItem="WaI-AU-lfh" firstAttribute="leading" secondItem="es5-Pr-rXU" secondAttribute="leading" constant="5" id="7gI-vA-ezK"/>
+                            <constraint firstItem="es5-Pr-rXU" firstAttribute="trailing" secondItem="WaI-AU-lfh" secondAttribute="trailing" constant="5" id="Uqp-X5-fUp"/>
                             <constraint firstItem="es5-Pr-rXU" firstAttribute="bottom" secondItem="WaI-AU-lfh" secondAttribute="bottom" id="yNZ-wT-v2J"/>
                             <constraint firstItem="WaI-AU-lfh" firstAttribute="top" secondItem="es5-Pr-rXU" secondAttribute="top" id="zhv-nU-Yvb"/>
                         </constraints>

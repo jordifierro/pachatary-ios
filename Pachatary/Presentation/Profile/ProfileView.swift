@@ -51,10 +51,9 @@ class ProfileViewController: UIViewController {
         
         self.collectionView.addSubview(self.refreshControl)
 
-        let shareBarButtonItem = UIBarButtonItem(title: "Share", style: .done,
-                                                 target: self, action: #selector(shareClick))
-        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
-        shareBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
+        let shareBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "icShare.png")?.withRenderingMode(.alwaysTemplate),
+            style: .done, target: self, action: #selector(shareClick))
         self.navigationItem.rightBarButtonItem = shareBarButtonItem
 
         presenter.create()
@@ -152,16 +151,13 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let availableWidth = view.frame.width
+        let availableWidth = self.collectionView.frame.width
         
         switch viewType(indexPath.row) {
         case .loader:
             return CGSize(width: availableWidth, height: availableWidth)
         case .profile:
-            if let cell = collectionView.cellForItem(at: indexPath) {
-                return CGSize(width: availableWidth, height: cell.frame.height)
-            }
-            else { return CGSize(width: availableWidth, height: availableWidth) }
+            return CGSize(width: availableWidth, height: 310)
         case .experience:
             return CGSize(width: availableWidth / 2, height: availableWidth / 2)
         }

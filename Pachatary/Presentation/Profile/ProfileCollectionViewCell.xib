@@ -22,10 +22,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j7i-NV-A0a" userLabel="Picture Image View">
-                        <rect key="frame" x="130" y="10" width="140" height="140"/>
+                        <rect key="frame" x="140" y="0.0" width="120" height="120"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="j7i-NV-A0a" secondAttribute="height" multiplier="1:1" id="9UQ-3l-Bsh"/>
-                            <constraint firstAttribute="width" constant="140" id="dnc-2P-HYS"/>
+                            <constraint firstAttribute="width" constant="120" id="dnc-2P-HYS"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qQ9-bW-LyV" userLabel="Username Label">
@@ -36,12 +36,12 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsY-y0-umF" userLabel="Bio Label">
                         <rect key="frame" x="152" y="274" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xSr-HM-tZ6" userLabel="Divider View">
-                        <rect key="frame" x="20" y="242.5" width="360" height="1"/>
+                        <rect key="frame" x="5" y="242.5" width="390" height="1"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="XCx-og-21c"/>
@@ -49,24 +49,24 @@
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="EXPERIENCES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2r-jD-Aqv" userLabel="Experiences Label">
                         <rect key="frame" x="179" y="359" width="110" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="xSr-HM-tZ6" firstAttribute="width" secondItem="ZFf-sn-Wr0" secondAttribute="width" multiplier="9:10" id="GFN-H5-8Tc"/>
-                <constraint firstItem="Y2r-jD-Aqv" firstAttribute="top" secondItem="xSr-HM-tZ6" secondAttribute="bottom" constant="20" id="I60-Zq-G44"/>
+                <constraint firstItem="xSr-HM-tZ6" firstAttribute="width" secondItem="ZFf-sn-Wr0" secondAttribute="width" multiplier="1:1" constant="-10" id="GFN-H5-8Tc"/>
+                <constraint firstItem="Y2r-jD-Aqv" firstAttribute="top" secondItem="xSr-HM-tZ6" secondAttribute="bottom" constant="15" id="I60-Zq-G44"/>
                 <constraint firstItem="lsY-y0-umF" firstAttribute="width" secondItem="ZFf-sn-Wr0" secondAttribute="width" multiplier="8:10" id="Jye-ob-YmE"/>
                 <constraint firstItem="xSr-HM-tZ6" firstAttribute="centerX" secondItem="Uhl-9F-B6Z" secondAttribute="centerX" id="T5n-d8-Xqs"/>
-                <constraint firstItem="j7i-NV-A0a" firstAttribute="top" secondItem="Uhl-9F-B6Z" secondAttribute="top" constant="10" id="TaX-1k-ume"/>
+                <constraint firstItem="j7i-NV-A0a" firstAttribute="top" secondItem="Uhl-9F-B6Z" secondAttribute="top" id="TaX-1k-ume"/>
                 <constraint firstItem="qQ9-bW-LyV" firstAttribute="top" secondItem="j7i-NV-A0a" secondAttribute="bottom" constant="20" id="YIg-SV-nV0"/>
                 <constraint firstItem="xSr-HM-tZ6" firstAttribute="top" secondItem="lsY-y0-umF" secondAttribute="bottom" constant="10" id="ZVN-vX-ui6"/>
                 <constraint firstItem="lsY-y0-umF" firstAttribute="top" secondItem="qQ9-bW-LyV" secondAttribute="bottom" constant="20" id="b5X-ES-5H4"/>
                 <constraint firstItem="qQ9-bW-LyV" firstAttribute="centerX" secondItem="Uhl-9F-B6Z" secondAttribute="centerX" id="bQ9-v3-diw"/>
                 <constraint firstItem="j7i-NV-A0a" firstAttribute="centerX" secondItem="Uhl-9F-B6Z" secondAttribute="centerX" id="cdc-LQ-vz7"/>
-                <constraint firstItem="Uhl-9F-B6Z" firstAttribute="bottom" secondItem="Y2r-jD-Aqv" secondAttribute="bottom" constant="20" id="crk-JH-GI4"/>
+                <constraint firstItem="Uhl-9F-B6Z" firstAttribute="bottom" secondItem="Y2r-jD-Aqv" secondAttribute="bottom" constant="15" id="crk-JH-GI4"/>
                 <constraint firstItem="lsY-y0-umF" firstAttribute="centerX" secondItem="Uhl-9F-B6Z" secondAttribute="centerX" id="fUh-JV-vg4"/>
                 <constraint firstItem="Y2r-jD-Aqv" firstAttribute="centerX" secondItem="Uhl-9F-B6Z" secondAttribute="centerX" id="kYa-HM-723"/>
             </constraints>

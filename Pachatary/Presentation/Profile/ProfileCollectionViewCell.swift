@@ -19,7 +19,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
             pictureImageView.kf.setImage(with: URL(string: profile.picture!.smallUrl))
         }
         else { pictureImageView.kf.setImage(with: nil) }
-        pictureImageView.layer.cornerRadius = 70
+        pictureImageView.layer.cornerRadius = 60
         pictureImageView.layer.masksToBounds = true
         usernameLabel.text = profile.username
         bioLabel.text = profile.bio
