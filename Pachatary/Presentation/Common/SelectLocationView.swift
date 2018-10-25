@@ -21,7 +21,8 @@ class SelectLocationViewController: UIViewController {
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var locateButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
-
+    @IBOutlet weak var pointerImageView: UIImageView!
+    
     var presenter: SelectLocationPresenter!
     var initialLatitude: Double?
     var initialLongitude: Double?
@@ -51,6 +52,9 @@ class SelectLocationViewController: UIViewController {
         doneButton.addTarget(self,
            action: #selector(SelectLocationViewController.doneButtonClick(_:)),
            for: .touchUpInside)
+
+
+        pointerImageView.image = UIImage.circle(diameter: 10, color: UIColor.themeGreen)
 
         presenter.create()
     }

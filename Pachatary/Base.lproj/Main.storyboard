@@ -510,14 +510,13 @@
                                 </constraints>
                                 <state key="normal" title="Done"/>
                             </button>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K7T-IY-s7s" userLabel="Target Point View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K1g-kU-f7Q" userLabel="Pointer Image View">
                                 <rect key="frame" x="40" y="176" width="240" height="128"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="5" id="IvY-Yt-yPO"/>
-                                    <constraint firstAttribute="width" constant="5" id="i3t-RH-CD9"/>
+                                    <constraint firstAttribute="height" constant="10" id="aS7-oZ-qhU"/>
+                                    <constraint firstAttribute="width" constant="10" id="ovE-KO-6x6"/>
                                 </constraints>
-                            </view>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -525,15 +524,15 @@
                             <constraint firstItem="bel-qT-YYH" firstAttribute="bottom" secondItem="iuJ-f7-g1I" secondAttribute="bottom" id="Cfr-jY-fve"/>
                             <constraint firstItem="bel-qT-YYH" firstAttribute="top" secondItem="jfX-g2-XQt" secondAttribute="top" id="EUo-uM-nSi"/>
                             <constraint firstItem="5Z8-3w-czS" firstAttribute="centerX" secondItem="bel-qT-YYH" secondAttribute="centerX" id="Fqo-Cs-3YS"/>
-                            <constraint firstItem="K7T-IY-s7s" firstAttribute="centerX" secondItem="iuJ-f7-g1I" secondAttribute="centerX" id="Iby-fM-NpT"/>
                             <constraint firstItem="iuJ-f7-g1I" firstAttribute="leading" secondItem="bel-qT-YYH" secondAttribute="leading" id="Onm-Ko-ax6"/>
                             <constraint firstItem="jfX-g2-XQt" firstAttribute="width" secondItem="DKY-3h-9CE" secondAttribute="width" id="PwD-9C-V3D"/>
                             <constraint firstItem="bel-qT-YYH" firstAttribute="trailing" secondItem="iuJ-f7-g1I" secondAttribute="trailing" id="ank-Vk-OQj"/>
                             <constraint firstItem="5Z8-3w-czS" firstAttribute="bottom" secondItem="bel-qT-YYH" secondAttribute="bottom" constant="-20" id="c17-80-1XL"/>
                             <constraint firstItem="Bpm-kb-uik" firstAttribute="trailing" secondItem="iuJ-f7-g1I" secondAttribute="trailing" constant="-20" id="cwo-fC-lg6"/>
                             <constraint firstItem="Bpm-kb-uik" firstAttribute="top" secondItem="iuJ-f7-g1I" secondAttribute="top" constant="20" id="dse-AS-iu9"/>
-                            <constraint firstItem="K7T-IY-s7s" firstAttribute="centerY" secondItem="iuJ-f7-g1I" secondAttribute="centerY" id="etG-Rx-faK"/>
+                            <constraint firstItem="K1g-kU-f7Q" firstAttribute="centerY" secondItem="iuJ-f7-g1I" secondAttribute="centerY" id="fVG-hF-Uz3"/>
                             <constraint firstItem="iuJ-f7-g1I" firstAttribute="top" secondItem="jfX-g2-XQt" secondAttribute="bottom" id="hvK-TU-3jF"/>
+                            <constraint firstItem="K1g-kU-f7Q" firstAttribute="centerX" secondItem="iuJ-f7-g1I" secondAttribute="centerX" id="oOT-oy-E7J"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bel-qT-YYH"/>
                     </view>
@@ -541,6 +540,7 @@
                         <outlet property="doneButton" destination="5Z8-3w-czS" id="uJb-D3-ArT"/>
                         <outlet property="locateButton" destination="Bpm-kb-uik" id="DuT-Nz-vZF"/>
                         <outlet property="mapView" destination="iuJ-f7-g1I" id="EGL-cT-XtT"/>
+                        <outlet property="pointerImageView" destination="K1g-kU-f7Q" id="0db-Aw-UwN"/>
                         <outlet property="searchBar" destination="jfX-g2-XQt" id="o7m-GL-XfA"/>
                     </connections>
                 </viewController>
