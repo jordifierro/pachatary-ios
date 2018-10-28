@@ -3,6 +3,9 @@ import UIKit
 class RootViewController: UIViewController {
     private var current: UIViewController
     private let authRepo = AuthDataDependencyInjector.authRepository
+
+    var pendingExperienceIdDeeplink: String? = nil
+    var pendingProfileUsernameDeeplink: String? = nil
     
     init() {
         if authRepo.hasPersonCredentials() {
@@ -60,11 +63,8 @@ class RootViewController: UIViewController {
     }
 
     func navigateToProfile(_ username: String) {
-        let profileViewController = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "profileViewController")
-                as! ProfileViewController
-        profileViewController.username = username
-        animateFadeTransition(to: UINavigationController(rootViewController: profileViewController))
+        pendingProfileUsernameDeeplink = username
+        navigateToMain()
     }
 
     func navigateToExperienceRouter(_ experienceShareId: String) {
@@ -76,12 +76,8 @@ class RootViewController: UIViewController {
     }
 
     func navigateToExperience(_ experienceId: String) {
-        let experienceViewController = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "experienceScenesViewController")
-            as! ExperienceScenesViewController
-        experienceViewController.experienceId = experienceId
-        animateFadeTransition(to: UINavigationController(rootViewController:
-                                                                        experienceViewController))
+        pendingExperienceIdDeeplink = experienceId
+        navigateToMain()
     }
 
     func navigateToLogin(token: String) {

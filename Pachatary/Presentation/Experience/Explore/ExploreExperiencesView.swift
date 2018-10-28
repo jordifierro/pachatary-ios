@@ -64,6 +64,16 @@ class ExploreExperiencesViewController: UIViewController {
                for: .touchUpInside)
 
         presenter!.create()
+
+        if AppDelegate.shared.rootViewController.pendingProfileUsernameDeeplink != nil {
+            navigateToProfile(AppDelegate.shared.rootViewController.pendingProfileUsernameDeeplink!)
+            AppDelegate.shared.rootViewController.pendingProfileUsernameDeeplink = nil
+        }
+        if AppDelegate.shared.rootViewController.pendingExperienceIdDeeplink != nil {
+            navigateToExperienceScenes(
+                AppDelegate.shared.rootViewController.pendingExperienceIdDeeplink!)
+            AppDelegate.shared.rootViewController.pendingExperienceIdDeeplink = nil
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
