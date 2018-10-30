@@ -15,6 +15,9 @@ target 'Pachatary' do
   pod 'MapboxStatic.swift', '~> 0.9'
   pod 'SwiftKeychainWrapper'
   pod 'TTGSnackbar'
+  pod 'Firebase/Core'
+  pod 'Fabric', '~> 1.7.11'
+  pod 'Crashlytics', '~> 3.10.7'
 
   target 'PachataryTests' do
     inherit! :search_paths

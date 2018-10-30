@@ -223,3 +223,8 @@ Pods/
 # To create your own, copy ApiKeys.plist.sample to ApiKeys.plist and set the values
 #
 ApiKeys.plist
+
+####
+# Firebase crashlytics
+#
+GoogleService-Info.plist

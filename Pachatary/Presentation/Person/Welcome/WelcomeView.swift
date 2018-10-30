@@ -24,7 +24,7 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         presenter.view = self
         startButton.addTarget(self, action: #selector(start), for: .touchUpInside)
         loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)

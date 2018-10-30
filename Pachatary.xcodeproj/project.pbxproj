@@ -19,6 +19,7 @@
 		AE1D6D1D20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */; };
 		AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D1E20C5707300EA6DDD /* Experience.swift */; };
 		AE1D6D2120C5712E00EA6DDD /* BigPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1D6D2020C5712E00EA6DDD /* BigPicture.swift */; };
+		AE1E46032189BEA500BA7E45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE1E46022189BEA400BA7E45 /* GoogleService-Info.plist */; };
 		AE218B8520E2789E00E79E51 /* ExperienceMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE218B8420E2789E00E79E51 /* ExperienceMapView.swift */; };
 		AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */; };
 		AE3BE3BB211A142500D10A19 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3BE3BA211A142500D10A19 /* RootViewController.swift */; };
@@ -181,6 +182,7 @@
 		AE1D6D1C20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		AE1D6D1E20C5707300EA6DDD /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
 		AE1D6D2020C5712E00EA6DDD /* BigPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPicture.swift; sourceTree = "<group>"; };
+		AE1E46022189BEA400BA7E45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AE218B8420E2789E00E79E51 /* ExperienceMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapView.swift; sourceTree = "<group>"; };
 		AE3116E320EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtendedExperienceTableViewCell.xib; sourceTree = "<group>"; };
 		AE3BE3BA211A142500D10A19 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				AEBB62A420C547D6001A4576 /* LaunchScreen.storyboard */,
 				AEEAC68E20C99963007C17EE /* ApiKeys.plist */,
 				AEBB62A720C547D6001A4576 /* Info.plist */,
+				AE1E46022189BEA400BA7E45 /* GoogleService-Info.plist */,
 				AEC2FF83217E0CAD000E3F1B /* fonts */,
 			);
 			path = Pachatary;
@@ -862,6 +865,7 @@
 				AEBB629620C547D3001A4576 /* Resources */,
 				F94A5930921E764934670668 /* [CP] Embed Pods Frameworks */,
 				AE75E6F320E4E0FB00A65411 /* ShellScript */,
+				AE1E46012189BAE800BA7E45 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -960,6 +964,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE1E46032189BEA500BA7E45 /* GoogleService-Info.plist in Resources */,
 				AEEAC69020C99979007C17EE /* ApiKeys.plist in Resources */,
 				AEE03CEC216642EE0034AE0C /* ProfileCollectionViewCell.xib in Resources */,
 				AE86D9E9215EAD98003D2B34 /* SquareExperienceCollectionViewCell.xib in Resources */,
@@ -1038,6 +1043,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		AE1E46012189BAE800BA7E45 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
+		};
 		AE75E6F320E4E0FB00A65411 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1099,6 +1117,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Pachatary/Pods-Pachatary-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
@@ -1110,10 +1129,12 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/TTGSnackbar/TTGSnackbar.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
@@ -1125,6 +1146,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTGSnackbar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

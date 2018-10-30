@@ -1,5 +1,52 @@
 PODS:
   - Alamofire (4.7.2)
+  - Crashlytics (3.10.9):
+    - Fabric (~> 1.7.13)
+  - Fabric (1.7.13)
+  - Firebase/Core (5.11.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 5.3.0)
+  - Firebase/CoreOnly (5.11.0):
+    - FirebaseCore (= 5.1.6)
+  - FirebaseAnalytics (5.3.0):
+    - FirebaseCore (~> 5.1)
+    - FirebaseInstanceID (~> 3.3)
+    - GoogleAppMeasurement (~> 5.3)
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (5.1.6):
+    - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseInstanceID (3.3.0):
+    - FirebaseCore (~> 5.1)
+    - GoogleUtilities/Environment (~> 5.3)
+    - GoogleUtilities/UserDefaults (~> 5.3)
+  - GoogleAppMeasurement (5.3.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
+  - GoogleUtilities/AppDelegateSwizzler (5.3.4):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (5.3.4)
+  - GoogleUtilities/Logger (5.3.4):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (5.3.4):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (5.3.4):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (5.3.4)"
+  - GoogleUtilities/Reachability (5.3.4):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (5.3.4):
+    - GoogleUtilities/Logger
   - Hippolyte (0.4.0)
   - Kingfisher (4.8.0)
   - Mapbox-iOS-SDK (4.1.0)
@@ -18,6 +65,11 @@ PODS:
   - Moya/RxSwift (11.0.2):
     - Moya/Core
     - RxSwift (~> 4.0)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
   - ObjectMapper (3.2.0)
   - Result (3.2.4)
   - RxBlocking (4.1.2):
@@ -28,6 +80,9 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - Crashlytics (~> 3.10.7)
+  - Fabric (~> 1.7.11)
+  - Firebase/Core
   - Hippolyte
   - Kingfisher (~> 4.0)
   - Mapbox-iOS-SDK (~> 4.1)
@@ -42,12 +97,21 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Crashlytics
+    - Fabric
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - GoogleAppMeasurement
+    - GoogleUtilities
     - Hippolyte
     - Kingfisher
     - Mapbox-iOS-SDK
     - MapboxStatic.swift
     - Moya
     - Moya-ObjectMapper
+    - nanopb
     - ObjectMapper
     - Result
     - RxBlocking
@@ -57,12 +121,21 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  Crashlytics: 55e24fc23989680285a21cb1146578d9d18e432c
+  Fabric: 25d0963b691fc97be566392243ff0ecef5a68338
+  Firebase: b48f9e653da971ecce5b8c749684bc8bb2d26bd3
+  FirebaseAnalytics: 63202d2665de4e6adcbdce189135255d8b5962ba
+  FirebaseCore: d16552f06821489ce1affe2e5e3e5593402ddfe3
+  FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
+  GoogleAppMeasurement: 5029d78f2b438bd30ffb44e6c558b57c21622727
+  GoogleUtilities: abb092d2c12e817fa3e0e7b274987dd72fb86ec3
   Hippolyte: b1c306140f7063d6608929d0a8b3bcee47d2d6df
   Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   Mapbox-iOS-SDK: f0a9813d5f08c096c1199eceb57ec6102b19cf54
   MapboxStatic.swift: 247d98dd6e11b8934aa5d122efcb50384f8d66f6
   Moya: a725035953bc1c0eb1be505ab903984501d82440
   Moya-ObjectMapper: cc9ff0e0df0c2db26f144c3aaffc78f4feb0983c
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   ObjectMapper: 5cccd2de6f253eda859df8116a5a554d9769e859
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RxBlocking: f6054985901412fc8c02daa84e92d4ba68c61389
@@ -70,6 +143,6 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
   TTGSnackbar: a66e929fd17d662152ec0964990a86e966310edb
 
-PODFILE CHECKSUM: 4121d889a009df1c4f606ba9303c3519f2c77e85
+PODFILE CHECKSUM: 1eb8c93ae854a370f36362160feb3ef1b79e139d
 
 COCOAPODS: 1.5.3
