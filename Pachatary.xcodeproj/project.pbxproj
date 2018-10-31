@@ -190,6 +190,7 @@
 		AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoaderTableViewCell.xib; sourceTree = "<group>"; };
 		AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderTableViewCell.swift; sourceTree = "<group>"; };
 		AE414BDF215E3A400077284C /* SquareExperienceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareExperienceCollectionViewCell.swift; sourceTree = "<group>"; };
+		AE50BF69218A27EF00D31469 /* Pachatary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pachatary.entitlements; sourceTree = "<group>"; };
 		AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDependencyInjector.swift; sourceTree = "<group>"; };
 		AE548AB2216D3A6900335400 /* SelectLocationPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationPresenterTests.swift; sourceTree = "<group>"; };
 		AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceScenesView.swift; sourceTree = "<group>"; };
@@ -621,6 +622,7 @@
 		AEBB629A20C547D3001A4576 /* Pachatary */ = {
 			isa = PBXGroup;
 			children = (
+				AE50BF69218A27EF00D31469 /* Pachatary.entitlements */,
 				AE89AC3420C801C400443C23 /* Data */,
 				AEEAC68920C97D70007C17EE /* Presentation */,
 				AEBB629B20C547D3001A4576 /* AppDelegate.swift */,
@@ -928,6 +930,11 @@
 				TargetAttributes = {
 					AEBB629720C547D3001A4576 = {
 						CreatedOnToolsVersion = 9.4;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					AEBB62AB20C547D6001A4576 = {
 						CreatedOnToolsVersion = 9.4;
@@ -1471,6 +1478,7 @@
 			baseConfigurationReference = DAF4095E340B87EBAF7D0C10 /* Pods-Pachatary.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Pachatary/Pachatary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Pachatary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -1490,6 +1498,7 @@
 			baseConfigurationReference = E8E39039E41A109F6D0281D2 /* Pods-Pachatary.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Pachatary/Pachatary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Pachatary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
