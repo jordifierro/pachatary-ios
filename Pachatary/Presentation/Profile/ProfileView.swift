@@ -15,7 +15,7 @@ protocol ProfileView : class {
 
 class ProfileViewController: UIViewController {
     
-    var presenter: ProfilePresenter!
+    var presenter: ProfilePresenter?
     var username: String!
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -56,20 +56,20 @@ class ProfileViewController: UIViewController {
             style: .done, target: self, action: #selector(shareClick))
         self.navigationItem.rightBarButtonItem = shareBarButtonItem
 
-        presenter.create()
+        presenter!.create()
     }
     
     deinit {
-        self.presenter.destroy()
+        self.presenter?.destroy()
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        presenter.refresh()
+        presenter!.refresh()
         refreshControl.endRefreshing()
     }
 
     @objc func shareClick(){
-        presenter.shareClick()
+        presenter!.shareClick()
     }
     
     override func didReceiveMemoryWarning() {
@@ -176,7 +176,7 @@ UICollectionViewDelegateFlowLayout {
             }
             let maxRow = visibleRows.max()!
             if (maxRow == self.experiences.count - 1) && (maxRow > lastItemShown) {
-                presenter.lastItemShown()
+                presenter!.lastItemShown()
             }
             lastItemShown = maxRow
         }
@@ -184,7 +184,7 @@ UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row <= experiences.count {
-            presenter.experienceClick(experiences[indexPath.row - 1].id)
+            presenter!.experienceClick(experiences[indexPath.row - 1].id)
         }
     }
 }
@@ -211,7 +211,7 @@ extension ProfileViewController: ProfileView {
     }
     
     func showRetry() {
-        Snackbar.showErrorWithRetry({ [weak self] () in self?.presenter.retryClick() })
+        Snackbar.showErrorWithRetry({ [weak self] () in self?.presenter!.retryClick() })
     }
     
     func navigateToExperienceScenes(_ experienceId: String) {
