@@ -13,6 +13,12 @@ class ExperienceDependencyInjector {
         return SavedExperiencesPresenter(ExperienceDataDependencyInjector.experienceRepository,
                                          AppPresentationDependencyInjector.mainScheduler, view)
     }
+
+    static func myExperiencesPresenter(view: MyExperiencesView) -> MyExperiencesPresenter {
+        return MyExperiencesPresenter(ExperienceDataDependencyInjector.experienceRepository,
+                                      ProfileDataDependencyInjector.profileRepository,
+                                      AppPresentationDependencyInjector.mainScheduler, view)
+    }
     
     static var experienceMapPresenter: ExperienceMapPresenter { get { return
         ExperienceMapPresenter(

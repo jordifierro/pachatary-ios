@@ -3,8 +3,8 @@ import Swift
 
 class Mock {
     
-    static func profile(_ username: String, bio: String = "") -> Profile {
-        return Profile(username: username, bio: bio, picture: nil, isMe: false)
+    static func profile(_ username: String, bio: String = "", isMe: Bool = false) -> Profile {
+        return Profile(username: username, bio: bio, picture: nil, isMe: isMe)
     }
     
     static func experience(_ id: String,

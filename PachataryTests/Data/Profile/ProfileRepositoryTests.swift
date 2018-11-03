@@ -39,13 +39,48 @@ class ProfileRepositoryTests: XCTestCase {
             .then_should_return_profile(Mock.profile("a"))
     }
 
+    func test_self_cache_and_retrieve_profile() {
+        ScenarioMaker()
+            .given_cached_profile(Mock.profile("a"))
+            .given_cached_profile(Mock.profile("e", isMe: true))
+            .given_cached_profile(Mock.profile("i"))
+            .when_get_self_profile()
+            .then_should_return_profile(Mock.profile("e", isMe: true))
+    }
+
+    func test_self_caches_latest() {
+        ScenarioMaker()
+            .given_cached_profile(Mock.profile("a", bio: "1", isMe: true))
+            .given_cached_profile(Mock.profile("a", bio: "2", isMe: true))
+            .when_get_self_profile()
+            .then_should_return_profile(Mock.profile("a", bio: "2", isMe: true))
+    }
+
+    func test_self_not_cached_returns_api_call() {
+        ScenarioMaker()
+            .given_an_api_that_returns_profile("self", Result(.success, data: Mock.profile("a", isMe: true)))
+            .when_get_self_profile()
+            .then_should_return_profile(Mock.profile("a", isMe: true))
+    }
+
+    func test_self_not_cached_returns_api_call_and_caches_it() {
+        ScenarioMaker()
+            .given_an_api_that_returns_profile("self", Result(.success, data: Mock.profile("a", isMe: true)))
+            .when_get_self_profile()
+            .then_should_return_profile(Mock.profile("a", isMe: true))
+            .given_an_api_that_returns_profile("self",
+                                               Result(.error, error: DataError.noInternetConnection))
+            .when_get_self_profile()
+            .then_should_return_profile(Mock.profile("a", isMe: true))
+    }
+
     class ScenarioMaker {
         
         let repo: ProfileRepository
         let mockApiRepo = ProfileApiRepoMock()
         
         var profileResult: Profile!
-        
+
         init() {
             repo = ProfileRepositoryImplementation(mockApiRepo, MainScheduler.instance)
         }
@@ -65,6 +100,11 @@ class ProfileRepositoryTests: XCTestCase {
             try! profileResult = repo.profile(username).toBlocking().first()?.data!
             return self
         }
+
+        func when_get_self_profile() -> ScenarioMaker {
+            try! profileResult = repo.selfProfile().toBlocking().first()?.data!
+            return self
+        }
         
         @discardableResult
         func then_should_return_profile(_ profile: Profile) -> ScenarioMaker {
@@ -77,6 +117,7 @@ class ProfileRepositoryTests: XCTestCase {
 class ProfileRepositoryMock: ProfileRepository {
     
     var profileResult = [String:Observable<Result<Profile>>]()
+    var selfProfileResult: Observable<Result<Profile>>!
     var cacheCalls = [Profile]()
     
     func cache(_ profile: Profile) {
@@ -85,5 +126,9 @@ class ProfileRepositoryMock: ProfileRepository {
     
     func profile(_ username: String) -> Observable<Result<Profile>> {
         return profileResult[username]!
+    }
+
+    func selfProfile() -> Observable<Result<Profile>> {
+        return selfProfileResult!
     }
 }

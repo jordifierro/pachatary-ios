@@ -4,6 +4,7 @@ import RxSwift
 enum Kind {
     case explore
     case saved
+    case mine
     case persons
     case other
 }
@@ -26,12 +27,15 @@ class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequeste
 
     let exploreRequester: R!
     let savedRequester: R!
+    let mineRequester: R!
     let personsRequester: R!
     let otherRequester: R!
 
-    init(_ exploreRequester: R, _ savedRequester: R, _ personsRequester: R, _ otherRequester: R) {
+    init(_ exploreRequester: R, _ savedRequester: R, _ mineRequester: R,
+         _ personsRequester: R, _ otherRequester: R) {
         self.exploreRequester = exploreRequester
         self.savedRequester = savedRequester
+        self.mineRequester = mineRequester
         self.personsRequester = personsRequester
         self.otherRequester = otherRequester
     }
@@ -57,14 +61,16 @@ class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequeste
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
         return Observable.combineLatest(experiencesObservable(.explore),
                                         experiencesObservable(.saved),
+                                        experiencesObservable(.mine),
                                         experiencesObservable(.persons),
                                         experiencesObservable(.other))
-            { result1, result2, result3, result4 in
+            { result1, result2, result3, result4, result5 in
                 var experiences = [Experience]()
                 if result1.data != nil { experiences += result1.data! }
                 if result2.data != nil { experiences += result2.data! }
                 if result3.data != nil { experiences += result3.data! }
                 if result4.data != nil { experiences += result4.data! }
+                if result5.data != nil { experiences += result5.data! }
                 return experiences
             }
             .map { (experiences: [Experience]) -> Experience? in
@@ -85,6 +91,8 @@ class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequeste
             return self.exploreRequester
         case .saved:
             return self.savedRequester
+        case .mine:
+            return self.mineRequester
         case .persons:
             return self.personsRequester
         case .other:

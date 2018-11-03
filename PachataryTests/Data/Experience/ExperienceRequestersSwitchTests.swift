@@ -6,13 +6,15 @@ import RxSwift
 
 class ExperienceRequestersSwitchTests: XCTestCase {
 
-    func kindValues() -> [Kind] { return [.explore, .saved, .persons, .other] }
+    func kindValues() -> [Kind] { return [.explore, .saved, .mine, .persons, .other] }
     func kindString(_ kind: Kind) -> String {
         switch kind {
         case .explore:
             return "explore"
         case .saved:
             return "saved"
+        case .mine:
+            return "mine"
         case .persons:
             return "persons"
         case .other:
@@ -58,6 +60,7 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                  Result(.success, data: [Mock.experience("3"), Mock.experience("4")]))
             .given_a_results_observable_that_returns(.saved, Result(.inProgress))
             .given_a_results_observable_that_returns(.persons, Result(.error, error: DataError.notCached))
+            .given_a_results_observable_that_returns(.mine, Result(.success, data: []))
             .given_a_results_observable_that_returns(.other, Result(.success, data: []))
             .when_get_experiences_observable("4")
             .then_should_return_experience_observable(Result(.success, data: Mock.experience("4")))
@@ -68,6 +71,19 @@ class ExperienceRequestersSwitchTests: XCTestCase {
             .given_a_results_observable_that_returns(.saved,
                                                      Result(.success, data: [Mock.experience("3"), Mock.experience("4")]))
             .given_a_results_observable_that_returns(.explore, Result(.inProgress))
+            .given_a_results_observable_that_returns(.persons, Result(.error, error: DataError.notCached))
+            .given_a_results_observable_that_returns(.mine, Result(.success, data: []))
+            .given_a_results_observable_that_returns(.other, Result(.success, data: []))
+            .when_get_experiences_observable("4")
+            .then_should_return_experience_observable(Result(.success, data: Mock.experience("4")))
+    }
+
+    func test_experience_observable_when_is_in_mine_requester() {
+        ScenarioMaker()
+            .given_a_results_observable_that_returns(.mine,
+                                                     Result(.success, data: [Mock.experience("3"), Mock.experience("4")]))
+            .given_a_results_observable_that_returns(.explore, Result(.inProgress))
+            .given_a_results_observable_that_returns(.saved, Result(.success, data: []))
             .given_a_results_observable_that_returns(.persons, Result(.error, error: DataError.notCached))
             .given_a_results_observable_that_returns(.other, Result(.success, data: []))
             .when_get_experiences_observable("4")
@@ -80,6 +96,7 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                                                      Result(.success, data: [Mock.experience("3"), Mock.experience("4")]))
             .given_a_results_observable_that_returns(.explore, Result(.inProgress))
             .given_a_results_observable_that_returns(.saved, Result(.error, error: DataError.notCached))
+            .given_a_results_observable_that_returns(.mine, Result(.success, data: []))
             .given_a_results_observable_that_returns(.other, Result(.success, data: []))
             .when_get_experiences_observable("4")
             .then_should_return_experience_observable(Result(.success, data: Mock.experience("4")))
@@ -91,6 +108,7 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                                                      Result(.success, data: [Mock.experience("3"), Mock.experience("4")]))
             .given_a_results_observable_that_returns(.explore, Result(.inProgress))
             .given_a_results_observable_that_returns(.saved, Result(.error, error: DataError.notCached))
+            .given_a_results_observable_that_returns(.mine, Result(.success, data: []))
             .given_a_results_observable_that_returns(.persons, Result(.success, data: []))
             .when_get_experiences_observable("4")
             .then_should_return_experience_observable(Result(.success, data: Mock.experience("4")))
@@ -101,6 +119,7 @@ class ExperienceRequestersSwitchTests: XCTestCase {
             .given_a_results_observable_that_returns(.other, Result(.inProgress))
             .given_a_results_observable_that_returns(.explore, Result(.inProgress))
             .given_a_results_observable_that_returns(.saved, Result(.error, error: DataError.notCached))
+            .given_a_results_observable_that_returns(.mine, Result(.success, data: []))
             .given_a_results_observable_that_returns(.persons, Result(.success, data: []))
             .when_get_experiences_observable("4")
             .then_should_return_experience_observable(Result(.error, error: DataError.notCached))
@@ -111,6 +130,7 @@ class ExperienceRequestersSwitchTests: XCTestCase {
         let requestersSwitch: ExperienceRequestersSwitch!
         let exploreRequesterMock = RequesterMock()
         let savedRequesterMock = RequesterMock()
+        let mineRequesterMock = RequesterMock()
         let personsRequesterMock = RequesterMock()
         let otherRequesterMock = RequesterMock()
         var resultsObservable: Observable<Result<[Experience]>>
@@ -119,6 +139,7 @@ class ExperienceRequestersSwitchTests: XCTestCase {
         init() {
             requestersSwitch = ExperienceRequestersSwitchImplementation(exploreRequesterMock,
                                                                         savedRequesterMock,
+                                                                        mineRequesterMock,
                                                                         personsRequesterMock,
                                                                         otherRequesterMock)
             resultsObservable = Observable.empty()
@@ -132,6 +153,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                 self.exploreRequesterMock.resultObservable = Observable.just(result)
             case .saved:
                 self.savedRequesterMock.resultObservable = Observable.just(result)
+            case .mine:
+                self.mineRequesterMock.resultObservable = Observable.just(result)
             case .persons:
                 self.personsRequesterMock.resultObservable = Observable.just(result)
             case .other:
@@ -169,6 +192,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                 assert(exploreRequesterMock.requestCalls == [request])
             case .saved:
                 assert(savedRequesterMock.requestCalls == [request])
+            case .mine:
+                assert(mineRequesterMock.requestCalls == [request])
             case .persons:
                 assert(personsRequesterMock.requestCalls == [request])
             case .other:
@@ -187,6 +212,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                     assert(exploreRequesterMock.updateCalls == [list])
                 case .saved:
                     assert(savedRequesterMock.updateCalls == [list])
+                case .mine:
+                    assert(mineRequesterMock.updateCalls == [list])
                 case .persons:
                     assert(personsRequesterMock.updateCalls == [list])
                 case .other:
@@ -198,6 +225,8 @@ class ExperienceRequestersSwitchTests: XCTestCase {
                     assert(exploreRequesterMock.addOrUpdateCalls == [list])
                 case .saved:
                     assert(savedRequesterMock.addOrUpdateCalls == [list])
+                case .mine:
+                    assert(mineRequesterMock.addOrUpdateCalls == [list])
                 case .persons:
                     assert(personsRequesterMock.addOrUpdateCalls == [list])
                 case .other:

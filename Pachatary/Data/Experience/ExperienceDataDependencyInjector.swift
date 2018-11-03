@@ -25,6 +25,9 @@ class ExperienceDataDependencyInjector {
            { params in experienceApiRepository.savedExperiencesObservable() },
            { url in experienceApiRepository.paginateExperiences(url) }),
         RequesterImplementation<ResultCacheImplementation<Experience>>(experienceResultCache,
+           { params in experienceApiRepository.personsExperiencesObservable("self") },
+           { url in experienceApiRepository.paginateExperiences(url) }),
+        RequesterImplementation<ResultCacheImplementation<Experience>>(experienceResultCache,
            { params in experienceApiRepository.personsExperiencesObservable(params!.username!) },
            { url in experienceApiRepository.paginateExperiences(url) }),
         RequesterImplementation<ResultCacheImplementation<Experience>>(

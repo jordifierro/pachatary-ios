@@ -3,6 +3,7 @@ import RxSwift
 
 protocol ProfileRepository {
     func profile(_ username: String) -> Observable<Result<Profile>>
+    func selfProfile() -> Observable<Result<Profile>>
     func cache(_ profile: Profile)
 }
 
@@ -54,7 +55,24 @@ class ProfileRepositoryImplementation: ProfileRepository {
             }
             .distinctUntilChanged()
     }
-    
+
+    func selfProfile() -> Observable<Result<Profile>> {
+        return profilesObservable
+            .map({ profiles in profiles.filter({ profile in profile.isMe }) })
+            .map({ profiles in
+                if profiles.isEmpty { return Result(.error, error: DataError.notCached) }
+                else { return Result(.success, data: profiles[0]) }
+            })
+            .flatMap { (result: Result<Profile>) -> Observable<Result<Profile>> in
+                if result.error == DataError.notCached {
+                    return self.apiRepo.profileObservable("self").do(onNext:
+                        { result in if result.status == .success { self.cache(result.data!) } })
+                }
+                else { return Observable.just(result) }
+            }
+            .distinctUntilChanged()
+    }
+
     func cache(_ profile: Profile) {
         profileSubject.asObserver().onNext(profile)
     }

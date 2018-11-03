@@ -93,6 +93,9 @@
 		AEB326B520C6F819000E07D8 /* BigPictureMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB326B420C6F819000E07D8 /* BigPictureMapper.swift */; };
 		AEB6A66420DBE4C000F936DB /* ExperienceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6A66320DBE4C000F936DB /* ExperienceRepository.swift */; };
 		AEB6A66620DBFDA900F936DB /* ExperienceRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6A66520DBFDA900F936DB /* ExperienceRepositoryTests.swift */; };
+		AEB87785218DC824001ED51C /* MyExperiencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB87784218DC824001ED51C /* MyExperiencesView.swift */; };
+		AEB87787218DC95F001ED51C /* MyExperiencesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB87786218DC95F001ED51C /* MyExperiencesPresenter.swift */; };
+		AEB8778A218DEA42001ED51C /* MyExperiencesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB87789218DEA42001ED51C /* MyExperiencesPresenterTests.swift */; };
 		AEBB629C20C547D3001A4576 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB629B20C547D3001A4576 /* AppDelegate.swift */; };
 		AEBB629E20C547D3001A4576 /* ExploreExperiencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB629D20C547D3001A4576 /* ExploreExperiencesView.swift */; };
 		AEBB62A120C547D3001A4576 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB629F20C547D3001A4576 /* Main.storyboard */; };
@@ -257,6 +260,9 @@
 		AEB326B420C6F819000E07D8 /* BigPictureMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPictureMapper.swift; sourceTree = "<group>"; };
 		AEB6A66320DBE4C000F936DB /* ExperienceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRepository.swift; sourceTree = "<group>"; };
 		AEB6A66520DBFDA900F936DB /* ExperienceRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceRepositoryTests.swift; sourceTree = "<group>"; };
+		AEB87784218DC824001ED51C /* MyExperiencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExperiencesView.swift; sourceTree = "<group>"; };
+		AEB87786218DC95F001ED51C /* MyExperiencesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExperiencesPresenter.swift; sourceTree = "<group>"; };
+		AEB87789218DEA42001ED51C /* MyExperiencesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExperiencesPresenterTests.swift; sourceTree = "<group>"; };
 		AEBB629820C547D3001A4576 /* Pachatary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pachatary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEBB629B20C547D3001A4576 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEBB629D20C547D3001A4576 /* ExploreExperiencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesView.swift; sourceTree = "<group>"; };
@@ -597,6 +603,23 @@
 			path = Scene;
 			sourceTree = "<group>";
 		};
+		AEB87783218DC80F001ED51C /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				AEB87784218DC824001ED51C /* MyExperiencesView.swift */,
+				AEB87786218DC95F001ED51C /* MyExperiencesPresenter.swift */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		AEB87788218DEA32001ED51C /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				AEB87789218DEA42001ED51C /* MyExperiencesPresenterTests.swift */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
 		AEBB628F20C547D3001A4576 = {
 			isa = PBXGroup;
 			children = (
@@ -776,6 +799,7 @@
 		AEEAC68820C97D49007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
+				AEB87788218DEA32001ED51C /* Mine */,
 				AED9ECA02165077A008C46DC /* Saved */,
 				AE89AC3920C8040700443C23 /* Explore */,
 				AE60382F216E93370023F3BB /* ExperienceRouterPresenterTests.swift */,
@@ -800,6 +824,7 @@
 		AEEAC68A20C97D8E007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
+				AEB87783218DC80F001ED51C /* Mine */,
 				AE86D9E3215E4195003D2B34 /* Saved */,
 				AE89AC3520C801F200443C23 /* Explore */,
 				AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */,
@@ -1214,10 +1239,12 @@
 				AE603824216E48C70023F3BB /* ProfileRouterView.swift in Sources */,
 				AEAE26B220E288C500E5D4E9 /* SceneMapper.swift in Sources */,
 				AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */,
+				AEB87785218DC824001ED51C /* MyExperiencesView.swift in Sources */,
 				AE07CB22211CA64500D98BC1 /* LoginView.swift in Sources */,
 				AEAE26B020E2885900E5D4E9 /* SceneApiRepository.swift in Sources */,
 				AE86639620D7D3B5008CE6D2 /* AuthDataDependencyInjector.swift in Sources */,
 				AEC2FF8E2181C920000E3F1B /* UIImage+Circle.swift in Sources */,
+				AEB87787218DC95F001ED51C /* MyExperiencesPresenter.swift in Sources */,
 				AE0F8F97211B549500A735B8 /* AskLoginEmailPresenter.swift in Sources */,
 				AEC2FF8A217E4A82000E3F1B /* WebViewController.swift in Sources */,
 				AEA56627211331D400F0E1F3 /* LittlePicture.swift in Sources */,
@@ -1287,6 +1314,7 @@
 				AE761EDC20C9268B00F80F9D /* ExperienceApiRepositoryTests.swift in Sources */,
 				AEAE26B920E29DD600E5D4E9 /* SceneApiRepositoryTests.swift in Sources */,
 				AE6911CF20E78D0A00A05679 /* ExperienceMapPresenterTests.swift in Sources */,
+				AEB8778A218DEA42001ED51C /* MyExperiencesPresenterTests.swift in Sources */,
 				AE89AC2E20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift in Sources */,
 				AEEC749920CAADD000B86837 /* AuthStorageRepositoryTests.swift in Sources */,
 				AE548AB3216D3A6900335400 /* SelectLocationPresenterTests.swift in Sources */,
@@ -1480,6 +1508,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Pachatary/Pachatary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4G5L83U7PS;
 				INFOPLIST_FILE = Pachatary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1500,6 +1529,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Pachatary/Pachatary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4G5L83U7PS;
 				INFOPLIST_FILE = Pachatary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (

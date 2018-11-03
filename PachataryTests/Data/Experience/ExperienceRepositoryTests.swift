@@ -298,6 +298,7 @@ class ExperienceRepoMock: ExperienceRepository {
 
     var returnExploreObservable: Observable<Result<[Experience]>>!
     var returnSavedObservable: Observable<Result<[Experience]>>!
+    var returnMineObservable: Observable<Result<[Experience]>>!
     var returnPersonsObservable: Observable<Result<[Experience]>>!
     var returnOtherObservable: Observable<Result<[Experience]>>!
     var returnExperienceObservable: Observable<Result<Experience>>!
@@ -317,6 +318,8 @@ class ExperienceRepoMock: ExperienceRepository {
             return returnExploreObservable
         case .saved:
             return returnSavedObservable
+        case .mine:
+            return returnMineObservable
         case .persons:
             return returnPersonsObservable
         case .other:
