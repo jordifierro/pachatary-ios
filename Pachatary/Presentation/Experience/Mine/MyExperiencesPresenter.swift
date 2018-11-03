@@ -5,6 +5,7 @@ class MyExperiencesPresenter {
 
     let experienceRepo: ExperienceRepository
     let profileRepo: ProfileRepository
+    let authRepository: AuthRepository
     let mainScheduler: ImmediateSchedulerType
 
     unowned let view: MyExperiencesView
@@ -15,18 +16,27 @@ class MyExperiencesPresenter {
 
     init(_ experienceRepository: ExperienceRepository,
          _ profileRepository: ProfileRepository,
+         _ authRepository: AuthRepository,
          _ mainScheduler: ImmediateSchedulerType,
          _ view: MyExperiencesView) {
         self.experienceRepo = experienceRepository
         self.profileRepo = profileRepository
+        self.authRepository = authRepository
         self.mainScheduler = mainScheduler
         self.view = view
     }
 
+
     func create() {
-        connectToExperiences()
-        getFirstsExperiences()
-        connectToProfile()
+        if authRepository.isRegisterCompleted() {
+            view.showProfileAndExperiencesView()
+            connectToExperiences()
+            getFirstsExperiences()
+            connectToProfile()
+        }
+        else {
+            view.showRegisterView()
+        }
     }
 
     func destroy() {
@@ -106,5 +116,9 @@ class MyExperiencesPresenter {
         if self.myProfile != nil {
             view.showShareDialog(self.myProfile!.username)
         }
+    }
+
+    func registerClick() {
+        view.navigateToRegister()
     }
 }

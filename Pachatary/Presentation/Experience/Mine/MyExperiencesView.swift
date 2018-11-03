@@ -4,12 +4,15 @@ import RxSwift
 import Moya
 
 protocol MyExperiencesView : class {
+    func showProfileAndExperiencesView()
+    func showRegisterView()
     func showExperiences(_ experiences: [Experience])
     func showLoadingExperiences(_ visibility: Bool)
     func showProfile(_ profile: Profile)
     func showLoadingProfile(_ visibility: Bool)
     func showRetry()
     func navigateToExperienceScenes(_ experienceId: String)
+    func navigateToRegister()
     func showShareDialog(_ username: String)
 }
 
@@ -18,6 +21,7 @@ class MyExperiencesViewController: UIViewController {
     var presenter: MyExperiencesPresenter?
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var registerButton: UIButton!
     
     var lastItemShown = -1
 
@@ -54,12 +58,20 @@ class MyExperiencesViewController: UIViewController {
             style: .done, target: self, action: #selector(shareClick))
         self.navigationItem.rightBarButtonItem = shareBarButtonItem
 
+        registerButton.addTarget(self,
+            action: #selector(MyExperiencesViewController.registerClick(_:)), for: .touchUpInside)
+
         presenter!.create()
     }
 
     deinit {
         self.presenter?.destroy()
     }
+
+    @objc func registerClick(_ sender: UIButton!) {
+        presenter!.registerClick()
+    }
+
 
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         presenter!.refresh()
@@ -188,6 +200,15 @@ UICollectionViewDelegateFlowLayout {
 }
 
 extension MyExperiencesViewController: MyExperiencesView {
+    
+    func showProfileAndExperiencesView() {
+        collectionView.isHidden = false
+    }
+
+    func showRegisterView() {
+        collectionView.isHidden = true
+    }
+
     func showExperiences(_ experiences: [Experience]) {
         self.experiences = experiences
         self.collectionView!.reloadData()
@@ -215,6 +236,10 @@ extension MyExperiencesViewController: MyExperiencesView {
     func navigateToExperienceScenes(_ experienceId: String) {
         selectedExperienceId = experienceId
         performSegue(withIdentifier: "experienceScenesSegue", sender: self)
+    }
+
+    func navigateToRegister() {
+        performSegue(withIdentifier: "registerSegue", sender: self)
     }
 
     func showShareDialog(_ username: String) {

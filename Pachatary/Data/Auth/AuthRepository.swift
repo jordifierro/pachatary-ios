@@ -6,6 +6,8 @@ protocol AuthRepository {
     func getPersonInvitation() -> Observable<Result<AuthToken>>
     func askLoginEmail(_ email: String) -> Observable<Result<Bool>>
     func login(_ token: String) -> Observable<Result<AuthToken>>
+    func register(_ email: String, _ username: String) -> Observable<Result<Bool>>
+    func isRegisterCompleted() -> Bool
 }
 
 class AuthRepoImplementation: AuthRepository {
@@ -49,9 +51,18 @@ class AuthRepoImplementation: AuthRepository {
                 switch result.status {
                 case .success:
                     self.storageRepo.setPersonCredentials(authToken: result.data!)
+                    self.storageRepo.setIsRegisterCompleted(true)
                 case .error: break
                 case .inProgress: break
                 }
             })
+    }
+
+    func register(_ email: String, _ username: String) -> Observable<Result<Bool>> {
+        return apiRepo.register(email, username)
+    }
+
+    func isRegisterCompleted() -> Bool {
+        return storageRepo.isRegisterCompleted()
     }
 }

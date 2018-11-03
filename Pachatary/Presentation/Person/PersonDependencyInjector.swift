@@ -20,4 +20,10 @@ class PersonDependencyInjector {
             AuthDataDependencyInjector.authRepository,
             AppPresentationDependencyInjector.mainScheduler) }
     }
+
+    static func registerPresenter(view: RegisterView) -> RegisterPresenter {
+        return RegisterPresenter(AuthDataDependencyInjector.authRepository,
+                                 AppPresentationDependencyInjector.mainScheduler, view)
+    }
+
 }

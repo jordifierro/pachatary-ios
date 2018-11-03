@@ -27,6 +27,10 @@
 		AE414BDA215D34EB0077284C /* LoaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */; };
 		AE414BDC215D358F0077284C /* LoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */; };
 		AE414BE0215E3A400077284C /* SquareExperienceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE414BDF215E3A400077284C /* SquareExperienceCollectionViewCell.swift */; };
+		AE41B0C9218DF92F007EB74E /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0C8218DF92E007EB74E /* RegisterView.swift */; };
+		AE41B0CB218DFAFE007EB74E /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0CA218DFAFE007EB74E /* RegisterPresenter.swift */; };
+		AE41B0CF218E1312007EB74E /* PATCH_people_me_ERROR.json in Resources */ = {isa = PBXBuildFile; fileRef = AE41B0CE218E1312007EB74E /* PATCH_people_me_ERROR.json */; };
+		AE41B0D1218E2EDF007EB74E /* RegisterPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0D0218E2EDF007EB74E /* RegisterPresenterTests.swift */; };
 		AE548AB0216D201B00335400 /* CommonDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */; };
 		AE548AB3216D3A6900335400 /* SelectLocationPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE548AB2216D3A6900335400 /* SelectLocationPresenterTests.swift */; };
 		AE598BA820EA464600F3DBA9 /* ExperienceScenesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */; };
@@ -101,7 +105,6 @@
 		AEBB62A120C547D3001A4576 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB629F20C547D3001A4576 /* Main.storyboard */; };
 		AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A220C547D6001A4576 /* Assets.xcassets */; };
 		AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A420C547D6001A4576 /* LaunchScreen.storyboard */; };
-		AEBB62BC20C547D6001A4576 /* PachataryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */; };
 		AEC2FF86217E1059000E3F1B /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC2FF85217E1059000E3F1B /* CustomButtons.swift */; };
 		AEC2FF88217E186F000E3F1B /* Bahiana-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEC2FF87217E186F000E3F1B /* Bahiana-Regular.ttf */; };
 		AEC2FF8A217E4A82000E3F1B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC2FF89217E4A82000E3F1B /* WebViewController.swift */; };
@@ -193,6 +196,10 @@
 		AE414BD9215D34EB0077284C /* LoaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoaderTableViewCell.xib; sourceTree = "<group>"; };
 		AE414BDB215D358F0077284C /* LoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderTableViewCell.swift; sourceTree = "<group>"; };
 		AE414BDF215E3A400077284C /* SquareExperienceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareExperienceCollectionViewCell.swift; sourceTree = "<group>"; };
+		AE41B0C8218DF92E007EB74E /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		AE41B0CA218DFAFE007EB74E /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
+		AE41B0CE218E1312007EB74E /* PATCH_people_me_ERROR.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PATCH_people_me_ERROR.json; sourceTree = "<group>"; };
+		AE41B0D0218E2EDF007EB74E /* RegisterPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenterTests.swift; sourceTree = "<group>"; };
 		AE50BF69218A27EF00D31469 /* Pachatary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pachatary.entitlements; sourceTree = "<group>"; };
 		AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDependencyInjector.swift; sourceTree = "<group>"; };
 		AE548AB2216D3A6900335400 /* SelectLocationPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationPresenterTests.swift; sourceTree = "<group>"; };
@@ -273,7 +280,6 @@
 		AEBB62AC20C547D6001A4576 /* PachataryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PachataryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEBB62B220C547D6001A4576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEBB62B720C547D6001A4576 /* PachataryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PachataryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PachataryUITests.swift; sourceTree = "<group>"; };
 		AEBB62BD20C547D6001A4576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEC2FF85217E1059000E3F1B /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		AEC2FF87217E186F000E3F1B /* Bahiana-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bahiana-Regular.ttf"; sourceTree = "<group>"; };
@@ -394,6 +400,15 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		AE41B0C7218DF905007EB74E /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				AE41B0C8218DF92E007EB74E /* RegisterView.swift */,
+				AE41B0CA218DFAFE007EB74E /* RegisterPresenter.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		AE548AB1216D3A5200335400 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,6 +462,7 @@
 		AE73C7C020CE83AC00B05DA2 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				AE41B0CE218E1312007EB74E /* PATCH_people_me_ERROR.json */,
 				AE73C7C120CE83F600B05DA2 /* POST_people.json */,
 				AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */,
 				AEEC749820CAADD000B86837 /* AuthStorageRepositoryTests.swift */,
@@ -673,7 +689,6 @@
 		AEBB62BA20C547D6001A4576 /* PachataryUITests */ = {
 			isa = PBXGroup;
 			children = (
-				AEBB62BB20C547D6001A4576 /* PachataryUITests.swift */,
 				AEBB62BD20C547D6001A4576 /* Info.plist */,
 			);
 			path = PachataryUITests;
@@ -701,6 +716,7 @@
 				AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */,
 				AE0F8F98211B61C300A735B8 /* AskLoginEmailPresenterTests.swift */,
 				AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */,
+				AE41B0D0218E2EDF007EB74E /* RegisterPresenterTests.swift */,
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -708,6 +724,7 @@
 		AEDB0DB9211B3F62004F843E /* Person */ = {
 			isa = PBXGroup;
 			children = (
+				AE41B0C7218DF905007EB74E /* Register */,
 				AEDB0DC1211B51B9004F843E /* Login */,
 				AEDB0DC0211B51A6004F843E /* Welcome */,
 				AEDB0DB6211B3996004F843E /* PersonDependencyInjector.swift */,
@@ -1018,6 +1035,7 @@
 			files = (
 				AED682BF21777D2300B61891 /* GET_experience_share_url.json in Resources */,
 				AED682B72175FC8600B61891 /* GET_profile.json in Resources */,
+				AE41B0CF218E1312007EB74E /* PATCH_people_me_ERROR.json in Resources */,
 				AEC8DCE8211DF1F0007CCC68 /* POST_people_me_login.json in Resources */,
 				AE603832216E98AC0023F3BB /* GET_experiences.json in Resources */,
 				AE73C7C220CE83F600B05DA2 /* POST_people.json in Resources */,
@@ -1233,12 +1251,14 @@
 				AEBB629E20C547D3001A4576 /* ExploreExperiencesView.swift in Sources */,
 				AEEC749F20CACCD800B86837 /* AuthTokenMapper.swift in Sources */,
 				AEAE26A820E284AC00E5D4E9 /* Scene.swift in Sources */,
+				AE41B0C9218DF92F007EB74E /* RegisterView.swift in Sources */,
 				AE86639420D7D22F008CE6D2 /* AppDataDependencyInjector.swift in Sources */,
 				AED9ECA421651440008C46DC /* ExperienceRequestersSwitch.swift in Sources */,
 				AE3BE3BE211A154C00D10A19 /* WelcomeView.swift in Sources */,
 				AE603824216E48C70023F3BB /* ProfileRouterView.swift in Sources */,
 				AEAE26B220E288C500E5D4E9 /* SceneMapper.swift in Sources */,
 				AE61DA8820C6967800CFEE00 /* ExperienceApi.swift in Sources */,
+				AE41B0CB218DFAFE007EB74E /* RegisterPresenter.swift in Sources */,
 				AEB87785218DC824001ED51C /* MyExperiencesView.swift in Sources */,
 				AE07CB22211CA64500D98BC1 /* LoginView.swift in Sources */,
 				AEAE26B020E2885900E5D4E9 /* SceneApiRepository.swift in Sources */,
@@ -1330,6 +1350,7 @@
 				AED9ECA221650797008C46DC /* SavedExperiencesPresenterTests.swift in Sources */,
 				AE603828216E55780023F3BB /* ProfileRouterPresenterTests.swift in Sources */,
 				AE598BB120EA79C200F3DBA9 /* ExperienceScenesPresenterTests.swift in Sources */,
+				AE41B0D1218E2EDF007EB74E /* RegisterPresenterTests.swift in Sources */,
 				AEC8DCEA211DF9D3007CCC68 /* DataTestUtils.swift in Sources */,
 				AEE03D042166C0660034AE0C /* ProfilePresenterTests.swift in Sources */,
 				AE6F8B6F20DAC6A0007CC36A /* RequesterTests.swift in Sources */,
@@ -1345,7 +1366,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AEBB62BC20C547D6001A4576 /* PachataryUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

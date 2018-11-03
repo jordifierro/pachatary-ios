@@ -21,6 +21,28 @@ extension Single where Element == Response {
             }
             .retryCatchErrorAndEmitInProgress(Bool.self)
     }
+
+    func transformNetworkVoidResponseOrError(_ scheduler: ImmediateSchedulerType) -> Observable<Result<Bool>> {
+        return getObservableSubscribed(scheduler)
+            .map { (response: Response) -> Result<Bool> in
+                if response.statusCode >= 200 && response.statusCode < 300 {
+                    return Result(.success, data: true)
+                }
+                else if response.statusCode >= 400 && response.statusCode < 500 {
+                    let body = String(data: response.data, encoding: String.Encoding.utf8)
+                    let json = body?.toJSON() as! [String:[String:String]]
+                    let error = json["error"]!
+                    let source = error["source"]!
+                    let code = error["code"]!
+                    let message = error["message"]!
+                    return Result(.error, error:
+                        DataError.clientException(source: source, code: code, message: message))
+                }
+                else { fatalError() }
+            }
+            .retryCatchErrorAndEmitInProgress(Bool.self)
+    }
+
     
     func transformNetworkResponse<T: ToResultMapper>(_ mapperType: T.Type,
                                                      _ scheduler: ImmediateSchedulerType)
@@ -64,5 +86,12 @@ extension Observable {
                     throw moyaError
                 }
                 .startWith(Result<U>(.inProgress))
+    }
+}
+
+extension String {
+    func toJSON() -> Any? {
+        guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }
+        return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
     }
 }

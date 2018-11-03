@@ -62,11 +62,18 @@ class SingleNetworkResponseTransformerTests: XCTestCase {
             .when_call_fake_request_list()
             .then_should_emit_inprogress_result_on_start_list()
     }
-    
-    
+
+    func test_void_error_mapper() {
+        ScenarioMaker(self)
+            .given_an_stubbed_network_call_that_returns_body_with_an_error()
+            .when_call_fake_with_error()
+            .then_should_emit_client_error_result()
+    }
+
     class ScenarioMaker {
         
         var testCase: XCTestCase!
+        var resultBoolObservable: Observable<Result<Bool>>!
         var resultObservable: Observable<Result<AuthToken>>!
         var resultListObservable: Observable<Result<[Scene]>>!
         let fakeRepo = FakeApiRepository()
@@ -88,6 +95,14 @@ class SingleNetworkResponseTransformerTests: XCTestCase {
                 AppDataDependencyInjector.apiUrl + "/people/", .POST, "GET_scenes_experience_id",
                 201, "client_secret_key=")
             return self
+        }
+
+        func given_an_stubbed_network_call_that_returns_body_with_an_error() -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle.init(for: type(of: self)),
+                                          AppDataDependencyInjector.apiUrl + "/people/", .POST, "PATCH_people_me_ERROR",
+                                          402, "client_secret_key=")
+            return self
+
         }
         
         func given_an_stubbed_network_call_that_returns_error() -> ScenarioMaker {
@@ -174,6 +189,11 @@ class SingleNetworkResponseTransformerTests: XCTestCase {
 
         func when_call_fake_request_list() -> ScenarioMaker {
             resultListObservable = fakeRepo.fakeRequestList()
+            return self
+        }
+
+        func when_call_fake_with_error() -> ScenarioMaker {
+            resultBoolObservable = fakeRepo.fakeRequestWithErrorHandling()
             return self
         }
 
@@ -295,6 +315,17 @@ class SingleNetworkResponseTransformerTests: XCTestCase {
             } catch { assertionFailure() }
             return self
         }
+
+        @discardableResult
+        func then_should_emit_client_error_result() -> ScenarioMaker {
+            do {
+                let result = try resultBoolObservable.toBlocking().toArray()
+                assert(result[0] == Result(.inProgress))
+                assert(result[1] == Result(.error, error:
+                    DataError.clientException(source: "person", code: "already_registered", message: "Person already registered")))
+            } catch { assertionFailure() }
+            return self
+        }
     }
 }
 
@@ -303,6 +334,11 @@ class FakeApiRepository {
     let api: Reactive<MoyaProvider<AuthApi>>! = MoyaProvider<AuthApi>().rx
     let clientSecretKey = ""
     let ioScheduler = MainScheduler.instance
+
+    func fakeRequestWithErrorHandling() -> Observable<Result<Bool>> {
+        return self.api.request(.createPerson(clientSecretKey: clientSecretKey))
+            .transformNetworkVoidResponseOrError(ioScheduler)
+    }
     
     func fakeRequest() -> Observable<Result<AuthToken>> {
         return self.api.request(.createPerson(clientSecretKey: clientSecretKey))

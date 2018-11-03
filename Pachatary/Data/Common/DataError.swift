@@ -4,6 +4,7 @@ enum DataError: Error {
     case noLoggedPerson
     case noInternetConnection
     case notCached
+    case clientException(source: String, code: String, message: String)
 }
 
 extension DataError: Equatable {
@@ -15,6 +16,9 @@ extension DataError: Equatable {
             return true
         case (.notCached, .notCached):
             return true
+        case (.clientException(let lhsSource, let lhsCode, let lhsMessage),
+              .clientException(let rhsSource, let rhsCode, let rhsMessage)):
+            return lhsSource == rhsSource && lhsCode == rhsCode && lhsMessage == rhsMessage
         default:
             return false
         }

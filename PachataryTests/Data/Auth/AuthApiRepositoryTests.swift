@@ -32,6 +32,10 @@ class AuthApiRepositoryTests: XCTestCase {
             .then_should_return_inprogress_and_result_auth_token()
     }
 
+    func test_register() {
+        //Register cannot be tested with Hippolyte library because it doesn't suppor .PATCH method
+    }
+
     class ScenarioMaker {
         
         var authApiRepo: AuthApiRepository!
@@ -81,7 +85,7 @@ class AuthApiRepositoryTests: XCTestCase {
                 .POST, nil, 201, "email=" + email)
             return self
         }
-        
+
         func when_get_person_invitation() -> ScenarioMaker {
             resultObservable = authApiRepo.getPersonInvitation()
             return self
@@ -127,6 +131,9 @@ class AuthRepoMock: AuthRepository {
     var askLoginEmailResult: Result<Bool>? = nil
     var loginCalls = [String]()
     var loginResults = [String:Result<AuthToken>]()
+    var registerResults = [Result<Bool>]()
+    var registerCalls = [(String, String)]()
+    var isRegisterCompletedResult = false
 
     func hasPersonCredentials() -> Bool {
         return self.hasPersonCredentialsResult
@@ -143,5 +150,44 @@ class AuthRepoMock: AuthRepository {
     func login(_ token: String) -> Observable<Result<AuthToken>> {
         loginCalls.append(token)
         return Observable.just(loginResults[token]!)
+    }
+
+    func register(_ email: String, _ username: String) -> Observable<Result<Bool>> {
+        registerCalls.append((email, username))
+        return Observable.from(registerResults)
+    }
+
+    func isRegisterCompleted() -> Bool {
+        return isRegisterCompletedResult
+    }
+}
+
+class AuthApiRepoMock: AuthApiRepository {
+
+    var authToken: AuthToken!
+    var askLoginEmailResult: Result<Bool>!
+    var askLoginEmailCalls = [String]()
+    var loginCalls = [String]()
+    var loginResults = [String:Result<AuthToken>]()
+    var registerCalls = [(String, String)]()
+    var registerResults = [Result<Bool>]()
+
+    func getPersonInvitation() -> Observable<Result<AuthToken>> {
+        return Observable.just(Result(.success, data: authToken))
+    }
+
+    func askLoginEmail(_ email: String) -> Observable<Result<Bool>> {
+        askLoginEmailCalls.append(email)
+        return Observable.just(askLoginEmailResult)
+    }
+
+    func login(_ token: String) -> Observable<Result<AuthToken>> {
+        loginCalls.append(token)
+        return Observable.just(loginResults[token]!)
+    }
+
+    func register(_ email: String, _ username: String) -> Observable<Result<Bool>> {
+        registerCalls.append((email, username))
+        return Observable.from(registerResults)
     }
 }

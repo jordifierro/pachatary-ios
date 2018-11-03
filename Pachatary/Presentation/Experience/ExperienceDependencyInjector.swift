@@ -17,6 +17,7 @@ class ExperienceDependencyInjector {
     static func myExperiencesPresenter(view: MyExperiencesView) -> MyExperiencesPresenter {
         return MyExperiencesPresenter(ExperienceDataDependencyInjector.experienceRepository,
                                       ProfileDataDependencyInjector.profileRepository,
+                                      AuthDataDependencyInjector.authRepository,
                                       AppPresentationDependencyInjector.mainScheduler, view)
     }
     

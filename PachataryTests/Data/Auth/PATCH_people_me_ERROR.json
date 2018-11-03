@@ -1,0 +1,7 @@
+{
+    "error": {
+        "source": "person",
+        "code": "already_registered",
+        "message": "Person already registered"
+    }
+}

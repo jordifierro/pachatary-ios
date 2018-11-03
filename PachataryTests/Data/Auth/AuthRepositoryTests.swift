@@ -45,6 +45,21 @@ class AuthRepositoryTests: XCTestCase {
             .then_should_return_auth_token(
                 Result(.success, data: AuthToken(accessToken: "A", refreshToken: "R")))
     }
+
+    func test_is_register_completed_calls_storage_repo() {
+        ScenarioMaker(self)
+            .given_an_storage_repo_that_returns_is_register_completed(true)
+            .when_is_register_completed()
+            .then_should_return_bool(true)
+    }
+
+    func test_register_return_api_call() {
+        ScenarioMaker(self)
+            .given_an_api_repo_that_returns_when_register(Result(.success, data: true))
+            .when_register("email@", "user.nma")
+            .then_should_call_api_register("email@", "user.nma")
+            .then_should_return_bool_result(Result(.success, data: true))
+    }
     
     class ScenarioMaker {
         let mockApiRepo = AuthApiRepoMock()
@@ -55,6 +70,8 @@ class AuthRepositoryTests: XCTestCase {
         var authToken: AuthToken!
         var authTokenResult: Result<AuthToken>!
         var askLoginEmailResult: Result<Bool>!
+        var resultBool: Bool!
+        var resultBoolResult: Result<Bool>!
 
         init(_ testCase: XCTestCase) {
             self.testCase = testCase
@@ -68,6 +85,16 @@ class AuthRepositoryTests: XCTestCase {
         
         func given_an_storage_repo_that_raises_no_logged_error() -> ScenarioMaker {
             mockAuthStorageRepo.hasPersonCredentials = false
+            return self
+        }
+
+        func given_an_api_repo_that_returns_when_register(_ result: Result<Bool>) -> ScenarioMaker {
+            mockApiRepo.registerResults = [result]
+            return self
+        }
+
+        func given_an_storage_repo_that_returns_is_register_completed(_ isCompleted: Bool) -> ScenarioMaker {
+            mockAuthStorageRepo.isRegisterCompletedResult = isCompleted
             return self
         }
         
@@ -94,6 +121,17 @@ class AuthRepositoryTests: XCTestCase {
         
         func when_has_person_credentials() -> ScenarioMaker {
             resultHasPersonCredentials = repo.hasPersonCredentials()
+            return self
+        }
+
+        func when_is_register_completed() -> ScenarioMaker {
+            resultBool = repo.isRegisterCompleted()
+            return self
+        }
+
+        func when_register(_ email: String, _ username: String) -> ScenarioMaker {
+            do { try resultBoolResult = repo.register(email, username).toBlocking().toArray()[0]
+            } catch { assertionFailure() }
             return self
         }
         
@@ -142,6 +180,12 @@ class AuthRepositoryTests: XCTestCase {
             assert(mockApiRepo.askLoginEmailCalls == [email])
             return self
         }
+
+        func then_should_call_api_register(_ email: String, _ username: String) -> ScenarioMaker {
+            assert(mockApiRepo.registerCalls[0].0 == email)
+            assert(mockApiRepo.registerCalls[0].1 == username)
+            return self
+        }
         
         @discardableResult
         func then_should_return(_ result: Result<Bool>) -> ScenarioMaker {
@@ -159,47 +203,17 @@ class AuthRepositoryTests: XCTestCase {
             assert(self.authTokenResult == authTokenResult)
             return self
         }
-    }
-}
 
-class AuthStorageRepoMock: AuthStorageRepository {
-    
-    var hasPersonCredentials: Bool!
-    var savedAuthToken: AuthToken!
-    
-    func getPersonCredentials() throws -> AuthToken {
-        if hasPersonCredentials {
-            return AuthToken(accessToken: "a", refreshToken: "r")
+        @discardableResult
+        func then_should_return_bool(_ isCompleted: Bool) -> ScenarioMaker {
+            assert(resultBool == isCompleted)
+            return self
         }
-        else {
-            throw DataError.noLoggedPerson
+
+        @discardableResult
+        func then_should_return_bool_result(_ result: Result<Bool>) -> ScenarioMaker {
+            assert(resultBoolResult == result)
+            return self
         }
-    }
-    
-    func setPersonCredentials(authToken: AuthToken) {
-        savedAuthToken = authToken
-    }
-}
-
-class AuthApiRepoMock: AuthApiRepository {
-
-    var authToken: AuthToken!
-    var askLoginEmailResult: Result<Bool>!
-    var askLoginEmailCalls = [String]()
-    var loginCalls = [String]()
-    var loginResults = [String:Result<AuthToken>]()
-    
-    func getPersonInvitation() -> Observable<Result<AuthToken>> {
-        return Observable.just(Result(.success, data: authToken))
-    }
-    
-    func askLoginEmail(_ email: String) -> Observable<Result<Bool>> {
-        askLoginEmailCalls.append(email)
-        return Observable.just(askLoginEmailResult)
-    }
-    
-    func login(_ token: String) -> Observable<Result<AuthToken>> {
-        loginCalls.append(token)
-        return Observable.just(loginResults[token]!)
     }
 }

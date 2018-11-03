@@ -6,6 +6,7 @@ protocol AuthApiRepository {
     func getPersonInvitation() -> Observable<Result<AuthToken>>
     func askLoginEmail(_ email: String) -> Observable<Result<Bool>>
     func login(_ token: String) -> Observable<Result<AuthToken>>
+    func register(_ email: String, _ username: String) -> Observable<Result<Bool>>
 }
 
 class AuthApiRepoImplementation: AuthApiRepository {
@@ -34,6 +35,11 @@ class AuthApiRepoImplementation: AuthApiRepository {
     func login(_ token: String) -> Observable<Result<AuthToken>> {
         return self.api.request(.login(token: token))
             .transformNetworkResponse(SingleResultMapper<AuthTokenMapper>.self, ioScheduler)
+    }
+
+    func register(_ email: String, _ username: String) -> Observable<Result<Bool>> {
+        return self.api.request(.register(email: email, username: username))
+            .transformNetworkVoidResponseOrError(ioScheduler)
     }
 }
 
