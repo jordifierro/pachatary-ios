@@ -172,20 +172,22 @@ extension ExperienceScenesViewController: ExperienceScenesView {
             style: .done, target: self, action: #selector(shareClick))
         self.navigationItem.rightBarButtonItems?.append(shareBarButtonItem)
 
-        var saveBarButtonItem: UIBarButtonItem!
-        if experience.isSaved {
-            let starActiveIcon = UIImage(named: "icStarActive.png")?.withRenderingMode(.alwaysOriginal)
-            saveBarButtonItem = UIBarButtonItem(image: starActiveIcon,
-                style: .done, target: self, action: #selector(unsaveExperience))
+        if !experience.isMine {
+            var saveBarButtonItem: UIBarButtonItem!
+            if experience.isSaved {
+                let starActiveIcon = UIImage(named: "icStarActive.png")?.withRenderingMode(.alwaysOriginal)
+                saveBarButtonItem = UIBarButtonItem(image: starActiveIcon,
+                    style: .done, target: self, action: #selector(unsaveExperience))
+            }
+            else {
+                let starIcon = UIImage(named: "icStar.png")?.withRenderingMode(.alwaysOriginal)
+                saveBarButtonItem = UIBarButtonItem(image: starIcon,
+                    style: .done, target: self, action: #selector(saveExperience))
+            }
+            saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
+            saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
+            self.navigationItem.rightBarButtonItems?.append(saveBarButtonItem)
         }
-        else {
-            let starIcon = UIImage(named: "icStar.png")?.withRenderingMode(.alwaysOriginal)
-            saveBarButtonItem = UIBarButtonItem(image: starIcon,
-                style: .done, target: self, action: #selector(saveExperience))
-        }
-        saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
-        saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
-        self.navigationItem.rightBarButtonItems?.append(saveBarButtonItem)
     }
 }
 
