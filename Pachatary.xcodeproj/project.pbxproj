@@ -31,6 +31,9 @@
 		AE41B0CB218DFAFE007EB74E /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0CA218DFAFE007EB74E /* RegisterPresenter.swift */; };
 		AE41B0CF218E1312007EB74E /* PATCH_people_me_ERROR.json in Resources */ = {isa = PBXBuildFile; fileRef = AE41B0CE218E1312007EB74E /* PATCH_people_me_ERROR.json */; };
 		AE41B0D1218E2EDF007EB74E /* RegisterPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0D0218E2EDF007EB74E /* RegisterPresenterTests.swift */; };
+		AE41B0D3218F03A9007EB74E /* ConfirmEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0D2218F03A9007EB74E /* ConfirmEmailView.swift */; };
+		AE41B0D5218F03EB007EB74E /* ConfirmEmailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0D4218F03EB007EB74E /* ConfirmEmailPresenter.swift */; };
+		AE41B0DA218F1426007EB74E /* ConfirmEmailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0D9218F1426007EB74E /* ConfirmEmailPresenterTests.swift */; };
 		AE548AB0216D201B00335400 /* CommonDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */; };
 		AE548AB3216D3A6900335400 /* SelectLocationPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE548AB2216D3A6900335400 /* SelectLocationPresenterTests.swift */; };
 		AE598BA820EA464600F3DBA9 /* ExperienceScenesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */; };
@@ -200,6 +203,9 @@
 		AE41B0CA218DFAFE007EB74E /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
 		AE41B0CE218E1312007EB74E /* PATCH_people_me_ERROR.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PATCH_people_me_ERROR.json; sourceTree = "<group>"; };
 		AE41B0D0218E2EDF007EB74E /* RegisterPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenterTests.swift; sourceTree = "<group>"; };
+		AE41B0D2218F03A9007EB74E /* ConfirmEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailView.swift; sourceTree = "<group>"; };
+		AE41B0D4218F03EB007EB74E /* ConfirmEmailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailPresenter.swift; sourceTree = "<group>"; };
+		AE41B0D9218F1426007EB74E /* ConfirmEmailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailPresenterTests.swift; sourceTree = "<group>"; };
 		AE50BF69218A27EF00D31469 /* Pachatary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pachatary.entitlements; sourceTree = "<group>"; };
 		AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDependencyInjector.swift; sourceTree = "<group>"; };
 		AE548AB2216D3A6900335400 /* SelectLocationPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationPresenterTests.swift; sourceTree = "<group>"; };
@@ -405,6 +411,34 @@
 			children = (
 				AE41B0C8218DF92E007EB74E /* RegisterView.swift */,
 				AE41B0CA218DFAFE007EB74E /* RegisterPresenter.swift */,
+				AE41B0D2218F03A9007EB74E /* ConfirmEmailView.swift */,
+				AE41B0D4218F03EB007EB74E /* ConfirmEmailPresenter.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		AE41B0D6218F13F4007EB74E /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		AE41B0D7218F13FE007EB74E /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				AE0F8F98211B61C300A735B8 /* AskLoginEmailPresenterTests.swift */,
+				AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		AE41B0D8218F1404007EB74E /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				AE41B0D0218E2EDF007EB74E /* RegisterPresenterTests.swift */,
+				AE41B0D9218F1426007EB74E /* ConfirmEmailPresenterTests.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -713,10 +747,9 @@
 		AEDB0DB8211B3EE2004F843E /* Person */ = {
 			isa = PBXGroup;
 			children = (
-				AEDB0DBA211B3FAC004F843E /* WelcomePresenterTests.swift */,
-				AE0F8F98211B61C300A735B8 /* AskLoginEmailPresenterTests.swift */,
-				AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */,
-				AE41B0D0218E2EDF007EB74E /* RegisterPresenterTests.swift */,
+				AE41B0D8218F1404007EB74E /* Register */,
+				AE41B0D7218F13FE007EB74E /* Login */,
+				AE41B0D6218F13F4007EB74E /* Welcome */,
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -1262,6 +1295,7 @@
 				AEB87785218DC824001ED51C /* MyExperiencesView.swift in Sources */,
 				AE07CB22211CA64500D98BC1 /* LoginView.swift in Sources */,
 				AEAE26B020E2885900E5D4E9 /* SceneApiRepository.swift in Sources */,
+				AE41B0D3218F03A9007EB74E /* ConfirmEmailView.swift in Sources */,
 				AE86639620D7D3B5008CE6D2 /* AuthDataDependencyInjector.swift in Sources */,
 				AEC2FF8E2181C920000E3F1B /* UIImage+Circle.swift in Sources */,
 				AEB87787218DC95F001ED51C /* MyExperiencesPresenter.swift in Sources */,
@@ -1288,6 +1322,7 @@
 				AE86D9E7215E429F003D2B34 /* SavedExperiencesPresenter.swift in Sources */,
 				AE598BAA20EA4A9800F3DBA9 /* SceneTableViewCell.swift in Sources */,
 				AEEC749420CA751D00B86837 /* AuthToken.swift in Sources */,
+				AE41B0D5218F03EB007EB74E /* ConfirmEmailPresenter.swift in Sources */,
 				AEE1529220D983DB008707FF /* Identifiable.swift in Sources */,
 				AE598BAE20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift in Sources */,
 				AEDB0DB7211B3996004F843E /* PersonDependencyInjector.swift in Sources */,
@@ -1344,6 +1379,7 @@
 				AE80DE7C20CEE0CB00A170F6 /* AuthRepositoryTests.swift in Sources */,
 				AEC8DCE6211DEBAE007CCC68 /* LoginPresenterTests.swift in Sources */,
 				AE73C7BF20CE80E200B05DA2 /* AuthApiRepositoryTests.swift in Sources */,
+				AE41B0DA218F1426007EB74E /* ConfirmEmailPresenterTests.swift in Sources */,
 				AED9ECA621652A6B008C46DC /* ExperienceRequestersSwitchTests.swift in Sources */,
 				AEE03CFD2166A7EE0034AE0C /* ProfileRepositoryTests.swift in Sources */,
 				AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */,

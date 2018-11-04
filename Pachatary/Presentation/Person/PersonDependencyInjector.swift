@@ -26,4 +26,10 @@ class PersonDependencyInjector {
                                  AppPresentationDependencyInjector.mainScheduler, view)
     }
 
+    static func confirmEmailPresenter(view: ConfirmEmailView,
+                                      confirmationToken: String) -> ConfirmEmailPresenter {
+        return ConfirmEmailPresenter(AuthDataDependencyInjector.authRepository,
+                                     AppPresentationDependencyInjector.mainScheduler,
+                                     view, confirmationToken)
+    }
 }

@@ -334,6 +334,40 @@
             </objects>
             <point key="canvasLocation" x="537" y="-1402"/>
         </scene>
+        <!--Confirm Email View Controller-->
+        <scene sceneID="BMQ-O1-4Vu">
+            <objects>
+                <viewController storyboardIdentifier="confirmEmailViewController" id="3BV-JU-FpK" customClass="ConfirmEmailViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g2P-Iv-b7f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WGB-gX-iGC">
+                                <rect key="frame" x="177" y="333.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="fXv-nV-DH7" userLabel="Background Image View">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fXv-nV-DH7" firstAttribute="leading" secondItem="msF-VZ-mKl" secondAttribute="leading" id="0Ds-aI-gev"/>
+                            <constraint firstItem="msF-VZ-mKl" firstAttribute="top" secondItem="fXv-nV-DH7" secondAttribute="top" id="Rek-Y3-KOf"/>
+                            <constraint firstItem="WGB-gX-iGC" firstAttribute="centerX" secondItem="msF-VZ-mKl" secondAttribute="centerX" id="lBG-cp-QJK"/>
+                            <constraint firstItem="fXv-nV-DH7" firstAttribute="bottom" secondItem="msF-VZ-mKl" secondAttribute="bottom" id="nOX-b7-0za"/>
+                            <constraint firstItem="WGB-gX-iGC" firstAttribute="centerY" secondItem="msF-VZ-mKl" secondAttribute="centerY" id="uOu-3I-Vqn"/>
+                            <constraint firstItem="msF-VZ-mKl" firstAttribute="trailing" secondItem="fXv-nV-DH7" secondAttribute="trailing" id="vJt-DZ-scT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="msF-VZ-mKl"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="WGB-gX-iGC" id="Cph-aK-d7t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pYz-c3-gV9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1489" y="-1403"/>
+        </scene>
     </scenes>
     <resources>
         <image name="background" width="375" height="667"/>

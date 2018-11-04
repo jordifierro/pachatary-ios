@@ -41,6 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let token = url.query!.replacingOccurrences(of: "token=", with: "")
                 rootViewController.navigateToLogin(token: token)
             }
+            else if thirdPath == "email-confirmation" {
+                let token = url.query!.replacingOccurrences(of: "token=", with: "")
+                rootViewController.navigateToConfirmEmail(token: token)
+            }
         }
         else if urlPath == "profiles" {
             let username = url.pathComponents[2]
@@ -65,6 +69,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             else if url.path == "/redirects/people/me/login" || url.path == "/people/me/login" {
                 let token = url.query!.replacingOccurrences(of: "token=", with: "")
                 rootViewController.navigateToLogin(token: token)
+            }
+            else if url.path == "/redirects/people/me/email-confirmation" ||
+                    url.path == "/people/me/email-confirmation" {
+                let token = url.query!.replacingOccurrences(of: "token=", with: "")
+                rootViewController.navigateToConfirmEmail(token: token)
             }
         }
         return true

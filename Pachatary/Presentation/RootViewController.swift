@@ -86,4 +86,11 @@ class RootViewController: UIViewController {
         (loginViewController as! LoginViewController).token = token
         animateFadeTransition(to: loginViewController)
     }
+
+    func navigateToConfirmEmail(token: String) {
+        let confirmEmailViewController = UIStoryboard.init(name: "Person", bundle: nil)
+            .instantiateViewController(withIdentifier: "confirmEmailViewController")
+        (confirmEmailViewController as! ConfirmEmailViewController).token = token
+        animateFadeTransition(to: confirmEmailViewController)
+    }
 }

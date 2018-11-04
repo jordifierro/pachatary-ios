@@ -36,13 +36,21 @@ class AuthApiRepositoryTests: XCTestCase {
         //Register cannot be tested with Hippolyte library because it doesn't suppor .PATCH method
     }
 
+    func test_confirm_email() {
+        ScenarioMaker(self)
+            .given_an_api_repo()
+            .given_an_stubbed_network_call_for_confirm_email("KT")
+            .when_confirm_email("KT")
+            .then_should_return_inprogress_and_result_success()
+    }
+
     class ScenarioMaker {
         
         var authApiRepo: AuthApiRepository!
         var clientSecretKey: String!
         var testCase: XCTestCase!
         var resultObservable: Observable<Result<AuthToken>>!
-        var askLoginEmailResultObservable: Observable<Result<Bool>>!
+        var resultBoolObservable: Observable<Result<Bool>>!
 
         init(_ testCase: XCTestCase) {
             self.testCase = testCase
@@ -86,18 +94,30 @@ class AuthApiRepositoryTests: XCTestCase {
             return self
         }
 
+        func given_an_stubbed_network_call_for_confirm_email(_ token: String) -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
+                                          AppDataDependencyInjector.apiUrl + "/people/me/email-confirmation",
+                                          .POST, nil, 204, "confirmation_token=" + token)
+            return self
+        }
+
         func when_get_person_invitation() -> ScenarioMaker {
             resultObservable = authApiRepo.getPersonInvitation()
             return self
         }
         
         func when_ask_login_email(_ email: String) -> ScenarioMaker {
-            askLoginEmailResultObservable = authApiRepo.askLoginEmail(email)
+            resultBoolObservable = authApiRepo.askLoginEmail(email)
             return self
         }
         
         func when_login(_ token: String) -> ScenarioMaker {
             resultObservable = authApiRepo.login(token)
+            return self
+        }
+
+        func when_confirm_email(_ token: String) -> ScenarioMaker {
+            resultBoolObservable = authApiRepo.confirmEmail(token)
             return self
         }
         
@@ -115,50 +135,12 @@ class AuthApiRepositoryTests: XCTestCase {
         @discardableResult
         func then_should_return_inprogress_and_result_success() -> ScenarioMaker {
             do {
-                let result = try askLoginEmailResultObservable.toBlocking().toArray()
+                let result = try resultBoolObservable.toBlocking().toArray()
                 assert (result[0] == Result(.inProgress))
                 assert(result[1] == Result(.success, data: true))
             } catch { assertionFailure() }
             return self
         }
-    }
-}
-
-class AuthRepoMock: AuthRepository {
-
-    var hasPersonCredentialsResult: Bool!
-    var getPersonInvitationResult: Observable<Result<AuthToken>>!
-    var askLoginEmailResult: Result<Bool>? = nil
-    var loginCalls = [String]()
-    var loginResults = [String:Result<AuthToken>]()
-    var registerResults = [Result<Bool>]()
-    var registerCalls = [(String, String)]()
-    var isRegisterCompletedResult = false
-
-    func hasPersonCredentials() -> Bool {
-        return self.hasPersonCredentialsResult
-    }
-
-    func getPersonInvitation() -> Observable<Result<AuthToken>> {
-        return getPersonInvitationResult
-    }
-
-    func askLoginEmail(_ email: String) -> Observable<Result<Bool>> {
-        return Observable.just(askLoginEmailResult!)
-    }
-
-    func login(_ token: String) -> Observable<Result<AuthToken>> {
-        loginCalls.append(token)
-        return Observable.just(loginResults[token]!)
-    }
-
-    func register(_ email: String, _ username: String) -> Observable<Result<Bool>> {
-        registerCalls.append((email, username))
-        return Observable.from(registerResults)
-    }
-
-    func isRegisterCompleted() -> Bool {
-        return isRegisterCompletedResult
     }
 }
 
@@ -171,6 +153,8 @@ class AuthApiRepoMock: AuthApiRepository {
     var loginResults = [String:Result<AuthToken>]()
     var registerCalls = [(String, String)]()
     var registerResults = [Result<Bool>]()
+    var confirmEmailCalls = [String]()
+    var confirmEmailResults = [Result<Bool>]()
 
     func getPersonInvitation() -> Observable<Result<AuthToken>> {
         return Observable.just(Result(.success, data: authToken))
@@ -189,5 +173,10 @@ class AuthApiRepoMock: AuthApiRepository {
     func register(_ email: String, _ username: String) -> Observable<Result<Bool>> {
         registerCalls.append((email, username))
         return Observable.from(registerResults)
+    }
+
+    func confirmEmail(_ confirmationToken: String) -> Observable<Result<Bool>> {
+        confirmEmailCalls.append(confirmationToken)
+        return Observable.from(confirmEmailResults)
     }
 }

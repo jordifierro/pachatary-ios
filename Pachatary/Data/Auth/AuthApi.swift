@@ -6,6 +6,7 @@ enum AuthApi {
     case askLoginEmail(email: String)
     case login(token: String)
     case register(email: String, username: String)
+    case confirmEmail(confirmationToken: String)
 }
 
 // MARK: - TargetType Protocol Implementation
@@ -23,11 +24,13 @@ extension AuthApi: TargetType {
             return "/people/me/login"
         case .register:
             return "/people/me"
+        case .confirmEmail:
+            return "/people/me/email-confirmation"
         }
     }
     var method: Moya.Method {
         switch self {
-        case .createPerson, .askLoginEmail, .login:
+        case .createPerson, .askLoginEmail, .login, .confirmEmail:
             return .post
         case .register:
             return .patch
@@ -44,6 +47,9 @@ extension AuthApi: TargetType {
             return .requestParameters(parameters: ["token": token], encoding: URLEncoding.default)
         case let .register(email, username):
             return .requestParameters(parameters: ["email": email, "username": username], encoding: URLEncoding.default)
+        case let .confirmEmail(confirmationToken):
+            return .requestParameters(parameters: ["confirmation_token": confirmationToken],
+                                      encoding: URLEncoding.default)
         }
     }
     var sampleData: Data {
@@ -51,7 +57,7 @@ extension AuthApi: TargetType {
         case .createPerson, .login:
             return String(stringInterpolation:
                   "{\"access_token\": \"A_TK\",", "\"refresh_token\": \"R_TK\"}").utf8Encoded
-        case .askLoginEmail, .register:
+        case .askLoginEmail, .register, .confirmEmail:
             return String(stringInterpolation: "").utf8Encoded
         }
     }

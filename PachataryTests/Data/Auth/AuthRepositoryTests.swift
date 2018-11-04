@@ -35,13 +35,14 @@ class AuthRepositoryTests: XCTestCase {
             .then_should_return(Result(.success))
     }
     
-    func test_ask_login_email_calls_api_and_saves_authtoken() {
+    func test_login_calls_api_and_saves_authtoken() {
         ScenarioMaker(self)
             .given_an_api_repo_that_returns_when_login("tok",
                 Result(.success, data: AuthToken(accessToken: "A", refreshToken: "R")))
             .when_login("tok")
             .then_should_call_api_login("tok")
             .then_should_should_save_on_storage_repo(AuthToken(accessToken: "A", refreshToken: "R"))
+            .then_should_should_set_is_register_completed(true)
             .then_should_return_auth_token(
                 Result(.success, data: AuthToken(accessToken: "A", refreshToken: "R")))
     }
@@ -60,7 +61,16 @@ class AuthRepositoryTests: XCTestCase {
             .then_should_call_api_register("email@", "user.nma")
             .then_should_return_bool_result(Result(.success, data: true))
     }
-    
+
+    func test_confirm_email_calls_api_and_sets_is_register_completed_to_true() {
+        ScenarioMaker(self)
+            .given_an_api_repo_that_returns_when_email_confirmation(Result(.success, data: true))
+            .when_email_confirmation("kt")
+            .then_should_call_api_email_confirmation("kt")
+            .then_should_should_set_is_register_completed(true)
+            .then_should_return_bool_result(Result(.success, data: true))
+    }
+
     class ScenarioMaker {
         let mockApiRepo = AuthApiRepoMock()
         let mockAuthStorageRepo = AuthStorageRepoMock()
@@ -85,6 +95,11 @@ class AuthRepositoryTests: XCTestCase {
         
         func given_an_storage_repo_that_raises_no_logged_error() -> ScenarioMaker {
             mockAuthStorageRepo.hasPersonCredentials = false
+            return self
+        }
+
+        func given_an_api_repo_that_returns_when_email_confirmation(_ result: Result<Bool>) -> ScenarioMaker {
+            mockApiRepo.confirmEmailResults = [result]
             return self
         }
 
@@ -131,6 +146,12 @@ class AuthRepositoryTests: XCTestCase {
 
         func when_register(_ email: String, _ username: String) -> ScenarioMaker {
             do { try resultBoolResult = repo.register(email, username).toBlocking().toArray()[0]
+            } catch { assertionFailure() }
+            return self
+        }
+
+        func when_email_confirmation(_ token: String) -> ScenarioMaker {
+            do { try resultBoolResult = repo.confirmEmail(token).toBlocking().toArray()[0]
             } catch { assertionFailure() }
             return self
         }
@@ -186,6 +207,16 @@ class AuthRepositoryTests: XCTestCase {
             assert(mockApiRepo.registerCalls[0].1 == username)
             return self
         }
+
+        func then_should_call_api_email_confirmation(_ token: String) -> ScenarioMaker {
+            assert(mockApiRepo.confirmEmailCalls == [token])
+            return self
+        }
+
+        func then_should_should_set_is_register_completed(_ isCompleted: Bool) -> ScenarioMaker {
+            assert(mockAuthStorageRepo.settedIsRegisterCompleted == [isCompleted])
+            return self
+        }
         
         @discardableResult
         func then_should_return(_ result: Result<Bool>) -> ScenarioMaker {
@@ -215,5 +246,50 @@ class AuthRepositoryTests: XCTestCase {
             assert(resultBoolResult == result)
             return self
         }
+    }
+}
+
+class AuthRepoMock: AuthRepository {
+
+    var hasPersonCredentialsResult: Bool!
+    var getPersonInvitationResult: Observable<Result<AuthToken>>!
+    var askLoginEmailResult: Result<Bool>? = nil
+    var loginCalls = [String]()
+    var loginResults = [String:Result<AuthToken>]()
+    var registerResults = [Result<Bool>]()
+    var registerCalls = [(String, String)]()
+    var isRegisterCompletedResult = false
+    var confirmEmailResults = [Result<Bool>]()
+    var confirmEmailCalls = [String]()
+
+    func hasPersonCredentials() -> Bool {
+        return self.hasPersonCredentialsResult
+    }
+
+    func getPersonInvitation() -> Observable<Result<AuthToken>> {
+        return getPersonInvitationResult
+    }
+
+    func askLoginEmail(_ email: String) -> Observable<Result<Bool>> {
+        return Observable.just(askLoginEmailResult!)
+    }
+
+    func login(_ token: String) -> Observable<Result<AuthToken>> {
+        loginCalls.append(token)
+        return Observable.just(loginResults[token]!)
+    }
+
+    func register(_ email: String, _ username: String) -> Observable<Result<Bool>> {
+        registerCalls.append((email, username))
+        return Observable.from(registerResults)
+    }
+
+    func isRegisterCompleted() -> Bool {
+        return isRegisterCompletedResult
+    }
+
+    func confirmEmail(_ confirmationToken: String) -> Observable<Result<Bool>> {
+        confirmEmailCalls.append(confirmationToken)
+        return Observable.from(confirmEmailResults)
     }
 }
