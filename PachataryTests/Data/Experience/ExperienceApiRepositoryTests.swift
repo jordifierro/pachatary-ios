@@ -71,6 +71,20 @@ class ExperienceApiRepositoryTests: XCTestCase {
             .then_should_return_flowable_with_inprogress_and_result_share_url()
     }
 
+    func test_create_experience_parses_experience_response() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_stubbed_network_call_for_experience_create()
+            .when_create_experience("title", "desc")
+            .then_should_return_flowable_with_inprogress_and_result_experience()
+    }
+
+    func test_upload_picture_parses_experience_response() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_stubbed_network_call_for_upload_picture("5")
+            .when_upload_picture("5")
+            .then_should_return_flowable_with_inprogress_and_result_experience()
+    }
+
     class ScenarioMaker {
         let api = MoyaProvider<ExperienceApi>().rx
         var repo: ExperienceApiRepository!
@@ -152,6 +166,22 @@ class ExperienceApiRepositoryTests: XCTestCase {
             return self
         }
 
+        func given_an_stubbed_network_call_for_experience_create() -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of:self)),
+                                          AppDataDependencyInjector.apiUrl +
+                                            "/experiences/",
+                                          .POST, "POST_experiences")
+            return self
+        }
+
+        func given_an_stubbed_network_call_for_upload_picture(_ experienceId: String) -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of:self)),
+                                          AppDataDependencyInjector.apiUrl +
+                "/experiences/" + experienceId + "/picture",
+                                          .POST, "POST_experiences_id_picture")
+            return self
+        }
+
         func given_an_stubbed_network_call_for_pagination() -> ScenarioMaker {
             DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
                                           self.paginationUrl, .GET, "GET_experiences")
@@ -202,8 +232,24 @@ class ExperienceApiRepositoryTests: XCTestCase {
             return self
         }
 
+        func when_create_experience(_ title: String, _ description: String) -> ScenarioMaker {
+            experienceObservable = repo.createExperience(title, description)
+            return self
+        }
+
         func when_share_url(_ experienceId: String) -> ScenarioMaker {
             stringResultObservable = repo.shareUrl(experienceId)
+            return self
+        }
+
+        func when_upload_picture(_ experienceId: String) -> ScenarioMaker {
+            let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+            UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), false, 0)
+            UIColor.black.setFill()
+            UIRectFill(rect)
+            let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            experienceObservable = repo.uploadPicture(experienceId, image)
             return self
         }
         
@@ -311,6 +357,10 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     var translateShareIdCalls = [String]()
     var shareUrlCalls = [String]()
     var experienceObservableCalls = [String]()
+    var createExperienceCalls = [(String, String)]()
+    var createExperienceResult: Observable<Result<Experience>>?
+    var uploadPictureCalls = [(String, UIImage)]()
+    var uploadPictureResult: Observable<Result<Experience>>?
 
     init() {}
 
@@ -349,5 +399,15 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     func shareUrl(_ experienceId: String) -> Observable<Result<String>> {
         shareUrlCalls.append(experienceId)
         return apiShareUrlCallResultObservable!
+    }
+
+    func createExperience(_ title: String, _ description: String) -> Observable<Result<Experience>> {
+        createExperienceCalls.append((title, description))
+        return createExperienceResult!
+    }
+
+    func uploadPicture(_ experienceId: String, _ image: UIImage) -> Observable<Result<Experience>> {
+        uploadPictureCalls.append((experienceId, image))
+        return uploadPictureResult!
     }
 }

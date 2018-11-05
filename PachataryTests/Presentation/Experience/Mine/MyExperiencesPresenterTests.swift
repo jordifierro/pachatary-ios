@@ -184,6 +184,12 @@ class MyExperiencesPresenterTests: XCTestCase {
             .then_should_subscribe_to_listener_observable()
     }
 
+    func test_on_create_experience_click_navigates_to_create_experience() {
+        ScenarioMaker()
+            .when_create_experience_click()
+            .then_should_navigate_to_create_experience()
+    }
+
     class ScenarioMaker {
         let mockExperienceRepo = ExperienceRepoMock()
         let mockProfileRepo = ProfileRepositoryMock()
@@ -260,6 +266,11 @@ class MyExperiencesPresenterTests: XCTestCase {
 
         func when_image_cropped() -> ScenarioMaker {
             presenter.imageCropped(UIImage())
+            return self
+        }
+
+        func when_create_experience_click() -> ScenarioMaker {
+            presenter.createExperienceClick()
             return self
         }
 
@@ -394,6 +405,12 @@ class MyExperiencesPresenterTests: XCTestCase {
             assert(listenerObservable.hasObservers)
             return self
         }
+
+        @discardableResult
+        func then_should_navigate_to_create_experience() -> ScenarioMaker {
+            assert(mockView.navigateToCreateExperienceCalls == 1)
+            return self
+        }
     }
 }
 
@@ -406,6 +423,7 @@ class MyExperiencesViewMock: MyExperiencesView {
     var showRetryCalls = 0
     var navigateCalls: [String] = []
     var navigateToRegisterCalls = 0
+    var navigateToCreateExperienceCalls = 0
     var shareDialogCalls: [String] = []
     var showProfileAndExperiencesViewCalls = 0
     var showRegisterViewCalls = 0
@@ -437,6 +455,10 @@ class MyExperiencesViewMock: MyExperiencesView {
 
     func navigateToExperienceScenes(_ experienceId: String) {
         self.navigateCalls.append(experienceId)
+    }
+
+    func navigateToCreateExperience() {
+        self.navigateToCreateExperienceCalls += 1
     }
 
     func navigateToRegister() {

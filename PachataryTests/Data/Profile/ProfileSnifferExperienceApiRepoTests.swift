@@ -69,6 +69,20 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
             .then_should_sniff([])
     }
 
+    func test_create_experience_is_sniffed() {
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_create_experience(Result(.success, data: Mock.experience("1", authorProfile: Mock.profile("u"))))
+            .when_create_experience("t", "d")
+            .then_should_sniff([Mock.profile("u")])
+    }
+
+    func test_upload_picture_experience_is_sniffed() {
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_upload_picture(Result(.success, data: Mock.experience("1", authorProfile: Mock.profile("u"))))
+            .when_upload_picture("7", UIImage())
+            .then_should_sniff([Mock.profile("u")])
+    }
+
     class ScenarioMaker {
         
         let sniffer: ProfileSnifferExperienceApiRepo
@@ -114,6 +128,16 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
             return self
         }
 
+        func given_an_api_repo_that_returns_on_create_experience(_ result: Result<Experience>) -> ScenarioMaker {
+            mockExperienceApiRepo.createExperienceResult = Observable.just(result)
+            return self
+        }
+
+        func given_an_api_repo_that_returns_on_upload_picture(_ result: Result<Experience>) -> ScenarioMaker {
+            mockExperienceApiRepo.uploadPictureResult = Observable.just(result)
+            return self
+        }
+
         func given_an_api_repo_that_returns_on_share_url(_ result: Result<String>) -> ScenarioMaker {
             mockExperienceApiRepo.apiShareUrlCallResultObservable = Observable.just(result)
             return self
@@ -151,6 +175,17 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
 
         func when_experience(_ experienceId: String) -> ScenarioMaker {
             _ = sniffer.experienceObservable(experienceId).subscribe()
+            return self
+        }
+
+        func when_create_experience(_ title: String, _ description: String) -> ScenarioMaker {
+            _ = sniffer.createExperience(title, description).subscribe()
+            return self
+        }
+
+        func when_upload_picture(_ experienceId: String,
+                                 _ image: UIImage) -> ScenarioMaker {
+            sniffer.uploadPicture(experienceId, image).subscribe()
             return self
         }
 

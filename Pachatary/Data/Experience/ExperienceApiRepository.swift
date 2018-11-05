@@ -13,6 +13,8 @@ protocol ExperienceApiRepository {
     func translateShareId(_ experienceShareId: String) -> Observable<Result<String>>
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>>
     func shareUrl(_ experienceId: String) -> Observable<Result<String>>
+    func createExperience(_ title: String, _ description: String) -> Observable<Result<Experience>>
+    func uploadPicture(_ experienceId: String, _ image: UIImage) -> Observable<Result<Experience>>
 }
 
 class ExperienceApiRepoImplementation: ExperienceApiRepository {
@@ -66,4 +68,13 @@ class ExperienceApiRepoImplementation: ExperienceApiRepository {
             .transformNetworkResponse(SingleResultMapper<ExperienceShareUrlMapper>.self, ioScheduler)
     }
 
+    func createExperience(_ title: String, _ description: String) -> Observable<Result<Experience>> {
+        return self.api.request(.create(title: title, description: description))
+            .transformNetworkResponse(SingleResultMapper<ExperienceMapper>.self, ioScheduler)
+    }
+
+    func uploadPicture(_ experienceId: String, _ image: UIImage) -> Observable<Result<Experience>> {
+        return self.api.request(.uploadPicture(experienceId: experienceId, picture: image))
+            .transformNetworkResponse(SingleResultMapper<ExperienceMapper>.self, ioScheduler)
+    }
 }

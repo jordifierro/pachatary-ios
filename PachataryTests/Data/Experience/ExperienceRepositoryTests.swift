@@ -114,8 +114,28 @@ class ExperienceRepositoryTests: XCTestCase {
             .then_should_modify_switch_result(3, .saved, .update, [Mock.experience("4")])
     }
 
+    func test_create_experience() {
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_create(Result(.success, data: Mock.experience("4")))
+            .when_create_experience("t", "d")
+            .then_should_call_api_create("t", "d")
+            .then_should_return_experience_observable(Result(.success, data: Mock.experience("4")))
+            .then_should_modify_switch_result(0, .mine, .addOrUpdate, [Mock.experience("4")])
+    }
+
+    func test_upload_picture() {
+        let pic = UIImage()
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_upload_picture(Result(.success, data: Mock.experience("4")))
+            .when_upload_picture("4", pic)
+            .then_should_call_api_upload_picture("4", pic)
+            .then_should_modify_switch_result(0, .mine, .update, [Mock.experience("4")])
+            .then_should_modify_switch_result(1, .explore, .update, [Mock.experience("4")])
+            .then_should_modify_switch_result(2, .persons, .update, [Mock.experience("4")])
+    }
+
     class ScenarioMaker {
-        
+
         let mockApiRepo = MockExperienceApiRepo()
         let mockRequestersSwitch = ExperienceRequestersSwitchMock()
         let repo: ExperienceRepository
@@ -159,6 +179,16 @@ class ExperienceRepositoryTests: XCTestCase {
 
         func given_an_api_repo_that_returns_on_experience(_ result: Result<Experience>) -> ScenarioMaker {
             mockApiRepo.apiExperienceCallResultObservable = Observable.just(result)
+            return self
+        }
+
+        func given_an_api_repo_that_returns_on_create(_ result: Result<Experience>) -> ScenarioMaker {
+            mockApiRepo.createExperienceResult = Observable.just(result)
+            return self
+        }
+
+        func given_an_api_repo_that_returns_on_upload_picture(_ result: Result<Experience>) -> ScenarioMaker {
+            mockApiRepo.uploadPictureResult = Observable.just(result)
             return self
         }
 
@@ -207,6 +237,16 @@ class ExperienceRepositoryTests: XCTestCase {
             return self
         }
 
+        func when_create_experience(_ title: String, _ description: String) -> ScenarioMaker {
+            experienceObservableResult = repo.createExperience(title, description)
+            return self
+        }
+
+        func when_upload_picture(_ experienceId: String, _ image: UIImage) -> ScenarioMaker {
+            repo.uploadPicture(experienceId, image)
+            return self
+        }
+
         func then_should_call_api_translate_share_url(_ experienceId: String) -> ScenarioMaker {
             stringObservableResult = repo.shareUrl(experienceId)
             return self
@@ -216,6 +256,21 @@ class ExperienceRepositoryTests: XCTestCase {
             assert(mockApiRepo.saveCalls.count == 1)
             assert(mockApiRepo.saveCalls[0].0 == experienceId)
             assert(mockApiRepo.saveCalls[0].1 == true)
+            return self
+        }
+
+        func then_should_call_api_create(_ title: String, _ description: String) -> ScenarioMaker {
+            assert(mockApiRepo.createExperienceCalls.count == 1)
+            assert(mockApiRepo.createExperienceCalls[0].0 == title)
+            assert(mockApiRepo.createExperienceCalls[0].1 == description)
+            return self
+        }
+
+        func then_should_call_api_upload_picture(_ experienceId: String,
+                                                 _ image: UIImage) -> ScenarioMaker {
+            assert(mockApiRepo.uploadPictureCalls.count == 1)
+            assert(mockApiRepo.uploadPictureCalls[0].0 == experienceId)
+            assert(mockApiRepo.uploadPictureCalls[0].1 == image)
             return self
         }
         
@@ -311,6 +366,9 @@ class ExperienceRepoMock: ExperienceRepository {
     var saveCalls = [(String, Bool)]()
     var shareUrlCalls = [String]()
     var refreshExperienceCalls = [String]()
+    var createExperienceCalls = [(String, String)]()
+    var createExperienceResult: Observable<Result<Experience>>!
+    var uploadPictureCalls = [(String, UIImage)]()
 
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         switch kind {
@@ -355,5 +413,14 @@ class ExperienceRepoMock: ExperienceRepository {
     func shareUrl(_ experienceId: String) -> Observable<Result<String>> {
         shareUrlCalls.append(experienceId)
         return returnShareUrlObservable
+    }
+
+    func createExperience(_ title: String, _ description: String) -> Observable<Result<Experience>> {
+        createExperienceCalls.append((title, description))
+        return createExperienceResult
+    }
+
+    func uploadPicture(_ experienceId: String, _ image: UIImage) {
+        uploadPictureCalls.append((experienceId, image))
     }
 }

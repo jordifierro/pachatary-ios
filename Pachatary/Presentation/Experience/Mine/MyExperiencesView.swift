@@ -13,6 +13,7 @@ protocol MyExperiencesView : class {
     func showRetry()
     func navigateToExperienceScenes(_ experienceId: String)
     func navigateToRegister()
+    func navigateToCreateExperience()
     func showShareDialog(_ username: String)
     func navigateToPickAndCropImage()
     func showUploadInProgress()
@@ -26,6 +27,7 @@ class MyExperiencesViewController: UIViewController {
     var presenter: MyExperiencesPresenter?
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var createExperienceButton: GreenButton!
     @IBOutlet weak var registerButton: UIButton!
     
     var lastItemShown = -1
@@ -65,6 +67,8 @@ class MyExperiencesViewController: UIViewController {
 
         registerButton.addTarget(self,
             action: #selector(MyExperiencesViewController.registerClick(_:)), for: .touchUpInside)
+        createExperienceButton.addTarget(self,
+             action: #selector(MyExperiencesViewController.createExperienceClick(_:)), for: .touchUpInside)
 
         presenter!.create()
     }
@@ -73,6 +77,9 @@ class MyExperiencesViewController: UIViewController {
         presenter!.registerClick()
     }
 
+    @objc func createExperienceClick(_ sender: UIButton!) {
+        presenter!.createExperienceClick()
+    }
 
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         presenter!.refresh()
@@ -218,10 +225,12 @@ extension MyExperiencesViewController: MyExperiencesView {
 
     func showProfileAndExperiencesView() {
         collectionView.isHidden = false
+        createExperienceButton.isHidden = false
     }
 
     func showRegisterView() {
         collectionView.isHidden = true
+        createExperienceButton.isHidden = true
     }
 
     func showExperiences(_ experiences: [Experience]) {
@@ -271,6 +280,10 @@ extension MyExperiencesViewController: MyExperiencesView {
 
     func navigateToPickAndCropImage() {
         performSegue(withIdentifier: "pickAndCropImageSegue", sender: self)
+    }
+
+    func navigateToCreateExperience() {
+        performSegue(withIdentifier: "createExperienceSegue", sender: self)
     }
 
     func showShareDialog(_ username: String) {

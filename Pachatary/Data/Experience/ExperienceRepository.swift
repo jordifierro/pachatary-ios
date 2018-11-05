@@ -10,6 +10,8 @@ protocol ExperienceRepository {
     func saveExperience(_ experienceId: String, save: Bool)
     func translateShareId(_ shareId: String) -> Observable<Result<String>>
     func shareUrl(_ experienceId: String) -> Observable<Result<String>>
+    func createExperience(_ title: String, _ description: String) -> Observable<Result<Experience>>
+    func uploadPicture(_ experienceId: String, _ image: UIImage)
 }
 
 class ExperienceRepoImplementation: ExperienceRepository {
@@ -101,6 +103,43 @@ class ExperienceRepoImplementation: ExperienceRepository {
 
     func translateShareId(_ shareId: String) -> Observable<Result<String>> {
         return apiRepo.translateShareId(shareId)
+    }
+
+    func createExperience(_ title: String, _ description: String) -> Observable<Result<Experience>> {
+        return apiRepo.createExperience(title, description)
+            .do(onNext: { result in
+                switch result.status {
+                case .success:
+                    self.requestersSwitch.modifyResult(.mine, .addOrUpdate,
+                                                       list: [result.data!], result: nil)
+                case .error: break
+                case .inProgress: break
+                }
+            })
+    }
+
+    func uploadPicture(_ experienceId: String, _ image: UIImage) {
+        _ = apiRepo.uploadPicture(experienceId, image)
+            .subscribe { event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success:
+                        self.requestersSwitch.modifyResult(.mine, .update,
+                                                           list: [result.data!], result: nil)
+                        self.requestersSwitch.modifyResult(.explore, .update,
+                                                           list: [result.data!], result: nil)
+                        self.requestersSwitch.modifyResult(.persons, .update,
+                                                           list: [result.data!], result: nil)
+                    case .error: break
+                    case .inProgress: break
+                    }
+                case .error(let error):
+                    fatalError(error.localizedDescription)
+                case .completed:
+                    break
+                }
+            }
     }
 
     private func saveExperienceOnApiRepo(_ experienceId: String, save: Bool) {

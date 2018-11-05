@@ -34,4 +34,9 @@ class ExperienceDependencyInjector {
                                          AppPresentationDependencyInjector.mainScheduler,
                                          view, experienceShareId)
     }
+
+    static func createExperiencePresenter(view: CreateExperienceView) -> CreateExperiencePresenter {
+        return CreateExperiencePresenter(ExperienceDataDependencyInjector.experienceRepository,
+                                         AppPresentationDependencyInjector.mainScheduler, view)
+    }
 }

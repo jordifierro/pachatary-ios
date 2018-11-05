@@ -1,5 +1,6 @@
 import UIKit
 import Firebase
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -130,5 +131,7 @@ extension AppDelegate {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
 
         setupButtonsDesign()
+
+        IQKeyboardManager.shared.enable = true
     }
 }

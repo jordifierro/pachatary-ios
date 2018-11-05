@@ -19,6 +19,7 @@ target 'Pachatary' do
   pod 'Fabric', '~> 1.7.11'
   pod 'Crashlytics', '~> 3.10.7'
   pod 'CropViewController'
+  pod 'IQKeyboardManagerSwift'
 
   target 'PachataryTests' do
     inherit! :search_paths

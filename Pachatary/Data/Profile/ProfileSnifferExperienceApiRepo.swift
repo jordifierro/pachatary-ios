@@ -68,4 +68,15 @@ class ProfileSnifferExperienceApiRepo: ExperienceApiRepository {
     func shareUrl(_ experienceId: String) -> Observable<Result<String>> {
         return self.realExperienceApiRepo.shareUrl(experienceId)
     }
+
+    func createExperience(_ title: String, _ description: String) -> Observable<Result<Experience>> {
+        return self.realExperienceApiRepo.createExperience(title, description)
+            .do(onNext: sniffProfile)
+    }
+
+    func uploadPicture(_ experienceId: String, _ image: UIImage) -> Observable<Result<Experience>> {
+        return self.realExperienceApiRepo.uploadPicture(experienceId, image)
+            .do(onNext: sniffProfile)
+    }
+
 }
