@@ -105,11 +105,43 @@ class MyExperiencesPresenterTests: XCTestCase {
             .then_view_should_navigate_to_experience_map(with: "4")
     }
 
-    func test_on_share_click_shows_share_dialog() {
+    func test_on_share_click_does_nothing_if_not_profile_nor_experiences_received() {
+        ScenarioMaker()
+            .when_share_click()
+            .then_view_should_not_show_share_dialog()
+            .then_view_should_not_show_not_enough_info_to_share()
+    }
+
+    func test_on_share_click_shows_not_enough_info_if_profile_has_no_picture() {
         ScenarioMaker()
             .given_an_auth_repo_that_returns_to_is_register_completed(true)
             .given_a_profile_repo_that_returns_on_self(Result(.success, data: Mock.profile("test")))
-            .given_an_experience_repo_that_returns_for_mine(Result(.inProgress, data: []))
+            .given_an_experience_repo_that_returns_for_mine(Result(.success, data: [Mock.experience("a")]))
+            .when_create()
+            .when_share_click()
+            .then_view_should_show_not_enough_info_to_share()
+            .then_view_should_not_show_share_dialog()
+    }
+
+    func test_on_share_click_shows_not_enough_info_if_experiences_is_empty() {
+        ScenarioMaker()
+            .given_an_auth_repo_that_returns_to_is_register_completed(true)
+            .given_a_profile_repo_that_returns_on_self(Result(.success, data:
+            Profile(username: "a", bio: "b", picture: LittlePicture(tinyUrl: "t", smallUrl: "s", mediumUrl: "m"), isMe: true)))
+            .given_an_experience_repo_that_returns_for_mine(Result(.success, data: []))
+            .when_create()
+            .when_share_click()
+            .then_view_should_show_not_enough_info_to_share()
+            .then_view_should_not_show_share_dialog()
+    }
+
+
+    func test_on_share_click_shows_share_dialog_if_experiences_and_profile_picture() {
+        ScenarioMaker()
+            .given_an_auth_repo_that_returns_to_is_register_completed(true)
+            .given_a_profile_repo_that_returns_on_self(Result(.success, data:
+                Profile(username: "test", bio: "b", picture: LittlePicture(tinyUrl: "t", smallUrl: "s", mediumUrl: "m"), isMe: true)))
+            .given_an_experience_repo_that_returns_for_mine(Result(.success, data: [Mock.experience("a")]))
             .when_create()
             .when_share_click()
             .then_view_should_show_share_dialog(with: "test")
@@ -313,6 +345,24 @@ class MyExperiencesPresenterTests: XCTestCase {
             assert(mockView.showUploadErrorCalls == 1)
             return self
         }
+
+        @discardableResult
+        func then_view_should_not_show_share_dialog() -> ScenarioMaker {
+            assert(mockView.shareDialogCalls.isEmpty)
+            return self
+        }
+
+        @discardableResult
+        func then_view_should_not_show_not_enough_info_to_share() -> ScenarioMaker {
+            assert(mockView.showNotEnoughInfoToShareCalls == 0)
+            return self
+        }
+
+        @discardableResult
+        func then_view_should_show_not_enough_info_to_share() -> ScenarioMaker {
+            assert(mockView.showNotEnoughInfoToShareCalls == 1)
+            return self
+        }
     }
 }
 
@@ -332,6 +382,7 @@ class MyExperiencesViewMock: MyExperiencesView {
     var showUploadInProgressCalls = 0
     var showUploadSuccessCalls = 0
     var showUploadErrorCalls = 0
+    var showNotEnoughInfoToShareCalls = 0
 
     func showExperiences(_ experiences: [Experience]) {
         showExperienceCalls.append(experiences)
@@ -387,5 +438,9 @@ class MyExperiencesViewMock: MyExperiencesView {
 
     func showUploadError() {
         showUploadErrorCalls += 1
+    }
+
+    func showNotEnoughInfoToShare() {
+        showNotEnoughInfoToShareCalls += 1
     }
 }

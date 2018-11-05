@@ -18,6 +18,7 @@ protocol MyExperiencesView : class {
     func showUploadInProgress()
     func showUploadSuccess()
     func showUploadError()
+    func showNotEnoughInfoToShare()
 }
 
 class MyExperiencesViewController: UIViewController {
@@ -105,7 +106,7 @@ class MyExperiencesViewController: UIViewController {
 }
 
 extension MyExperiencesViewController: UICollectionViewDataSource, UICollectionViewDelegate,
-UICollectionViewDelegateFlowLayout {
+                                       UICollectionViewDelegateFlowLayout {
 
     enum ViewType {
         case loader
@@ -276,6 +277,10 @@ extension MyExperiencesViewController: MyExperiencesView {
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
         }
+    }
+
+    func showNotEnoughInfoToShare() {
+        Snackbar.show("You must have at least one experience and upload a profile picture", .short)
     }
 }
 

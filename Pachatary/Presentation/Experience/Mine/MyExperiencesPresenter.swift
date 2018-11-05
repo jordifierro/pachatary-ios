@@ -14,6 +14,7 @@ class MyExperiencesPresenter {
     var profileDisposable: Disposable? = nil
     var disposeBag: DisposeBag? = DisposeBag()
     var myProfile: Profile?
+    var myExperiences: [Experience]?
 
     init(_ experienceRepository: ExperienceRepository,
          _ profileRepository: ProfileRepository,
@@ -80,6 +81,7 @@ class MyExperiencesPresenter {
                 case .next(let result):
                     switch result.status {
                     case .success:
+                        self.myExperiences = result.data!
                         self.view.showLoadingExperiences(false)
                         self.view.showExperiences(result.data!)
                     case .error:
@@ -114,8 +116,11 @@ class MyExperiencesPresenter {
     }
 
     func shareClick() {
-        if self.myProfile != nil {
-            view.showShareDialog(self.myProfile!.username)
+        if myProfile != nil && myExperiences != nil {
+            if myProfile!.picture == nil || myExperiences!.isEmpty {
+                view.showNotEnoughInfoToShare()
+            }
+            else { view.showShareDialog(self.myProfile!.username) }
         }
     }
 
