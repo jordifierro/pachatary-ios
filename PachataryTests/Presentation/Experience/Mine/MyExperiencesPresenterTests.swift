@@ -176,16 +176,30 @@ class MyExperiencesPresenterTests: XCTestCase {
             .then_should_show_upload_error()
     }
 
+    func test_on_bio_edited_calls_edit_profile() {
+        ScenarioMaker()
+            .given_a_profile_repo_that_returns_a_listener_observable_on_edit_profile()
+            .when_bio_edited("new bio")
+            .then_should_call_edit_profile_with("new bio")
+            .then_should_subscribe_to_listener_observable()
+    }
+
     class ScenarioMaker {
         let mockExperienceRepo = ExperienceRepoMock()
         let mockProfileRepo = ProfileRepositoryMock()
         let mockAuthRepo = AuthRepoMock()
         let mockView = MyExperiencesViewMock()
         let presenter: MyExperiencesPresenter!
+        var listenerObservable = PublishSubject<Result<Profile>>()
 
         init() {
             presenter = MyExperiencesPresenter(mockExperienceRepo, mockProfileRepo, mockAuthRepo,
                                                CurrentThreadScheduler.instance, mockView)
+        }
+
+        func given_a_profile_repo_that_returns_a_listener_observable_on_edit_profile() -> ScenarioMaker {
+            mockProfileRepo.editProfileResult = listenerObservable.asObservable()
+            return self
         }
 
         func given_an_auth_repo_that_returns_to_is_register_completed(_ isCompleted: Bool) -> ScenarioMaker {
@@ -246,6 +260,11 @@ class MyExperiencesPresenterTests: XCTestCase {
 
         func when_image_cropped() -> ScenarioMaker {
             presenter.imageCropped(UIImage())
+            return self
+        }
+
+        func when_bio_edited(_ bio: String) -> ScenarioMaker {
+            presenter.bioEdited(bio)
             return self
         }
 
@@ -361,6 +380,18 @@ class MyExperiencesPresenterTests: XCTestCase {
         @discardableResult
         func then_view_should_show_not_enough_info_to_share() -> ScenarioMaker {
             assert(mockView.showNotEnoughInfoToShareCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_edit_profile_with(_ bio: String) -> ScenarioMaker {
+            assert(mockProfileRepo.editProfileCalls == [bio])
+            return self
+        }
+
+        @discardableResult
+        func then_should_subscribe_to_listener_observable() -> ScenarioMaker {
+            assert(listenerObservable.hasObservers)
             return self
         }
     }

@@ -21,6 +21,10 @@ class ProfileApiRepositoryTests: XCTestCase {
             .then_should_return_flowable_with_inprogress_and_result_profile()
     }
 
+    func test_edit_profile() {
+        //Cannot test because Hippolyte doesn't support PATCH method
+    }
+
     class ScenarioMaker {
         let api = MoyaProvider<ProfileApi>().rx
         var repo: ProfileApiRepository!
@@ -84,6 +88,8 @@ class ProfileApiRepoMock: ProfileApiRepository {
 
     var profileObservableResults = [String:Observable<Result<Profile>>]()
     var uploadProfilePictureObservableResults: Observable<Result<Profile>>!
+    var editProfileObservableResult: Observable<Result<Profile>>!
+    var editProfileCalls = [String]()
 
     init() {}
 
@@ -93,5 +99,10 @@ class ProfileApiRepoMock: ProfileApiRepository {
 
     func uploadProfilePicture(_ image: UIImage) -> Observable<Result<Profile>> {
         return uploadProfilePictureObservableResults
+    }
+
+    func editProfile(_ bio: String) -> Observable<Result<Profile>> {
+        editProfileCalls.append(bio)
+        return editProfileObservableResult
     }
 }

@@ -85,6 +85,18 @@ class ProfileRepositoryTests: XCTestCase {
             .then_should_return_profile(Mock.profile("a", bio: "updated"))
     }
 
+    func test_edit_profile_updates_cache() {
+        ScenarioMaker()
+            .given_cached_profile(Mock.profile("a"))
+            .given_an_api_that_returns_on_edit_profile(
+                Result(.success, data: Mock.profile("a", bio: "updated")))
+            .when_edit_profile("bio")
+            .then_should_return_profile(Mock.profile("a", bio: "updated"))
+            .then_should_call_api_edit_profile_with("bio")
+            .when_get_profile("a")
+            .then_should_return_profile(Mock.profile("a", bio: "updated"))
+    }
+
     class ScenarioMaker {
         
         let repo: ProfileRepository
@@ -111,7 +123,12 @@ class ProfileRepositoryTests: XCTestCase {
             mockApiRepo.uploadProfilePictureObservableResults = Observable.just(result)
             return self
         }
-        
+
+        func given_an_api_that_returns_on_edit_profile(_ result: Result<Profile>) -> ScenarioMaker {
+            mockApiRepo.editProfileObservableResult = Observable.just(result)
+            return self
+        }
+
         func when_get_profile(_ username: String) -> ScenarioMaker {
             try! profileResult = repo.profile(username).toBlocking().first()?.data!
             return self
@@ -126,10 +143,21 @@ class ProfileRepositoryTests: XCTestCase {
             try! profileResult = repo.uploadProfilePicture(UIImage()).toBlocking().first()?.data!
             return self
         }
+
+        func when_edit_profile(_ bio: String) -> ScenarioMaker {
+            try! profileResult = repo.editProfile(bio).toBlocking().first()?.data!
+            return self
+        }
         
         @discardableResult
         func then_should_return_profile(_ profile: Profile) -> ScenarioMaker {
             assert(profile == profileResult)
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_api_edit_profile_with(_ bio: String) -> ScenarioMaker {
+            assert(mockApiRepo.editProfileCalls == [bio])
             return self
         }
     }
@@ -141,6 +169,8 @@ class ProfileRepositoryMock: ProfileRepository {
     var selfProfileResult: Observable<Result<Profile>>!
     var cacheCalls = [Profile]()
     var uploadProfilePictureResult: Observable<Result<Profile>>!
+    var editProfileResult: Observable<Result<Profile>>!
+    var editProfileCalls = [String]()
     
     func cache(_ profile: Profile) {
         cacheCalls.append(profile)
@@ -156,5 +186,10 @@ class ProfileRepositoryMock: ProfileRepository {
 
     func uploadProfilePicture(_ image: UIImage) -> Observable<Result<Profile>> {
         return uploadProfilePictureResult
+    }
+
+    func editProfile(_ bio: String) -> Observable<Result<Profile>> {
+        editProfileCalls.append(bio)
+        return editProfileResult
     }
 }

@@ -4,6 +4,7 @@ import Moya
 enum ProfileApi {
     case profile(String)
     case uploadPicture(picture: UIImage)
+    case editProfile(bio: String)
 }
 
 // MARK: - TargetType Protocol Implementation
@@ -17,6 +18,8 @@ extension ProfileApi: TargetType {
             return "/profiles/" + username
         case .uploadPicture:
             return "/profiles/me/picture"
+        case .editProfile:
+            return "/profiles/self"
         }
     }
     var method: Moya.Method {
@@ -25,12 +28,16 @@ extension ProfileApi: TargetType {
             return .get
         case .uploadPicture:
             return .post
+        case .editProfile:
+            return .patch
         }
     }
     var task: Task {
         switch self {
         case .profile(_):
             return .requestPlain
+        case .editProfile(let bio):
+            return .requestParameters(parameters: ["bio": bio], encoding: URLEncoding.default)
         case .uploadPicture(let picture):
             let pictureData = MultipartFormData(provider: .data(UIImageJPEGRepresentation(picture, 1)!),
                                                 name: "picture",  fileName: "photo.jpg", mimeType: "image/jpeg")

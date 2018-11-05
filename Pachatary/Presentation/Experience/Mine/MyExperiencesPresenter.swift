@@ -154,4 +154,10 @@ class MyExperiencesPresenter {
             }
             .disposed(by: disposeBag!)
     }
+
+    func bioEdited(_ bio: String) {
+        profileRepo.editProfile(bio)
+            .subscribe()
+            .disposed(by: disposeBag!)
+    }
 }

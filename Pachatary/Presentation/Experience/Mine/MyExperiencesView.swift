@@ -163,9 +163,11 @@ extension MyExperiencesViewController: UICollectionViewDataSource, UICollectionV
             let cell: EditableProfileCollectionViewCell =
                 collectionView.dequeueReusableCell(withReuseIdentifier: "editableProfileCell", for: indexPath)
                     as! EditableProfileCollectionViewCell
-            if profile != nil { cell.bind(profile!,
-                                          { [weak self] () in
-                                                self?.presenter?.editProfilePictureClick() }) }
+            if profile != nil {
+                cell.bind(profile!,
+                          { [weak self] () in self?.presenter?.editProfilePictureClick() },
+                          { [weak self] newBio in self?.presenter!.bioEdited(newBio)})
+            }
             cell.setNeedsUpdateConstraints()
             cell.updateConstraintsIfNeeded()
             cell.layoutIfNeeded()
