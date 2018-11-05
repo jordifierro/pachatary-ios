@@ -74,6 +74,17 @@ class ProfileRepositoryTests: XCTestCase {
             .then_should_return_profile(Mock.profile("a", isMe: true))
     }
 
+    func test_upload_profile_picture_updates_cache() {
+        ScenarioMaker()
+            .given_cached_profile(Mock.profile("a", bio: "1"))
+            .given_an_api_that_returns_on_upload_profile_picture(
+                Result(.success, data: Mock.profile("a", bio: "updated")))
+            .when_upload_profile_picture()
+            .then_should_return_profile(Mock.profile("a", bio: "updated"))
+            .when_get_profile("a")
+            .then_should_return_profile(Mock.profile("a", bio: "updated"))
+    }
+
     class ScenarioMaker {
         
         let repo: ProfileRepository
@@ -95,6 +106,11 @@ class ProfileRepositoryTests: XCTestCase {
             mockApiRepo.profileObservableResults[username] = Observable.just(result)
             return self
         }
+
+        func given_an_api_that_returns_on_upload_profile_picture(_ result: Result<Profile>) -> ScenarioMaker {
+            mockApiRepo.uploadProfilePictureObservableResults = Observable.just(result)
+            return self
+        }
         
         func when_get_profile(_ username: String) -> ScenarioMaker {
             try! profileResult = repo.profile(username).toBlocking().first()?.data!
@@ -103,6 +119,11 @@ class ProfileRepositoryTests: XCTestCase {
 
         func when_get_self_profile() -> ScenarioMaker {
             try! profileResult = repo.selfProfile().toBlocking().first()?.data!
+            return self
+        }
+
+        func when_upload_profile_picture() -> ScenarioMaker {
+            try! profileResult = repo.uploadProfilePicture(UIImage()).toBlocking().first()?.data!
             return self
         }
         
@@ -115,10 +136,11 @@ class ProfileRepositoryTests: XCTestCase {
 }
 
 class ProfileRepositoryMock: ProfileRepository {
-    
+
     var profileResult = [String:Observable<Result<Profile>>]()
     var selfProfileResult: Observable<Result<Profile>>!
     var cacheCalls = [Profile]()
+    var uploadProfilePictureResult: Observable<Result<Profile>>!
     
     func cache(_ profile: Profile) {
         cacheCalls.append(profile)
@@ -130,5 +152,9 @@ class ProfileRepositoryMock: ProfileRepository {
 
     func selfProfile() -> Observable<Result<Profile>> {
         return selfProfileResult!
+    }
+
+    func uploadProfilePicture(_ image: UIImage) -> Observable<Result<Profile>> {
+        return uploadProfilePictureResult
     }
 }

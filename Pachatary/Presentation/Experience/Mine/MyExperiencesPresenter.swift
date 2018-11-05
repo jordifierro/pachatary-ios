@@ -12,6 +12,7 @@ class MyExperiencesPresenter {
 
     var experiencesDisposable: Disposable? = nil
     var profileDisposable: Disposable? = nil
+    var disposeBag: DisposeBag? = DisposeBag()
     var myProfile: Profile?
 
     init(_ experienceRepository: ExperienceRepository,
@@ -26,7 +27,6 @@ class MyExperiencesPresenter {
         self.view = view
     }
 
-
     func create() {
         if authRepository.isRegisterCompleted() {
             view.showProfileAndExperiencesView()
@@ -40,8 +40,7 @@ class MyExperiencesPresenter {
     }
 
     func destroy() {
-        self.experiencesDisposable?.dispose()
-        self.profileDisposable?.dispose()
+        self.disposeBag = nil
     }
 
     func retryClick() {
@@ -49,7 +48,7 @@ class MyExperiencesPresenter {
     }
 
     private func connectToProfile() {
-        profileDisposable = self.profileRepo.selfProfile()
+        self.profileRepo.selfProfile()
             .observeOn(self.mainScheduler)
             .subscribe { [unowned self] event in
                 switch event {
@@ -69,11 +68,12 @@ class MyExperiencesPresenter {
                     fatalError(error.localizedDescription)
                 case .completed: break
                 }
-        }
+            }
+            .disposed(by: disposeBag!)
     }
 
     private func connectToExperiences() {
-        experiencesDisposable = self.experienceRepo.experiencesObservable(kind: .mine)
+        self.experienceRepo.experiencesObservable(kind: .mine)
             .observeOn(self.mainScheduler)
             .subscribe { [unowned self] event in
                 switch event {
@@ -93,7 +93,8 @@ class MyExperiencesPresenter {
                     fatalError(error.localizedDescription)
                 case .completed: break
                 }
-        }
+            }
+            .disposed(by: disposeBag!)
     }
 
     private func getFirstsExperiences() {
@@ -120,5 +121,32 @@ class MyExperiencesPresenter {
 
     func registerClick() {
         view.navigateToRegister()
+    }
+
+    func editProfilePictureClick() {
+        view.navigateToPickAndCropImage()
+    }
+
+    func imageCropped(_ image: UIImage) {
+        profileRepo.uploadProfilePicture(image)
+            .observeOn(mainScheduler)
+            .subscribe { [unowned self] event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success:
+                        self.view.showUploadSuccess()
+                    case .error:
+                        self.view.showUploadError()
+                    case .inProgress:
+                        self.view.showUploadInProgress()
+                    }
+                case .error(let error):
+                    fatalError(error.localizedDescription)
+                case .completed:
+                    break
+                }
+            }
+            .disposed(by: disposeBag!)
     }
 }

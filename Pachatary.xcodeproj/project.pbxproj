@@ -34,6 +34,12 @@
 		AE41B0D3218F03A9007EB74E /* ConfirmEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0D2218F03A9007EB74E /* ConfirmEmailView.swift */; };
 		AE41B0D5218F03EB007EB74E /* ConfirmEmailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0D4218F03EB007EB74E /* ConfirmEmailPresenter.swift */; };
 		AE41B0DA218F1426007EB74E /* ConfirmEmailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0D9218F1426007EB74E /* ConfirmEmailPresenterTests.swift */; };
+		AE41B0DE218F16C7007EB74E /* EditableProfileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE41B0DD218F16C7007EB74E /* EditableProfileCollectionViewCell.xib */; };
+		AE41B0E0218F18AC007EB74E /* EditableProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0DF218F18AC007EB74E /* EditableProfileCollectionViewCell.swift */; };
+		AE41B0E2218F21C9007EB74E /* PickAndCropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0E1218F21C9007EB74E /* PickAndCropImageView.swift */; };
+		AE41B0E4218F5044007EB74E /* PickAndCropImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0E3218F5044007EB74E /* PickAndCropImagePresenter.swift */; };
+		AE41B0E621904397007EB74E /* POST_profiles_me_picture.json in Resources */ = {isa = PBXBuildFile; fileRef = AE41B0E521904397007EB74E /* POST_profiles_me_picture.json */; };
+		AE41B0E8219046D1007EB74E /* PickAndCropImagePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE41B0E7219046D1007EB74E /* PickAndCropImagePresenterTests.swift */; };
 		AE548AB0216D201B00335400 /* CommonDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */; };
 		AE548AB3216D3A6900335400 /* SelectLocationPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE548AB2216D3A6900335400 /* SelectLocationPresenterTests.swift */; };
 		AE598BA820EA464600F3DBA9 /* ExperienceScenesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE598BA720EA464600F3DBA9 /* ExperienceScenesView.swift */; };
@@ -206,6 +212,12 @@
 		AE41B0D2218F03A9007EB74E /* ConfirmEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailView.swift; sourceTree = "<group>"; };
 		AE41B0D4218F03EB007EB74E /* ConfirmEmailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailPresenter.swift; sourceTree = "<group>"; };
 		AE41B0D9218F1426007EB74E /* ConfirmEmailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailPresenterTests.swift; sourceTree = "<group>"; };
+		AE41B0DD218F16C7007EB74E /* EditableProfileCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditableProfileCollectionViewCell.xib; sourceTree = "<group>"; };
+		AE41B0DF218F18AC007EB74E /* EditableProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		AE41B0E1218F21C9007EB74E /* PickAndCropImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAndCropImageView.swift; sourceTree = "<group>"; };
+		AE41B0E3218F5044007EB74E /* PickAndCropImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAndCropImagePresenter.swift; sourceTree = "<group>"; };
+		AE41B0E521904397007EB74E /* POST_profiles_me_picture.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POST_profiles_me_picture.json; sourceTree = "<group>"; };
+		AE41B0E7219046D1007EB74E /* PickAndCropImagePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAndCropImagePresenterTests.swift; sourceTree = "<group>"; };
 		AE50BF69218A27EF00D31469 /* Pachatary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pachatary.entitlements; sourceTree = "<group>"; };
 		AE548AAF216D201B00335400 /* CommonDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDependencyInjector.swift; sourceTree = "<group>"; };
 		AE548AB2216D3A6900335400 /* SelectLocationPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationPresenterTests.swift; sourceTree = "<group>"; };
@@ -402,6 +414,8 @@
 				AEC2FF89217E4A82000E3F1B /* WebViewController.swift */,
 				AEC2FF8B217FAE87000E3F1B /* Snackbar.swift */,
 				AEC2FF8D2181C91F000E3F1B /* UIImage+Circle.swift */,
+				AE41B0E1218F21C9007EB74E /* PickAndCropImageView.swift */,
+				AE41B0E3218F5044007EB74E /* PickAndCropImagePresenter.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -447,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				AE548AB2216D3A6900335400 /* SelectLocationPresenterTests.swift */,
+				AE41B0E7219046D1007EB74E /* PickAndCropImagePresenterTests.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -796,6 +811,8 @@
 				AEE03CF321664C890034AE0C /* ProfileDependencyInjector.swift */,
 				AE603823216E48C70023F3BB /* ProfileRouterView.swift */,
 				AE603825216E4C6A0023F3BB /* ProfileRouterPresenter.swift */,
+				AE41B0DD218F16C7007EB74E /* EditableProfileCollectionViewCell.xib */,
+				AE41B0DF218F18AC007EB74E /* EditableProfileCollectionViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -804,6 +821,7 @@
 			isa = PBXGroup;
 			children = (
 				AED682B62175FC8600B61891 /* GET_profile.json */,
+				AE41B0E521904397007EB74E /* POST_profiles_me_picture.json */,
 				AEE03CFC2166A7EE0034AE0C /* ProfileRepositoryTests.swift */,
 				AEE03CFE2166AA670034AE0C /* ProfileSnifferExperienceApiRepoTests.swift */,
 				AED682B42175FBAF00B61891 /* ProfileApiRepositoryTests.swift */,
@@ -1052,6 +1070,7 @@
 				AE86D9E9215EAD98003D2B34 /* SquareExperienceCollectionViewCell.xib in Resources */,
 				AE86D9EB215EAEAA003D2B34 /* LoaderCollectionViewCell.xib in Resources */,
 				AE3116E520EB8F8500720A95 /* ExtendedExperienceTableViewCell.xib in Resources */,
+				AE41B0DE218F16C7007EB74E /* EditableProfileCollectionViewCell.xib in Resources */,
 				AEA5662D2113756300F0E1F3 /* ExperienceDetailTableViewCell.xib in Resources */,
 				AEC2FF88217E186F000E3F1B /* Bahiana-Regular.ttf in Resources */,
 				AEDB0DBF211B4CB6004F843E /* Person.storyboard in Resources */,
@@ -1068,6 +1087,7 @@
 			files = (
 				AED682BF21777D2300B61891 /* GET_experience_share_url.json in Resources */,
 				AED682B72175FC8600B61891 /* GET_profile.json in Resources */,
+				AE41B0E621904397007EB74E /* POST_profiles_me_picture.json in Resources */,
 				AE41B0CF218E1312007EB74E /* PATCH_people_me_ERROR.json in Resources */,
 				AEC8DCE8211DF1F0007CCC68 /* POST_people_me_login.json in Resources */,
 				AE603832216E98AC0023F3BB /* GET_experiences.json in Resources */,
@@ -1200,6 +1220,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Pachatary/Pods-Pachatary-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
@@ -1217,6 +1238,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
@@ -1317,6 +1339,7 @@
 				AE603836216EA3110023F3BB /* ProfileApiRepository.swift in Sources */,
 				AE414BDC215D358F0077284C /* LoaderTableViewCell.swift in Sources */,
 				AEB6A66420DBE4C000F936DB /* ExperienceRepository.swift in Sources */,
+				AE41B0E0218F18AC007EB74E /* EditableProfileCollectionViewCell.swift in Sources */,
 				AE6F8B6B20DABA3D007CC36A /* Requester.swift in Sources */,
 				AEA5662F211375B100F0E1F3 /* ExperienceDetailTableViewCell.swift in Sources */,
 				AE86D9E7215E429F003D2B34 /* SavedExperiencesPresenter.swift in Sources */,
@@ -1335,6 +1358,7 @@
 				AED682C121777DF700B61891 /* ExperienceShareUrlMapper.swift in Sources */,
 				AEEC749D20CACA5A00B86837 /* AuthApi.swift in Sources */,
 				AE6F8B6D20DABB21007CC36A /* Request.swift in Sources */,
+				AE41B0E4218F5044007EB74E /* PickAndCropImagePresenter.swift in Sources */,
 				AEBB629C20C547D3001A4576 /* AppDelegate.swift in Sources */,
 				AE1D6D1D20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift in Sources */,
 				AEB326B120C6EDAA000E07D8 /* ExperienceMapper.swift in Sources */,
@@ -1351,6 +1375,7 @@
 				AEEC74A320CADB8C00B86837 /* AuthHeaderPlugin.swift in Sources */,
 				AEE03CF421664C890034AE0C /* ProfileDependencyInjector.swift in Sources */,
 				AEE03CF821667C430034AE0C /* ProfileDataDependencyInjector.swift in Sources */,
+				AE41B0E2218F21C9007EB74E /* PickAndCropImageView.swift in Sources */,
 				AEAE26AA20E285AA00E5D4E9 /* SceneRepository.swift in Sources */,
 				AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */,
 				AE86D9ED215EAF0C003D2B34 /* LoaderCollectionViewCell.swift in Sources */,
@@ -1377,6 +1402,7 @@
 				AEE03CFF2166AA670034AE0C /* ProfileSnifferExperienceApiRepoTests.swift in Sources */,
 				AEB6A66620DBFDA900F936DB /* ExperienceRepositoryTests.swift in Sources */,
 				AE80DE7C20CEE0CB00A170F6 /* AuthRepositoryTests.swift in Sources */,
+				AE41B0E8219046D1007EB74E /* PickAndCropImagePresenterTests.swift in Sources */,
 				AEC8DCE6211DEBAE007CCC68 /* LoginPresenterTests.swift in Sources */,
 				AE73C7BF20CE80E200B05DA2 /* AuthApiRepositoryTests.swift in Sources */,
 				AE41B0DA218F1426007EB74E /* ConfirmEmailPresenterTests.swift in Sources */,

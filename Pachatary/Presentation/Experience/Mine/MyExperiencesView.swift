@@ -14,6 +14,10 @@ protocol MyExperiencesView : class {
     func navigateToExperienceScenes(_ experienceId: String)
     func navigateToRegister()
     func showShareDialog(_ username: String)
+    func navigateToPickAndCropImage()
+    func showUploadInProgress()
+    func showUploadSuccess()
+    func showUploadError()
 }
 
 class MyExperiencesViewController: UIViewController {
@@ -48,8 +52,8 @@ class MyExperiencesViewController: UIViewController {
         self.collectionView.register(loaderNib, forCellWithReuseIdentifier: "loaderCollectionCell")
         let nib = UINib.init(nibName: "SquareExperienceCollectionViewCell", bundle: nil)
         self.collectionView.register(nib, forCellWithReuseIdentifier: "squareExperienceCell")
-        let profileNib = UINib.init(nibName: "ProfileCollectionViewCell", bundle: nil)
-        self.collectionView.register(profileNib, forCellWithReuseIdentifier: "profileCell")
+        let profileNib = UINib.init(nibName: "EditableProfileCollectionViewCell", bundle: nil)
+        self.collectionView.register(profileNib, forCellWithReuseIdentifier: "editableProfileCell")
 
         self.collectionView.addSubview(self.refreshControl)
 
@@ -92,6 +96,10 @@ class MyExperiencesViewController: UIViewController {
             if let destinationVC = segue.destination as? ExperienceScenesViewController {
                 destinationVC.experienceId = selectedExperienceId
             }
+        }
+        else if segue.identifier == "pickAndCropImageSegue" {
+            let destinationVC = segue.destination as! PickAndCropImageViewController
+            destinationVC.delegate = self
         }
     }
 }
@@ -149,10 +157,12 @@ UICollectionViewDelegateFlowLayout {
             cell.layoutIfNeeded()
             return cell
         case .profile:
-            let cell: ProfileCollectionViewCell =
-                collectionView.dequeueReusableCell(withReuseIdentifier: "profileCell", for: indexPath)
-                    as! ProfileCollectionViewCell
-            if profile != nil { cell.bind(profile!) }
+            let cell: EditableProfileCollectionViewCell =
+                collectionView.dequeueReusableCell(withReuseIdentifier: "editableProfileCell", for: indexPath)
+                    as! EditableProfileCollectionViewCell
+            if profile != nil { cell.bind(profile!,
+                                          { [weak self] () in
+                                                self?.presenter?.editProfilePictureClick() }) }
             cell.setNeedsUpdateConstraints()
             cell.updateConstraintsIfNeeded()
             cell.layoutIfNeeded()
@@ -200,7 +210,7 @@ UICollectionViewDelegateFlowLayout {
 }
 
 extension MyExperiencesViewController: MyExperiencesView {
-    
+
     func showProfileAndExperiencesView() {
         collectionView.isHidden = false
     }
@@ -229,6 +239,18 @@ extension MyExperiencesViewController: MyExperiencesView {
         self.collectionView!.reloadData()
     }
 
+    func showUploadInProgress() {
+        Snackbar.show("Uploading image...", .long)
+    }
+
+    func showUploadSuccess() {
+        Snackbar.show("Image successfully uploaded!", .short)
+    }
+
+    func showUploadError() {
+        Snackbar.show("Oops! Some error occurred during image upload. Please, try again", .long)
+    }
+
     func showRetry() {
         Snackbar.showErrorWithRetry({ [weak self] () in self?.presenter!.retryClick() })
     }
@@ -242,6 +264,10 @@ extension MyExperiencesViewController: MyExperiencesView {
         performSegue(withIdentifier: "registerSegue", sender: self)
     }
 
+    func navigateToPickAndCropImage() {
+        performSegue(withIdentifier: "pickAndCropImageSegue", sender: self)
+    }
+
     func showShareDialog(_ username: String) {
         if profile != nil {
             let url: URL = URL(string: AppDataDependencyInjector.publicUrl + "/p/" + username)!
@@ -250,5 +276,11 @@ extension MyExperiencesViewController: MyExperiencesView {
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
         }
+    }
+}
+
+extension MyExperiencesViewController: PickAndCropImageDelegate {
+    func pickAndCropImageViewController(didFinishWith image: UIImage) {
+        presenter!.imageCropped(image)
     }
 }

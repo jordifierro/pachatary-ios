@@ -115,6 +115,35 @@ class MyExperiencesPresenterTests: XCTestCase {
             .then_view_should_show_share_dialog(with: "test")
     }
 
+    func test_on_edit_picture_click_navigates_to_pick_and_crop_image() {
+        ScenarioMaker()
+            .when_edit_profile_picture_click()
+            .then_should_navigate_to_pick_and_crop_image()
+    }
+
+    func test_upload_profile_picture_inprogress() {
+        ScenarioMaker()
+            .given_a_profile_repo_that_returns_on_upload_picture(Result(.inProgress))
+            .when_image_cropped()
+            .then_should_show_upload_inprogress()
+    }
+
+    func test_upload_profile_picture_success() {
+        ScenarioMaker()
+            .given_a_profile_repo_that_returns_on_upload_picture(
+                Result(.success, data: Mock.profile("a")))
+            .when_image_cropped()
+            .then_should_show_upload_success()
+    }
+
+    func test_upload_profile_picture_error() {
+        ScenarioMaker()
+            .given_a_profile_repo_that_returns_on_upload_picture(
+                Result(.error, error: DataError.noInternetConnection))
+            .when_image_cropped()
+            .then_should_show_upload_error()
+    }
+
     class ScenarioMaker {
         let mockExperienceRepo = ExperienceRepoMock()
         let mockProfileRepo = ProfileRepositoryMock()
@@ -140,6 +169,11 @@ class MyExperiencesPresenterTests: XCTestCase {
 
         func given_a_profile_repo_that_returns_on_self(_ result: Result<Profile>) -> ScenarioMaker {
             mockProfileRepo.selfProfileResult = Observable.just(result)
+            return self
+        }
+
+        func given_a_profile_repo_that_returns_on_upload_picture(_ result: Result<Profile>) -> ScenarioMaker {
+            mockProfileRepo.uploadProfilePictureResult = Observable.just(result)
             return self
         }
 
@@ -170,6 +204,16 @@ class MyExperiencesPresenterTests: XCTestCase {
 
         func when_share_click() -> ScenarioMaker {
             presenter.shareClick()
+            return self
+        }
+
+        func when_edit_profile_picture_click() -> ScenarioMaker {
+            presenter.editProfilePictureClick()
+            return self
+        }
+
+        func when_image_cropped() -> ScenarioMaker {
+            presenter.imageCropped(UIImage())
             return self
         }
 
@@ -245,6 +289,30 @@ class MyExperiencesPresenterTests: XCTestCase {
             assert(mockView.showRegisterViewCalls == 1)
             return self
         }
+
+        @discardableResult
+        func then_should_navigate_to_pick_and_crop_image() -> ScenarioMaker {
+            assert(mockView.navigateToPickAndCropImageCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_upload_inprogress() -> ScenarioMaker {
+            assert(mockView.showUploadInProgressCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_upload_success() -> ScenarioMaker {
+            assert(mockView.showUploadSuccessCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_upload_error() -> ScenarioMaker {
+            assert(mockView.showUploadErrorCalls == 1)
+            return self
+        }
     }
 }
 
@@ -260,6 +328,10 @@ class MyExperiencesViewMock: MyExperiencesView {
     var shareDialogCalls: [String] = []
     var showProfileAndExperiencesViewCalls = 0
     var showRegisterViewCalls = 0
+    var navigateToPickAndCropImageCalls = 0
+    var showUploadInProgressCalls = 0
+    var showUploadSuccessCalls = 0
+    var showUploadErrorCalls = 0
 
     func showExperiences(_ experiences: [Experience]) {
         showExperienceCalls.append(experiences)
@@ -299,5 +371,21 @@ class MyExperiencesViewMock: MyExperiencesView {
 
     func showRegisterView() {
         showRegisterViewCalls += 1
+    }
+
+    func navigateToPickAndCropImage() {
+        navigateToPickAndCropImageCalls += 1
+    }
+
+    func showUploadInProgress() {
+        showUploadInProgressCalls += 1
+    }
+
+    func showUploadSuccess() {
+        showUploadSuccessCalls += 1
+    }
+
+    func showUploadError() {
+        showUploadErrorCalls += 1
     }
 }

@@ -52,6 +52,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Show user scene locations over a map view</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allow this permission to use photo album to select pictures to upload</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Bahiana-Regular.ttf</string>

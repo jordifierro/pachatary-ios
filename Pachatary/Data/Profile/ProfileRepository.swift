@@ -5,6 +5,7 @@ protocol ProfileRepository {
     func profile(_ username: String) -> Observable<Result<Profile>>
     func selfProfile() -> Observable<Result<Profile>>
     func cache(_ profile: Profile)
+    func uploadProfilePicture(_ image: UIImage) -> Observable<Result<Profile>>
 }
 
 class ProfileRepositoryImplementation: ProfileRepository {
@@ -71,6 +72,18 @@ class ProfileRepositoryImplementation: ProfileRepository {
                 else { return Observable.just(result) }
             }
             .distinctUntilChanged()
+    }
+
+    func uploadProfilePicture(_ image: UIImage) -> Observable<Result<Profile>> {
+        return apiRepo.uploadProfilePicture(image)
+            .do(onNext: { result in
+                switch result.status {
+                case .success:
+                    self.cache(result.data!)
+                default:
+                    break
+                }
+            })
     }
 
     func cache(_ profile: Profile) {

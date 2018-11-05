@@ -351,6 +351,30 @@
             </objects>
             <point key="canvasLocation" x="2490" y="1040"/>
         </scene>
+        <!--Pick And Crop Image View Controller-->
+        <scene sceneID="BV8-LC-mqk">
+            <objects>
+                <viewController id="TaN-bd-khk" customClass="PickAndCropImageViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a1J-Uu-uAG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DYf-cc-axs">
+                                <rect key="frame" x="150" y="237.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DYf-cc-axs" firstAttribute="centerY" secondItem="YSF-U0-M3l" secondAttribute="centerY" id="Wdg-vR-GPx"/>
+                            <constraint firstItem="DYf-cc-axs" firstAttribute="centerX" secondItem="YSF-U0-M3l" secondAttribute="centerX" id="Yhc-Jo-LAx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YSF-U0-M3l"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4DF-Az-LwP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3379" y="-1604"/>
+        </scene>
         <!--Profile Router View Controller-->
         <scene sceneID="gbJ-jV-icv">
             <objects>
@@ -665,6 +689,7 @@
                         <outlet property="registerButton" destination="IVZ-jd-GtZ" id="wY3-KV-Ur7"/>
                         <segue destination="Qo6-bb-VbT" kind="show" identifier="experienceScenesSegue" id="fwx-IA-Otg"/>
                         <segue destination="Ayz-kk-LDl" kind="show" identifier="registerSegue" id="tF7-kX-Gx6"/>
+                        <segue destination="TaN-bd-khk" kind="show" identifier="pickAndCropImageSegue" id="gkN-CS-s6D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tZ6-kh-O5J" userLabel="First Responder" sceneMemberID="firstResponder"/>

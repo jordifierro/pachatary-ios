@@ -3,32 +3,38 @@ import Moya
 
 enum ProfileApi {
     case profile(String)
+    case uploadPicture(picture: UIImage)
 }
 
 // MARK: - TargetType Protocol Implementation
 extension ProfileApi: TargetType {
     var baseURL: URL {
-        switch self {
-        case .profile(_):
-            return URL(string: AppDataDependencyInjector.apiUrl)!
-        }
+        return URL(string: AppDataDependencyInjector.apiUrl)!
     }
     var path: String {
         switch self {
         case .profile(let username):
             return "/profiles/" + username
+        case .uploadPicture:
+            return "/profiles/me/picture"
         }
     }
     var method: Moya.Method {
         switch self {
-        case .profile(_):
+        case .profile:
             return .get
+        case .uploadPicture:
+            return .post
         }
     }
     var task: Task {
         switch self {
         case .profile(_):
             return .requestPlain
+        case .uploadPicture(let picture):
+            let pictureData = MultipartFormData(provider: .data(UIImageJPEGRepresentation(picture, 1)!),
+                                                name: "picture",  fileName: "photo.jpg", mimeType: "image/jpeg")
+            return .uploadMultipart([pictureData])
         }
     }
     var sampleData: Data {
@@ -43,10 +49,7 @@ extension ProfileApi: TargetType {
                              "},",
                              "\"is_me\": true",
                              "}").utf8Encoded
-        switch self {
-        case .profile(_):
-            return result
-        }
+        return result
     }
     var headers: [String: String]? {
         return [:]

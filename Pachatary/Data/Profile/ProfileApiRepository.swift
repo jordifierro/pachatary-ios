@@ -5,6 +5,7 @@ import Moya_ObjectMapper
 
 protocol ProfileApiRepository {
     func profileObservable(_ username: String) -> Observable<Result<Profile>>
+    func uploadProfilePicture(_ image: UIImage) -> Observable<Result<Profile>>
 }
 
 class ProfileApiRepoImplementation: ProfileApiRepository {
@@ -19,6 +20,11 @@ class ProfileApiRepoImplementation: ProfileApiRepository {
 
     func profileObservable(_ username: String) -> Observable<Result<Profile>> {
         return self.api.request(.profile(username))
+            .transformNetworkResponse(SingleResultMapper<ProfileMapper>.self, ioScheduler)
+    }
+
+    func uploadProfilePicture(_ image: UIImage) -> Observable<Result<Profile>> {
+        return self.api.request(.uploadPicture(picture: image))
             .transformNetworkResponse(SingleResultMapper<ProfileMapper>.self, ioScheduler)
     }
 }
