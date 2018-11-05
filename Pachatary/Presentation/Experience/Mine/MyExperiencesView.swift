@@ -69,10 +69,6 @@ class MyExperiencesViewController: UIViewController {
         presenter!.create()
     }
 
-    deinit {
-        self.presenter?.destroy()
-    }
-
     @objc func registerClick(_ sender: UIButton!) {
         presenter!.registerClick()
     }

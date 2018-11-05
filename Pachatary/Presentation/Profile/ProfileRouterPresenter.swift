@@ -7,7 +7,7 @@ class ProfileRouterPresenter {
     let mainScheduler: ImmediateSchedulerType
     unowned let view: ProfileRouterView
     let username: String
-    var disposable: Disposable?
+    let disposeBag = DisposeBag()
 
     init(_ authRepo: AuthRepository, _ mainScheduler: ImmediateSchedulerType,
          _ view: ProfileRouterView, _ username: String) {
@@ -25,14 +25,10 @@ class ProfileRouterPresenter {
         getPersonCredentialsAndNavigateToProfile()
     }
 
-    func destroy() {
-        self.disposable?.dispose()
-    }
-
     private func getPersonCredentialsAndNavigateToProfile() {
         if authRepo.hasPersonCredentials() { view.navigateToProfile(username) }
         else {
-            disposable = authRepo.getPersonInvitation()
+            authRepo.getPersonInvitation()
                 .subscribeOn(mainScheduler)
                 .subscribe { [unowned self] event in
                     switch event {
@@ -51,6 +47,7 @@ class ProfileRouterPresenter {
                     case .completed: break
                     }
                 }
+                .disposed(by: disposeBag)
         }
     }
 }

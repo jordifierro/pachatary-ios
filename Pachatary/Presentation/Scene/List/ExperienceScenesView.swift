@@ -54,10 +54,6 @@ class ExperienceScenesViewController: UIViewController {
         presenter.create()
     }
 
-    deinit {
-        presenter.destroy()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         presenter.resume()
     }

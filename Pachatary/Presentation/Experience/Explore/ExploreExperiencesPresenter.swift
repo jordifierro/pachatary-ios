@@ -8,7 +8,7 @@ class ExploreExperiencesPresenter {
     
     unowned let view: ExploreExperiencesView
 
-    var disposable: Disposable? = nil
+    let disposeBag = DisposeBag()
     
     var text: String? = nil
     var latitude: Double? = nil
@@ -26,10 +26,6 @@ class ExploreExperiencesPresenter {
         connectToExperiences()
         if view.hasLocationPermission() { view.askLastKnownLocation() }
         else { view.askLocationPermission() }
-    }
-    
-    func destroy() {
-        self.disposable?.dispose()
     }
 
     func onPermissionAccepted() {
@@ -55,7 +51,7 @@ class ExploreExperiencesPresenter {
     }
 
     private func connectToExperiences() {
-        disposable = self.experienceRepo.experiencesObservable(kind: .explore)
+        self.experienceRepo.experiencesObservable(kind: .explore)
             .observeOn(self.mainScheduler)
             .subscribe { [unowned self] event in
                 switch event {
@@ -76,6 +72,7 @@ class ExploreExperiencesPresenter {
                 case .completed: break
                 }
             }
+            .disposed(by: disposeBag)
     }
     
     private func getFirstsExperiences() {

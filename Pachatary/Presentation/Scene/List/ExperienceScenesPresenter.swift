@@ -9,7 +9,7 @@ class ExperienceScenesPresenter {
     unowned let view: ExperienceScenesView
     let experienceId: String!
     var selectedSceneId: String? = nil
-    var disposeBag: DisposeBag? = DisposeBag()
+    let disposeBag = DisposeBag()
 
     init(_ sceneRepo: SceneRepository, _ experienceRepo: ExperienceRepository,
          _ mainScheduler: ImmediateSchedulerType, _ view: ExperienceScenesView,
@@ -41,10 +41,6 @@ class ExperienceScenesPresenter {
         }
     }
 
-    func destroy() {
-        self.disposeBag = nil
-    }
-    
     func onGoToMapClick() {
         view.navigateToMap(nil)
     }
@@ -81,7 +77,7 @@ class ExperienceScenesPresenter {
                 case .completed: break
                 }
             }
-            .disposed(by: disposeBag!)
+            .disposed(by: disposeBag)
     }
 
     func profileClick(_ username: String) {
@@ -114,7 +110,7 @@ class ExperienceScenesPresenter {
                 case .completed: break
                 }
             }
-            .disposed(by: disposeBag!)
+            .disposed(by: disposeBag)
     }
 
     private func connectToScenes() {
@@ -138,6 +134,6 @@ class ExperienceScenesPresenter {
                 case .completed: break
                 }
             }
-            .disposed(by: disposeBag!)
+            .disposed(by: disposeBag)
     }
 }

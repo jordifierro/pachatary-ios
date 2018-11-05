@@ -20,10 +20,6 @@ class ProfileRouterViewController: UIViewController {
 
         presenter.create()
     }
-
-    deinit {
-        self.presenter.destroy()
-    }
 }
 
 extension ProfileRouterViewController: ProfileRouterView {

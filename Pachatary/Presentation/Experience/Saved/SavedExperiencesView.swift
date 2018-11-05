@@ -48,10 +48,6 @@ class SavedExperiencesViewController: UIViewController {
         presenter!.create()
     }
     
-    deinit {
-        self.presenter?.destroy()
-    }
-    
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         presenter!.refresh()
         refreshControl.endRefreshing()

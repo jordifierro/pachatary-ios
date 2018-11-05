@@ -6,17 +6,13 @@ class RegisterPresenter {
     var authRepository: AuthRepository!
     var mainScheduler: ImmediateSchedulerType!
     unowned let view: RegisterView
-    var disposeBag: DisposeBag? = DisposeBag()
+    let disposeBag = DisposeBag()
 
     init(_ authRepository: AuthRepository, _ mainScheduler: ImmediateSchedulerType,
          _ view: RegisterView) {
         self.authRepository = authRepository
         self.mainScheduler = mainScheduler
         self.view = view
-    }
-
-    deinit {
-        disposeBag = nil
     }
 
     func registerClick(_ email: String, _ username: String) {
@@ -51,7 +47,7 @@ class RegisterPresenter {
                     case .completed: break
                     }
                 }
-                .disposed(by: disposeBag!)
+                .disposed(by: disposeBag)
         }
     }
 }

@@ -9,10 +9,9 @@ class ProfilePresenter {
     
     unowned let view: ProfileView
     let username: String
-    
-    var experiencesDisposable: Disposable? = nil
-    var profileDisposable: Disposable? = nil
-    
+
+    let disposeBag = DisposeBag()
+
     init(_ experienceRepository: ExperienceRepository,
          _ profileRepository: ProfileRepository,
          _ mainScheduler: ImmediateSchedulerType,
@@ -31,17 +30,12 @@ class ProfilePresenter {
         connectToProfile()
     }
     
-    func destroy() {
-        self.experiencesDisposable?.dispose()
-        self.profileDisposable?.dispose()
-    }
-    
     func retryClick() {
         getFirstsExperiences()
     }
     
     private func connectToProfile() {
-        profileDisposable = self.profileRepo.profile(username)
+        self.profileRepo.profile(username)
             .observeOn(self.mainScheduler)
             .subscribe { [unowned self] event in
                 switch event {
@@ -61,10 +55,11 @@ class ProfilePresenter {
                 case .completed: break
                 }
             }
+            .disposed(by: disposeBag)
     }
     
     private func connectToExperiences() {
-        experiencesDisposable = self.experienceRepo.experiencesObservable(kind: .persons)
+        self.experienceRepo.experiencesObservable(kind: .persons)
             .observeOn(self.mainScheduler)
             .filter({ [unowned self] result in
                         result.params == Request.Params(username: self.username) })
@@ -86,11 +81,13 @@ class ProfilePresenter {
                     fatalError(error.localizedDescription)
                 case .completed: break
                 }
-        }
+            }
+            .disposed(by: disposeBag)
     }
     
     private func getFirstsExperiences() {
-        self.experienceRepo.getFirsts(kind: .persons, params: Request.Params(username: self.username))
+        self.experienceRepo.getFirsts(kind: .persons,
+                                      params: Request.Params(username: self.username))
     }
     
     func lastItemShown() {

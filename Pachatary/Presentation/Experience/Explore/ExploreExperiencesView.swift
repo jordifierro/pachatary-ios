@@ -86,10 +86,6 @@ class ExploreExperiencesViewController: UIViewController {
         presenter!.onSelectLocationClick()
     }
 
-    deinit {
-        self.presenter?.destroy()
-    }
-
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         presenter!.refresh()
         refreshControl.endRefreshing()

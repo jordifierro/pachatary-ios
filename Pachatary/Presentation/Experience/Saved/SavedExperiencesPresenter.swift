@@ -8,7 +8,7 @@ class SavedExperiencesPresenter {
     
     unowned let view: SavedExperiencesView
     
-    var disposable: Disposable? = nil
+    let disposeBag = DisposeBag()
     
     init(_ experienceRepository: ExperienceRepository,
          _ mainScheduler: ImmediateSchedulerType,
@@ -22,17 +22,13 @@ class SavedExperiencesPresenter {
         connectToExperiences()
         getFirstsExperiences()
     }
-    
-    func destroy() {
-        self.disposable?.dispose()
-    }
-    
+
     func retryClick() {
         getFirstsExperiences()
     }
     
     private func connectToExperiences() {
-        disposable = self.experienceRepo.experiencesObservable(kind: .saved)
+        self.experienceRepo.experiencesObservable(kind: .saved)
             .observeOn(self.mainScheduler)
             .subscribe { [unowned self] event in
                 switch event {
@@ -52,7 +48,8 @@ class SavedExperiencesPresenter {
                     fatalError(error.localizedDescription)
                 case .completed: break
                 }
-        }
+            }
+            .disposed(by: disposeBag)
     }
     
     private func getFirstsExperiences() {

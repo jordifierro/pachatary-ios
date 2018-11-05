@@ -12,7 +12,7 @@ class MyExperiencesPresenter {
 
     var experiencesDisposable: Disposable? = nil
     var profileDisposable: Disposable? = nil
-    var disposeBag: DisposeBag? = DisposeBag()
+    let disposeBag = DisposeBag()
     var myProfile: Profile?
     var myExperiences: [Experience]?
 
@@ -38,10 +38,6 @@ class MyExperiencesPresenter {
         else {
             view.showRegisterView()
         }
-    }
-
-    func destroy() {
-        self.disposeBag = nil
     }
 
     func retryClick() {
@@ -70,7 +66,7 @@ class MyExperiencesPresenter {
                 case .completed: break
                 }
             }
-            .disposed(by: disposeBag!)
+            .disposed(by: disposeBag)
     }
 
     private func connectToExperiences() {
@@ -96,7 +92,7 @@ class MyExperiencesPresenter {
                 case .completed: break
                 }
             }
-            .disposed(by: disposeBag!)
+            .disposed(by: disposeBag)
     }
 
     private func getFirstsExperiences() {
@@ -152,12 +148,12 @@ class MyExperiencesPresenter {
                     break
                 }
             }
-            .disposed(by: disposeBag!)
+            .disposed(by: disposeBag)
     }
 
     func bioEdited(_ bio: String) {
         profileRepo.editProfile(bio)
             .subscribe()
-            .disposed(by: disposeBag!)
+            .disposed(by: disposeBag)
     }
 }

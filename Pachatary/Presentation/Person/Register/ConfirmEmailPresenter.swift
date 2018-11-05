@@ -7,7 +7,7 @@ class ConfirmEmailPresenter {
     var mainScheduler: ImmediateSchedulerType!
     unowned let view: ConfirmEmailView
     let confirmationToken: String
-    var disposeBag: DisposeBag? = DisposeBag()
+    let disposeBag = DisposeBag()
 
     init(_ authRepository: AuthRepository,
          _ mainScheduler: ImmediateSchedulerType,
@@ -17,10 +17,6 @@ class ConfirmEmailPresenter {
         self.mainScheduler = mainScheduler
         self.view = view
         self.confirmationToken = confirmationToken
-    }
-
-    deinit {
-        self.disposeBag = nil
     }
 
     func create() {
@@ -58,6 +54,6 @@ class ConfirmEmailPresenter {
                 case .completed: break
                 }
             }
-            .disposed(by: disposeBag!)
+            .disposed(by: disposeBag)
     }
 }

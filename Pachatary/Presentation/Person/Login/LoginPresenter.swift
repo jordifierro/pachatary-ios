@@ -7,17 +7,13 @@ class LoginPresenter {
     var mainScheduler: ImmediateSchedulerType!
     var view: LoginView!
     var token: String!
-    var disposeBag: DisposeBag? = DisposeBag()
+    let disposeBag = DisposeBag()
     
     init(_ authRepository: AuthRepository, _ mainScheduler: ImmediateSchedulerType) {
         self.authRepository = authRepository
         self.mainScheduler = mainScheduler
     }
 
-    deinit {
-        self.disposeBag = nil
-    }
-    
     func create() {
         login()
     }
@@ -46,6 +42,6 @@ class LoginPresenter {
                 case .completed: break
                 }
             }
-            .disposed(by: disposeBag!)
+            .disposed(by: disposeBag)
     }
 }

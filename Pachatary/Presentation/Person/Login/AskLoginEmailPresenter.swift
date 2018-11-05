@@ -6,17 +6,13 @@ class AskLoginEmailPresenter {
     var authRepository: AuthRepository!
     var mainScheduler: ImmediateSchedulerType!
     var view: AskLoginEmailView!
-    var disposeBag: DisposeBag? = DisposeBag()
+    let disposeBag = DisposeBag()
     
     init(_ authRepository: AuthRepository, _ mainScheduler: ImmediateSchedulerType) {
         self.authRepository = authRepository
         self.mainScheduler = mainScheduler
     }
 
-    deinit {
-        disposeBag = nil
-    }
-    
     func onAskClick(_ email: String) {
         if email.count == 0 { view.showEmptyEmailError() }
         else {
@@ -43,7 +39,7 @@ class AskLoginEmailPresenter {
                     case .completed: break
                     }
                 }
-                .disposed(by: disposeBag!)
+                .disposed(by: disposeBag)
         }
     }
 }
