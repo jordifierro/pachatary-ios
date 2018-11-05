@@ -5,6 +5,7 @@ enum DataError: Error {
     case noInternetConnection
     case notCached
     case clientException(source: String, code: String, message: String)
+    case serverError
 }
 
 extension DataError: Equatable {

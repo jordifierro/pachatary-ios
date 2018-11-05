@@ -38,7 +38,7 @@ extension Single where Element == Response {
                     return Result(.error, error:
                         DataError.clientException(source: source, code: code, message: message))
                 }
-                else { fatalError() }
+                else { throw DataError.serverError }
             }
             .retryCatchErrorAndEmitInProgress(Bool.self)
     }
