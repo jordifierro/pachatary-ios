@@ -19,6 +19,7 @@ class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var termsAndConditionsLabel: UILabel!
     @IBOutlet weak var privacyPolicyLabel: UILabel!
+
     let presenter = PersonDependencyInjector.welcomePresenter
     var webViewType: WebViewController.WebViewType!
     
@@ -34,8 +35,13 @@ class WelcomeViewController: UIViewController {
         let termsAndConditionsTap = UITapGestureRecognizer(target: self, action: #selector(WelcomeViewController.termsAndConditionsTap(sender:)))
         termsAndConditionsLabel.isUserInteractionEnabled = true
         termsAndConditionsLabel.addGestureRecognizer(termsAndConditionsTap)
+
+        if AppDelegate.shared.rootViewController.pendingAskLoginEmailDeeplink {
+            AppDelegate.shared.rootViewController.pendingAskLoginEmailDeeplink = false
+            self.navigateToLogin()
+        }
     }
-    
+
     @objc func start(_ sender: UIButton!) {
         presenter.onStartClick()
     }

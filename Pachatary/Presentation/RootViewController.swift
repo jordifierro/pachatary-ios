@@ -6,6 +6,7 @@ class RootViewController: UIViewController {
 
     var pendingExperienceIdDeeplink: String? = nil
     var pendingProfileUsernameDeeplink: String? = nil
+    var pendingAskLoginEmailDeeplink = false
     
     init() {
         if authRepo.hasPersonCredentials() {
@@ -92,5 +93,12 @@ class RootViewController: UIViewController {
             .instantiateViewController(withIdentifier: "confirmEmailViewController")
         (confirmEmailViewController as! ConfirmEmailViewController).token = token
         animateFadeTransition(to: confirmEmailViewController)
+    }
+
+    func navigateToAskLoginEmail() {
+        let welcomeViewController = UIStoryboard.init(name: "Person", bundle: nil)
+            .instantiateInitialViewController()
+        pendingAskLoginEmailDeeplink = true
+        animateFadeTransition(to: welcomeViewController!)
     }
 }

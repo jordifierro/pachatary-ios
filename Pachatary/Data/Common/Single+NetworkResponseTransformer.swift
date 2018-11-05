@@ -52,7 +52,31 @@ extension Single where Element == Response {
                 .map { filledMapper in return filledMapper.toResult() }
                 .retryCatchErrorAndEmitInProgress(T.domainType.self)
     }
-    
+
+    func transformNetworkResponseOrError<T: ToResultMapper>(_ mapperType: T.Type,
+                                                            _ scheduler: ImmediateSchedulerType)
+        -> Observable<Result<T.domainType>> {
+            return getObservableSubscribed(scheduler)
+                .flatMap { response -> Observable<Result<T.domainType>> in
+                    if response.statusCode >= 400 && response.statusCode < 500 {
+                        let body = String(data: response.data, encoding: String.Encoding.utf8)
+                        let json = body?.toJSON() as! [String:[String:String]]
+                        let error = json["error"]!
+                        let source = error["source"]!
+                        let code = error["code"]!
+                        let message = error["message"]!
+                        return Observable.just(Result<T.domainType>(.error, error:
+                            DataError.clientException(source: source, code: code, message: message)))
+                    }
+                    else {
+                        return Observable.just(response)
+                            .mapObject(mapperType)
+                            .map { filledMapper in return filledMapper.toResult() }
+                    }
+                }
+                .retryCatchErrorAndEmitInProgress(T.domainType.self)
+    }
+
     func transformNetworkListResponse<T: ToDomainMapper>(_ mapperType: T.Type,
                                                          _ scheduler: ImmediateSchedulerType)
                                                              -> Observable<Result<[T.domainType]>> {

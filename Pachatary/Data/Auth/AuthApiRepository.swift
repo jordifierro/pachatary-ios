@@ -35,7 +35,7 @@ class AuthApiRepoImplementation: AuthApiRepository {
     
     func login(_ token: String) -> Observable<Result<AuthToken>> {
         return self.api.request(.login(token: token))
-            .transformNetworkResponse(SingleResultMapper<AuthTokenMapper>.self, ioScheduler)
+            .transformNetworkResponseOrError(SingleResultMapper<AuthTokenMapper>.self, ioScheduler)
     }
 
     func register(_ email: String, _ username: String) -> Observable<Result<Bool>> {

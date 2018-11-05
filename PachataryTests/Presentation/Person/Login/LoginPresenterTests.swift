@@ -42,6 +42,19 @@ class LoginPresenterTests: XCTestCase {
         }
     }
 
+    func test_on_client_error_hides_loader_shows_error_and_navigates_to_ask_login_email() {
+        for action in [Action.create, Action.retry] {
+            ScenarioMaker()
+                .given_an_auth_repo_that_returns("a",
+                     Result(.error, error: DataError.clientException(source: "s", code: "c", message: "m")))
+                .when_do_action(action, token: "a")
+                .then_should_call_auth_repo_with("a")
+                .then_should_show_loader(false)
+                .then_should_show_error()
+                .then_should_navigate_to_ask_login_email()
+        }
+    }
+
     class ScenarioMaker {
         let mockView = LoginViewMock()
         let mockAuthRepo = AuthRepoMock()
@@ -91,16 +104,33 @@ class LoginPresenterTests: XCTestCase {
             assert(mockView.showRetryCalls == 1)
             return self
         }
+
+        @discardableResult
+        func then_should_show_error() -> ScenarioMaker {
+            assert(mockView.showErrorCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_navigate_to_ask_login_email() -> ScenarioMaker {
+            assert(mockView.navigateToAskLoginEmailCalls == 1)
+            return self
+        }
     }
 }
 
 class LoginViewMock: LoginView {
-    
+
     var navigateToMainCalls = 0
+    var navigateToAskLoginEmailCalls = 0
     var showLoaderCalls = [Bool]()
     var showRetryCalls = 0
+    var showErrorCalls = 0
     
     func navigateToMain() { navigateToMainCalls += 1 }
     func showRetry() { showRetryCalls += 1 }
     func showLoader(_ visibility: Bool) { showLoaderCalls.append(visibility) }
+    func showError() { showErrorCalls += 1 }
+    func navigateToAskLoginEmail() { navigateToAskLoginEmailCalls += 1 }
+
 }

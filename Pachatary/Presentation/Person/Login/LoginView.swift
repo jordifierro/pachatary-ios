@@ -5,6 +5,8 @@ protocol LoginView {
     func navigateToMain()
     func showLoader(_ visibility: Bool)
     func showRetry()
+    func showError()
+    func navigateToAskLoginEmail()
 }
 
 class LoginViewController: UIViewController {
@@ -29,6 +31,10 @@ extension LoginViewController: LoginView {
         AppDelegate.shared.rootViewController.navigateToMain()
     }
 
+    func navigateToAskLoginEmail() {
+        AppDelegate.shared.rootViewController.navigateToAskLoginEmail()
+    }
+
     func showLoader(_ visibility: Bool) {
         if visibility { activityIndicator.startAnimating() }
         else { activityIndicator.stopAnimating() }
@@ -36,5 +42,9 @@ extension LoginViewController: LoginView {
 
     func showRetry() {
         Snackbar.showErrorWithRetry { [unowned self] () in self.presenter.retry() }
+    }
+
+    func showError() {
+        Snackbar.show("Oops! Some error occurred during login. Please, ask a new login email", .long)
     }
 }

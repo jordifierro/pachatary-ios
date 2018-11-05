@@ -33,7 +33,13 @@ class LoginPresenter {
                         self.view.navigateToMain()
                     case .error:
                         self.view.showLoader(false)
-                        self.view.showRetry()
+                        switch result.error! {
+                        case .clientException:
+                            self.view.showError()
+                            self.view.navigateToAskLoginEmail()
+                        default:
+                            self.view.showRetry()
+                        }
                     case .inProgress:
                         self.view.showLoader(true)
                     }
