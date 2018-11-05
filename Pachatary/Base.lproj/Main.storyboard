@@ -657,13 +657,46 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="oUT-HL-XDY">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="noContentCell" id="BzQ-zf-oac">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ebB-aK-CF2">
+                                                    <rect key="frame" x="-20" y="36" width="240" height="128"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="YOU DON’T HAVE ANY EXPERIENCE YET. ADD YOUR FIRTS ONE!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJN-C6-PYm" userLabel="Label 1">
+                                                            <rect key="frame" x="99" y="53" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="icArrowDownward" translatesAutoresizingMaskIntoConstraints="NO" id="scn-fH-HQ5">
+                                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="16" id="iGb-V8-oA5"/>
+                                                                <constraint firstAttribute="width" constant="16" id="rU3-Si-gCT"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="zJN-C6-PYm" firstAttribute="top" secondItem="ebB-aK-CF2" secondAttribute="top" id="A9Z-xe-1EH"/>
+                                                        <constraint firstItem="zJN-C6-PYm" firstAttribute="centerX" secondItem="ebB-aK-CF2" secondAttribute="centerX" id="B8I-cu-DqL"/>
+                                                        <constraint firstAttribute="bottom" secondItem="zJN-C6-PYm" secondAttribute="bottom" constant="80" id="LJQ-DU-sOH"/>
+                                                        <constraint firstItem="scn-fH-HQ5" firstAttribute="centerX" secondItem="ebB-aK-CF2" secondAttribute="centerX" id="Zpe-XF-9vJ"/>
+                                                        <constraint firstItem="zJN-C6-PYm" firstAttribute="width" secondItem="ebB-aK-CF2" secondAttribute="width" multiplier="8:10" id="fJq-Lr-2Yj"/>
+                                                        <constraint firstItem="scn-fH-HQ5" firstAttribute="top" secondItem="zJN-C6-PYm" secondAttribute="bottom" id="fhe-ww-fqE"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="ebB-aK-CF2" firstAttribute="width" secondItem="BzQ-zf-oac" secondAttribute="width" id="Bes-eK-QQw"/>
+                                            <constraint firstItem="ebB-aK-CF2" firstAttribute="height" secondItem="BzQ-zf-oac" secondAttribute="height" id="f9P-dr-dnf"/>
+                                        </constraints>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -808,6 +841,7 @@
     </scenes>
     <resources>
         <image name="background" width="375" height="667"/>
+        <image name="icArrowDownward" width="16" height="16"/>
         <image name="icMap" width="24" height="24"/>
         <image name="icNavigation" width="16" height="19"/>
         <image name="icPerson" width="16" height="16"/>

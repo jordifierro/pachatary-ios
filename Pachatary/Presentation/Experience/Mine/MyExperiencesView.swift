@@ -112,6 +112,7 @@ extension MyExperiencesViewController: UICollectionViewDataSource, UICollectionV
         case loader
         case experience
         case profile
+        case noContent
     }
 
     func viewType(_ index: Int) -> ViewType {
@@ -121,6 +122,7 @@ extension MyExperiencesViewController: UICollectionViewDataSource, UICollectionV
         }
         else if index == 1 {
             if isLoadingExperiences { return .loader }
+            else if experiences.count == 0 { return .noContent }
             else { return .experience }
         }
         else if index == experiences.count + 1 { return .loader }
@@ -133,8 +135,8 @@ extension MyExperiencesViewController: UICollectionViewDataSource, UICollectionV
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isLoadingExperiences && isLoadingProfile { return 1 }
-        else if isLoadingProfile { return experiences.count + 1 }
         else if isLoadingExperiences { return experiences.count + 2 }
+        else if experiences.isEmpty { return 2 }
         else { return experiences.count + 1 }
     }
 
@@ -168,6 +170,8 @@ extension MyExperiencesViewController: UICollectionViewDataSource, UICollectionV
             cell.updateConstraintsIfNeeded()
             cell.layoutIfNeeded()
             return cell
+        case .noContent:
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "noContentCell", for: indexPath)
         }
     }
 
@@ -177,6 +181,8 @@ extension MyExperiencesViewController: UICollectionViewDataSource, UICollectionV
         switch viewType(indexPath.row) {
         case .loader:
             return CGSize(width: availableWidth, height: availableWidth)
+        case .noContent:
+            return CGSize(width: availableWidth, height: 150)
         case .profile:
             return CGSize(width: availableWidth, height: 310)
         case .experience:
