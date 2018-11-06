@@ -12,6 +12,7 @@ enum ExperienceApi {
     case shareUrl(String)
     case create(title: String, description: String)
     case uploadPicture(experienceId: String, picture: UIImage)
+    case edit(id: String, title: String, description: String)
 }
 
 // MARK: - TargetType Protocol Implementation
@@ -44,6 +45,8 @@ extension ExperienceApi: TargetType {
             return "/experiences/"
         case .uploadPicture(let experienceId, _):
             return "/experiences/" + experienceId + "/picture"
+        case .edit(let id, _, _):
+            return "/experiences/" + id
         }
     }
     var method: Moya.Method {
@@ -53,6 +56,8 @@ extension ExperienceApi: TargetType {
             else { return .delete }
         case .create, .uploadPicture:
             return .post
+        case .edit:
+            return .patch
         default:
             return .get
         }
@@ -77,6 +82,9 @@ extension ExperienceApi: TargetType {
             let pictureData = MultipartFormData(provider: .data(UIImageJPEGRepresentation(picture, 1)!),
                                                 name: "picture",  fileName: "photo.jpg", mimeType: "image/jpeg")
             return .uploadMultipart([pictureData])
+        case .edit(_, let title, let description):
+            return .requestParameters(parameters: ["title": title, "description": description],
+                                      encoding: URLEncoding.default)
         default:
             return .requestPlain
         }

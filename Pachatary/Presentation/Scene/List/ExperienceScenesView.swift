@@ -3,12 +3,13 @@ import UIKit
 
 protocol ExperienceScenesView : class {
     func showScenes(_ scenes: [Scene])
-    func showExperience(_ experience: Experience)
+    func showExperience(_ experience: Experience, _ isExperienceEditableIfMine: Bool)
     func showExperienceLoading(_ isLoading: Bool)
     func showSceneLoading(_ isLoading: Bool)
     func showRetry()
     func navigateToMap(_ sceneId: String?)
     func navigateToProfile(_ username: String)
+    func navigateToEditExperience()
     func scrollToScene(_ sceneId: String)
     func showUnsaveConfirmationDialog()
     func showShareDialog(_ url: String)
@@ -18,9 +19,12 @@ protocol ExperienceScenesView : class {
 class ExperienceScenesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+
     var presenter: ExperienceScenesPresenter!
-    var cellHeights: [IndexPath : CGFloat] = [:]
     var experienceId: String!
+    var canNavigateToProfile = true
+    var isExperienceEditableIfMine = false
+
     var selectedSceneId: String? = nil
     var selectedProfileUsername: String? = nil
     var scenes = [Scene]()
@@ -29,6 +33,7 @@ class ExperienceScenesViewController: UIViewController {
     var isLoadingScenes = false
     var isExperienceDescriptionExpanded = false
     var isSceneDescriptionExpanded = [String:Bool]()
+    var cellHeights: [IndexPath : CGFloat] = [:]
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -42,8 +47,9 @@ class ExperienceScenesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        presenter = SceneDependencyInjector.sceneListPresenter(view: self,
-                                                               experienceId: experienceId)
+        presenter = SceneDependencyInjector.experienceScenesPresenter(
+            view: self, experienceId: experienceId, canNavigateToProfile: canNavigateToProfile,
+            isExperienceEditableIfMine: isExperienceEditableIfMine)
 
         let nib = UINib.init(nibName: "ExperienceDetailTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "experienceDetailCell")
@@ -60,6 +66,10 @@ class ExperienceScenesViewController: UIViewController {
 
     @objc func shareClick(){
         presenter.shareClick()
+    }
+
+    @objc func editClick(){
+        presenter.editClick()
     }
 
     @objc func saveExperience(){
@@ -89,13 +99,17 @@ class ExperienceScenesViewController: UIViewController {
                 destinationVC.username = self.selectedProfileUsername
             }
         }
+        else if segue.identifier == "editExperienceSegue" {
+            let destinationVC = segue.destination as! EditExperienceViewController
+            destinationVC.experienceId = self.experienceId
+        }
     }
 }
 
 extension ExperienceScenesViewController: ExperienceScenesView {
 
-    func showExperience(_ experience: Experience) {
-        configureNavigationItems(experience)
+    func showExperience(_ experience: Experience, _ isExperienceEditableIfMine: Bool) {
+        configureNavigationItems(experience, isExperienceEditableIfMine)
         self.experience = experience
         self.tableView!.reloadData()
     }
@@ -128,6 +142,10 @@ extension ExperienceScenesViewController: ExperienceScenesView {
         self.selectedProfileUsername = username
         performSegue(withIdentifier: "profileSegue", sender: self)
     }
+
+    func navigateToEditExperience() {
+        performSegue(withIdentifier: "editExperienceSegue", sender: self)
+    }
     
     func scrollToScene(_ sceneId: String) {
         let scenePosition = scenes.index(where: { scene in scene.id == sceneId })!
@@ -157,10 +175,11 @@ extension ExperienceScenesViewController: ExperienceScenesView {
     }
 
     func finish() {
-        dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
 
-    private func configureNavigationItems(_ experience: Experience) {
+    private func configureNavigationItems(_ experience: Experience,
+                                          _ isExperienceEditableIfMine: Bool) {
         self.navigationItem.rightBarButtonItems = []
 
         let shareBarButtonItem = UIBarButtonItem(
@@ -183,6 +202,12 @@ extension ExperienceScenesViewController: ExperienceScenesView {
             saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
             saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
             self.navigationItem.rightBarButtonItems?.append(saveBarButtonItem)
+        }
+        else if experience.isMine && isExperienceEditableIfMine {
+            let editBarButtonItem = UIBarButtonItem(
+                image: UIImage(named: "icEdit.png")?.withRenderingMode(.alwaysTemplate),
+                style: .done, target: self, action: #selector(editClick))
+            self.navigationItem.rightBarButtonItems?.append(editBarButtonItem)
         }
     }
 }

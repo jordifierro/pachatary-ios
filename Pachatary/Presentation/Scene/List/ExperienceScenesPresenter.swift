@@ -3,22 +3,27 @@ import RxSwift
 
 class ExperienceScenesPresenter {
     
-    let sceneRepo: SceneRepository!
-    let experienceRepo: ExperienceRepository!
-    let mainScheduler: ImmediateSchedulerType!
+    let sceneRepo: SceneRepository
+    let experienceRepo: ExperienceRepository
+    let mainScheduler: ImmediateSchedulerType
     unowned let view: ExperienceScenesView
-    let experienceId: String!
+    let experienceId: String
+    let canNavigateToProfile: Bool
+    let isExperienceEditableIfMine: Bool
+
     var selectedSceneId: String? = nil
     let disposeBag = DisposeBag()
 
     init(_ sceneRepo: SceneRepository, _ experienceRepo: ExperienceRepository,
          _ mainScheduler: ImmediateSchedulerType, _ view: ExperienceScenesView,
-         _ experienceId: String) {
+         _ experienceId: String, _ canNavigateToProfile: Bool, _ isExperienceEditableIfMine: Bool) {
         self.sceneRepo = sceneRepo
         self.experienceRepo = experienceRepo
         self.mainScheduler = mainScheduler
         self.view = view
         self.experienceId = experienceId
+        self.canNavigateToProfile = canNavigateToProfile
+        self.isExperienceEditableIfMine = isExperienceEditableIfMine
     }
     
     func create() {
@@ -81,7 +86,12 @@ class ExperienceScenesPresenter {
     }
 
     func profileClick(_ username: String) {
-        view.navigateToProfile(username)
+        if canNavigateToProfile { view.navigateToProfile(username) }
+        else { view.finish() }
+    }
+
+    func editClick() {
+        view.navigateToEditExperience()
     }
 
     private func getExperienceAndScenes() {
@@ -97,7 +107,7 @@ class ExperienceScenesPresenter {
                 case .next(let result):
                     switch result.status {
                     case .success:
-                        self.view.showExperience(result.data!)
+                        self.view.showExperience(result.data!, self.isExperienceEditableIfMine)
                         self.view.showExperienceLoading(false)
                     case .error:
                         self.view.showExperienceLoading(false)

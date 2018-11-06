@@ -134,6 +134,16 @@ class ExperienceRepositoryTests: XCTestCase {
             .then_should_modify_switch_result(2, .persons, .update, [Mock.experience("4")])
     }
 
+    func test_edit_experience() {
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_edit(Result(.success, data: Mock.experience("4")))
+            .when_edit_experience("4", "t", "d")
+            .then_should_call_api_edit("4", "t", "d")
+            .then_should_return_experience_observable(Result(.success, data: Mock.experience("4")))
+            .then_should_modify_switch_result(0, .mine, .update, [Mock.experience("4")])
+            .then_should_modify_switch_result(1, .explore, .update, [Mock.experience("4")])
+    }
+
     class ScenarioMaker {
 
         let mockApiRepo = MockExperienceApiRepo()
@@ -184,6 +194,11 @@ class ExperienceRepositoryTests: XCTestCase {
 
         func given_an_api_repo_that_returns_on_create(_ result: Result<Experience>) -> ScenarioMaker {
             mockApiRepo.createExperienceResult = Observable.just(result)
+            return self
+        }
+
+        func given_an_api_repo_that_returns_on_edit(_ result: Result<Experience>) -> ScenarioMaker {
+            mockApiRepo.editExperienceResult = Observable.just(result)
             return self
         }
 
@@ -242,6 +257,12 @@ class ExperienceRepositoryTests: XCTestCase {
             return self
         }
 
+        func when_edit_experience(_ experienceId: String, _ title: String,
+                                  _ description: String) -> ScenarioMaker {
+            experienceObservableResult = repo.editExperience(experienceId, title, description)
+            return self
+        }
+
         func when_upload_picture(_ experienceId: String, _ image: UIImage) -> ScenarioMaker {
             repo.uploadPicture(experienceId, image)
             return self
@@ -263,6 +284,15 @@ class ExperienceRepositoryTests: XCTestCase {
             assert(mockApiRepo.createExperienceCalls.count == 1)
             assert(mockApiRepo.createExperienceCalls[0].0 == title)
             assert(mockApiRepo.createExperienceCalls[0].1 == description)
+            return self
+        }
+
+        func then_should_call_api_edit(_ experienceId: String, _ title: String,
+                                         _ description: String) -> ScenarioMaker {
+            assert(mockApiRepo.editExperienceCalls.count == 1)
+            assert(mockApiRepo.editExperienceCalls[0].0 == experienceId)
+            assert(mockApiRepo.editExperienceCalls[0].1 == title)
+            assert(mockApiRepo.editExperienceCalls[0].2 == description)
             return self
         }
 
@@ -369,6 +399,8 @@ class ExperienceRepoMock: ExperienceRepository {
     var createExperienceCalls = [(String, String)]()
     var createExperienceResult: Observable<Result<Experience>>!
     var uploadPictureCalls = [(String, UIImage)]()
+    var editExperienceCalls = [(String, String, String)]()
+    var editExperienceResult: Observable<Result<Experience>>!
 
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         switch kind {
@@ -422,5 +454,10 @@ class ExperienceRepoMock: ExperienceRepository {
 
     func uploadPicture(_ experienceId: String, _ image: UIImage) {
         uploadPictureCalls.append((experienceId, image))
+    }
+
+    func editExperience(_ experienceId: String, _ title: String, _ description: String) -> Observable<Result<Experience>> {
+        editExperienceCalls.append((experienceId, title, description))
+        return editExperienceResult
     }
 }

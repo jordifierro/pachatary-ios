@@ -77,6 +77,7 @@ class ProfileViewController: UIViewController {
         if segue.identifier == "experienceScenesSegue" {
             if let destinationVC = segue.destination as? ExperienceScenesViewController {
                 destinationVC.experienceId = selectedExperienceId
+                destinationVC.canNavigateToProfile = false
             }
         }
     }

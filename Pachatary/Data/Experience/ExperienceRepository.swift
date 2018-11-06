@@ -12,6 +12,8 @@ protocol ExperienceRepository {
     func shareUrl(_ experienceId: String) -> Observable<Result<String>>
     func createExperience(_ title: String, _ description: String) -> Observable<Result<Experience>>
     func uploadPicture(_ experienceId: String, _ image: UIImage)
+    func editExperience(_ experienceId: String,
+                        _ title: String, _ description: String) -> Observable<Result<Experience>>
 }
 
 class ExperienceRepoImplementation: ExperienceRepository {
@@ -111,6 +113,22 @@ class ExperienceRepoImplementation: ExperienceRepository {
                 switch result.status {
                 case .success:
                     self.requestersSwitch.modifyResult(.mine, .addOrUpdate,
+                                                       list: [result.data!], result: nil)
+                case .error: break
+                case .inProgress: break
+                }
+            })
+    }
+
+    func editExperience(_ experienceId: String,
+                        _ title: String, _ description: String) -> Observable<Result<Experience>> {
+        return apiRepo.editExperience(experienceId, title, description)
+            .do(onNext: { result in
+                switch result.status {
+                case .success:
+                    self.requestersSwitch.modifyResult(.mine, .update,
+                                                       list: [result.data!], result: nil)
+                    self.requestersSwitch.modifyResult(.explore, .update,
                                                        list: [result.data!], result: nil)
                 case .error: break
                 case .inProgress: break

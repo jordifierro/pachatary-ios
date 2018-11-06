@@ -85,6 +85,10 @@ class ExperienceApiRepositoryTests: XCTestCase {
             .then_should_return_flowable_with_inprogress_and_result_experience()
     }
 
+    func test_edit_experience_parses_experience_response() {
+        //Cannot test PATCH due to Hippolyte
+    }
+
     class ScenarioMaker {
         let api = MoyaProvider<ExperienceApi>().rx
         var repo: ExperienceApiRepository!
@@ -361,6 +365,8 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     var createExperienceResult: Observable<Result<Experience>>?
     var uploadPictureCalls = [(String, UIImage)]()
     var uploadPictureResult: Observable<Result<Experience>>?
+    var editExperienceCalls = [(String, String, String)]()
+    var editExperienceResult: Observable<Result<Experience>>?
 
     init() {}
 
@@ -409,5 +415,10 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     func uploadPicture(_ experienceId: String, _ image: UIImage) -> Observable<Result<Experience>> {
         uploadPictureCalls.append((experienceId, image))
         return uploadPictureResult!
+    }
+
+    func editExperience(_ experienceId: String, _ title: String, _ description: String) -> Observable<Result<Experience>> {
+        editExperienceCalls.append((experienceId, title, description))
+        return editExperienceResult!
     }
 }

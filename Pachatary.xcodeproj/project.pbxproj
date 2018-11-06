@@ -90,6 +90,9 @@
 		AE86D9ED215EAF0C003D2B34 /* LoaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE86D9EC215EAF0C003D2B34 /* LoaderCollectionViewCell.swift */; };
 		AE89AC2C20C7E5A100443C23 /* ExperienceDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */; };
 		AE89AC2E20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE89AC2D20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift */; };
+		AE9DF5082191D4D4002602CA /* EditExperienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9DF5062191D4D3002602CA /* EditExperienceView.swift */; };
+		AE9DF5092191D4D4002602CA /* EditExperiencePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9DF5072191D4D3002602CA /* EditExperiencePresenter.swift */; };
+		AE9DF50C2191ECFC002602CA /* EditExperiencePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9DF50B2191ECFC002602CA /* EditExperiencePresenterTests.swift */; };
 		AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA0EE5520CFB98A0040E4C9 /* Result.swift */; };
 		AEA5662521132F6A00F0E1F3 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5662421132F6A00F0E1F3 /* Profile.swift */; };
 		AEA56627211331D400F0E1F3 /* LittlePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA56626211331D400F0E1F3 /* LittlePicture.swift */; };
@@ -275,6 +278,9 @@
 		AE86D9EC215EAF0C003D2B34 /* LoaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		AE89AC2B20C7E5A100443C23 /* ExperienceDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceDependencyInjector.swift; sourceTree = "<group>"; };
 		AE89AC2D20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreExperiencesPresenterTests.swift; sourceTree = "<group>"; };
+		AE9DF5062191D4D3002602CA /* EditExperienceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditExperienceView.swift; sourceTree = "<group>"; };
+		AE9DF5072191D4D3002602CA /* EditExperiencePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditExperiencePresenter.swift; sourceTree = "<group>"; };
+		AE9DF50B2191ECFC002602CA /* EditExperiencePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExperiencePresenterTests.swift; sourceTree = "<group>"; };
 		AEA0EE5520CFB98A0040E4C9 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		AEA5662421132F6A00F0E1F3 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		AEA56626211331D400F0E1F3 /* LittlePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittlePicture.swift; sourceTree = "<group>"; };
@@ -614,6 +620,23 @@
 			path = Explore;
 			sourceTree = "<group>";
 		};
+		AE9DF5052191D438002602CA /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				AE9DF5072191D4D3002602CA /* EditExperiencePresenter.swift */,
+				AE9DF5062191D4D3002602CA /* EditExperienceView.swift */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		AE9DF50A2191ECE6002602CA /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				AE9DF50B2191ECFC002602CA /* EditExperiencePresenterTests.swift */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
 		AEA0EE5420CFB9440040E4C9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -899,6 +922,7 @@
 		AEEAC68820C97D49007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
+				AE9DF50A2191ECE6002602CA /* Edit */,
 				AE20062B21910116009CAC5C /* Create */,
 				AEB87788218DEA32001ED51C /* Mine */,
 				AED9ECA02165077A008C46DC /* Saved */,
@@ -925,6 +949,7 @@
 		AEEAC68A20C97D8E007C17EE /* Experience */ = {
 			isa = PBXGroup;
 			children = (
+				AE9DF5052191D438002602CA /* Edit */,
 				AE2006202190D7DD009CAC5C /* Create */,
 				AEB87783218DC80F001ED51C /* Mine */,
 				AE86D9E3215E4195003D2B34 /* Saved */,
@@ -1339,6 +1364,7 @@
 				AEAE26B420E28E3200E5D4E9 /* SceneDataDependencyInjector.swift in Sources */,
 				AE60382C216E80AE0023F3BB /* ExperienceRouterPresenter.swift in Sources */,
 				AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */,
+				AE9DF5092191D4D4002602CA /* EditExperiencePresenter.swift in Sources */,
 				AEB326B520C6F819000E07D8 /* BigPictureMapper.swift in Sources */,
 				AE598BA820EA464600F3DBA9 /* ExperienceScenesView.swift in Sources */,
 				AEBB629E20C547D3001A4576 /* ExploreExperiencesView.swift in Sources */,
@@ -1421,6 +1447,7 @@
 				AE1D6D1F20C5707300EA6DDD /* Experience.swift in Sources */,
 				AE86D9ED215EAF0C003D2B34 /* LoaderCollectionViewCell.swift in Sources */,
 				AEE1529020D98395008707FF /* ResultCache.swift in Sources */,
+				AE9DF5082191D4D4002602CA /* EditExperienceView.swift in Sources */,
 				AE0B27AE20E67D110060D923 /* ExperienceMapPresenter.swift in Sources */,
 				AEAE26AE20E2881A00E5D4E9 /* String+UrlEncoding.swift in Sources */,
 				AE6F8B6920DA5F0D007CC36A /* ConnectableObservableType+Autoconnect.swift in Sources */,
@@ -1448,6 +1475,7 @@
 				AEC8DCE6211DEBAE007CCC68 /* LoginPresenterTests.swift in Sources */,
 				AE73C7BF20CE80E200B05DA2 /* AuthApiRepositoryTests.swift in Sources */,
 				AE41B0DA218F1426007EB74E /* ConfirmEmailPresenterTests.swift in Sources */,
+				AE9DF50C2191ECFC002602CA /* EditExperiencePresenterTests.swift in Sources */,
 				AED9ECA621652A6B008C46DC /* ExperienceRequestersSwitchTests.swift in Sources */,
 				AEE03CFD2166A7EE0034AE0C /* ProfileRepositoryTests.swift in Sources */,
 				AE1429EE20D28E8300175B0B /* Single+NetworkResponseTransformerTests.swift in Sources */,

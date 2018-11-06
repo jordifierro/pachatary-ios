@@ -10,15 +10,28 @@ class ExperienceScenesPresenterTests: XCTestCase {
         case retry
     }
     
-    func test_experience_response_success() {
+    func test_editable_experience_response_success() {
         for action in [Action.create, Action.retry] {
             ScenarioMaker()
-                .given_a_presenter("7")
+                .given_a_presenter("7", isExperienceEditableIfMine: true)
                 .given_an_scenes_observable_result(Result(.inProgress), experienceId: "7")
                 .given_an_experience_observable_result(Result(.success, data: Mock.experience("9")))
                 .when(do: action)
                 .then_should_call_experience_repo_observable_with(experienceId: "7")
-                .then_should_call_show_experience(Mock.experience("9"))
+                .then_should_call_show_experience(Mock.experience("9"), true)
+                .then_should_call_show_experience_loader(false)
+        }
+    }
+
+    func test_experience_response_success() {
+        for action in [Action.create, Action.retry] {
+            ScenarioMaker()
+                .given_a_presenter("7", isExperienceEditableIfMine: false)
+                .given_an_scenes_observable_result(Result(.inProgress), experienceId: "7")
+                .given_an_experience_observable_result(Result(.success, data: Mock.experience("9")))
+                .when(do: action)
+                .then_should_call_experience_repo_observable_with(experienceId: "7")
+                .then_should_call_show_experience(Mock.experience("9"), false)
                 .then_should_call_show_experience_loader(false)
         }
     }
@@ -176,11 +189,18 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .then_should_not_show_share_dialog()
     }
 
-    func test_profile_click() {
+    func test_profile_click_when_can_navigate_to_profile() {
         ScenarioMaker()
-            .given_a_presenter("4")
+            .given_a_presenter("4", canNavigateToProfile: true)
             .when_profile_click("user")
             .then_should_navigate_to_profile("user")
+    }
+
+    func test_profile_click_when_can_not_navigate_to_profile() {
+        ScenarioMaker()
+            .given_a_presenter("4", canNavigateToProfile: false)
+            .when_profile_click("user")
+            .then_should_finish()
     }
 
     func test_refresh_calls_repo_refreshes() {
@@ -191,6 +211,13 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .then_should_call_scene_repo_refresh("5")
     }
 
+    func test_edit_click() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .when_edit_click()
+            .then_should_navigate_to_edit_experience()
+    }
+
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
         let mockExperienceRepo = ExperienceRepoMock()
@@ -199,10 +226,13 @@ class ExperienceScenesPresenterTests: XCTestCase {
         
         init() {}
         
-        func given_a_presenter(_ experienceId: String) -> ScenarioMaker {
+        func given_a_presenter(_ experienceId: String,
+                               canNavigateToProfile: Bool = true,
+                               isExperienceEditableIfMine: Bool = false) -> ScenarioMaker {
             presenter = ExperienceScenesPresenter(mockSceneRepo, mockExperienceRepo,
                                                   CurrentThreadScheduler.instance,
-                                                  mockView, experienceId)
+                                                  mockView, experienceId, canNavigateToProfile,
+                                                  isExperienceEditableIfMine)
             return self
         }
         
@@ -275,6 +305,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
             presenter.refresh()
             return self
         }
+
+        func when_edit_click() -> ScenarioMaker {
+            presenter.editClick()
+            return self
+        }
         
         @discardableResult
         func then_should_call_scene_repo_observable_with(experienceId: String) -> ScenarioMaker {
@@ -301,8 +336,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
         }
 
         @discardableResult
-        func then_should_call_show_experience(_ experience: Experience) -> ScenarioMaker {
-            assert([experience] == mockView.showExperienceCalls)
+        func then_should_call_show_experience(_ experience: Experience,
+                                              _ isExperienceEditableIfMine: Bool) -> ScenarioMaker {
+            assert(mockView.showExperienceCalls.count == 1)
+            assert(mockView.showExperienceCalls[0].0 == experience)
+            assert(mockView.showExperienceCalls[0].1 == isExperienceEditableIfMine)
             return self
         }
 
@@ -387,18 +425,31 @@ class ExperienceScenesPresenterTests: XCTestCase {
             assert(mockSceneRepo.refreshScenesCalls == [experienceId])
             return self
         }
+
+        @discardableResult
+        func then_should_navigate_to_edit_experience() -> ScenarioMaker {
+            assert(mockView.navigateToEditExperienceCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_finish() -> ScenarioMaker {
+            assert(mockView.finishCalls == 1)
+            return self
+        }
     }
 }
 
 class ExperienceScenesViewMock: ExperienceScenesView {
 
     var showScenesCalls = [[Scene]]()
-    var showExperienceCalls = [Experience]()
+    var showExperienceCalls = [(Experience, Bool)]()
     var showLoadingExperienceCalls = [Bool]()
     var showLoadingScenesCalls = [Bool]()
     var showRetryCalls = 0
     var navigateToMapCalls = [String?]()
     var navigateToProfileCalls = [String]()
+    var navigateToEditExperienceCalls = 0
     var finishCalls = 0
     var scrollToSceneCalls = [String]()
     var showUnsaveConfirmationDialogCalls = 0
@@ -408,8 +459,8 @@ class ExperienceScenesViewMock: ExperienceScenesView {
         showScenesCalls.append(scenes)
     }
 
-    func showExperience(_ experience: Experience) {
-        showExperienceCalls.append(experience)
+    func showExperience(_ experience: Experience, _ isExperienceEditableIfMine: Bool) {
+        showExperienceCalls.append((experience, isExperienceEditableIfMine))
     }
 
     func showExperienceLoading(_ isLoading: Bool) {
@@ -446,5 +497,9 @@ class ExperienceScenesViewMock: ExperienceScenesView {
 
     func navigateToProfile(_ username: String) {
         navigateToProfileCalls.append(username)
+    }
+
+    func navigateToEditExperience() {
+        navigateToEditExperienceCalls += 1
     }
 }
