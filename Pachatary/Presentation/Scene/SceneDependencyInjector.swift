@@ -14,4 +14,11 @@ class SceneDependencyInjector {
             AppPresentationDependencyInjector.mainScheduler,
             view, experienceId, canNavigateToProfile, isExperienceEditableIfMine)
     }
+
+    static func createScenePresenter(view: CreateSceneView, experienceId: String)
+                                                                           -> CreateScenePresenter {
+            return CreateScenePresenter(SceneDataDependencyInjector.sceneRepository,
+                                        AppPresentationDependencyInjector.mainScheduler,
+                                        view, experienceId)
+    }
 }

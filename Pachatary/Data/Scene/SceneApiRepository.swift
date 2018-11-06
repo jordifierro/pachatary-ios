@@ -5,10 +5,13 @@ import Moya_ObjectMapper
 
 protocol SceneApiRepository {
     func scenesObservable(experienceId: String) -> Observable<Result<[Scene]>>
+    func createScene(_ experienceId: String, _ title: String, _ description: String,
+                     _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>>
+    func uploadPicture(_ sceneId: String, _ image: UIImage) -> Observable<Result<Scene>>
 }
 
 class SceneApiRepoImplementation: SceneApiRepository {
-    
+
     let api: Reactive<MoyaProvider<SceneApi>>!
     let ioScheduler: ImmediateSchedulerType!
 
@@ -21,6 +24,17 @@ class SceneApiRepoImplementation: SceneApiRepository {
         return self.api.request(.experienceScenes(experienceId))
             .transformNetworkListResponse(SceneMapper.self, ioScheduler)
     }
+
+    func createScene(_ experienceId: String, _ title: String, _ description: String,
+                     _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>> {
+        return self.api.request(.create(experienceId: experienceId,
+                                        title: title, description: description,
+                                        latitude: latitude, longitude: longitude))
+            .transformNetworkResponse(SingleResultMapper<SceneMapper>.self, ioScheduler)
+    }
+
+    func uploadPicture(_ sceneId: String, _ image: UIImage) -> Observable<Result<Scene>> {
+        return self.api.request(.uploadPicture(sceneId: sceneId, picture: image))
+            .transformNetworkResponse(SingleResultMapper<SceneMapper>.self, ioScheduler)
+    }
 }
-
-

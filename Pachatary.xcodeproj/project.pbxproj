@@ -93,6 +93,10 @@
 		AE9DF5082191D4D4002602CA /* EditExperienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9DF5062191D4D3002602CA /* EditExperienceView.swift */; };
 		AE9DF5092191D4D4002602CA /* EditExperiencePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9DF5072191D4D3002602CA /* EditExperiencePresenter.swift */; };
 		AE9DF50C2191ECFC002602CA /* EditExperiencePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9DF50B2191ECFC002602CA /* EditExperiencePresenterTests.swift */; };
+		AE9DF5102191F5DD002602CA /* CreateSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9DF50E2191F5DD002602CA /* CreateSceneView.swift */; };
+		AE9DF5112191F5DD002602CA /* CreateScenePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9DF50F2191F5DD002602CA /* CreateScenePresenter.swift */; };
+		AE9DF5132192065D002602CA /* POST_scenes.json in Resources */ = {isa = PBXBuildFile; fileRef = AE9DF5122192065C002602CA /* POST_scenes.json */; };
+		AE9DF51621920C50002602CA /* CreateScenePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9DF51521920C50002602CA /* CreateScenePresenterTests.swift */; };
 		AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA0EE5520CFB98A0040E4C9 /* Result.swift */; };
 		AEA5662521132F6A00F0E1F3 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5662421132F6A00F0E1F3 /* Profile.swift */; };
 		AEA56627211331D400F0E1F3 /* LittlePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA56626211331D400F0E1F3 /* LittlePicture.swift */; };
@@ -281,6 +285,10 @@
 		AE9DF5062191D4D3002602CA /* EditExperienceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditExperienceView.swift; sourceTree = "<group>"; };
 		AE9DF5072191D4D3002602CA /* EditExperiencePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditExperiencePresenter.swift; sourceTree = "<group>"; };
 		AE9DF50B2191ECFC002602CA /* EditExperiencePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExperiencePresenterTests.swift; sourceTree = "<group>"; };
+		AE9DF50E2191F5DD002602CA /* CreateSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSceneView.swift; sourceTree = "<group>"; };
+		AE9DF50F2191F5DD002602CA /* CreateScenePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateScenePresenter.swift; sourceTree = "<group>"; };
+		AE9DF5122192065C002602CA /* POST_scenes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POST_scenes.json; sourceTree = "<group>"; };
+		AE9DF51521920C50002602CA /* CreateScenePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateScenePresenterTests.swift; sourceTree = "<group>"; };
 		AEA0EE5520CFB98A0040E4C9 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		AEA5662421132F6A00F0E1F3 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		AEA56626211331D400F0E1F3 /* LittlePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittlePicture.swift; sourceTree = "<group>"; };
@@ -505,6 +513,7 @@
 		AE598BA520EA45C600F3DBA9 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				AE9DF50D2191F595002602CA /* Create */,
 				AEACD85D21137F0C0080507A /* Map */,
 				AE598BA620EA45E700F3DBA9 /* List */,
 				AE598BAD20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift */,
@@ -527,6 +536,7 @@
 		AE598BAF20EA799D00F3DBA9 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				AE9DF51421920C2B002602CA /* Create */,
 				AEACD85F21137F4B0080507A /* Map */,
 				AEACD85E21137F410080507A /* List */,
 			);
@@ -637,6 +647,23 @@
 			path = Edit;
 			sourceTree = "<group>";
 		};
+		AE9DF50D2191F595002602CA /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				AE9DF50F2191F5DD002602CA /* CreateScenePresenter.swift */,
+				AE9DF50E2191F5DD002602CA /* CreateSceneView.swift */,
+			);
+			path = Create;
+			sourceTree = "<group>";
+		};
+		AE9DF51421920C2B002602CA /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				AE9DF51521920C50002602CA /* CreateScenePresenterTests.swift */,
+			);
+			path = Create;
+			sourceTree = "<group>";
+		};
 		AEA0EE5420CFB9440040E4C9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -714,6 +741,7 @@
 		AEAE26B520E29A9600E5D4E9 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				AE9DF5122192065C002602CA /* POST_scenes.json */,
 				AEAE26B620E29D6700E5D4E9 /* GET_scenes_experience_id.json */,
 				AEAE26B820E29DD600E5D4E9 /* SceneApiRepositoryTests.swift */,
 				AEE47BE520E3A83A001DAB31 /* SceneRepositoryTests.swift */,
@@ -1155,6 +1183,7 @@
 				AED682B9217639F200B61891 /* GET_experience.json in Resources */,
 				AE2006282190F948009CAC5C /* POST_experiences.json in Resources */,
 				AEAE26B720E29D6700E5D4E9 /* GET_scenes_experience_id.json in Resources */,
+				AE9DF5132192065D002602CA /* POST_scenes.json in Resources */,
 				AEEAC68320C94904007C17EE /* GET_experience_share_id.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1361,6 +1390,7 @@
 				AEDB0DC3211B51E3004F843E /* AskLoginEmailView.swift in Sources */,
 				AE414BE0215E3A400077284C /* SquareExperienceCollectionViewCell.swift in Sources */,
 				AEE03CF0216646660034AE0C /* ProfileView.swift in Sources */,
+				AE9DF5102191F5DD002602CA /* CreateSceneView.swift in Sources */,
 				AEAE26B420E28E3200E5D4E9 /* SceneDataDependencyInjector.swift in Sources */,
 				AE60382C216E80AE0023F3BB /* ExperienceRouterPresenter.swift in Sources */,
 				AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */,
@@ -1413,6 +1443,7 @@
 				AE41B0D5218F03EB007EB74E /* ConfirmEmailPresenter.swift in Sources */,
 				AEE1529220D983DB008707FF /* Identifiable.swift in Sources */,
 				AE598BAE20EA4DBC00F3DBA9 /* SceneDependencyInjector.swift in Sources */,
+				AE9DF5112191F5DD002602CA /* CreateScenePresenter.swift in Sources */,
 				AEDB0DB7211B3996004F843E /* PersonDependencyInjector.swift in Sources */,
 				AEC2FF86217E1059000E3F1B /* CustomButtons.swift in Sources */,
 				AE1D6D2120C5712E00EA6DDD /* BigPicture.swift in Sources */,
@@ -1463,6 +1494,7 @@
 				AEAE26B920E29DD600E5D4E9 /* SceneApiRepositoryTests.swift in Sources */,
 				AE6911CF20E78D0A00A05679 /* ExperienceMapPresenterTests.swift in Sources */,
 				AEB8778A218DEA42001ED51C /* MyExperiencesPresenterTests.swift in Sources */,
+				AE9DF51621920C50002602CA /* CreateScenePresenterTests.swift in Sources */,
 				AE89AC2E20C7EC0E00443C23 /* ExploreExperiencesPresenterTests.swift in Sources */,
 				AE20062D2191012B009CAC5C /* CreateExperiencePresenterTests.swift in Sources */,
 				AEEC749920CAADD000B86837 /* AuthStorageRepositoryTests.swift in Sources */,

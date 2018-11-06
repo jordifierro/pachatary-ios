@@ -4,10 +4,13 @@ import RxSwift
 protocol SceneRepository {
     func scenesObservable(experienceId: String) -> Observable<Result<[Scene]>>
     func refreshScenes(experienceId: String)
+    func createScene(_ experienceId: String, _ title: String, _ description: String,
+                     _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>>
+    func uploadPicture(_ sceneId: String, _ image: UIImage)
 }
 
 class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType == Scene {
-    
+
     let apiRepo: SceneApiRepository!
     let generateNewCache: (() -> R)!
     var cacheStore = [String : R]()
@@ -41,7 +44,15 @@ class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType
     func refreshScenes(experienceId: String) {
         getScenes(experienceId: experienceId)
     }
-    
+
+    func createScene(_ experienceId: String, _ title: String, _ description: String, _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>> {
+        return apiRepo.createScene(experienceId, title, description, latitude, longitude)
+    }
+
+    func uploadPicture(_ sceneId: String, _ image: UIImage) {
+        _ = apiRepo.uploadPicture(sceneId, image).subscribe()
+    }
+
     private func getScenes(experienceId: String) {
         _ = apiRepo.scenesObservable(experienceId: experienceId)
             .subscribe { event in
@@ -55,7 +66,3 @@ class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType
         }
     }
 }
-
-
-
-

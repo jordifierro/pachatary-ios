@@ -10,6 +10,7 @@ protocol ExperienceScenesView : class {
     func navigateToMap(_ sceneId: String?)
     func navigateToProfile(_ username: String)
     func navigateToEditExperience()
+    func navigateToAddScene()
     func scrollToScene(_ sceneId: String)
     func showUnsaveConfirmationDialog()
     func showShareDialog(_ url: String)
@@ -72,6 +73,10 @@ class ExperienceScenesViewController: UIViewController {
         presenter.editClick()
     }
 
+    @objc func addClick(){
+        presenter.addClick()
+    }
+
     @objc func saveExperience(){
         presenter.saveExperience(save: true)
     }
@@ -101,6 +106,10 @@ class ExperienceScenesViewController: UIViewController {
         }
         else if segue.identifier == "editExperienceSegue" {
             let destinationVC = segue.destination as! EditExperienceViewController
+            destinationVC.experienceId = self.experienceId
+        }
+        else if segue.identifier == "createSceneSegue" {
+            let destinationVC = segue.destination as! CreateSceneViewController
             destinationVC.experienceId = self.experienceId
         }
     }
@@ -146,7 +155,11 @@ extension ExperienceScenesViewController: ExperienceScenesView {
     func navigateToEditExperience() {
         performSegue(withIdentifier: "editExperienceSegue", sender: self)
     }
-    
+
+    func navigateToAddScene() {
+        performSegue(withIdentifier: "createSceneSegue", sender: self)
+    }
+
     func scrollToScene(_ sceneId: String) {
         let scenePosition = scenes.index(where: { scene in scene.id == sceneId })!
         self.tableView.scrollToRow(at: IndexPath(item: scenePosition + 1, section: 0),
@@ -208,6 +221,11 @@ extension ExperienceScenesViewController: ExperienceScenesView {
                 image: UIImage(named: "icEdit.png")?.withRenderingMode(.alwaysTemplate),
                 style: .done, target: self, action: #selector(editClick))
             self.navigationItem.rightBarButtonItems?.append(editBarButtonItem)
+
+            let addBarButtonItem = UIBarButtonItem(
+                image: UIImage(named: "icAddCircle.png")?.withRenderingMode(.alwaysOriginal),
+                style: .done, target: self, action: #selector(addClick))
+            self.navigationItem.rightBarButtonItems?.append(addBarButtonItem)
         }
     }
 }

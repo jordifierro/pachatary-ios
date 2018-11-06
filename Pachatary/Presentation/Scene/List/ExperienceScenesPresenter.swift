@@ -94,6 +94,10 @@ class ExperienceScenesPresenter {
         view.navigateToEditExperience()
     }
 
+    func addClick() {
+        view.navigateToAddScene()
+    }
+
     private func getExperienceAndScenes() {
         connectToExperience()
         connectToScenes()

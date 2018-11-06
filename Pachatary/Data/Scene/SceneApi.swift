@@ -3,26 +3,30 @@ import Moya
 
 enum SceneApi {
     case experienceScenes(String)
+    case create(experienceId: String, title: String, description: String,
+                latitude: Double, longitude: Double)
+    case uploadPicture(sceneId: String, picture: UIImage)
 }
 
 // MARK: - TargetType Protocol Implementation
 extension SceneApi: TargetType {
     var baseURL: URL {
-        switch self {
-        case .experienceScenes(_):
-            return URL(string: AppDataDependencyInjector.apiUrl)!
-        }
+        return URL(string: AppDataDependencyInjector.apiUrl)!
     }
     var path: String {
         switch self {
-        case .experienceScenes(_):
+        case .experienceScenes, .create:
             return "/scenes/"
+        case .uploadPicture(let sceneId, _):
+            return "/scenes/" + sceneId + "/picture"
         }
     }
     var method: Moya.Method {
         switch self {
-        case .experienceScenes(_):
+        case .experienceScenes:
             return .get
+        case .create, .uploadPicture:
+            return .post
         }
     }
     var task: Task {
@@ -30,6 +34,17 @@ extension SceneApi: TargetType {
         case .experienceScenes(let experienceId):
             return .requestParameters(parameters: ["experience": experienceId],
                                       encoding: URLEncoding.default)
+        case .create(let experienceId, let title, let description, let latitude, let longitude):
+            return .requestParameters(parameters: ["experience_id": experienceId,
+                                                   "title": title,
+                                                   "description": description,
+                                                   "latitude": latitude,
+                                                   "longitude": longitude],
+                                      encoding: URLEncoding.default)
+        case .uploadPicture(_, let picture):
+            let pictureData = MultipartFormData(provider: .data(UIImageJPEGRepresentation(picture, 1)!),
+                                                name: "picture",  fileName: "photo.jpg", mimeType: "image/jpeg")
+            return .uploadMultipart([pictureData])
         }
     }
     var sampleData: Data {
@@ -57,9 +72,20 @@ extension SceneApi: TargetType {
             "\"experience_id\": \"5\"",
             "},",
         "]").utf8Encoded
+        let result = String(stringInterpolation: "{",
+        "\"id\": \"4\",",
+        "\"title\": \"I've been here\",",
+        "\"description\": \"\",",
+        "\"picture\": null,",
+        "\"latitude\": 0.000000,",
+        "\"longitude\": 1.000000,",
+        "\"experience_id\": \"5\"",
+        "}").utf8Encoded
         switch self {
-        case .experienceScenes(_):
+        case .experienceScenes:
             return results
+        case .create, .uploadPicture:
+            return result
         }
     }
     var headers: [String: String]? {

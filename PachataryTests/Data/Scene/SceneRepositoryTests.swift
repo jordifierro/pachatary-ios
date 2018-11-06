@@ -70,13 +70,22 @@ class SceneRepositoryTests: XCTestCase {
             .then_should_return_observable_with(Result(.success, data: [Mock.scene("6"), Mock.scene("7")]))
     }
 
+    func test_create_scenes_returns_api_call() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_api_repo_that_returns_on_create(Result(.success, data: Mock.scene("4")))
+            .when_create_scene("3", "t", "d", 1.2, 2.3)
+            .then_should_call_api_create("3", "t", "d", 1.2, 2.3)
+            .then_should_return(Result(.success, data: Mock.scene("4")))
+    }
+
     class ScenarioMaker {
         
         let xcTestCase: XCTestCase!
         let mockApiRepo = MockSceneApiRepo()
         var repo: SceneRepoImplementation<MockSceneResultCache>!
         var caches = [MockSceneResultCache]()
-        var resultObservable: Observable<Result<[Scene]>>!
+        var resultScenesObservable: Observable<Result<[Scene]>>!
+        var resultSceneObservable: Observable<Result<Scene>>!
         
         init(_ xcTestCase: XCTestCase) {
             self.xcTestCase = xcTestCase
@@ -98,14 +107,26 @@ class SceneRepositoryTests: XCTestCase {
             mockApiRepo.resultScenesForExperienceId[experienceId] = sceneResult
             return self
         }
+
+        func given_an_api_repo_that_returns_on_create(_ result: Result<Scene>) -> ScenarioMaker {
+            mockApiRepo.createSceneResult = Observable.just(result)
+            return self
+        }
         
         func when_scenes_observable(_ experienceId: String) -> ScenarioMaker {
-            resultObservable = repo.scenesObservable(experienceId: experienceId)
+            resultScenesObservable = repo.scenesObservable(experienceId: experienceId)
             return self
         }
 
         func when_refresh(_ experienceId: String) -> ScenarioMaker {
             repo.refreshScenes(experienceId: experienceId)
+            return self
+        }
+
+        func when_create_scene(_ experienceId: String, _ title: String, _ description: String,
+                               _ latitude: Double, _ longitude: Double) -> ScenarioMaker {
+            resultSceneObservable = repo.createScene(experienceId, title,
+                                                     description, latitude, longitude)
             return self
         }
 
@@ -115,14 +136,22 @@ class SceneRepositoryTests: XCTestCase {
         }
         
         func consume_result_observable() -> ScenarioMaker {
-            _ = resultObservable.subscribe()
+            _ = resultScenesObservable.subscribe()
             return self
         }
 
         @discardableResult
         func then_should_return_observable_with(_ sceneResult: Result<[Scene]>) -> ScenarioMaker {
-            do { let results = try resultObservable.take(1).toBlocking().toArray()
+            do { let results = try resultScenesObservable.take(1).toBlocking().toArray()
                 assert(results == [sceneResult])
+            } catch { assertionFailure() }
+            return self
+        }
+
+        @discardableResult
+        func then_should_return(_ result: Result<Scene>) -> ScenarioMaker {
+            do { let results = try resultSceneObservable.take(1).toBlocking().toArray()
+                assert(results == [result])
             } catch { assertionFailure() }
             return self
         }
@@ -130,6 +159,19 @@ class SceneRepositoryTests: XCTestCase {
         @discardableResult
         func then_should_call_api_with(_ experienceIds: [String]) -> ScenarioMaker {
             assert(mockApiRepo.calls == experienceIds)
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_api_create(_ experienceId: String, _ title: String,
+                                         _ description: String, _ latitude: Double,
+                                         _ longitude: Double) -> ScenarioMaker {
+            assert(mockApiRepo.createSceneCalls.count == 1)
+            assert(mockApiRepo.createSceneCalls[0].0 == experienceId)
+            assert(mockApiRepo.createSceneCalls[0].1 == title)
+            assert(mockApiRepo.createSceneCalls[0].2 == description)
+            assert(mockApiRepo.createSceneCalls[0].3 == latitude)
+            assert(mockApiRepo.createSceneCalls[0].4 == longitude)
             return self
         }
         
@@ -202,6 +244,9 @@ class SceneRepoMock: SceneRepository {
     var scenesObservableCalls = [String]()
     var resultSceneForExperience = [String:Result<[Scene]>]()
     var refreshScenesCalls = [String]()
+    var createScenceCalls = [(String, String, String, Double, Double)]()
+    var createSceneResult: Observable<Result<Scene>>!
+    var uploadPictureCalls = [(String, UIImage)]()
 
     func scenesObservable(experienceId: String) -> Observable<Result<[Scene]>> {
         scenesObservableCalls.append(experienceId)
@@ -210,5 +255,14 @@ class SceneRepoMock: SceneRepository {
 
     func refreshScenes(experienceId: String) {
         refreshScenesCalls.append(experienceId)
+    }
+
+    func createScene(_ experienceId: String, _ title: String, _ description: String, _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>> {
+        createScenceCalls.append((experienceId, title, description, latitude, longitude))
+        return createSceneResult
+    }
+
+    func uploadPicture(_ sceneId: String, _ image: UIImage) {
+        uploadPictureCalls.append((sceneId, image))
     }
 }
