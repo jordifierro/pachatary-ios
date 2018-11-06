@@ -5,7 +5,7 @@ protocol ResultCache {
     associatedtype cacheType: Identifiable & Equatable
     
     func replaceResult(_ result: Result<[cacheType]>)
-    func addOrUpdate(_ list: [cacheType])
+    func addOrUpdate(_ list: [cacheType], placeAtTheEnd: Bool)
     func update(_ list: [cacheType])
     var resultObservable: Observable<Result<[cacheType]>> { get }
 }
@@ -13,14 +13,14 @@ protocol ResultCache {
 class ResultCacheImplementation<T: Identifiable & Equatable>: ResultCache {
 
     private let replaceResultObserver: AnyObserver<Result<[T]>>
-    private let addOrUpdateObserver: AnyObserver<[T]>
+    private let addOrUpdateObserver: AnyObserver<([T], Bool)>
     private let updateObserver: AnyObserver<[T]>
     let resultObservable: Observable<Result<[T]>>
     
     init() {
         let replaceResultSubject = PublishSubject<Result<[T]>>()
         replaceResultObserver = replaceResultSubject.asObserver()
-        let addOrUpdateSubject = PublishSubject<[T]>()
+        let addOrUpdateSubject = PublishSubject<([T], Bool)>()
         addOrUpdateObserver = addOrUpdateSubject.asObserver()
         let updateSubject = PublishSubject<[T]>()
         updateObserver = updateSubject.asObserver()
@@ -30,16 +30,31 @@ class ResultCacheImplementation<T: Identifiable & Equatable>: ResultCache {
                 .map { (newResult: Result<[T]>) -> ((Result<[T]>) -> Result<[T]>) in
                     return { _ in return newResult }},
             addOrUpdateSubject.asObservable()
-                .map { (newList: [T]) -> ((Result<[T]>) -> Result<[T]>) in
-                    return { oldResult in
-                        var updatedList = newList
-                        for elem in oldResult.data! {
-                            let duplicatedIndex = updatedList.index(where:
-                            { (item: Identifiable) in return (elem.id == item.id) })
-                            if duplicatedIndex == nil { updatedList.append(elem) }
+                .map { (newList: [T], placeAtTheEnd: Bool) -> ((Result<[T]>) -> Result<[T]>) in
+                    if placeAtTheEnd {
+                        return { oldResult in
+                            var updatedList = oldResult.data!
+                            for elem in newList {
+                                let duplicatedIndex = updatedList.index(where:
+                                { (item: Identifiable) in return (elem.id == item.id) })
+                                if duplicatedIndex == nil { updatedList.append(elem) }
+                                else { updatedList[duplicatedIndex!] = elem }
+                            }
+                            return Result(.success, data: updatedList)
                         }
-                        return Result(.success, data: updatedList)
-                    }},
+                    }
+                    else {
+                        return { oldResult in
+                            var updatedList = newList
+                            for elem in oldResult.data! {
+                                let duplicatedIndex = updatedList.index(where:
+                                { (item: Identifiable) in return (elem.id == item.id) })
+                                if duplicatedIndex == nil { updatedList.append(elem) }
+                            }
+                            return Result(.success, data: updatedList)
+                        }
+                    }
+                },
             updateSubject.asObservable()
                 .map { (newList: [T]) -> ((Result<[T]>) -> Result<[T]>) in
                     return { oldResult in
@@ -66,8 +81,8 @@ class ResultCacheImplementation<T: Identifiable & Equatable>: ResultCache {
         replaceResultObserver.onNext(result)
     }
 
-    func addOrUpdate(_ list: [T]) {
-        addOrUpdateObserver.onNext(list)
+    func addOrUpdate(_ list: [T], placeAtTheEnd: Bool = false) {
+        addOrUpdateObserver.onNext((list, placeAtTheEnd))
     }
 
     func update(_ list: [T]) {

@@ -70,11 +70,14 @@ class SceneRepositoryTests: XCTestCase {
             .then_should_return_observable_with(Result(.success, data: [Mock.scene("6"), Mock.scene("7")]))
     }
 
-    func test_create_scenes_returns_api_call() {
+    func test_create_scene_returns_api_call() {
         ScenarioMaker(self).buildScenario()
+            .given_an_api_repo_that_returns(
+                Result(.success, data: [Mock.scene("4"), Mock.scene("5")]), forExperience: "1")
+            .when_scenes_observable("1")
             .given_an_api_repo_that_returns_on_create(Result(.success, data: Mock.scene("4")))
-            .when_create_scene("3", "t", "d", 1.2, 2.3)
-            .then_should_call_api_create("3", "t", "d", 1.2, 2.3)
+            .when_create_scene("1", "t", "d", 1.2, 2.3)
+            .then_should_call_api_create("1", "t", "d", 1.2, 2.3)
             .then_should_return(Result(.success, data: Mock.scene("4")))
     }
 
@@ -187,7 +190,7 @@ class MockSceneResultCache: ResultCache {
     typealias cacheType = Scene
     
     var replaceResultObserver: AnyObserver<Result<[Scene]>>
-    var addOrUpdateObserver: AnyObserver<[Scene]>
+    var addOrUpdateObserver: AnyObserver<([Scene], Bool)>
     var updateObserver: AnyObserver<[Scene]>
     var emittedReplaceResults = [Result<[Scene]>]()
     let resultSubject = PublishSubject<Result<[Scene]>>()
@@ -197,7 +200,7 @@ class MockSceneResultCache: ResultCache {
         let resultConnectable = resultSubject.asObservable().replay(1)
         resultObservable = resultConnectable
         _ = resultConnectable.connect()
-        addOrUpdateObserver = PublishSubject<[Scene]>().asObserver()
+        addOrUpdateObserver = PublishSubject<([Scene], Bool)>().asObserver()
         updateObserver = PublishSubject<[Scene]>().asObserver()
         let replaceResultSubject = PublishSubject<Result<[Scene]>>()
         replaceResultObserver = replaceResultSubject.asObserver()
@@ -217,8 +220,8 @@ class MockSceneResultCache: ResultCache {
         replaceResultObserver.onNext(result)
     }
 
-    func addOrUpdate(_ list: [Scene]) {
-        addOrUpdateObserver.onNext(list)
+    func addOrUpdate(_ list: [Scene], placeAtTheEnd: Bool) {
+        addOrUpdateObserver.onNext((list, placeAtTheEnd))
     }
 
     func update(_ list: [Scene]) {

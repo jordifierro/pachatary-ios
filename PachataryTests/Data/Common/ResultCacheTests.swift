@@ -33,7 +33,21 @@ class ResultCacheTests: XCTestCase {
             .given_a_result(status: .success, experiences: [2, 3, 0])
             .then_should_emit_result_on_subscribe(result: 3)
     }
-    
+
+    func test_add_or_update_with_place_at_the_end() {
+        ScenarioMaker()
+            .given_an_experience(id: "3")
+            .given_an_experience(id: "4", title: "first")
+            .given_a_result(status: .success, experiences: [0, 1])
+            .given_emitted_result_on_add_or_update_observer(result: 1)
+            .given_an_experience(id: "4", title: "second")
+            .given_an_experience(id: "5")
+            .given_a_result(status: .success, experiences: [2, 3])
+            .when_emit_result_on_add_or_update_observer(result: 2, placeAtTheEnd: true)
+            .given_a_result(status: .success, experiences: [0, 2, 3])
+            .then_should_emit_result_on_subscribe(result: 3)
+    }
+
     func test_update_observer() {
         ScenarioMaker()
             .given_an_experience(id: "3")
@@ -99,8 +113,9 @@ class ResultCacheTests: XCTestCase {
             return self
         }
         
-        func given_emitted_result_on_add_or_update_observer(result: Int) -> ScenarioMaker {
-            self.cache.addOrUpdate(self.results[result-1].data!)
+        func given_emitted_result_on_add_or_update_observer(result: Int,
+                                                            placeAtTheEnd: Bool = false) -> ScenarioMaker {
+            self.cache.addOrUpdate(self.results[result-1].data!, placeAtTheEnd: placeAtTheEnd)
             return self
         }
         
@@ -113,8 +128,10 @@ class ResultCacheTests: XCTestCase {
             return given_emitted_result_on_replace_observer(result: result)
         }
         
-        func when_emit_result_on_add_or_update_observer(result: Int) -> ScenarioMaker {
-            return given_emitted_result_on_add_or_update_observer(result: result)
+        func when_emit_result_on_add_or_update_observer(result: Int,
+                                                        placeAtTheEnd: Bool = false) -> ScenarioMaker {
+            return given_emitted_result_on_add_or_update_observer(result: result,
+                                                                  placeAtTheEnd: placeAtTheEnd)
         }
         
         func when_emit_result_on_update_observer(result: Int) -> ScenarioMaker {
@@ -138,7 +155,7 @@ class ResultCacheMock: ResultCache {
     var resultPublish = PublishSubject<Result<[IdEq]>>()
     var resultObservable: Observable<Result<[IdEq]>>
     var replaceResultCalls = [Result<[IdEq]>]()
-    var addOrUpdateCalls = [[IdEq]]()
+    var addOrUpdateCalls = [([IdEq], Bool)]()
     var updateCalls = [[IdEq]]()
 
     init() {
@@ -150,8 +167,8 @@ class ResultCacheMock: ResultCache {
         replaceResultCalls.append(result)
     }
 
-    func addOrUpdate(_ list: [IdEq]) {
-        addOrUpdateCalls.append(list)
+    func addOrUpdate(_ list: [IdEq], placeAtTheEnd: Bool) {
+        addOrUpdateCalls.append((list, placeAtTheEnd))
     }
 
     func update(_ list: [IdEq]) {

@@ -173,7 +173,8 @@ class RequesterTests: XCTestCase {
 
         @discardableResult
         func then_should_call_cache_addorupdate(with list: [IdEq]) -> ScenarioMaker {
-            assert(mockCache.addOrUpdateCalls == [list])
+            assert(mockCache.addOrUpdateCalls.count == 1)
+            assert(mockCache.addOrUpdateCalls[0].0 == list)
             return self
         }
 

@@ -50,7 +50,8 @@ class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType
             .do(onNext: { result in
                 switch result.status {
                 case .success:
-                    self.cacheStore[experienceId]!.addOrUpdate([result.data!])
+                    self.cacheStore[experienceId]!
+                            .addOrUpdate([result.data!], placeAtTheEnd: true)
                 case .error: break
                 case .inProgress: break
                 }

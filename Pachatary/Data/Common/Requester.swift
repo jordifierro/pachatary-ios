@@ -100,7 +100,7 @@ class RequesterImplementation<T: ResultCache>: Requester {
     }
 
     func addOrUpdate(_ tList: [T.cacheType]) {
-        self.cache.addOrUpdate(tList)
+        self.cache.addOrUpdate(tList, placeAtTheEnd: false)
     }
 
     func resultsObservable() -> Observable<Result<[T.cacheType]>> {
