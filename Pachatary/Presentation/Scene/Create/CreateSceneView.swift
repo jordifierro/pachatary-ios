@@ -1,4 +1,5 @@
 import UIKit
+import CoreLocation
 
 protocol CreateSceneView : class {
     func title() -> String
@@ -6,6 +7,9 @@ protocol CreateSceneView : class {
     func picture() -> UIImage?
     func latitude() -> Double?
     func longitude() -> Double?
+    func lastKnownLatitude() -> Double?
+    func lastKnownLongitude() -> Double?
+    func tryToFindLastKnownLocation()
     func showLoader()
     func hideLoader()
     func enableCreateButton()
@@ -17,7 +21,7 @@ protocol CreateSceneView : class {
     func showNoPictureError()
     func showNoLocationError()
     func navigateToPickAndCropImage()
-    func navigateToSelectLocation()
+    func navigateToSelectLocation(_ initialLatitude: Double?, _ initialLongitude: Double?)
     func finish()
 }
 
@@ -36,6 +40,10 @@ class CreateSceneViewController: UIViewController {
     var image: UIImage?
     var selectedLatitude: Double?
     var selectedLongitude: Double?
+    var deviceLatitude: Double?
+    var deviceLongitude: Double?
+    var segueLatitude: Double?
+    var segueLongitude: Double?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,8 +95,8 @@ class CreateSceneViewController: UIViewController {
                 self.selectedLongitude = longitude
             }
             if selectedLatitude != nil {
-                destinationVC.initialLatitude = selectedLatitude
-                destinationVC.initialLongitude = selectedLongitude
+                destinationVC.initialLatitude = segueLatitude
+                destinationVC.initialLongitude = segueLongitude
             }
         }
     }
@@ -118,6 +126,22 @@ extension CreateSceneViewController: CreateSceneView {
         return selectedLongitude
     }
 
+    func lastKnownLatitude() -> Double? {
+        return deviceLatitude
+    }
+
+    func lastKnownLongitude() -> Double? {
+        return deviceLongitude
+    }
+
+    func tryToFindLastKnownLocation() {
+        let location = CLLocationManager().location
+        if location != nil {
+            deviceLatitude = location!.coordinate.latitude
+            deviceLongitude = location!.coordinate.longitude
+        }
+    }
+
     func showLoader() {
         activityIndicator.startAnimating()
     }
@@ -138,7 +162,9 @@ extension CreateSceneViewController: CreateSceneView {
         performSegue(withIdentifier: "pickAndCropImageSegue", sender: self)
     }
 
-    func navigateToSelectLocation() {
+    func navigateToSelectLocation(_ initialLatitude: Double?, _ initialLongitude: Double?) {
+        segueLatitude = initialLatitude
+        segueLongitude = initialLongitude
         performSegue(withIdentifier: "selectLocationSegue", sender: self)
     }
 

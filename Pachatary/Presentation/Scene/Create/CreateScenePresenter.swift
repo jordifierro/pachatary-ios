@@ -20,12 +20,24 @@ class CreateScenePresenter {
         self.experienceId = experienceId
     }
 
+    func create() {
+        view.tryToFindLastKnownLocation()
+    }
+
     func addPictureButtonClick() {
         view.navigateToPickAndCropImage()
     }
 
     func selectLocationButtonClick() {
-        view.navigateToSelectLocation()
+        if view.latitude() != nil {
+            view.navigateToSelectLocation(view.latitude(), view.longitude())
+        }
+        else if view.lastKnownLatitude() != nil {
+            view.navigateToSelectLocation(view.lastKnownLatitude(), view.lastKnownLongitude())
+        }
+        else {
+            view.navigateToSelectLocation(nil, nil)
+        }
     }
 
     func createButtonClick() {

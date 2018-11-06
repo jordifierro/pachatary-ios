@@ -99,11 +99,38 @@ class CreateScenePresenterTests: XCTestCase {
             .then_should_call_repo_upload_picture_with("85", pic)
     }
 
-    func test_select_location_click_navigates_to_select_location() {
+    func test_select_location_click_navigates_with_selected_location_first() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .given_a_found_latitude(3)
+            .given_a_found_longitude(4)
+            .given_a_latitude(1)
+            .given_a_longitude(2)
+            .when_select_location_click()
+            .then_should_navigate_to_select_location(1, 2)
+    }
+
+    func test_select_location_click_navigates_with_last_known_if_no_selected() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .given_a_found_latitude(3)
+            .given_a_found_longitude(4)
+            .when_select_location_click()
+            .then_should_navigate_to_select_location(3, 4)
+    }
+
+    func test_select_location_click_navigates_without_initial_if_no_location_found_nor_selected() {
         ScenarioMaker()
             .given_a_presenter("4")
             .when_select_location_click()
-            .then_should_navigate_to_select_location()
+            .then_should_navigate_to_select_location(nil, nil)
+    }
+
+    func test_on_create_tries_to_find_last_known_location() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .when_create()
+            .then_should_try_to_find_last_known_location()
     }
 
     class ScenarioMaker {
@@ -131,6 +158,16 @@ class CreateScenePresenterTests: XCTestCase {
             return self
         }
 
+        func given_a_found_latitude(_ latitude: Double) -> ScenarioMaker {
+            mockView.latitudeResult = latitude
+            return self
+        }
+
+        func given_a_found_longitude(_ longitude: Double) -> ScenarioMaker {
+            mockView.longitudeResult = longitude
+            return self
+        }
+
         func given_a_title(_ title: String) -> ScenarioMaker {
             mockView.titleResult = title
             return self
@@ -148,6 +185,11 @@ class CreateScenePresenterTests: XCTestCase {
 
         func when_create_button_click() -> ScenarioMaker {
             presenter.createButtonClick()
+            return self
+        }
+
+        func when_create() -> ScenarioMaker {
+            presenter.create()
             return self
         }
 
@@ -239,14 +281,22 @@ class CreateScenePresenterTests: XCTestCase {
         }
 
         @discardableResult
-        func then_should_navigate_to_select_location() -> ScenarioMaker {
-            assert(mockView.navigateToSelectLocationCalls == 1)
+        func then_should_navigate_to_select_location(_ lat: Double?, _ lon: Double?) -> ScenarioMaker {
+            assert(mockView.navigateToSelectLocationCalls.count == 1)
+            assert(mockView.navigateToSelectLocationCalls[0].0 == lat)
+            assert(mockView.navigateToSelectLocationCalls[0].1 == lon)
             return self
         }
 
         @discardableResult
         func then_should_show_no_location_error() -> ScenarioMaker {
             assert(mockView.showNoLocationErrorCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_try_to_find_last_known_location() -> ScenarioMaker {
+            assert(mockView.tryToFindLastKnownLocationCalls == 1)
             return self
         }
     }
@@ -259,6 +309,8 @@ class CreateSceneViewMock: CreateSceneView {
     var pictureResult: UIImage?
     var latitudeResult: Double?
     var longitudeResult: Double?
+    var lastKnowndLatitudeResult: Double?
+    var lastKnowndLongitudeResult: Double?
     var showLoaderCalls = 0
     var hideLoaderCalls = 0
     var enableButtonCalls = 0
@@ -271,7 +323,8 @@ class CreateSceneViewMock: CreateSceneView {
     var navigateToPickAndCropImageCalls = 0
     var finishCalls = 0
     var showNoLocationErrorCalls = 0
-    var navigateToSelectLocationCalls = 0
+    var navigateToSelectLocationCalls = [(Double?, Double?)]()
+    var tryToFindLastKnownLocationCalls = 0
 
     func title() -> String { return titleResult }
     func description() -> String { return descriptionResult }
@@ -289,6 +342,12 @@ class CreateSceneViewMock: CreateSceneView {
     func finish() { finishCalls += 1 }
     func latitude() -> Double? { return latitudeResult }
     func longitude() -> Double? { return longitudeResult }
+    func lastKnownLatitude() -> Double? { return lastKnowndLatitudeResult }
+    func lastKnownLongitude() -> Double? { return lastKnowndLongitudeResult }
     func showNoLocationError() { showNoLocationErrorCalls += 1 }
-    func navigateToSelectLocation() { navigateToSelectLocationCalls += 1 }
+    func tryToFindLastKnownLocation() { tryToFindLastKnownLocationCalls += 1 }
+    func navigateToSelectLocation(_ initialLatitude: Double?,
+                                  _ initialLongitude: Double?) {
+        navigateToSelectLocationCalls.append((initialLatitude, initialLongitude))
+    }
 }

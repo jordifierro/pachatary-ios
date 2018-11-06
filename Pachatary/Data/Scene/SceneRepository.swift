@@ -47,10 +47,32 @@ class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType
 
     func createScene(_ experienceId: String, _ title: String, _ description: String, _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>> {
         return apiRepo.createScene(experienceId, title, description, latitude, longitude)
+            .do(onNext: { result in
+                switch result.status {
+                case .success:
+                    self.cacheStore[experienceId]!.addOrUpdate([result.data!])
+                case .error: break
+                case .inProgress: break
+                }
+            })
     }
 
     func uploadPicture(_ sceneId: String, _ image: UIImage) {
-        _ = apiRepo.uploadPicture(sceneId, image).subscribe()
+        _ = apiRepo.uploadPicture(sceneId, image)
+            .subscribe { event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success:
+                        let experienceId = result.data!.experienceId
+                        self.cacheStore[experienceId]!.update([result.data!])
+                    case .error: break
+                    case .inProgress: break
+                    }
+                case .error(let error): fatalError(error.localizedDescription)
+                case .completed: break
+                }
+            }
     }
 
     private func getScenes(experienceId: String) {
