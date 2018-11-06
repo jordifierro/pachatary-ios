@@ -2,7 +2,7 @@ import XCTest
 import RxSwift
 @testable import Pachatary
 
-class EditExperiencePresenterTests: XCTestCase {
+class EditScenePresenterTests: XCTestCase {
 
     enum Action {
         case create
@@ -12,10 +12,10 @@ class EditExperiencePresenterTests: XCTestCase {
     func test_create_response_inprogress() {
         for action in [Action.create, Action.retry] {
             ScenarioMaker()
-                .given_a_presenter("4")
-                .given_a_repo_that_returns_on_experience(Result(.inProgress))
+                .given_a_presenter("4", "9")
+                .given_a_repo_that_returns_on_scene(Result(.inProgress))
                 .when_do(action)
-                .then_should_call_repo_experience("4")
+                .then_should_call_repo_scene("4", "9")
                 .then_should_disable_button()
                 .then_should_show_loader()
         }
@@ -24,11 +24,11 @@ class EditExperiencePresenterTests: XCTestCase {
     func test_create_response_error() {
         for action in [Action.create, Action.retry] {
             ScenarioMaker()
-                .given_a_presenter("4")
-                .given_a_repo_that_returns_on_experience(
+                .given_a_presenter("4", "9")
+                .given_a_repo_that_returns_on_scene(
                     Result(.error, error: DataError.noInternetConnection))
                 .when_do(action)
-                .then_should_call_repo_experience("4")
+                .then_should_call_repo_scene("4", "9")
                 .then_should_disable_button()
                 .then_should_hide_loader()
                 .then_should_show_retry()
@@ -38,26 +38,35 @@ class EditExperiencePresenterTests: XCTestCase {
     func test_create_response_success() {
         for action in [Action.create, Action.retry] {
             ScenarioMaker()
-                .given_a_presenter("4")
-                .given_a_repo_that_returns_on_experience(Result(.success, data: Mock.experience("4")))
+                .given_a_presenter("4", "9")
+                .given_a_repo_that_returns_on_scene(Result(.success, data: Mock.scene("4")))
                 .when_do(action)
-                .then_should_call_repo_experience("4")
+                .then_should_call_repo_scene("4", "9")
                 .then_should_enable_button()
                 .then_should_hide_loader()
-                .then_should_fill_experience_data(Mock.experience("4"))
+                .then_should_fill_scene_data(Mock.scene("4"))
         }
+    }
+
+    func test_update_with_no_location_shows_error() {
+        ScenarioMaker()
+            .given_a_presenter("4", "9")
+            .when_update_button_click()
+            .then_should_show_no_location_error()
     }
 
     func test_update_with_no_title_shows_error() {
         ScenarioMaker()
-            .given_a_presenter("4")
+            .given_a_presenter("4", "9")
+            .given_a_latitude_and_longitude(2, -3.5)
             .when_update_button_click()
             .then_should_show_title_length_error()
     }
 
     func test_update_with_long_title_shows_error() {
         ScenarioMaker()
-            .given_a_presenter("4")
+            .given_a_presenter("4", "9")
+            .given_a_latitude_and_longitude(2, -3.5)
             .given_a_title(String(repeating: "5", count: 81))
             .when_update_button_click()
             .then_should_show_title_length_error()
@@ -65,15 +74,17 @@ class EditExperiencePresenterTests: XCTestCase {
 
     func test_update_with_no_description_shows_error() {
         ScenarioMaker()
-            .given_a_presenter("4")
+            .given_a_presenter("4", "9")
+            .given_a_latitude_and_longitude(2, -3.5)
             .given_a_title("t")
             .when_update_button_click()
             .then_should_show_no_description_error()
     }
 
-    func test_update_experience_response_inprogress() {
+    func test_update_scene_response_inprogress() {
         ScenarioMaker()
-            .given_a_presenter("4")
+            .given_a_presenter("4", "9")
+            .given_a_latitude_and_longitude(2, -3.5)
             .given_a_title("t")
             .given_a_description("d")
             .given_a_repo_that_returns(Result(.inProgress))
@@ -82,66 +93,82 @@ class EditExperiencePresenterTests: XCTestCase {
             .then_should_show_loader()
     }
 
-    func test_update_experience_response_error() {
+    func test_update_scene_response_error() {
         ScenarioMaker()
-            .given_a_presenter("4")
+            .given_a_presenter("4", "9")
+            .given_a_latitude_and_longitude(2, -3.5)
             .given_an_picture(UIImage())
             .given_a_title("t")
             .given_a_description("d")
             .given_a_repo_that_returns(Result(.error, error: DataError.noInternetConnection))
             .when_update_button_click()
-            .then_should_enable_button()
+           .then_should_enable_button()
             .then_should_hide_loader()
             .then_should_show_error()
     }
 
-    func test_update_experience_response_success_without_new_picture() {
+    func test_update_scene_response_success_without_new_picture() {
         ScenarioMaker()
-            .given_a_presenter("4")
+            .given_a_presenter("4", "9")
+            .given_a_latitude_and_longitude(2, -3.5)
             .given_a_title("t")
             .given_a_description("d")
-            .given_a_repo_that_returns(Result(.success, data: Mock.experience("85")))
+            .given_a_repo_that_returns(Result(.success, data: Mock.scene("85")))
             .when_update_button_click()
-            .then_should_call_repo_edit("4", "t", "d")
+            .then_should_call_repo_edit("9", "t", "d", 2, -3.5)
             .then_should_show_success()
             .then_should_finish()
     }
 
-    func test_update_experience_response_success_with_new_picture() {
+    func test_update_scene_response_success_with_new_picture() {
         let pic = UIImage()
         ScenarioMaker()
-            .given_a_presenter("4")
+            .given_a_presenter("4", "9")
+            .given_a_latitude_and_longitude(2, -3.5)
             .given_an_picture(pic)
             .given_a_title("t")
             .given_a_description("d")
-            .given_a_repo_that_returns(Result(.success, data: Mock.experience("85")))
+            .given_a_repo_that_returns(Result(.success, data: Mock.scene("85")))
             .when_update_button_click()
-            .then_should_call_repo_edit("4", "t", "d")
+            .then_should_call_repo_edit("9", "t", "d", 2, -3.5)
             .then_should_show_success_and_uploading_picture()
             .then_should_finish()
-            .then_should_call_repo_upload_picture_with("4", pic)
+            .then_should_call_repo_upload_picture_with("9", pic)
     }
 
     func test_on_add_picture_button_click_navigates_to_pick_and_crop() {
         ScenarioMaker()
-            .given_a_presenter("4")
+            .given_a_presenter("4", "9")
             .when_add_picture_click()
             .then_should_navigate_to_pick_and_crop_image()
     }
 
-    class ScenarioMaker {
-        let mockView = EditExperienceViewMock()
-        let mockRepo = ExperienceRepoMock()
-        var presenter: EditExperiencePresenter!
+    func test_on_select_location_click_navigates_to_select_location() {
+        ScenarioMaker()
+            .given_a_presenter("4", "9")
+            .when_select_location_click()
+            .then_should_navigate_to_select_location()
+    }
 
-        func given_a_presenter(_ experienceId: String) -> ScenarioMaker {
-            presenter = EditExperiencePresenter(mockRepo, MainScheduler.instance,
-                                                mockView, experienceId)
+    class ScenarioMaker {
+        let mockView = EditSceneViewMock()
+        let mockRepo = SceneRepoMock()
+        var presenter: EditScenePresenter!
+
+        func given_a_presenter(_ experienceId: String, _ sceneId: String) -> ScenarioMaker {
+            presenter = EditScenePresenter(mockRepo, MainScheduler.instance,
+                                           mockView, experienceId, sceneId)
             return self
         }
 
         func given_an_picture(_ image: UIImage) -> ScenarioMaker {
             mockView.pictureResult = image
+            return self
+        }
+
+        func given_a_latitude_and_longitude(_ lat: Double, _ lon: Double) -> ScenarioMaker {
+            mockView.latitudeResult = lat
+            mockView.longitudeResult = lon
             return self
         }
 
@@ -155,13 +182,13 @@ class EditExperiencePresenterTests: XCTestCase {
             return self
         }
 
-        func given_a_repo_that_returns(_ result: Result<Experience>) -> ScenarioMaker {
-            mockRepo.editExperienceResult = Observable.just(result)
+        func given_a_repo_that_returns(_ result: Result<Scene>) -> ScenarioMaker {
+            mockRepo.editSceneResult = Observable.just(result)
             return self
         }
 
-        func given_a_repo_that_returns_on_experience(_ result: Result<Experience>) -> ScenarioMaker {
-            mockRepo.returnExperienceObservable = Observable.just(result)
+        func given_a_repo_that_returns_on_scene(_ result: Result<Scene>) -> ScenarioMaker {
+            mockRepo.sceneObservableResult = Observable.just(result)
             return self
         }
 
@@ -170,16 +197,21 @@ class EditExperiencePresenterTests: XCTestCase {
             return self
         }
 
-        func when_add_picture_click() -> ScenarioMaker {
-            presenter.addPictureButtonClick()
-            return self
-        }
-
         func when_do(_ action: Action) -> ScenarioMaker {
             switch action {
             case .create: presenter.create()
             case .retry: presenter.retry()
             }
+            return self
+        }
+
+        func when_add_picture_click() -> ScenarioMaker {
+            presenter.addPictureButtonClick()
+            return self
+        }
+
+        func when_select_location_click() -> ScenarioMaker {
+            presenter.selectLocationButtonClick()
             return self
         }
 
@@ -198,6 +230,12 @@ class EditExperiencePresenterTests: XCTestCase {
         @discardableResult
         func then_should_show_no_description_error() -> ScenarioMaker {
             assert(mockView.showNoDescriptionErrorCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_no_location_error() -> ScenarioMaker {
+            assert(mockView.showNoLocationErrorCalls == 1)
             return self
         }
 
@@ -256,33 +294,39 @@ class EditExperiencePresenterTests: XCTestCase {
         }
 
         @discardableResult
-        func then_should_call_repo_upload_picture_with(_ experienceId: String,
+        func then_should_call_repo_upload_picture_with(_ sceneId: String,
                                                        _ image: UIImage) -> ScenarioMaker {
             assert(mockRepo.uploadPictureCalls.count == 1)
-            assert(mockRepo.uploadPictureCalls[0].0 == experienceId)
+            assert(mockRepo.uploadPictureCalls[0].0 == sceneId)
             assert(mockRepo.uploadPictureCalls[0].1 == image)
             return self
         }
 
         @discardableResult
-        func then_should_call_repo_edit(_ experienceId: String, _ title: String,
-                                        _ description: String) -> ScenarioMaker {
-            assert(mockRepo.editExperienceCalls.count == 1)
-            assert(mockRepo.editExperienceCalls[0].0 == experienceId)
-            assert(mockRepo.editExperienceCalls[0].1 == title)
-            assert(mockRepo.editExperienceCalls[0].2 == description)
+        func then_should_call_repo_edit(_ sceneId: String, _ title: String,
+                                        _ description: String, _ latitude: Double,
+                                        _ longitude: Double) -> ScenarioMaker {
+            assert(mockRepo.editSceneCalls.count == 1)
+            assert(mockRepo.editSceneCalls[0].0 == sceneId)
+            assert(mockRepo.editSceneCalls[0].1 == title)
+            assert(mockRepo.editSceneCalls[0].2 == description)
+            assert(mockRepo.editSceneCalls[0].3 == latitude)
+            assert(mockRepo.editSceneCalls[0].4 == longitude)
             return self
         }
 
         @discardableResult
-        func then_should_call_repo_experience(_ experienceId: String) -> ScenarioMaker {
-            assert(mockRepo.singleExperienceCalls == [experienceId])
+        func then_should_call_repo_scene(_ experienceId: String,
+                                         _ sceneId: String) -> ScenarioMaker {
+            assert(mockRepo.sceneObservableCalls.count == 1)
+            assert(mockRepo.sceneObservableCalls[0].0 == experienceId)
+            assert(mockRepo.sceneObservableCalls[0].1 == sceneId)
             return self
         }
 
         @discardableResult
-        func then_should_fill_experience_data(_ experience: Experience) -> ScenarioMaker {
-            assert(mockView.fillExperienceDataCalls == [experience])
+        func then_should_fill_scene_data(_ scene: Scene) -> ScenarioMaker {
+            assert(mockView.fillSceneDataCalls == [scene])
             return self
         }
 
@@ -291,10 +335,16 @@ class EditExperiencePresenterTests: XCTestCase {
             assert(mockView.navigateToPickAndCropImageCalls == 1)
             return self
         }
+
+        @discardableResult
+        func then_should_navigate_to_select_location() -> ScenarioMaker {
+            assert(mockView.navigateToSelectLocationCalls == 1)
+            return self
+        }
     }
 }
 
-class EditExperienceViewMock: EditExperienceView {
+class EditSceneViewMock: EditSceneView {
 
     var titleResult = ""
     var descriptionResult = ""
@@ -312,7 +362,11 @@ class EditExperienceViewMock: EditExperienceView {
     var navigateToPickAndCropImageCalls = 0
     var finishCalls = 0
     var showRetryCalls = 0
-    var fillExperienceDataCalls = [Experience]()
+    var fillSceneDataCalls = [Scene]()
+    var latitudeResult: Double?
+    var longitudeResult: Double?
+    var navigateToSelectLocationCalls = 0
+    var showNoLocationErrorCalls = 0
 
     func title() -> String { return titleResult }
     func description() -> String { return descriptionResult }
@@ -330,5 +384,9 @@ class EditExperienceViewMock: EditExperienceView {
     func navigateToPickAndCropImage() { navigateToPickAndCropImageCalls += 1 }
     func finish() { finishCalls += 1 }
     func showRetry() { showRetryCalls += 1 }
-    func fillExperienceData(_ experience: Experience) { fillExperienceDataCalls.append(experience) }
+    func fillSceneData(_ scene: Scene) { fillSceneDataCalls.append(scene) }
+    func latitude() -> Double? { return latitudeResult }
+    func longitude() -> Double? { return longitudeResult }
+    func showNoLocationError() { showNoLocationErrorCalls += 1 }
+    func navigateToSelectLocation() { navigateToSelectLocationCalls += 1 }
 }

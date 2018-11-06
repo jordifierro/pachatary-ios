@@ -9,10 +9,12 @@ class SceneTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var showMoreLabel: UILabel!
     @IBOutlet weak var navigateToSceneButton: UIButton!
+    @IBOutlet weak var editSceneButton: UIButton!
 
     var gradientLayer: CAGradientLayer?
     var scene: Scene!
     var onLocateSceneClickListener: ((String) -> ())!
+    var onEditSceneClickListener: ((String) -> ())!
     var showMoreListener: ((String) -> ())!
     
     override func awakeFromNib() {
@@ -28,9 +30,12 @@ class SceneTableViewCell: UITableViewCell {
     
     func bind(_ scene: Scene, _ onLocateSceneClickListener: @escaping (String) -> (),
               _ showMoreListener: @escaping (String) -> (),
+              _ editSceneListener: @escaping (String) -> (),
+              _ canEditScene: Bool,
               _ expandDescription: Bool) {
         self.scene = scene
         self.onLocateSceneClickListener = onLocateSceneClickListener
+        self.onEditSceneClickListener = editSceneListener
         self.showMoreListener = showMoreListener
         if scene.picture != nil {
             pictureImageView.kf.setImage(with: URL(string: scene.picture!.mediumUrl))
@@ -54,6 +59,12 @@ class SceneTableViewCell: UITableViewCell {
             descriptionLabel.numberOfLines = 4
         }
 
+        editSceneButton.layer.cornerRadius = 20
+        editSceneButton.layer.masksToBounds = true
+        editSceneButton.addTarget(self, action: #selector(editSceneButtonClick), for: .touchUpInside)
+        if canEditScene { editSceneButton.isHidden = false }
+        else { editSceneButton.isHidden = true }
+
         setupGradientMask()
     }
 
@@ -63,6 +74,10 @@ class SceneTableViewCell: UITableViewCell {
 
     @objc func navigateToSceneButtonListener(_ sender: UIButton!) {
         self.onLocateSceneClickListener(self.scene.id)
+    }
+
+    @objc func editSceneButtonClick(_ sender: UIButton!) {
+        self.onEditSceneClickListener(self.scene.id)
     }
 
     private func setupGradientMask() {

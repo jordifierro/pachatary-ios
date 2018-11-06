@@ -21,4 +21,11 @@ class SceneDependencyInjector {
                                         AppPresentationDependencyInjector.mainScheduler,
                                         view, experienceId)
     }
+
+    static func editScenePresenter(view: EditSceneView,
+                                   experienceId: String, sceneId: String) -> EditScenePresenter {
+            return EditScenePresenter(SceneDataDependencyInjector.sceneRepository,
+                                      AppPresentationDependencyInjector.mainScheduler,
+                                      view, experienceId, sceneId)
+    }
 }

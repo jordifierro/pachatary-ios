@@ -8,6 +8,8 @@ protocol SceneApiRepository {
     func createScene(_ experienceId: String, _ title: String, _ description: String,
                      _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>>
     func uploadPicture(_ sceneId: String, _ image: UIImage) -> Observable<Result<Scene>>
+    func editScene(_ sceneId: String, _ title: String, _ description: String,
+                   _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>>
 }
 
 class SceneApiRepoImplementation: SceneApiRepository {
@@ -35,6 +37,14 @@ class SceneApiRepoImplementation: SceneApiRepository {
 
     func uploadPicture(_ sceneId: String, _ image: UIImage) -> Observable<Result<Scene>> {
         return self.api.request(.uploadPicture(sceneId: sceneId, picture: image))
+            .transformNetworkResponse(SingleResultMapper<SceneMapper>.self, ioScheduler)
+    }
+
+    func editScene(_ sceneId: String, _ title: String, _ description: String,
+                   _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>> {
+        return self.api.request(.edit(sceneId: sceneId,
+                                      title: title, description: description,
+                                      latitude: latitude, longitude: longitude))
             .transformNetworkResponse(SingleResultMapper<SceneMapper>.self, ioScheduler)
     }
 }

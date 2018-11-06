@@ -3,10 +3,13 @@ import RxSwift
 
 protocol SceneRepository {
     func scenesObservable(experienceId: String) -> Observable<Result<[Scene]>>
+    func sceneObservable(experienceId: String, sceneId: String) -> Observable<Result<Scene>>
     func refreshScenes(experienceId: String)
     func createScene(_ experienceId: String, _ title: String, _ description: String,
                      _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>>
     func uploadPicture(_ sceneId: String, _ image: UIImage)
+    func editScene(_ sceneId: String, _ title: String, _ description: String,
+                   _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>>
 }
 
 class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType == Scene {
@@ -41,6 +44,14 @@ class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType
             .map { (index: Int, result: Result<[Scene]>) -> Result<[Scene]> in return result }
     }
 
+    func sceneObservable(experienceId: String, sceneId: String) -> Observable<Result<Scene>> {
+        return scenesObservable(experienceId: experienceId)
+            .map { result in
+                return Result<Scene>(.success, data:
+                    (result.data!.filter { scene in scene.id == sceneId }).first!)
+            }
+    }
+
     func refreshScenes(experienceId: String) {
         getScenes(experienceId: experienceId)
     }
@@ -52,6 +63,20 @@ class SceneRepoImplementation<R: ResultCache>: SceneRepository where R.cacheType
                 case .success:
                     self.cacheStore[experienceId]!
                             .addOrUpdate([result.data!], placeAtTheEnd: true)
+                case .error: break
+                case .inProgress: break
+                }
+            })
+    }
+
+    func editScene(_ sceneId: String, _ title: String, _ description: String,
+                   _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>> {
+        return apiRepo.editScene(sceneId, title, description, latitude, longitude)
+            .do(onNext: { result in
+                switch result.status {
+                case .success:
+                    let experienceId = result.data!.experienceId
+                    self.cacheStore[experienceId]!.update([result.data!])
                 case .error: break
                 case .inProgress: break
                 }

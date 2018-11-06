@@ -6,6 +6,9 @@ enum SceneApi {
     case create(experienceId: String, title: String, description: String,
                 latitude: Double, longitude: Double)
     case uploadPicture(sceneId: String, picture: UIImage)
+    case edit(sceneId: String,
+              title: String, description: String,
+              latitude: Double, longitude: Double)
 }
 
 // MARK: - TargetType Protocol Implementation
@@ -19,6 +22,8 @@ extension SceneApi: TargetType {
             return "/scenes/"
         case .uploadPicture(let sceneId, _):
             return "/scenes/" + sceneId + "/picture"
+        case .edit(let sceneId, _, _, _, _):
+            return "/scenes/" + sceneId
         }
     }
     var method: Moya.Method {
@@ -27,6 +32,8 @@ extension SceneApi: TargetType {
             return .get
         case .create, .uploadPicture:
             return .post
+        case .edit:
+            return .patch
         }
     }
     var task: Task {
@@ -37,6 +44,12 @@ extension SceneApi: TargetType {
         case .create(let experienceId, let title, let description, let latitude, let longitude):
             return .requestParameters(parameters: ["experience_id": experienceId,
                                                    "title": title,
+                                                   "description": description,
+                                                   "latitude": latitude,
+                                                   "longitude": longitude],
+                                      encoding: URLEncoding.default)
+        case .edit(_, let title, let description, let latitude, let longitude):
+            return .requestParameters(parameters: ["title": title,
                                                    "description": description,
                                                    "latitude": latitude,
                                                    "longitude": longitude],
@@ -84,7 +97,7 @@ extension SceneApi: TargetType {
         switch self {
         case .experienceScenes:
             return results
-        case .create, .uploadPicture:
+        default:
             return result
         }
     }

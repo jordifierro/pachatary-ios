@@ -98,6 +98,10 @@ class ExperienceScenesPresenter {
         view.navigateToAddScene()
     }
 
+    func editSceneClick(_ sceneId: String) {
+        view.navigateToEditScene(sceneId)
+    }
+
     private func getExperienceAndScenes() {
         connectToExperience()
         connectToScenes()

@@ -10,6 +10,7 @@ protocol ExperienceScenesView : class {
     func navigateToMap(_ sceneId: String?)
     func navigateToProfile(_ username: String)
     func navigateToEditExperience()
+    func navigateToEditScene(_ sceneId: String)
     func navigateToAddScene()
     func scrollToScene(_ sceneId: String)
     func showUnsaveConfirmationDialog()
@@ -34,6 +35,7 @@ class ExperienceScenesViewController: UIViewController {
     var isLoadingScenes = false
     var isExperienceDescriptionExpanded = false
     var isSceneDescriptionExpanded = [String:Bool]()
+    var sceneIdSelectedToEdit: String?
     var cellHeights: [IndexPath : CGFloat] = [:]
 
     lazy var refreshControl: UIRefreshControl = {
@@ -112,6 +114,11 @@ class ExperienceScenesViewController: UIViewController {
             let destinationVC = segue.destination as! CreateSceneViewController
             destinationVC.experienceId = self.experienceId
         }
+        else if segue.identifier == "editSceneSegue" {
+            let destinationVC = segue.destination as! EditSceneViewController
+            destinationVC.experienceId = self.experienceId
+            destinationVC.sceneId = self.sceneIdSelectedToEdit!
+        }
     }
 }
 
@@ -158,6 +165,11 @@ extension ExperienceScenesViewController: ExperienceScenesView {
 
     func navigateToAddScene() {
         performSegue(withIdentifier: "createSceneSegue", sender: self)
+    }
+
+    func navigateToEditScene(_ sceneId: String) {
+        sceneIdSelectedToEdit = sceneId
+        performSegue(withIdentifier: "editSceneSegue", sender: self)
     }
 
     func scrollToScene(_ sceneId: String) {
@@ -282,6 +294,11 @@ extension ExperienceScenesViewController: UITableViewDataSource, UITableViewDele
                         self.isSceneDescriptionExpanded[sceneId] = true
                         self.tableView.reloadData()
                       },
+                      { [unowned self] (sceneId: String) in
+                        self.presenter.editSceneClick(sceneId)
+                      },
+                      (self.experience != nil ?
+                        self.experience!.isMine && isExperienceEditableIfMine : false),
                       isSceneDescriptionExpanded[self.scenes[indexPath.row - 1].id] ?? false)
             return cell
         case .loader:

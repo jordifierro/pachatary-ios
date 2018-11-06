@@ -225,6 +225,13 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .then_should_navigate_to_add_scene()
     }
 
+    func test_edit_scene_click() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .when_edit_scene_click("7")
+            .then_should_navigate_to_edit_scene("7")
+    }
+
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
         let mockExperienceRepo = ExperienceRepoMock()
@@ -305,6 +312,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
 
         func when_profile_click(_ username: String) -> ScenarioMaker {
             presenter.profileClick(username)
+            return self
+        }
+
+        func when_edit_scene_click(_ sceneId: String) -> ScenarioMaker {
+            presenter.editSceneClick(sceneId)
             return self
         }
 
@@ -455,6 +467,12 @@ class ExperienceScenesPresenterTests: XCTestCase {
             assert(mockView.navigateToAddSceneCalls == 1)
             return self
         }
+
+        @discardableResult
+        func then_should_navigate_to_edit_scene(_ sceneId: String) -> ScenarioMaker {
+            assert(mockView.navigateToEditSceneCalls == [sceneId])
+            return self
+        }
     }
 }
 
@@ -473,6 +491,7 @@ class ExperienceScenesViewMock: ExperienceScenesView {
     var showUnsaveConfirmationDialogCalls = 0
     var showShareDialogCalls = [String]()
     var navigateToAddSceneCalls = 0
+    var navigateToEditSceneCalls = [String]()
 
     func showScenes(_ scenes: [Scene]) {
         showScenesCalls.append(scenes)
@@ -524,5 +543,9 @@ class ExperienceScenesViewMock: ExperienceScenesView {
 
     func navigateToAddScene() {
         navigateToAddSceneCalls += 1
+    }
+
+    func navigateToEditScene(_ sceneId: String) {
+        navigateToEditSceneCalls.append(sceneId)
     }
 }

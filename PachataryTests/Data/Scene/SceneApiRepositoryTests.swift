@@ -29,6 +29,10 @@ class SceneApiRepositoryTests: XCTestCase {
             .then_should_return_flowable_with_inprogress_and_result_scene()
     }
 
+    func test_edit_scene_parses_response() {
+        //Cannot test because Hippolyte doesn't support PATCH method
+    }
+
     class ScenarioMaker {
         let api = MoyaProvider<SceneApi>().rx
         var repo: SceneApiRepository!
@@ -148,6 +152,8 @@ class MockSceneApiRepo: SceneApiRepository {
     var createSceneCalls = [(String, String, String, Double, Double)]()
     var uploadPictureResult: Observable<Result<Scene>>!
     var uploadPictureCalls = [(String, Image)]()
+    var editSceneResult: Observable<Result<Scene>>!
+    var editSceneCalls = [(String, String, String, Double, Double)]()
 
     var calls = [String]()
 
@@ -166,5 +172,10 @@ class MockSceneApiRepo: SceneApiRepository {
     func uploadPicture(_ sceneId: String, _ image: UIImage) -> Observable<Result<Scene>> {
         uploadPictureCalls.append((sceneId, image))
         return uploadPictureResult
+    }
+
+    func editScene(_ sceneId: String, _ title: String, _ description: String, _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>> {
+        editSceneCalls.append((sceneId, title, description, latitude, longitude))
+        return editSceneResult
     }
 }

@@ -16,9 +16,9 @@ class Mock {
                           savesCount: savesCount)
     }
 
-    static func scene(_ id: String) -> Scene {
+    static func scene(_ id: String, experienceId: String = "") -> Scene {
         return Scene(id: id, title: "", description: "", picture: nil,
-                     latitude: 0.0, longitude: 0.0, experienceId: "")
+                     latitude: 0.0, longitude: 0.0, experienceId: experienceId)
     }
 }
 

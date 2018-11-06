@@ -73,12 +73,24 @@ class SceneRepositoryTests: XCTestCase {
     func test_create_scene_returns_api_call() {
         ScenarioMaker(self).buildScenario()
             .given_an_api_repo_that_returns(
-                Result(.success, data: [Mock.scene("4"), Mock.scene("5")]), forExperience: "1")
+                Result(.success, data: [Mock.scene("6"), Mock.scene("5")]), forExperience: "1")
             .when_scenes_observable("1")
             .given_an_api_repo_that_returns_on_create(Result(.success, data: Mock.scene("4")))
             .when_create_scene("1", "t", "d", 1.2, 2.3)
             .then_should_call_api_create("1", "t", "d", 1.2, 2.3)
             .then_should_return(Result(.success, data: Mock.scene("4")))
+    }
+
+    func test_edit_scene_returns_api_call() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_api_repo_that_returns(
+                Result(.success, data: [Mock.scene("6"), Mock.scene("5")]), forExperience: "1")
+            .when_scenes_observable("1")
+            .given_an_api_repo_that_returns_on_edit(
+                Result(.success, data: Mock.scene("4", experienceId: "1")))
+            .when_edit_scene("1", "t", "d", 1.2, 2.3)
+            .then_should_call_api_edit("1", "t", "d", 1.2, 2.3)
+            .then_should_return(Result(.success, data: Mock.scene("4", experienceId: "1")))
     }
 
     class ScenarioMaker {
@@ -115,7 +127,12 @@ class SceneRepositoryTests: XCTestCase {
             mockApiRepo.createSceneResult = Observable.just(result)
             return self
         }
-        
+
+        func given_an_api_repo_that_returns_on_edit(_ result: Result<Scene>) -> ScenarioMaker {
+            mockApiRepo.editSceneResult = Observable.just(result)
+            return self
+        }
+
         func when_scenes_observable(_ experienceId: String) -> ScenarioMaker {
             resultScenesObservable = repo.scenesObservable(experienceId: experienceId)
             return self
@@ -130,6 +147,13 @@ class SceneRepositoryTests: XCTestCase {
                                _ latitude: Double, _ longitude: Double) -> ScenarioMaker {
             resultSceneObservable = repo.createScene(experienceId, title,
                                                      description, latitude, longitude)
+            return self
+        }
+
+        func when_edit_scene(_ sceneId: String, _ title: String, _ description: String,
+                             _ latitude: Double, _ longitude: Double) -> ScenarioMaker {
+            resultSceneObservable = repo.editScene(sceneId, title,
+                                                   description, latitude, longitude)
             return self
         }
 
@@ -177,7 +201,20 @@ class SceneRepositoryTests: XCTestCase {
             assert(mockApiRepo.createSceneCalls[0].4 == longitude)
             return self
         }
-        
+
+        @discardableResult
+        func then_should_call_api_edit(_ sceneId: String, _ title: String,
+                                       _ description: String, _ latitude: Double,
+                                       _ longitude: Double) -> ScenarioMaker {
+            assert(mockApiRepo.editSceneCalls.count == 1)
+            assert(mockApiRepo.editSceneCalls[0].0 == sceneId)
+            assert(mockApiRepo.editSceneCalls[0].1 == title)
+            assert(mockApiRepo.editSceneCalls[0].2 == description)
+            assert(mockApiRepo.editSceneCalls[0].3 == latitude)
+            assert(mockApiRepo.editSceneCalls[0].4 == longitude)
+            return self
+        }
+
         @discardableResult
         func then_generate_cache_should_be_called(times: Int) -> ScenarioMaker {
             assert(caches.count == times)
@@ -250,6 +287,10 @@ class SceneRepoMock: SceneRepository {
     var createScenceCalls = [(String, String, String, Double, Double)]()
     var createSceneResult: Observable<Result<Scene>>!
     var uploadPictureCalls = [(String, UIImage)]()
+    var editSceneCalls = [(String, String, String, Double, Double)]()
+    var editSceneResult: Observable<Result<Scene>>!
+    var sceneObservableCalls = [(String, String)]()
+    var sceneObservableResult: Observable<Result<Scene>>!
 
     func scenesObservable(experienceId: String) -> Observable<Result<[Scene]>> {
         scenesObservableCalls.append(experienceId)
@@ -268,4 +309,15 @@ class SceneRepoMock: SceneRepository {
     func uploadPicture(_ sceneId: String, _ image: UIImage) {
         uploadPictureCalls.append((sceneId, image))
     }
+
+    func sceneObservable(experienceId: String, sceneId: String) -> Observable<Result<Scene>> {
+        sceneObservableCalls.append((experienceId, sceneId))
+        return sceneObservableResult
+    }
+
+    func editScene(_ sceneId: String, _ title: String, _ description: String, _ latitude: Double, _ longitude: Double) -> Observable<Result<Scene>> {
+        editSceneCalls.append((sceneId, title, description, latitude, longitude))
+        return editSceneResult
+    }
+
 }
