@@ -17,6 +17,11 @@ protocol SelectLocationView : class {
 
 class SelectLocationViewController: UIViewController {
 
+    enum ZoomLevel: Double {
+        case street = 12
+        case country = 6
+    }
+
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var locateButton: UIButton!
@@ -24,6 +29,7 @@ class SelectLocationViewController: UIViewController {
     @IBOutlet weak var pointerImageView: UIImageView!
     
     var presenter: SelectLocationPresenter!
+    var zoomLevel = ZoomLevel.country
     var initialLatitude: Double?
     var initialLongitude: Double?
     var setResultDelegate: ((Double, Double) -> ())!
@@ -89,7 +95,8 @@ extension SelectLocationViewController: SelectLocationView {
     }
 
     func centerMap(_ latitude: Double, _ longitude: Double) {
-        mapView.setCenter(CLLocationCoordinate2D(latitude: latitude, longitude: longitude), zoomLevel: 6, animated: true)
+        mapView.setCenter(CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+                          zoomLevel: self.zoomLevel.rawValue, animated: true)
     }
 
     func geocodeAddress(_ address: String) {

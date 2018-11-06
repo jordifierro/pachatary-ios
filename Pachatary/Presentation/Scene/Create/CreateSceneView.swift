@@ -4,6 +4,8 @@ protocol CreateSceneView : class {
     func title() -> String
     func description() -> String
     func picture() -> UIImage?
+    func latitude() -> Double?
+    func longitude() -> Double?
     func showLoader()
     func hideLoader()
     func enableCreateButton()
@@ -13,7 +15,9 @@ protocol CreateSceneView : class {
     func showTitleLengthError()
     func showNoDescriptionError()
     func showNoPictureError()
+    func showNoLocationError()
     func navigateToPickAndCropImage()
+    func navigateToSelectLocation()
     func finish()
 }
 
@@ -21,6 +25,7 @@ class CreateSceneViewController: UIViewController {
 
     @IBOutlet weak var addPictureButton: UIButton!
     @IBOutlet weak var pictureImageView: UIImageView!
+    @IBOutlet weak var selectLocationButton: UIButton!
     @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -29,6 +34,8 @@ class CreateSceneViewController: UIViewController {
     var presenter: CreateScenePresenter?
     var experienceId: String!
     var image: UIImage?
+    var selectedLatitude: Double?
+    var selectedLongitude: Double?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +44,7 @@ class CreateSceneViewController: UIViewController {
 
         addPictureButton.layer.cornerRadius = 23
         pictureImageView.layer.cornerRadius = 23
+        selectLocationButton.layer.cornerRadius = 23
         titleTextView.layer.cornerRadius = 23
         titleTextView.textColor = UIColor.lightGray
         titleTextView.textContainerInset = UIEdgeInsetsMake(15, 10, 0, 10)
@@ -51,6 +59,7 @@ class CreateSceneViewController: UIViewController {
 
         createButton.addTarget(self, action: #selector(createButtonClick), for: .touchUpInside)
         addPictureButton.addTarget(self, action: #selector(addPictureButtonClick), for: .touchUpInside)
+        selectLocationButton.addTarget(self, action: #selector(selectLocationButtonClick), for: .touchUpInside)
     }
 
     @objc func createButtonClick(_ sender: UIButton!) {
@@ -61,10 +70,26 @@ class CreateSceneViewController: UIViewController {
         presenter!.addPictureButtonClick()
     }
 
+    @objc func selectLocationButtonClick(_ sender: UIButton!) {
+        presenter!.selectLocationButtonClick()
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "pickAndCropImageSegue" {
             let destinationVC = segue.destination as! PickAndCropImageViewController
             destinationVC.delegate = self
+        }
+        else if segue.identifier == "selectLocationSegue" {
+            let destinationVC = segue.destination as! SelectLocationViewController
+            destinationVC.zoomLevel = SelectLocationViewController.ZoomLevel.street
+            destinationVC.setResultDelegate = { [unowned self] (latitude, longitude) in
+                self.selectedLatitude = latitude
+                self.selectedLongitude = longitude
+            }
+            if selectedLatitude != nil {
+                destinationVC.initialLatitude = selectedLatitude
+                destinationVC.initialLongitude = selectedLongitude
+            }
         }
     }
 }
@@ -83,6 +108,14 @@ extension CreateSceneViewController: CreateSceneView {
 
     func picture() -> UIImage? {
         return image
+    }
+
+    func latitude() -> Double? {
+        return selectedLatitude
+    }
+
+    func longitude() -> Double? {
+        return selectedLongitude
     }
 
     func showLoader() {
@@ -105,6 +138,10 @@ extension CreateSceneViewController: CreateSceneView {
         performSegue(withIdentifier: "pickAndCropImageSegue", sender: self)
     }
 
+    func navigateToSelectLocation() {
+        performSegue(withIdentifier: "selectLocationSegue", sender: self)
+    }
+
     func showError() {
         Snackbar.showError()
     }
@@ -123,6 +160,10 @@ extension CreateSceneViewController: CreateSceneView {
 
     func showNoPictureError() {
         Snackbar.show("Select a picture", .short)
+    }
+
+    func showNoLocationError() {
+        Snackbar.show("Select a location", .short)
     }
 
     func finish() {

@@ -11,10 +11,20 @@ class CreateScenePresenterTests: XCTestCase {
             .then_should_show_no_image_error()
     }
 
+    func test_no_location_shows_error() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .given_an_picture(UIImage())
+            .when_create_button_click()
+            .then_should_show_no_location_error()
+    }
+
     func test_no_title_shows_error() {
         ScenarioMaker()
             .given_a_presenter("4")
             .given_an_picture(UIImage())
+            .given_a_latitude(2)
+            .given_a_longitude(-0.4)
             .when_create_button_click()
             .then_should_show_title_length_error()
     }
@@ -23,6 +33,8 @@ class CreateScenePresenterTests: XCTestCase {
         ScenarioMaker()
             .given_a_presenter("4")
             .given_an_picture(UIImage())
+            .given_a_latitude(2)
+            .given_a_longitude(-0.4)
             .given_a_title(String(repeating: "5", count: 81))
             .when_create_button_click()
             .then_should_show_title_length_error()
@@ -32,6 +44,8 @@ class CreateScenePresenterTests: XCTestCase {
         ScenarioMaker()
             .given_a_presenter("4")
             .given_an_picture(UIImage())
+            .given_a_latitude(2)
+            .given_a_longitude(-0.4)
             .given_a_title("t")
             .when_create_button_click()
             .then_should_show_no_description_error()
@@ -41,11 +55,13 @@ class CreateScenePresenterTests: XCTestCase {
         ScenarioMaker()
             .given_a_presenter("4")
             .given_an_picture(UIImage())
+            .given_a_latitude(2)
+            .given_a_longitude(-0.4)
             .given_a_title("t")
             .given_a_description("d")
             .given_a_repo_that_returns(Result(.inProgress))
             .when_create_button_click()
-            .then_should_call_api_create_with("4", "t", "d", 0.0, 0.0)
+            .then_should_call_api_create_with("4", "t", "d", 2, -0.4)
             .then_should_disable_button()
             .then_should_show_loader()
     }
@@ -54,11 +70,13 @@ class CreateScenePresenterTests: XCTestCase {
         ScenarioMaker()
             .given_a_presenter("4")
             .given_an_picture(UIImage())
+            .given_a_latitude(2)
+            .given_a_longitude(-0.4)
             .given_a_title("t")
             .given_a_description("d")
             .given_a_repo_that_returns(Result(.error, error: DataError.noInternetConnection))
             .when_create_button_click()
-            .then_should_call_api_create_with("4", "t", "d", 0.0, 0.0)
+            .then_should_call_api_create_with("4", "t", "d", 2, -0.4)
             .then_should_enable_button()
             .then_should_hide_loader()
             .then_should_show_error()
@@ -69,14 +87,23 @@ class CreateScenePresenterTests: XCTestCase {
         ScenarioMaker()
             .given_a_presenter("4")
             .given_an_picture(pic)
+            .given_a_latitude(2)
+            .given_a_longitude(-0.4)
             .given_a_title("t")
             .given_a_description("d")
             .given_a_repo_that_returns(Result(.success, data: Mock.scene("85")))
             .when_create_button_click()
-            .then_should_call_api_create_with("4", "t", "d", 0.0, 0.0)
+            .then_should_call_api_create_with("4", "t", "d", 2, -0.4)
             .then_should_show_success_and_uploading_picture()
             .then_should_finish()
             .then_should_call_repo_upload_picture_with("85", pic)
+    }
+
+    func test_select_location_click_navigates_to_select_location() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .when_select_location_click()
+            .then_should_navigate_to_select_location()
     }
 
     class ScenarioMaker {
@@ -91,6 +118,16 @@ class CreateScenePresenterTests: XCTestCase {
 
         func given_an_picture(_ image: UIImage) -> ScenarioMaker {
             mockView.pictureResult = image
+            return self
+        }
+
+        func given_a_latitude(_ latitude: Double) -> ScenarioMaker {
+            mockView.latitudeResult = latitude
+            return self
+        }
+
+        func given_a_longitude(_ longitude: Double) -> ScenarioMaker {
+            mockView.longitudeResult = longitude
             return self
         }
 
@@ -111,6 +148,11 @@ class CreateScenePresenterTests: XCTestCase {
 
         func when_create_button_click() -> ScenarioMaker {
             presenter.createButtonClick()
+            return self
+        }
+
+        func when_select_location_click() -> ScenarioMaker {
+            presenter.selectLocationButtonClick()
             return self
         }
 
@@ -195,6 +237,18 @@ class CreateScenePresenterTests: XCTestCase {
             assert(mockRepo.uploadPictureCalls[0].1 == image)
             return self
         }
+
+        @discardableResult
+        func then_should_navigate_to_select_location() -> ScenarioMaker {
+            assert(mockView.navigateToSelectLocationCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_no_location_error() -> ScenarioMaker {
+            assert(mockView.showNoLocationErrorCalls == 1)
+            return self
+        }
     }
 }
 
@@ -203,6 +257,8 @@ class CreateSceneViewMock: CreateSceneView {
     var titleResult = ""
     var descriptionResult = ""
     var pictureResult: UIImage?
+    var latitudeResult: Double?
+    var longitudeResult: Double?
     var showLoaderCalls = 0
     var hideLoaderCalls = 0
     var enableButtonCalls = 0
@@ -214,6 +270,8 @@ class CreateSceneViewMock: CreateSceneView {
     var showNoPictureErrorCalls = 0
     var navigateToPickAndCropImageCalls = 0
     var finishCalls = 0
+    var showNoLocationErrorCalls = 0
+    var navigateToSelectLocationCalls = 0
 
     func title() -> String { return titleResult }
     func description() -> String { return descriptionResult }
@@ -229,4 +287,8 @@ class CreateSceneViewMock: CreateSceneView {
     func showNoPictureError() { showNoPictureErrorCalls += 1 }
     func navigateToPickAndCropImage() { navigateToPickAndCropImageCalls += 1 }
     func finish() { finishCalls += 1 }
+    func latitude() -> Double? { return latitudeResult }
+    func longitude() -> Double? { return longitudeResult }
+    func showNoLocationError() { showNoLocationErrorCalls += 1 }
+    func navigateToSelectLocation() { navigateToSelectLocationCalls += 1 }
 }

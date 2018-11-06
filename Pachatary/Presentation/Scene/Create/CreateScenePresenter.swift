@@ -24,12 +24,19 @@ class CreateScenePresenter {
         view.navigateToPickAndCropImage()
     }
 
+    func selectLocationButtonClick() {
+        view.navigateToSelectLocation()
+    }
+
     func createButtonClick() {
         if view.picture() == nil { view.showNoPictureError() }
+        else if view.latitude() == nil || view.longitude() == nil { view.showNoLocationError() }
         else if view.title().count == 0 || view.title().count > 80 { view.showTitleLengthError() }
         else if view.description().count == 0 { view.showNoDescriptionError() }
         else {
-            repo.createScene(experienceId, view.title(), view.description(), 0.0, 0.0)
+            repo.createScene(experienceId,
+                             view.title(), view.description(),
+                             view.latitude()!, view.longitude()!)
                 .subscribe { [unowned self] event in
                     switch event {
                     case .next(let result):
