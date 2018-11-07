@@ -102,6 +102,8 @@ class ExperienceDetailTableViewCell: UITableViewCell {
             showMoreLabel.isUserInteractionEnabled = true
             showMoreLabel.addGestureRecognizer(showMoreLabelTap)
             descriptionLabel.numberOfLines = 4
+            if !descriptionLabel.isTruncated { showMoreLabel.isHidden = true }
+            else { showMoreLabel.isHidden = false }
         }
 
         setupGradientMask()
