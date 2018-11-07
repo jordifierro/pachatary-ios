@@ -24,6 +24,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="eZc-y6-acU" userLabel="Background Image View">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GxW-7W-dxc" userLabel="Outer A View">
                                 <rect key="frame" x="0.0" y="64" width="375" height="333.5"/>
                                 <subviews>
@@ -46,7 +49,6 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="t1j-l6-VF5" secondAttribute="trailing" id="8q9-3p-Dkr"/>
                                             <constraint firstItem="t1j-l6-VF5" firstAttribute="leading" secondItem="dkg-rZ-lRc" secondAttribute="leading" id="Nc8-pL-zee"/>
@@ -57,7 +59,6 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="dkg-rZ-lRc" firstAttribute="centerY" secondItem="GxW-7W-dxc" secondAttribute="centerY" id="B7s-RQ-y3e"/>
                                     <constraint firstItem="dkg-rZ-lRc" firstAttribute="width" secondItem="GxW-7W-dxc" secondAttribute="width" id="PrH-EJ-HIm"/>
@@ -130,7 +131,6 @@
                                                 <state key="normal" title="I already have an account"/>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Agv-th-abf" firstAttribute="top" secondItem="9Tr-vl-kod" secondAttribute="bottom" id="AJd-HY-OOO"/>
                                             <constraint firstItem="cLY-Zx-MYa" firstAttribute="top" secondItem="Agv-th-abf" secondAttribute="bottom" constant="10" id="IzU-Hb-W1H"/>
@@ -150,16 +150,12 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="gXc-mz-V7u" firstAttribute="width" secondItem="1Rv-js-xDb" secondAttribute="width" id="G9d-Bp-Xf2"/>
                                     <constraint firstItem="gXc-mz-V7u" firstAttribute="centerX" secondItem="1Rv-js-xDb" secondAttribute="centerX" id="qlD-pz-iMl"/>
                                     <constraint firstItem="gXc-mz-V7u" firstAttribute="centerY" secondItem="1Rv-js-xDb" secondAttribute="centerY" id="s2n-pA-tjU"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="eZc-y6-acU" userLabel="Background Image View">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -377,12 +373,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="2ft-BE-UDJ">
-                                <rect key="frame" x="143" y="294" width="20" height="20"/>
-                            </activityIndicatorView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="gUM-DM-RbW" userLabel="Background Image View">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="2ft-BE-UDJ">
+                                <rect key="frame" x="143" y="294" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -411,12 +407,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WGB-gX-iGC">
-                                <rect key="frame" x="177" y="333.5" width="20" height="20"/>
-                            </activityIndicatorView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="fXv-nV-DH7" userLabel="Background Image View">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WGB-gX-iGC">
+                                <rect key="frame" x="177" y="333.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
