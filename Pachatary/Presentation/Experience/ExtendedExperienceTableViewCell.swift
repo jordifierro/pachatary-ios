@@ -30,11 +30,14 @@ class ExtendedExperienceTableViewCell: UITableViewCell {
         self.profileClickListener = profileClickListener
         self.username = experience.authorProfile.username
         if experience.picture != nil {
-            pictureImageView.kf.setImage(with: URL(string: experience.picture!.mediumUrl))
+            let pictureUrl = PictureDeviceCompat.convert(experience.picture!).fullScreenSizeUrl
+            pictureImageView.kf.setImage(with: URL(string: pictureUrl))
         }
         else { pictureImageView.kf.setImage(with: nil) }
         if experience.authorProfile.picture != nil {
-            authorImageView.kf.setImage(with: URL(string: experience.authorProfile.picture!.smallUrl))
+            let pictureUrl = PictureDeviceCompat
+                .convert(experience.authorProfile.picture!).iconSizeUrl
+            authorImageView.kf.setImage(with: URL(string: pictureUrl))
         }
         else { authorImageView.kf.setImage(with: nil) }
         authorImageView.layer.cornerRadius = 24

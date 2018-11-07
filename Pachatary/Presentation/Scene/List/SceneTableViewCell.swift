@@ -38,7 +38,8 @@ class SceneTableViewCell: UITableViewCell {
         self.onEditSceneClickListener = editSceneListener
         self.showMoreListener = showMoreListener
         if scene.picture != nil {
-            pictureImageView.kf.setImage(with: URL(string: scene.picture!.mediumUrl))
+            let pictureUrl = PictureDeviceCompat.convert(scene.picture!).fullScreenSizeUrl
+            pictureImageView.kf.setImage(with: URL(string: pictureUrl))
         }
         else { pictureImageView.kf.setImage(with: nil) }
         titleLabel.text = scene.title

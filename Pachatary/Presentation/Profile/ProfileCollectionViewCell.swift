@@ -16,7 +16,8 @@ class ProfileCollectionViewCell: UICollectionViewCell {
 
     func bind(_ profile: Profile) {
         if profile.picture != nil {
-            pictureImageView.kf.setImage(with: URL(string: profile.picture!.smallUrl))
+            let pictureUrl = PictureDeviceCompat.convert(profile.picture!).halfScreenSizeUrl
+            pictureImageView.kf.setImage(with: URL(string: pictureUrl))
         }
         else { pictureImageView.kf.setImage(with: nil) }
         pictureImageView.layer.cornerRadius = 60

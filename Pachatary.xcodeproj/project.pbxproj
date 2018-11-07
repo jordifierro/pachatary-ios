@@ -184,6 +184,7 @@
 		AEFD31A721933185006DE38F /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFD31A621933185006DE38F /* SettingsTableViewCell.swift */; };
 		AEFD31A9219332B5006DE38F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFD31A8219332B5006DE38F /* SettingsViewController.swift */; };
 		AEFD31AB21934D03006DE38F /* UILabel+IsTruncated.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFD31AA21934D03006DE38F /* UILabel+IsTruncated.swift */; };
+		AEFD31AD21935071006DE38F /* PictureDeviceCompat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFD31AC21935071006DE38F /* PictureDeviceCompat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -388,6 +389,7 @@
 		AEFD31A621933185006DE38F /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		AEFD31A8219332B5006DE38F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		AEFD31AA21934D03006DE38F /* UILabel+IsTruncated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+IsTruncated.swift"; sourceTree = "<group>"; };
+		AEFD31AC21935071006DE38F /* PictureDeviceCompat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureDeviceCompat.swift; sourceTree = "<group>"; };
 		B2ACA8339ABA2B763112FF08 /* Pods_PachataryUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PachataryUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBC254374080C1DC71C218C9 /* Pods-PachataryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryTests/Pods-PachataryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DAF4095E340B87EBAF7D0C10 /* Pods-Pachatary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pachatary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pachatary/Pods-Pachatary.debug.xcconfig"; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 				AE41B0E3218F5044007EB74E /* PickAndCropImagePresenter.swift */,
 				AE2006252190EE26009CAC5C /* UIImage+RoundCorners.swift */,
 				AEFD31AA21934D03006DE38F /* UILabel+IsTruncated.swift */,
+				AEFD31AC21935071006DE38F /* PictureDeviceCompat.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1423,6 +1426,7 @@
 				AEFD31AB21934D03006DE38F /* UILabel+IsTruncated.swift in Sources */,
 				AE86D9E5215E41B3003D2B34 /* SavedExperiencesView.swift in Sources */,
 				AEB0B4152167DB33000BABC4 /* SelectLocationView.swift in Sources */,
+				AEFD31AD21935071006DE38F /* PictureDeviceCompat.swift in Sources */,
 				AEE1528E20D96DC6008707FF /* ToResultMapper.swift in Sources */,
 				AEEC749620CA780F00B86837 /* DataError.swift in Sources */,
 				AEA5662B2113369D00F0E1F3 /* ProfileMapper.swift in Sources */,

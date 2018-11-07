@@ -189,7 +189,8 @@ extension EditExperienceViewController: UITextViewDelegate {
         }
         else {
             pictureImageView.backgroundColor = UIColor.white
-            pictureImageView.kf.setImage(with: URL(string: experience.picture!.smallUrl))
+            let pictureUrl = PictureDeviceCompat.convert(experience.picture!).halfScreenSizeUrl
+            pictureImageView.kf.setImage(with: URL(string: pictureUrl))
             pictureImageView.roundCornersForAspectFit(radius: 23)
         }
     }

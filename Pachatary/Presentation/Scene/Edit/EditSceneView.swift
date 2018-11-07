@@ -134,7 +134,8 @@ extension EditSceneViewController: EditSceneView {
         }
         else {
             pictureImageView.backgroundColor = UIColor.white
-            pictureImageView.kf.setImage(with: URL(string: scene.picture!.smallUrl))
+            let pictureUrl = PictureDeviceCompat.convert(scene.picture!).halfScreenSizeUrl
+            pictureImageView.kf.setImage(with: URL(string: pictureUrl))
             pictureImageView.roundCornersForAspectFit(radius: 23)
         }
         selectedLatitude = scene.latitude

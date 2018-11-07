@@ -16,7 +16,8 @@ class SquareExperienceCollectionViewCell: UICollectionViewCell {
     
     func bind(_ experience: Experience) {
         if experience.picture != nil {
-            pictureImageView.kf.setImage(with: URL(string: experience.picture!.smallUrl))
+            let pictureUrl = PictureDeviceCompat.convert(experience.picture!).halfScreenSizeUrl
+            pictureImageView.kf.setImage(with: URL(string: pictureUrl))
         }
         else { pictureImageView.kf.setImage(with: nil) }
         titleLabel.text = experience.title
