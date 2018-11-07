@@ -34,6 +34,7 @@ class AskLoginEmailViewController: UIViewController {
     }
     
     @objc func ask(_ sender: UIButton!) {
+        self.view.endEditing(true)
         presenter.onAskClick(emailTextField.text!)
     }
 }

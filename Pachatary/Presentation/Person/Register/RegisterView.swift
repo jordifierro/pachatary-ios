@@ -37,6 +37,7 @@ class RegisterViewController: UIViewController {
     }
 
     @objc func register(_ sender: UIButton!) {
+        self.view.endEditing(true)
         presenter!.registerClick(emailTextField.text!, usernameTextField.text!)
     }
 }
