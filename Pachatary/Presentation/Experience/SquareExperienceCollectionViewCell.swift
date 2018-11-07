@@ -28,7 +28,7 @@ class SquareExperienceCollectionViewCell: UICollectionViewCell {
     func setupGradientMask() {
         if self.gradientLayer == nil {
             gradientLayer = CAGradientLayer.init(layer: self.pictureImageView.layer)
-            gradientLayer!.frame = self.pictureImageView.bounds;
+            gradientLayer!.frame = self.pictureImageView.bounds
             gradientLayer!.colors = [UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
                                      UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor,
                                      UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor]

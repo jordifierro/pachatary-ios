@@ -87,13 +87,18 @@ class SceneTableViewCell: UITableViewCell {
     private func setupGradientMask() {
         if self.gradientLayer == nil {
             gradientLayer = CAGradientLayer.init(layer: self.pictureImageView.layer)
-            gradientLayer!.frame = CGRect(x: 0, y: 0,
-                                          width: self.bounds.width, height: self.bounds.width)
+            gradientLayer!.frame = self.pictureImageView.bounds
             gradientLayer!.colors = [UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
                                      UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor]
             gradientLayer!.locations = [0.5, 1]
             gradientLayer!.zPosition = 1000
             self.pictureImageView.layer.addSublayer(gradientLayer!)
         }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.gradientLayer?.frame = self.pictureImageView.bounds
     }
 }
