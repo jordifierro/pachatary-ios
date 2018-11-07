@@ -76,6 +76,8 @@ class ExperienceRepoImplementation: ExperienceRepository {
                             .other, .update, list: [experience], result: nil)
                         self.requestersSwitch.modifyResult(
                             .saved, .update, list: [experience], result: nil)
+                        self.requestersSwitch.modifyResult(
+                            .mine, .update, list: [experience], result: nil)
                     case .inProgress: break
                     case .error: break
                     }

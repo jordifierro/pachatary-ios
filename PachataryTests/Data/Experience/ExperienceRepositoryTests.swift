@@ -112,6 +112,7 @@ class ExperienceRepositoryTests: XCTestCase {
             .then_should_modify_switch_result(1, .persons, .update, [Mock.experience("4")])
             .then_should_modify_switch_result(2, .other, .update, [Mock.experience("4")])
             .then_should_modify_switch_result(3, .saved, .update, [Mock.experience("4")])
+            .then_should_modify_switch_result(4, .mine, .update, [Mock.experience("4")])
     }
 
     func test_create_experience() {
