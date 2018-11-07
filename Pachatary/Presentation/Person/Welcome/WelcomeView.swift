@@ -40,6 +40,12 @@ class WelcomeViewController: UIViewController {
             AppDelegate.shared.rootViewController.pendingAskLoginEmailDeeplink = false
             self.navigateToLogin()
         }
+
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     @objc func start(_ sender: UIButton!) {

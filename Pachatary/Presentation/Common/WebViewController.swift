@@ -23,6 +23,8 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+
         var urlString = AppDataDependencyInjector.apiUrl
         switch self.webViewType! {
         case .privacyPolicy:

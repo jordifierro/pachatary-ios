@@ -30,6 +30,8 @@ class AskLoginEmailViewController: UIViewController {
         emailTextField.leftViewMode = .always
         emailTextField.delegate = self
 
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+
         presenter.view = self
     }
     
