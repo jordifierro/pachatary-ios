@@ -24,7 +24,9 @@ class ProfileRouterViewController: UIViewController {
 
 extension ProfileRouterViewController: ProfileRouterView {
     func navigateToProfile(_ username: String) {
-        AppDelegate.shared.rootViewController.navigateToProfile(username)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+            AppDelegate.shared.rootViewController.navigateToProfile(username)
+        }
     }
 
     func showRetry() {

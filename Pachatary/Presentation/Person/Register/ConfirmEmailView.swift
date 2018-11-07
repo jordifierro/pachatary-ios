@@ -28,7 +28,9 @@ class ConfirmEmailViewController: UIViewController {
 extension ConfirmEmailViewController: ConfirmEmailView {
 
     func navigateToMain() {
-        AppDelegate.shared.rootViewController.navigateToMain()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+            AppDelegate.shared.rootViewController.navigateToMain()
+        }
     }
 
     func showLoader(_ visibility: Bool) {

@@ -28,11 +28,15 @@ class LoginViewController: UIViewController {
 extension LoginViewController: LoginView {
     
     func navigateToMain() {
-        AppDelegate.shared.rootViewController.navigateToMain()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+            AppDelegate.shared.rootViewController.navigateToMain()
+        }
     }
 
     func navigateToAskLoginEmail() {
-        AppDelegate.shared.rootViewController.navigateToAskLoginEmail()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+            AppDelegate.shared.rootViewController.navigateToAskLoginEmail()
+        }
     }
 
     func showLoader(_ visibility: Bool) {

@@ -35,11 +35,13 @@ class RootViewController: UIViewController {
         current.didMove(toParentViewController: self)
     }
     
-    private func animateFadeTransition(to new: UIViewController, completion: (() -> Void)? = nil) {
+    private func animateFadeTransition(to new: UIViewController,
+                                       duration: Float = 0.3,
+                                       completion: (() -> Void)? = nil) {
         current.willMove(toParentViewController: nil)
         addChildViewController(new)
         
-        transition(from: current, to: new, duration: 0.3,
+        transition(from: current, to: new, duration: TimeInterval(duration),
                    options: [.transitionCrossDissolve, .curveEaseOut], animations: { })
             { completed in
                 self.current.removeFromParentViewController()
@@ -60,7 +62,7 @@ class RootViewController: UIViewController {
             .instantiateViewController(withIdentifier: "profileRouterViewController")
             as! ProfileRouterViewController
         profileRouterViewController.username = username
-        animateFadeTransition(to: profileRouterViewController)
+        animateFadeTransition(to: profileRouterViewController, duration: 0.0)
     }
 
     func navigateToProfile(_ username: String) {
@@ -73,7 +75,7 @@ class RootViewController: UIViewController {
             .instantiateViewController(withIdentifier: "experienceRouterViewController")
             as! ExperienceRouterViewController
         experienceRouterViewController.experienceShareId = experienceShareId
-        animateFadeTransition(to: experienceRouterViewController)
+        animateFadeTransition(to: experienceRouterViewController, duration: 0.0)
     }
 
     func navigateToExperience(_ experienceId: String) {
@@ -85,14 +87,14 @@ class RootViewController: UIViewController {
         let loginViewController = UIStoryboard.init(name: "Person", bundle: nil)
             .instantiateViewController(withIdentifier: "loginViewController")
         (loginViewController as! LoginViewController).token = token
-        animateFadeTransition(to: loginViewController)
+        animateFadeTransition(to: loginViewController, duration: 0.0)
     }
 
     func navigateToConfirmEmail(token: String) {
         let confirmEmailViewController = UIStoryboard.init(name: "Person", bundle: nil)
             .instantiateViewController(withIdentifier: "confirmEmailViewController")
         (confirmEmailViewController as! ConfirmEmailViewController).token = token
-        animateFadeTransition(to: confirmEmailViewController)
+        animateFadeTransition(to: confirmEmailViewController, duration: 0.0)
     }
 
     func navigateToAskLoginEmail() {

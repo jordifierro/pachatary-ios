@@ -29,7 +29,9 @@ class ExperienceRouterViewController: UIViewController {
 
 extension ExperienceRouterViewController: ExperienceRouterView {
     func navigateToExperience(_ experienceId: String) {
-        AppDelegate.shared.rootViewController.navigateToExperience(experienceId)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+            AppDelegate.shared.rootViewController.navigateToExperience(experienceId)
+        }
     }
 
     func showRetry() {
