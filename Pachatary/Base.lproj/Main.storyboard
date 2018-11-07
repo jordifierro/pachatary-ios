@@ -205,7 +205,6 @@
                                                 <constraint firstAttribute="trailing" secondItem="fLj-d2-xsV" secondAttribute="trailing" constant="10" id="lHR-TK-yXh"/>
                                                 <constraint firstItem="wjd-a2-sOi" firstAttribute="width" secondItem="VhN-Lg-eXI" secondAttribute="width" id="q3T-aC-0ym"/>
                                                 <constraint firstItem="wjd-a2-sOi" firstAttribute="top" secondItem="VhN-Lg-eXI" secondAttribute="top" id="uSD-Ep-iTt"/>
-                                                <constraint firstItem="tZf-Ji-I2t" firstAttribute="centerY" secondItem="fLj-d2-xsV" secondAttribute="centerY" id="vk5-e8-7Tw"/>
                                                 <constraint firstItem="tZf-Ji-I2t" firstAttribute="bottom" secondItem="wjd-a2-sOi" secondAttribute="bottom" constant="-10" id="ydb-dg-lC5"/>
                                             </constraints>
                                         </tableViewCellContentView>
