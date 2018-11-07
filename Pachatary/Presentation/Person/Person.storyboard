@@ -284,7 +284,7 @@
         <!--Settings View Controller-->
         <scene sceneID="kaH-Ov-U1a">
             <objects>
-                <viewController storyboardIdentifier="settingsViewController" id="nBX-x0-1N3" customClass="SettingsViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settingsViewController" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="nBX-x0-1N3" customClass="SettingsViewController" customModule="Pachatary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P7P-Oo-93r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
