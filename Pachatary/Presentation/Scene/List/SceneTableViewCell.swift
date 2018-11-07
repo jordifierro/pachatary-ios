@@ -40,6 +40,7 @@ class SceneTableViewCell: UITableViewCell {
         if scene.picture != nil {
             pictureImageView.kf.setImage(with: URL(string: scene.picture!.mediumUrl))
         }
+        else { pictureImageView.kf.setImage(with: nil) }
         titleLabel.text = scene.title
         descriptionLabel.text = scene.description
         navigateToSceneButton.addTarget(self, action: #selector(navigateToSceneButtonListener),
