@@ -181,6 +181,8 @@
 		AEEC74A120CACF0F00B86837 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEEC74A020CACF0F00B86837 /* AuthRepository.swift */; };
 		AEEC74A320CADB8C00B86837 /* AuthHeaderPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEEC74A220CADB8C00B86837 /* AuthHeaderPlugin.swift */; };
 		AEEC74A520CAE0BF00B86837 /* ClientVersionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEEC74A420CAE0BF00B86837 /* ClientVersionPlugin.swift */; };
+		AEFD31A721933185006DE38F /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFD31A621933185006DE38F /* SettingsTableViewCell.swift */; };
+		AEFD31A9219332B5006DE38F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFD31A8219332B5006DE38F /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -382,6 +384,8 @@
 		AEEC74A020CACF0F00B86837 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		AEEC74A220CADB8C00B86837 /* AuthHeaderPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderPlugin.swift; sourceTree = "<group>"; };
 		AEEC74A420CAE0BF00B86837 /* ClientVersionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientVersionPlugin.swift; sourceTree = "<group>"; };
+		AEFD31A621933185006DE38F /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		AEFD31A8219332B5006DE38F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B2ACA8339ABA2B763112FF08 /* Pods_PachataryUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PachataryUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBC254374080C1DC71C218C9 /* Pods-PachataryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryTests/Pods-PachataryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DAF4095E340B87EBAF7D0C10 /* Pods-Pachatary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pachatary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pachatary/Pods-Pachatary.debug.xcconfig"; sourceTree = "<group>"; };
@@ -878,6 +882,7 @@
 		AEDB0DB9211B3F62004F843E /* Person */ = {
 			isa = PBXGroup;
 			children = (
+				AEFD31A52193316B006DE38F /* Settings */,
 				AE41B0C7218DF905007EB74E /* Register */,
 				AEDB0DC1211B51B9004F843E /* Login */,
 				AEDB0DC0211B51A6004F843E /* Welcome */,
@@ -1047,6 +1052,15 @@
 				AE86639520D7D3B5008CE6D2 /* AuthDataDependencyInjector.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		AEFD31A52193316B006DE38F /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AEFD31A621933185006DE38F /* SettingsTableViewCell.swift */,
+				AEFD31A8219332B5006DE38F /* SettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		FDF91A2D5E4AB32B85DEDFE5 /* Frameworks */ = {
@@ -1428,6 +1442,7 @@
 				AE41B0C9218DF92F007EB74E /* RegisterView.swift in Sources */,
 				AE86639420D7D22F008CE6D2 /* AppDataDependencyInjector.swift in Sources */,
 				AED9ECA421651440008C46DC /* ExperienceRequestersSwitch.swift in Sources */,
+				AEFD31A721933185006DE38F /* SettingsTableViewCell.swift in Sources */,
 				AE3BE3BE211A154C00D10A19 /* WelcomeView.swift in Sources */,
 				AE603824216E48C70023F3BB /* ProfileRouterView.swift in Sources */,
 				AEAE26B220E288C500E5D4E9 /* SceneMapper.swift in Sources */,
@@ -1461,6 +1476,7 @@
 				AE414BDC215D358F0077284C /* LoaderTableViewCell.swift in Sources */,
 				AEB6A66420DBE4C000F936DB /* ExperienceRepository.swift in Sources */,
 				AE41B0E0218F18AC007EB74E /* EditableProfileCollectionViewCell.swift in Sources */,
+				AEFD31A9219332B5006DE38F /* SettingsViewController.swift in Sources */,
 				AE6F8B6B20DABA3D007CC36A /* Requester.swift in Sources */,
 				AEA5662F211375B100F0E1F3 /* ExperienceDetailTableViewCell.swift in Sources */,
 				AE86D9E7215E429F003D2B34 /* SavedExperiencesPresenter.swift in Sources */,

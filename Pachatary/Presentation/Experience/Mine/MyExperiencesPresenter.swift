@@ -160,4 +160,8 @@ class MyExperiencesPresenter {
     func createExperienceClick() {
         view.navigateToCreateExperience()
     }
+
+    func settingsClick() {
+        view.navigateToSettings()
+    }
 }

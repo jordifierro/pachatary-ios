@@ -14,6 +14,7 @@ protocol MyExperiencesView : class {
     func navigateToExperienceScenes(_ experienceId: String)
     func navigateToRegister()
     func navigateToCreateExperience()
+    func navigateToSettings()
     func showShareDialog(_ username: String)
     func navigateToPickAndCropImage()
     func showUploadInProgress()
@@ -60,10 +61,15 @@ class MyExperiencesViewController: UIViewController {
 
         self.collectionView.addSubview(self.refreshControl)
 
+        self.navigationItem.rightBarButtonItems = []
+        let settingsBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "icSettings.png")?.withRenderingMode(.alwaysTemplate),
+            style: .done, target: self, action: #selector(settingsClick))
+        self.navigationItem.rightBarButtonItems?.append(settingsBarButtonItem)
         let shareBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "icShare.png")?.withRenderingMode(.alwaysTemplate),
             style: .done, target: self, action: #selector(shareClick))
-        self.navigationItem.rightBarButtonItem = shareBarButtonItem
+        self.navigationItem.rightBarButtonItems?.append(shareBarButtonItem)
 
         registerButton.addTarget(self,
             action: #selector(MyExperiencesViewController.registerClick(_:)), for: .touchUpInside)
@@ -88,6 +94,10 @@ class MyExperiencesViewController: UIViewController {
 
     @objc func shareClick(){
         presenter!.shareClick()
+    }
+
+    @objc func settingsClick(){
+        presenter!.settingsClick()
     }
 
     override func didReceiveMemoryWarning() {
@@ -285,6 +295,12 @@ extension MyExperiencesViewController: MyExperiencesView {
 
     func navigateToCreateExperience() {
         performSegue(withIdentifier: "createExperienceSegue", sender: self)
+    }
+
+    func navigateToSettings() {
+        let settingsViewController = UIStoryboard(name: "Person", bundle: nil)
+            .instantiateViewController(withIdentifier: "settingsViewController")
+        self.navigationController?.pushViewController(settingsViewController, animated: true)
     }
 
     func showShareDialog(_ username: String) {

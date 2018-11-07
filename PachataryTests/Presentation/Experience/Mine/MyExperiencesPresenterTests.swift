@@ -190,6 +190,12 @@ class MyExperiencesPresenterTests: XCTestCase {
             .then_should_navigate_to_create_experience()
     }
 
+    func test_on_settings_click_navigates_to_settings() {
+        ScenarioMaker()
+            .when_settings_click()
+            .then_should_navigate_to_settings()
+    }
+
     class ScenarioMaker {
         let mockExperienceRepo = ExperienceRepoMock()
         let mockProfileRepo = ProfileRepositoryMock()
@@ -256,6 +262,11 @@ class MyExperiencesPresenterTests: XCTestCase {
 
         func when_share_click() -> ScenarioMaker {
             presenter.shareClick()
+            return self
+        }
+
+        func when_settings_click() -> ScenarioMaker {
+            presenter.settingsClick()
             return self
         }
 
@@ -411,6 +422,12 @@ class MyExperiencesPresenterTests: XCTestCase {
             assert(mockView.navigateToCreateExperienceCalls == 1)
             return self
         }
+
+        @discardableResult
+        func then_should_navigate_to_settings() -> ScenarioMaker {
+            assert(mockView.navigateToSettingsCalls == 1)
+            return self
+        }
     }
 }
 
@@ -432,6 +449,7 @@ class MyExperiencesViewMock: MyExperiencesView {
     var showUploadSuccessCalls = 0
     var showUploadErrorCalls = 0
     var showNotEnoughInfoToShareCalls = 0
+    var navigateToSettingsCalls = 0
 
     func showExperiences(_ experiences: [Experience]) {
         showExperienceCalls.append(experiences)
@@ -495,5 +513,9 @@ class MyExperiencesViewMock: MyExperiencesView {
 
     func showNotEnoughInfoToShare() {
         showNotEnoughInfoToShareCalls += 1
+    }
+
+    func navigateToSettings() {
+        navigateToSettingsCalls += 1
     }
 }
