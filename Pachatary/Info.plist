@@ -52,7 +52,7 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Show nearby content</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
+	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Use photo album to select pictures to upload</string>
 	<key>UIAppFonts</key>
 	<array>
