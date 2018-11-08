@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Saves count"; ObjectID = "51f-q8-neO"; */
+"51f-q8-neO.text" = "Número de guardats";
+
+/* Class = "UILabel"; text = "Author username"; ObjectID = "fwb-zo-Uoh"; */
+"fwb-zo-Uoh.text" = "Nom de l'autor";
+
+/* Class = "UILabel"; text = "SCENES"; ObjectID = "gcN-qh-fhN"; */
+"gcN-qh-fhN.text" = "ESCENES";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "jB3-Xz-CKp"; */
+"jB3-Xz-CKp.text" = "Títol";
+
+/* Class = "UILabel"; text = "show more"; ObjectID = "tX1-nw-dwh"; */
+"tX1-nw-dwh.text" = "veure més";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "voI-VH-337"; */
+"voI-VH-337.text" = "Descripció";

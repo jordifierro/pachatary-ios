@@ -1,0 +1,112 @@
+/*
+ Localizable.strings
+ */
+
+//WelcomeView
+"terms and conditions" = "termes i condicions";
+"privacy policy" = "política de privacitat";
+
+//LoginView
+"Oops! Some error occurred during login. Please, ask a new login email" =
+    "Òndia! Quelcom no ha anat bé durant el login. Sisplay, demana un nou correu per entrar";
+
+//SavedExperiencesView
+"SAVED EXPERIENCES" = "EXPERIÈNCIES GUARDADES";
+
+//MyExperiencesView
+"Uploading image..." = "Pujant imatge...";
+"Image successfully uploaded!" = "Imatge pujada correctament!";
+"Oops! Some error occurred during image upload. Please, try again" =
+    "Òndia! Quelcom no ha anat bé mentres es pujava la imatge. Sisplau, intenta-ho de nou";
+"You must have at least one experience and upload a profile picture" =
+    "Has de tenir almenys una experiència i imatge de perfil";
+
+//ExperienceScenesView
+"REMOVE FROM SAVED" = "ESBORRAR DE GUARDATS";
+"Are you sure you want to remove it from your saved experiences?" =
+    "Estàs segur que vols esborrar l'experiència de les guardades?";
+"OK" = "OK";
+"Cancel" = "Cancel·lar";
+
+//AskLoginEmailView
+"LOGIN" = "LOGIN";
+"We've send an email to you, open it!" = "T'hem enviat un correu, obre'l!";
+"Introduce your email" = "Introdueix el teu correu";
+
+//SelectLocationView
+"SELECT LOCATION" = "SELECCIONAR UBICACIÓ";
+"Location not found!" = "No s'ha trobat la ubicació!";
+"Cannot find your location!" = "No es pot trobar la teva ubicació!";
+
+//WebViewController
+"PRIVACY POLICY" = "POLÍTICA DE PRIVACITAT";
+"TERMS AND CONDITIONS" = "TERMES I CONDICIONS";
+
+//Snackbar
+"Oops! Something went wrong. Please try again" = "Òndia! Quelcom no va bé. Sisplau, intenta-ho de nou";
+"RETRY" = "PROVAR";
+
+//EditableProfileCollectionViewCell
+"Tap to add your bio" = "Prem fer afegir la teva biografia";
+
+//SettingsViewController
+"SETTINGS" = "CONFIGURACIÓ";
+"Terms and conditions" = "Termes i condicions";
+"Privacy policy" = "Política de privacitat";
+
+//RegisterView
+"REGISTER" = "REGISTRE";
+"We've send a confirmation email to you, open it!" =
+    "T'hem enviat un correu de confirmació, obre'l!";
+
+//RegisterPresenter
+"Email cannot be empty" = "El correu no pot estar buit";
+"Username cannot be empty" = "El nom d'usuari no pot ser buit";
+"Oops! Some error occurred. Try again" = "Òndia! Quelcom no va bé. Intenta-ho de nou";
+
+//ConfirmEmailView
+"Email successfully confirmed!" = "Correu confirmat correctament!";
+"Wrong confirmation token. Please, ask a new one" =
+    "Clau de confirmació no vàlida. Sisplau, demana'n una de nova";
+
+//EditSceneView
+"EDIT SCENE" = "EDITAR ESCENA";
+"Scene successfully updated!" = "Escena actualitzada correctament!";
+"Scene successfully updated! Uploading image..." = "Escena actualitzada correctament! Pujant imatge...";
+"Title must be between 1 and 80 characters" = "El títol ha de tenir entre 1 i 80 caràcters";
+"Description cannot be empty" = "La descripció no pot ser buida";
+"Select a picture" = "Selecciona una imatge";
+"Select a location" = "Selecciona una ubicació";
+"Scene title..." = "Títol de l'escena...";
+"Description..." = "Descripció...";
+
+//CreateSceneView
+"ADD SCENE" = "AFEGIR ESCENA";
+"Scene successfully created! Uploading image..." = "Escena creada correctament! Pujant imatge...";
+"Title must be between 1 and 80 characters" = "El títol ha de tenir entre 1 i 80 caràcters";
+"Description cannot be empty" = "La descripció no pot ser buida";
+"Select a picture" = "Selecciona una imatge";
+"Select a location" = "Selecciona una ubicació";
+"Scene title..." = "Títol de l'escena...";
+"Description..." = "Descripció...";
+
+//EditExperienceView
+"EDIT EXPERIENCE" = "EDITAR EXPERIÈNCIA";
+"Experience title..." = "Títol de l'experiència...";
+"Description..." = "Descripció...";
+"Select a picture" = "Selecciona una imatge";
+"Description cannot be empty" = "La descripció no pot ser buida";
+"Title must be between 1 and 80 characters" = "El títol ha de tenir entre 1 i 80 caràcters";
+"Experience successfully updated!" = "Experiència actualitzada correctament!";
+"Experience successfully updated! Uploading image..." =
+"Experiència actualitzada correctament! Pujant imatge...";
+
+//CreateExperienceView
+"NEW EXPERIENCE" = "NOVA EXPERIÈNCIA";
+"Experience successfully created! Uploading image..." =
+    "Experiència creada correctament! Pujant imatge...";
+"Title must be between 1 and 80 characters" = "El títol ha de tenir entre 1 i 80 caràcters";
+"Description cannot be empty" = "La descripció no pot ser buida";
+"Select a picture" = "Selecciona una imatge";
+"Experience title..." = "Títol de l'experiència...";
+"Description..." = "Descripció...";

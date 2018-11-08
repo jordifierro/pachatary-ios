@@ -356,6 +356,13 @@
 		AEC8DCE5211DEBAE007CCC68 /* LoginPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenterTests.swift; sourceTree = "<group>"; };
 		AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POST_people_me_login.json; sourceTree = "<group>"; };
 		AEC8DCE9211DF9D3007CCC68 /* DataTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestUtils.swift; sourceTree = "<group>"; };
+		AECA27602194946C0090714D /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/ProfileCollectionViewCell.strings; sourceTree = "<group>"; };
+		AECA27612194946C0090714D /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/EditableProfileCollectionViewCell.strings; sourceTree = "<group>"; };
+		AECA27622194946C0090714D /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Person.strings; sourceTree = "<group>"; };
+		AECA27632194946D0090714D /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/ExperienceDetailTableViewCell.strings; sourceTree = "<group>"; };
+		AECA27642194946D0090714D /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Main.strings; sourceTree = "<group>"; };
+		AECA27652194946D0090714D /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		AECA27662194946D0090714D /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AED682B42175FBAF00B61891 /* ProfileApiRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileApiRepositoryTests.swift; sourceTree = "<group>"; };
 		AED682B62175FC8600B61891 /* GET_profile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GET_profile.json; sourceTree = "<group>"; };
 		AED682B8217639F200B61891 /* GET_experience.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GET_experience.json; sourceTree = "<group>"; };
@@ -1192,6 +1199,7 @@
 				en,
 				Base,
 				es,
+				ca,
 			);
 			mainGroup = AEBB628F20C547D3001A4576;
 			productRefGroup = AEBB629920C547D3001A4576 /* Products */;
@@ -1622,6 +1630,7 @@
 			children = (
 				AE9FA4C321945A0900DD5221 /* Base */,
 				AE9FA4CD21945A8E00DD5221 /* es */,
+				AECA27622194946C0090714D /* ca */,
 			);
 			name = Person.storyboard;
 			sourceTree = "<group>";
@@ -1631,6 +1640,7 @@
 			children = (
 				AE9FA4C621945A3E00DD5221 /* Base */,
 				AE9FA4CB21945A8E00DD5221 /* es */,
+				AECA27602194946C0090714D /* ca */,
 			);
 			name = ProfileCollectionViewCell.xib;
 			sourceTree = "<group>";
@@ -1640,6 +1650,7 @@
 			children = (
 				AE9FA4C921945A4400DD5221 /* Base */,
 				AE9FA4CC21945A8E00DD5221 /* es */,
+				AECA27612194946C0090714D /* ca */,
 			);
 			name = EditableProfileCollectionViewCell.xib;
 			sourceTree = "<group>";
@@ -1649,6 +1660,7 @@
 			children = (
 				AE9FA4D12194620200DD5221 /* Base */,
 				AE9FA4D42194620D00DD5221 /* es */,
+				AECA27632194946D0090714D /* ca */,
 			);
 			name = ExperienceDetailTableViewCell.xib;
 			sourceTree = "<group>";
@@ -1658,6 +1670,7 @@
 			children = (
 				AE9FA4DC2194648D00DD5221 /* Base */,
 				AE9FA4DE2194845600DD5221 /* es */,
+				AECA27662194946D0090714D /* ca */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1667,6 +1680,7 @@
 			children = (
 				AEBB62A020C547D3001A4576 /* Base */,
 				AE9FA4CE21945A8E00DD5221 /* es */,
+				AECA27642194946D0090714D /* ca */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1676,6 +1690,7 @@
 			children = (
 				AEBB62A520C547D6001A4576 /* Base */,
 				AE9FA4CF21945A8F00DD5221 /* es */,
+				AECA27652194946D0090714D /* ca */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
