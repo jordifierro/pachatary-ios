@@ -1,0 +1,90 @@
+
+/* Class = "UILabel"; text = "YOU HAVEN'T SAVED ANY EXPERIENCE YET."; ObjectID = "0EB-YN-FjL"; */
+"0EB-YN-FjL.text" = "AÚN NO HAS GUARDADO NINGUNA EXPERIENCIA.";
+
+/* Class = "UITextView"; text = "Description..."; ObjectID = "0Ze-ls-xRg"; */
+"0Ze-ls-xRg.text" = "Descripción...";
+
+/* Class = "UIButton"; normalTitle = "Create"; ObjectID = "0ne-nn-eGb"; */
+"0ne-nn-eGb.normalTitle" = "Crear";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "5Z8-3w-czS"; */
+"5Z8-3w-czS.normalTitle" = "Hecho";
+
+/* Class = "UILabel"; text = "Add the information of the scene"; ObjectID = "9b6-de-WaD"; */
+"9b6-de-WaD.text" = "Añade información de la escena";
+
+/* Class = "UITextView"; text = "Description..."; ObjectID = "9jQ-9C-Umc"; */
+"9jQ-9C-Umc.text" = "Descripción...";
+
+/* Class = "UITextView"; text = "Experience title..."; ObjectID = "9qe-Gm-oTY"; */
+"9qe-Gm-oTY.text" = "Título de la experiencia...";
+
+/* Class = "UIButton"; normalTitle = "Update"; ObjectID = "Blq-GT-x1w"; */
+"Blq-GT-x1w.normalTitle" = "Actualizar";
+
+/* Class = "UIButton"; normalTitle = "Update"; ObjectID = "IPU-Ec-MUl"; */
+"IPU-Ec-MUl.normalTitle" = "Actualizar";
+
+/* Class = "UIButton"; normalTitle = "Go to register"; ObjectID = "IVZ-jd-GtZ"; */
+"IVZ-jd-GtZ.normalTitle" = "Ir al registro";
+
+/* Class = "UILabel"; text = "Add the information of the experience"; ObjectID = "IpI-hD-dDM"; */
+"IpI-hD-dDM.text" = "Añade información de la experiencia";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "MBZ-xa-mjn"; */
+"MBZ-xa-mjn.text" = "Descripción";
+
+/* Class = "UILabel"; text = "SAVE ANY EXPERIENCE CLICKING TOP STAR ICON ON EXPERIENCE DETAIL."; ObjectID = "NaO-5L-Z2e"; */
+"NaO-5L-Z2e.text" = "GUARDA EXPERIENCIAS PULSANDO EN EL ICONO DE LA ESTRELLA DE UNA EXPERIENCIA.";
+
+/* Class = "UILabel"; text = "NO RESULTS WERE FOUND"; ObjectID = "RJ4-h3-nJi"; */
+"RJ4-h3-nJi.text" = "NO SE HAN ENCONTRADO RESULTADOS";
+
+/* Class = "UIButton"; normalTitle = "Create"; ObjectID = "RcE-zZ-Orn"; */
+"RcE-zZ-Orn.normalTitle" = "Crear";
+
+/* Class = "UITextView"; text = "Scene title..."; ObjectID = "Ro5-SC-n9V"; */
+"Ro5-SC-n9V.text" = "Título de la escena...";
+
+/* Class = "UITextField"; placeholder = "username..."; ObjectID = "TYs-bm-Cz9"; */
+"TYs-bm-Cz9.placeholder" = "nombre_de.usuario...";
+
+/* Class = "UILabel"; text = "Add the information of the scene"; ObjectID = "Tie-z7-PjU"; */
+"Tie-z7-PjU.text" = "Añade información de la escena";
+
+/* Class = "UILabel"; text = "CREATE AN ACCOUNT TO PUBLISH YOUR OWN EXPERIENCES"; ObjectID = "ZPN-IM-f5h"; */
+"ZPN-IM-f5h.text" = "CREA UNA CUENTA PARA PUBLICAR TUS PROPIAS EXPERIENCIAS";
+
+/* Class = "UILabel"; text = "Create an account to publish your own experiences"; ObjectID = "bLX-Zu-C0H"; */
+"bLX-Zu-C0H.text" = "Crea una cuenta para publicar tus propias experiencias";
+
+/* Class = "UITextView"; text = "Description..."; ObjectID = "eQ5-sc-gSG"; */
+"eQ5-sc-gSG.text" = "Descripción...";
+
+/* Class = "UILabel"; text = "Add the information of the experience"; ObjectID = "iGj-ax-xtc"; */
+"iGj-ax-xtc.text" = "Añade información de la experiencia";
+
+/* Class = "UITextView"; text = "Scene title..."; ObjectID = "l6e-r9-aHJ"; */
+"l6e-r9-aHJ.text" = "Título de la escena...";
+
+/* Class = "UITextView"; text = "Experience title..."; ObjectID = "nDn-Xf-pPH"; */
+"nDn-Xf-pPH.text" = "Título de la experiencia...";
+
+/* Class = "UITextField"; placeholder = "Email..."; ObjectID = "nQl-9b-1mX"; */
+"nQl-9b-1mX.placeholder" = "Email...";
+
+/* Class = "UITextView"; text = "Description..."; ObjectID = "q1l-oP-x31"; */
+"q1l-oP-x31.text" = "Descripción...";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "tZf-Ji-I2t"; */
+"tZf-Ji-I2t.text" = "Título";
+
+/* Class = "UIButton"; normalTitle = "Register"; ObjectID = "xzT-t6-h8Y"; */
+"xzT-t6-h8Y.normalTitle" = "Registrarse";
+
+/* Class = "UILabel"; text = "show more"; ObjectID = "yYW-Gd-UiB"; */
+"yYW-Gd-UiB.text" = "ver más";
+
+/* Class = "UILabel"; text = "YOU DON’T HAVE ANY EXPERIENCE YET. ADD YOUR FIRTS ONE!"; ObjectID = "zJN-C6-PYm"; */
+"zJN-C6-PYm.text" = "AÚN NO TIENES EXPERIENCIAS. CREA LA PRIMERA!";

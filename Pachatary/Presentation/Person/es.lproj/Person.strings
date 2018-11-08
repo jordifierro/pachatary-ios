@@ -1,0 +1,30 @@
+
+/* Class = "UILabel"; text = "We will send an email to you with a login link"; ObjectID = "3Mc-LX-tB6"; */
+"3Mc-LX-tB6.text" = "Te mandaremos un correo con un enlace para entrar";
+
+/* Class = "UIButton"; normalTitle = "I already have an account"; ObjectID = "5em-OM-7AK"; */
+"5em-OM-7AK.normalTitle" = "Ya tengo una cuenta";
+
+/* Class = "UILabel"; text = "by clicking start new adventure you accept our"; ObjectID = "9Tr-vl-kod"; */
+"9Tr-vl-kod.text" = "pulsando comenzar nueva aventura aceptas nuestros";
+
+/* Class = "UILabel"; text = "and"; ObjectID = "Agv-th-abf"; */
+"Agv-th-abf.text" = "y";
+
+/* Class = "UITextField"; placeholder = "Email..."; ObjectID = "GYB-IC-Xsi"; */
+"GYB-IC-Xsi.placeholder" = "Email...";
+
+/* Class = "UIButton"; normalTitle = "Start new adventure"; ObjectID = "JgD-Iz-YzU"; */
+"JgD-Iz-YzU.normalTitle" = "Comenzar nueva aventura";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "i8D-Xm-SxD"; */
+"i8D-Xm-SxD.text" = "Título";
+
+/* Class = "UIButton"; normalTitle = "Ask login email"; ObjectID = "llV-tZ-1We"; */
+"llV-tZ-1We.normalTitle" = "Pedir correo para entrar";
+
+/* Class = "UILabel"; text = "PACHATARY"; ObjectID = "t1j-l6-VF5"; */
+"t1j-l6-VF5.text" = "PACHATARY";
+
+/* Class = "UILabel"; text = "Discover experiences around the world and create your own!"; ObjectID = "zad-2o-x0v"; */
+"zad-2o-x0v.text" = "Descubre experiencias de todo el mundo y crea tus propias!";
