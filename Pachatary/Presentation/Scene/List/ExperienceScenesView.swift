@@ -179,13 +179,13 @@ extension ExperienceScenesViewController: ExperienceScenesView {
     }
 
     func showUnsaveConfirmationDialog() {
-        let dialogMessage = UIAlertController(title: "REMOVE FROM SAVED",
-            message: "Are you sure you want to remove it from your saved experiences?",
+        let dialogMessage = UIAlertController(title: "REMOVE FROM SAVED".localized(),
+            message: "Are you sure you want to remove it from your saved experiences?".localized(),
             preferredStyle: .alert)
-        let ok = UIAlertAction(title: "OK", style: .default)
+        let ok = UIAlertAction(title: "OK".localized(), style: .default)
                    { [unowned self] (action) -> Void in self.presenter.onUnsaveDialogOk() }
         dialogMessage.addAction(ok)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancel = UIAlertAction(title: "Cancel".localized(), style: .cancel)
                    { [unowned self] (action) -> Void in self.presenter.onUnsaveDialogCancel() }
         dialogMessage.addAction(cancel)
         self.present(dialogMessage, animated: true, completion: nil)

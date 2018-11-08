@@ -22,7 +22,7 @@ class RegisterViewController: UIViewController {
 
         presenter =  PersonDependencyInjector.registerPresenter(view: self)
 
-        self.navigationItem.title = "REGISTER"
+        self.navigationItem.title = "REGISTER".localized()
 
         registerButton.addTarget(self, action: #selector(register), for: .touchUpInside)
 
@@ -53,7 +53,7 @@ extension RegisterViewController: RegisterView {
     }
 
     func showSuccessMessage() {
-        Snackbar.show("We've send a confirmation email to you, open it!", .long)
+        Snackbar.show("We've send a confirmation email to you, open it!".localized(), .long)
     }
 
     func showLoader(_ visibility: Bool) {

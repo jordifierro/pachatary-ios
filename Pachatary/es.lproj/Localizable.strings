@@ -1,0 +1,114 @@
+/* 
+  Localizable.strings
+*/
+
+//WelcomeView
+"terms and conditions" = "términos y condiciones";
+"privacy policy" = "política de privacidad";
+
+//LoginView
+"Oops! Some error occurred during login. Please, ask a new login email" =
+    "Ueppa! Ha ocurrido un error en el login. Por favor, pida un nuevo email para entrar";
+
+//SavedExperiencesView
+"SAVED EXPERIENCES" = "EXPERIENCIAS GUARDADAS";
+
+//MyExperiencesView
+"Uploading image..." = "Subiendo imagen...";
+"Image successfully uploaded!" = "Imagen subida correctamente!";
+"Oops! Some error occurred during image upload. Please, try again" =
+    "Uepa! Ha ocurrido un error subiendo la imagen. Por favor, intente de nuevo";
+"You must have at least one experience and upload a profile picture" =
+    "Debes tener al menos una experiencia e imagen de perfil";
+
+//ExperienceScenesView
+"REMOVE FROM SAVED" = "BORRAR DE GUARDADOS";
+"Are you sure you want to remove it from your saved experiences?" =
+    "Estás seguro de que quieres borrarla de tus experiencias guardades?";
+"OK" = "OK";
+"Cancel" = "Cancelar";
+
+//AskLoginEmailView
+"LOGIN" = "LOGIN";
+"We've send an email to you, open it!" = "Te hemos mandado un correo, ábrelo!";
+"Introduce your email" = "Introduce tu correo";
+
+//SelectLocationView
+"SELECT LOCATION" = "SELECCIONA UBICACIÓN";
+"Location not found!" = "Ubicación no encontrada!";
+"Cannot find your location!" = "No podemos encontrar tu ubicación!";
+
+//WebViewController
+"PRIVACY POLICY" = "POLÍTICA DE PRIVACIDAD";
+"TERMS AND CONDITIONS" = "TÉRMINOS Y CONDICIONES";
+
+//Snackbar
+"Oops! Something went wrong. Please try again" =
+    "Uepa! Algo ha ido mal. Por favor, intenta de nuevo";
+"RETRY" = "REINTENTAR";
+
+//EditableProfileCollectionViewCell
+"Tap to add your bio" = "Pulsa para añadir tu biografía";
+
+//SettingsViewController
+"SETTINGS" = "AJUSTES";
+"Terms and conditions" = "Términos y condiciones";
+"Privacy policy" = "Política de privacidad";
+
+//RegisterView
+"REGISTER" = "REGISTRO";
+"We've send a confirmation email to you, open it!" =
+    "Te hemos mandado un correo, ábrelo!";
+
+//RegisterPresenter
+"Email cannot be empty" = "El email no puede estar vacío";
+"Username cannot be empty" = "El nombre de usuario no puede estar vacío";
+"Oops! Some error occurred. Try again" = "Uepa! Ha ocurrido un error. Prueba de nuevo";
+
+//ConfirmEmailView
+"Email successfully confirmed!" = "Correo confirmado correctamente!";
+"Wrong confirmation token. Please, ask a new one" =
+    "Clave de confirmación no válida. Por favor, pide una nueva";
+
+//EditSceneView
+"EDIT SCENE" = "EDITAR ESCENA";
+"Scene successfully updated!" = "Escena actualizada correctamente!";
+"Scene successfully updated! Uploading image..." =
+    "Escena actualizada correctamente! Subiendo imagen...";
+"Title must be between 1 and 80 characters" = "El título debe tener entre 1 y 80 caracteres";
+"Description cannot be empty" = "La descripción no puede estar vacía";
+"Select a picture" = "Selecciona una imagen";
+"Select a location" = "Selecciona una ubicación";
+"Scene title..." = "Título de la escena...";
+"Description..." = "Descripción...";
+
+//CreateSceneView
+"ADD SCENE" = "AÑADIR ESCENA";
+"Scene successfully created! Uploading image..." = "Escena create correctamente! Subiendo image...";
+"Title must be between 1 and 80 characters" = "Title must be between 1 and 80 characters";
+"Description cannot be empty" = "La descripción no puede estar vacía";
+"Select a picture" = "Selecciona una imagen";
+"Select a location" = "Selecciona una ubicación";
+"Scene title..." = "Título de la escena...";
+"Description..." = "Descripción...";
+
+//EditExperienceView
+"EDIT EXPERIENCE" = "EDITAR EXPERIENCIA";
+"Experience title..." = "Título de la experiencia...";
+"Description..." = "Descripción...";
+"Select a picture" = "Selecciona una imagen";
+"Description cannot be empty" = "La descripción no puede estar vacía";
+"Title must be between 1 and 80 characters" = "El título debe tener entre 1 y 80 caracteres";
+"Experience successfully updated!" = "Experiencia actualizada correctamente!";
+"Experience successfully updated! Uploading image..." =
+    "Experiencia actualizada correctamente! Subiendo imagen...";
+
+//CreateExperienceView
+"NEW EXPERIENCE" = "NUEVA EXPERIENCIA";
+"Experience successfully created! Uploading image..." =
+    "Experiencia creada correctamente! Subiendo imagen...";
+"Title must be between 1 and 80 characters" = "El título debe tener entre 1 y 80 caracteres";
+"Description cannot be empty" = "La descripción no puede estar vacía";
+"Select a picture" = "Selecciona una imagen";
+"Experience title..." = "Título de la experiencia...";
+"Description..." = "Descripción...";

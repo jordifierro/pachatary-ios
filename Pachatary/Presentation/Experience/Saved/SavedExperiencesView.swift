@@ -36,7 +36,7 @@ class SavedExperiencesViewController: UIViewController {
         
         presenter = ExperienceDependencyInjector.savedExperiencePresenter(view: self)
         
-        self.navigationItem.title = "SAVED EXPERIENCES"
+        self.navigationItem.title = "SAVED EXPERIENCES".localized()
         
         let loaderNib = UINib.init(nibName: "LoaderCollectionViewCell", bundle: nil)
         self.collectionView.register(loaderNib, forCellWithReuseIdentifier: "loaderCollectionCell")

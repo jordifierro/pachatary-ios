@@ -49,6 +49,8 @@ extension LoginViewController: LoginView {
     }
 
     func showError() {
-        Snackbar.show("Oops! Some error occurred during login. Please, ask a new login email", .long)
+        Snackbar.show(
+            "Oops! Some error occurred during login. Please, ask a new login email".localized(),
+            .long)
     }
 }

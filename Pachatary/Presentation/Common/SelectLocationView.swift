@@ -41,7 +41,7 @@ class SelectLocationViewController: UIViewController {
         presenter = CommonDependencyInjector.selectLocationPresenter(self, initialLatitude,
                                                                      initialLongitude)
 
-        self.navigationItem.title = "SELECT LOCATION"
+        self.navigationItem.title = "SELECT LOCATION".localized()
         self.navigationController?.navigationBar.titleTextAttributes =
             [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.semibold)]
 
@@ -114,7 +114,7 @@ extension SelectLocationViewController: SelectLocationView {
     }
 
     func showAddressNotFound() {
-        Snackbar.show("Location not found!", .short)
+        Snackbar.show("Location not found!".localized(), .short)
     }
 
     func hasLocationPermission() -> Bool {
@@ -146,7 +146,7 @@ extension SelectLocationViewController: SelectLocationView {
     }
 
     func showCannotKnowLocation() {
-        Snackbar.show("Cannot find your location!", .short)
+        Snackbar.show("Cannot find your location!".localized(), .short)
     }
 
     func finishWith(latitude: Double, longitude: Double) {

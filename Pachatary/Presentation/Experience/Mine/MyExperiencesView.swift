@@ -265,15 +265,16 @@ extension MyExperiencesViewController: MyExperiencesView {
     }
 
     func showUploadInProgress() {
-        Snackbar.show("Uploading image...", .long)
+        Snackbar.show("Uploading image...".localized(), .long)
     }
 
     func showUploadSuccess() {
-        Snackbar.show("Image successfully uploaded!", .short)
+        Snackbar.show("Image successfully uploaded!".localized(), .short)
     }
 
     func showUploadError() {
-        Snackbar.show("Oops! Some error occurred during image upload. Please, try again", .long)
+        Snackbar.show(
+            "Oops! Some error occurred during image upload. Please, try again".localized(), .long)
     }
 
     func showRetry() {
@@ -314,7 +315,9 @@ extension MyExperiencesViewController: MyExperiencesView {
     }
 
     func showNotEnoughInfoToShare() {
-        Snackbar.show("You must have at least one experience and upload a profile picture", .short)
+        Snackbar.show(
+            "You must have at least one experience and upload a profile picture".localized(),
+            .short)
     }
 }
 

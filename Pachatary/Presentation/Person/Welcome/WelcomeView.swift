@@ -30,6 +30,14 @@ class WelcomeViewController: UIViewController {
         startButton.addTarget(self, action: #selector(start), for: .touchUpInside)
         loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
         let privacyPolicyTap = UITapGestureRecognizer(target: self, action: #selector(WelcomeViewController.privacyPolicyTap(sender:)))
+
+        termsAndConditionsLabel.attributedText =
+            NSAttributedString(string: "terms and conditions".localized(),
+                               attributes: [.underlineStyle: NSUnderlineStyle.styleSingle.rawValue])
+        privacyPolicyLabel.attributedText =
+            NSAttributedString(string: "privacy policy".localized(),
+                               attributes: [.underlineStyle: NSUnderlineStyle.styleSingle.rawValue])
+
         privacyPolicyLabel.isUserInteractionEnabled = true
         privacyPolicyLabel.addGestureRecognizer(privacyPolicyTap)
         let termsAndConditionsTap = UITapGestureRecognizer(target: self, action: #selector(WelcomeViewController.termsAndConditionsTap(sender:)))

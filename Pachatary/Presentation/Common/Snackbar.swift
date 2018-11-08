@@ -9,7 +9,7 @@ class Snackbar {
         case infinite
     }
 
-    private static let errorMessage = "Oops! Something went wrong. Please try again"
+    private static let errorMessage = "Oops! Something went wrong. Please try again".localized()
 
     static func show(_ message: String, _ duration: Duration) {
         let snackbar = TTGSnackbar(message: message, duration: getTTGSnackbarDuration(duration))
@@ -23,7 +23,7 @@ class Snackbar {
 
     static func showErrorWithRetry(_ retryDelegate: @escaping () -> ()) {
         let snackbar = TTGSnackbar(message: errorMessage, duration: .forever,
-                                   actionText: "RETRY",
+                                   actionText: "RETRY".localized(),
                                    actionBlock: { snackbar in
                                                     retryDelegate()
                                                     snackbar.dismiss()

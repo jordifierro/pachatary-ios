@@ -20,7 +20,7 @@ class AskLoginEmailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.title = "LOGIN"
+        self.navigationItem.title = "LOGIN".localized()
         
         askButton.addTarget(self, action: #selector(ask), for: .touchUpInside)
 
@@ -52,7 +52,7 @@ extension AskLoginEmailViewController: AskLoginEmailView {
     }
     
     func showSuccessMessage() {
-        Snackbar.show("We've send an email to you, open it!", .long)
+        Snackbar.show("We've send an email to you, open it!".localized(), .long)
     }
 
     func showLoader(_ visibility: Bool) {
@@ -65,7 +65,7 @@ extension AskLoginEmailViewController: AskLoginEmailView {
     }
 
     func showEmptyEmailError() {
-        Snackbar.show("Introduce your email", .short)
+        Snackbar.show("Introduce your email".localized(), .short)
     }
 }
 

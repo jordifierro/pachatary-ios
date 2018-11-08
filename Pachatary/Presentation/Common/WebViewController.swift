@@ -29,10 +29,10 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         switch self.webViewType! {
         case .privacyPolicy:
             urlString += "/privacy-policy"
-            self.navigationItem.title = "PRIVACY POLICY"
+            self.navigationItem.title = "PRIVACY POLICY".localized()
         case .termsAndConditions:
             urlString += "/terms-and-conditions"
-            self.navigationItem.title = "TERMS AND CONDITIONS"
+            self.navigationItem.title = "TERMS AND CONDITIONS".localized()
         }
         let url = URL(string: urlString)
         let request = URLRequest(url: url!)

@@ -38,7 +38,7 @@ class EditableProfileCollectionViewCell: UICollectionViewCell {
 
         if profile.bio.isEmpty {
             bioTextView.textColor = UIColor.themeGreen
-            bioTextView.text = "Tap to add your bio"
+            bioTextView.text = "Tap to add your bio".localized()
         }
         else {
             bioTextView.textColor = UIColor.black

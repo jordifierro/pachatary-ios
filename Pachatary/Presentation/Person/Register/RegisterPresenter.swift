@@ -16,8 +16,8 @@ class RegisterPresenter {
     }
 
     func registerClick(_ email: String, _ username: String) {
-        if email.count == 0 { view.showError(message: "Email cannot be empty") }
-        else if username.count == 0 { view.showError(message: "Username cannot be empty") }
+        if email.count == 0 { view.showError(message: "Email cannot be empty".localized()) }
+        else if username.count == 0 { view.showError(message: "Username cannot be empty".localized()) }
         else {
             authRepository.register(email, username)
                 .observeOn(mainScheduler)
@@ -36,7 +36,8 @@ class RegisterPresenter {
                             case .clientException(_, _, let errorMessage):
                                 self.view.showError(message: errorMessage)
                             default:
-                                self.view.showError(message: "Oops! Some error occurred. Try again")
+                                self.view.showError(
+                                    message: "Oops! Some error occurred. Try again".localized())
                             }
                         case .inProgress:
                             self.view.disableButton()

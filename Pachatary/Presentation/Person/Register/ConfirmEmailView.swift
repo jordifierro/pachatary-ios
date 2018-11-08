@@ -43,10 +43,10 @@ extension ConfirmEmailViewController: ConfirmEmailView {
     }
 
     func showSuccess() {
-        Snackbar.show("Email successfully confirmed!", .long)
+        Snackbar.show("Email successfully confirmed!".localized(), .long)
     }
 
     func showError() {
-        Snackbar.show("Wrong confirmation token. Please, ask a new one", .long)
+        Snackbar.show("Wrong confirmation token. Please, ask a new one".localized(), .long)
     }
 }

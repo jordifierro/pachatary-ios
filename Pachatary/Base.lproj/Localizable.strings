@@ -1,0 +1,112 @@
+/* 
+  Localizable.strings
+*/
+
+//WelcomeView
+"terms and conditions" = "terms and conditions";
+"privacy policy" = "privacy policy";
+
+//LoginView
+"Oops! Some error occurred during login. Please, ask a new login email" =
+    "Oops! Some error occurred during login. Please, ask a new login email";
+
+//SavedExperiencesView
+"SAVED EXPERIENCES" = "SAVED EXPERIENCES";
+
+//MyExperiencesView
+"Uploading image..." = "Uploading image...";
+"Image successfully uploaded!" = "Image successfully uploaded!";
+"Oops! Some error occurred during image upload. Please, try again" =
+    "Oops! Some error occurred during image upload. Please, try again";
+"You must have at least one experience and upload a profile picture" =
+    "You must have at least one experience and upload a profile picture";
+
+//ExperienceScenesView
+"REMOVE FROM SAVED" = "REMOVE FROM SAVED";
+"Are you sure you want to remove it from your saved experiences?" =
+    "Are you sure you want to remove it from your saved experiences?";
+"OK" = "OK";
+"Cancel" = "Cancel";
+
+//AskLoginEmailView
+"LOGIN" = "LOGIN";
+"We've send an email to you, open it!" = "We've send an email to you, open it!";
+"Introduce your email" = "Introduce your email";
+
+//SelectLocationView
+"SELECT LOCATION" = "SELECT LOCATION";
+"Location not found!" = "Location not found!";
+"Cannot find your location!" = "Cannot find your location!";
+
+//WebViewController
+"PRIVACY POLICY" = "PRIVACY POLICY";
+"TERMS AND CONDITIONS" = "TERMS AND CONDITIONS";
+
+//Snackbar
+"Oops! Something went wrong. Please try again" = "Oops! Something went wrong. Please try again";
+"RETRY" = "RETRY";
+
+//EditableProfileCollectionViewCell
+"Tap to add your bio" = "Tap to add your bio";
+
+//SettingsViewController
+"SETTINGS" = "SETTINGS";
+"Terms and conditions" = "Terms and conditions";
+"Privacy policy" = "Privacy policy";
+
+//RegisterView
+"REGISTER" = "REGISTER";
+"We've send a confirmation email to you, open it!" =
+    "We've send a confirmation email to you, open it!";
+
+//RegisterPresenter
+"Email cannot be empty" = "Email cannot be empty";
+"Username cannot be empty" = "Username cannot be empty";
+"Oops! Some error occurred. Try again" = "Oops! Some error occurred. Try again";
+
+//ConfirmEmailView
+"Email successfully confirmed!" = "Email successfully confirmed!";
+"Wrong confirmation token. Please, ask a new one" =
+    "Wrong confirmation token. Please, ask a new one";
+
+//EditSceneView
+"EDIT SCENE" = "EDIT SCENE";
+"Scene successfully updated!" = "Scene successfully updated!";
+"Scene successfully updated! Uploading image..." = "Scene successfully updated! Uploading image...";
+"Title must be between 1 and 80 characters" = "Title must be between 1 and 80 characters";
+"Description cannot be empty" = "Description cannot be empty";
+"Select a picture" = "Select a picture";
+"Select a location" = "Select a location";
+"Scene title..." = "Scene title...";
+"Description..." = "Description...";
+
+//CreateSceneView
+"ADD SCENE" = "ADD SCENE";
+"Scene successfully created! Uploading image..." = "Scene successfully created! Uploading image...";
+"Title must be between 1 and 80 characters" = "Title must be between 1 and 80 characters";
+"Description cannot be empty" = "Description cannot be empty";
+"Select a picture" = "Select a picture";
+"Select a location" = "Select a location";
+"Scene title..." = "Scene title...";
+"Description..." = "Description...";
+
+//EditExperienceView
+"EDIT EXPERIENCE" = "EDIT EXPERIENCE";
+"Experience title..." = "Experience title...";
+"Description..." = "Description...";
+"Select a picture" = "Select a picture";
+"Description cannot be empty" = "Description cannot be empty";
+"Title must be between 1 and 80 characters" = "Title must be between 1 and 80 characters";
+"Experience successfully updated!" = "Experience successfully updated!";
+"Experience successfully updated! Uploading image..." =
+    "Experience successfully updated! Uploading image...";
+
+//CreateExperienceView
+"NEW EXPERIENCE" = "NEW EXPERIENCE";
+"Experience successfully created! Uploading image..." =
+    "Experience successfully created! Uploading image...";
+"Title must be between 1 and 80 characters" = "Title must be between 1 and 80 characters";
+"Description cannot be empty" = "Description cannot be empty";
+"Select a picture" = "Select a picture";
+"Experience title..." = "Experience title...";
+"Description..." = "Description...";

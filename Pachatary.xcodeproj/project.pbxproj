@@ -103,6 +103,8 @@
 		AE9FA4C521945A3E00DD5221 /* ProfileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE9FA4C721945A3E00DD5221 /* ProfileCollectionViewCell.xib */; };
 		AE9FA4C821945A4400DD5221 /* EditableProfileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE9FA4CA21945A4400DD5221 /* EditableProfileCollectionViewCell.xib */; };
 		AE9FA4D02194620200DD5221 /* ExperienceDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE9FA4D22194620200DD5221 /* ExperienceDetailTableViewCell.xib */; };
+		AE9FA4D8219463ED00DD5221 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9FA4D7219463ED00DD5221 /* String+Localized.swift */; };
+		AE9FA4D92194648700DD5221 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE9FA4DB2194648700DD5221 /* Localizable.strings */; };
 		AEA0EE5620CFB98A0040E4C9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA0EE5520CFB98A0040E4C9 /* Result.swift */; };
 		AEA5662521132F6A00F0E1F3 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5662421132F6A00F0E1F3 /* Profile.swift */; };
 		AEA56627211331D400F0E1F3 /* LittlePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA56626211331D400F0E1F3 /* LittlePicture.swift */; };
@@ -208,7 +210,7 @@
 		1DFE72F63DF3E7507D4FF8B8 /* Pods-PachataryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F75C0457AE10B772911DA00 /* Pods_Pachatary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pachatary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		386DAF74E9D4D63994E5E77E /* Pods-PachataryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PachataryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PachataryUITests/Pods-PachataryUITests.release.xcconfig"; sourceTree = "<group>"; };
-		AE07CB21211CA64500D98BC1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AE07CB21211CA64500D98BC1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		AE07CB23211CB3FB00D98BC1 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		AE0B27AD20E67D110060D923 /* ExperienceMapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceMapPresenter.swift; sourceTree = "<group>"; };
 		AE0F8F96211B549500A735B8 /* AskLoginEmailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskLoginEmailPresenter.swift; sourceTree = "<group>"; };
@@ -308,6 +310,9 @@
 		AE9FA4CF21945A8F00DD5221 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		AE9FA4D12194620200DD5221 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExperienceDetailTableViewCell.xib; sourceTree = "<group>"; };
 		AE9FA4D42194620D00DD5221 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ExperienceDetailTableViewCell.strings; sourceTree = "<group>"; };
+		AE9FA4D7219463ED00DD5221 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
+		AE9FA4DC2194648D00DD5221 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AE9FA4DE2194845600DD5221 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AEA0EE5520CFB98A0040E4C9 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		AEA5662421132F6A00F0E1F3 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		AEA56626211331D400F0E1F3 /* LittlePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittlePicture.swift; sourceTree = "<group>"; };
@@ -490,6 +495,7 @@
 				AE2006252190EE26009CAC5C /* UIImage+RoundCorners.swift */,
 				AEFD31AA21934D03006DE38F /* UILabel+IsTruncated.swift */,
 				AEFD31AC21935071006DE38F /* PictureDeviceCompat.swift */,
+				AE9FA4D7219463ED00DD5221 /* String+Localized.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -843,6 +849,7 @@
 				AEBB62A720C547D6001A4576 /* Info.plist */,
 				AE1E46022189BEA400BA7E45 /* GoogleService-Info.plist */,
 				AEC2FF83217E0CAD000E3F1B /* fonts */,
+				AE9FA4DB2194648700DD5221 /* Localizable.strings */,
 			);
 			path = Pachatary;
 			sourceTree = "<group>";
@@ -1213,6 +1220,7 @@
 				AE9FA4D02194620200DD5221 /* ExperienceDetailTableViewCell.xib in Resources */,
 				AEC2FF88217E186F000E3F1B /* Bahiana-Regular.ttf in Resources */,
 				AE9FA4C221945A0900DD5221 /* Person.storyboard in Resources */,
+				AE9FA4D92194648700DD5221 /* Localizable.strings in Resources */,
 				AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */,
 				AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */,
 				AE414BDA215D34EB0077284C /* LoaderTableViewCell.xib in Resources */,
@@ -1481,6 +1489,7 @@
 				AEE03CF6216677D30034AE0C /* ProfileRepository.swift in Sources */,
 				AED682BD2177490000B61891 /* UIColor+ThemeColors.swift in Sources */,
 				AE6C279E20D12D1B00C5F59F /* Single+NetworkResponseTransformer.swift in Sources */,
+				AE9FA4D8219463ED00DD5221 /* String+Localized.swift in Sources */,
 				AE07CB24211CB3FB00D98BC1 /* LoginPresenter.swift in Sources */,
 				AE6C27A020D1324600C5F59F /* ToDomainMapper.swift in Sources */,
 				AE61DA8620C68F6400CFEE00 /* ExperienceApiRepository.swift in Sources */,
@@ -1642,6 +1651,15 @@
 				AE9FA4D42194620D00DD5221 /* es */,
 			);
 			name = ExperienceDetailTableViewCell.xib;
+			sourceTree = "<group>";
+		};
+		AE9FA4DB2194648700DD5221 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE9FA4DC2194648D00DD5221 /* Base */,
+				AE9FA4DE2194845600DD5221 /* es */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		AEBB629F20C547D3001A4576 /* Main.storyboard */ = {

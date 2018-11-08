@@ -9,7 +9,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.title = "SETTINGS"
+        self.navigationItem.title = "SETTINGS".localized()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -34,8 +34,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         let settingsCell: SettingsTableViewCell =
             tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath)
                 as! SettingsTableViewCell
-        if indexPath.row == 0 { settingsCell.titleLabel.text = "Terms and conditions" }
-        else if indexPath.row == 1 { settingsCell.titleLabel.text = "Privacy policy" }
+        if indexPath.row == 0 { settingsCell.titleLabel.text = "Terms and conditions".localized() }
+        else if indexPath.row == 1 { settingsCell.titleLabel.text = "Privacy policy".localized() }
         return settingsCell
     }
 

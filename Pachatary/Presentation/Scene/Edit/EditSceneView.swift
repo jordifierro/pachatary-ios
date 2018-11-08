@@ -45,7 +45,7 @@ class EditSceneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.title = "EDIT SCENE"
+        self.navigationItem.title = "EDIT SCENE".localized()
 
         addPictureButton.layer.cornerRadius = 23
         pictureImageView.layer.cornerRadius = 23
@@ -175,27 +175,27 @@ extension EditSceneViewController: EditSceneView {
     }
 
     func showSuccess() {
-        Snackbar.show("Scene successfully updated!", .short)
+        Snackbar.show("Scene successfully updated!".localized(), .short)
     }
 
     func showSuccessAndUploadingPicture() {
-        Snackbar.show("Scene successfully updated! Uploading image...", .long)
+        Snackbar.show("Scene successfully updated! Uploading image...".localized(), .long)
     }
 
     func showTitleLengthError() {
-        Snackbar.show("Title must be between 1 and 80 characters", .short)
+        Snackbar.show("Title must be between 1 and 80 characters".localized(), .short)
     }
 
     func showNoDescriptionError() {
-        Snackbar.show("Description cannot be empty", .short)
+        Snackbar.show("Description cannot be empty".localized(), .short)
     }
 
     func showNoPictureError() {
-        Snackbar.show("Select a picture", .short)
+        Snackbar.show("Select a picture".localized(), .short)
     }
 
     func showNoLocationError() {
-        Snackbar.show("Select a location", .short)
+        Snackbar.show("Select a location".localized(), .short)
     }
 
     func finish() {
@@ -234,8 +234,8 @@ extension EditSceneViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text == "" {
             textView.textColor = UIColor.lightGray
-            if textView == titleTextView { textView.text = "Scene title..." }
-            else if textView == descriptionTextView { textView.text = "Description..." }
+            if textView == titleTextView { textView.text = "Scene title...".localized() }
+            else if textView == descriptionTextView { textView.text = "Description...".localized() }
         }
     }
 }
