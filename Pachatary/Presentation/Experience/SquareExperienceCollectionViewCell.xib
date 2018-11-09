@@ -27,6 +27,9 @@
                             <constraint firstAttribute="width" secondItem="lGz-AM-auJ" secondAttribute="height" multiplier="1:1" id="xev-I8-OKV"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Huf-SJ-t0n" userLabel="Shadow View" customClass="MiddleGradientShadowView" customModule="Pachatary" customModuleProvider="target">
+                        <rect key="frame" x="5" y="5" width="190" height="190"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9JD-1l-xBU" userLabel="Title Label">
                         <rect key="frame" x="24" y="91.5" width="152" height="17"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
@@ -37,11 +40,15 @@
             </view>
             <constraints>
                 <constraint firstItem="lGz-AM-auJ" firstAttribute="centerX" secondItem="nXm-oE-nOY" secondAttribute="centerX" id="EOS-TB-fcL"/>
+                <constraint firstItem="Huf-SJ-t0n" firstAttribute="leading" secondItem="lGz-AM-auJ" secondAttribute="leading" id="J8W-Et-cp8"/>
                 <constraint firstItem="9JD-1l-xBU" firstAttribute="width" secondItem="lGz-AM-auJ" secondAttribute="width" multiplier="8:10" id="JKa-et-8xD"/>
+                <constraint firstItem="Huf-SJ-t0n" firstAttribute="trailing" secondItem="lGz-AM-auJ" secondAttribute="trailing" id="Moc-Xt-Rzi"/>
+                <constraint firstItem="Huf-SJ-t0n" firstAttribute="top" secondItem="lGz-AM-auJ" secondAttribute="top" id="SwA-O5-hrc"/>
                 <constraint firstItem="lGz-AM-auJ" firstAttribute="width" secondItem="daf-qP-oQp" secondAttribute="height" multiplier="1:1" constant="-10" id="cO1-Sw-tPn"/>
                 <constraint firstItem="9JD-1l-xBU" firstAttribute="centerY" secondItem="lGz-AM-auJ" secondAttribute="centerY" id="clc-8T-LEI"/>
                 <constraint firstItem="9JD-1l-xBU" firstAttribute="centerX" secondItem="lGz-AM-auJ" secondAttribute="centerX" id="fb6-wL-20b"/>
                 <constraint firstItem="lGz-AM-auJ" firstAttribute="centerY" secondItem="nXm-oE-nOY" secondAttribute="centerY" id="jbt-PC-zut"/>
+                <constraint firstItem="Huf-SJ-t0n" firstAttribute="bottom" secondItem="lGz-AM-auJ" secondAttribute="bottom" id="xv7-zM-0pd"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="nXm-oE-nOY"/>
             <size key="customSize" width="241" height="192"/>

@@ -134,6 +134,8 @@
 		AEBB62A120C547D3001A4576 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB629F20C547D3001A4576 /* Main.storyboard */; };
 		AEBB62A320C547D6001A4576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A220C547D6001A4576 /* Assets.xcassets */; };
 		AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A420C547D6001A4576 /* LaunchScreen.storyboard */; };
+		AEBF6CDB2195EB3400BB1633 /* HalfBottomGradientShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBF6CDA2195EB3400BB1633 /* HalfBottomGradientShadowView.swift */; };
+		AEBF6CDD2195EEA700BB1633 /* MiddleGradientShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBF6CDC2195EEA700BB1633 /* MiddleGradientShadowView.swift */; };
 		AEC2FF86217E1059000E3F1B /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC2FF85217E1059000E3F1B /* CustomButtons.swift */; };
 		AEC2FF88217E186F000E3F1B /* Bahiana-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEC2FF87217E186F000E3F1B /* Bahiana-Regular.ttf */; };
 		AEC2FF8A217E4A82000E3F1B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC2FF89217E4A82000E3F1B /* WebViewController.swift */; };
@@ -348,6 +350,8 @@
 		AEBB62B220C547D6001A4576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEBB62B720C547D6001A4576 /* PachataryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PachataryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEBB62BD20C547D6001A4576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEBF6CDA2195EB3400BB1633 /* HalfBottomGradientShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfBottomGradientShadowView.swift; sourceTree = "<group>"; };
+		AEBF6CDC2195EEA700BB1633 /* MiddleGradientShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleGradientShadowView.swift; sourceTree = "<group>"; };
 		AEC2FF85217E1059000E3F1B /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		AEC2FF87217E186F000E3F1B /* Bahiana-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bahiana-Regular.ttf"; sourceTree = "<group>"; };
 		AEC2FF89217E4A82000E3F1B /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -503,6 +507,8 @@
 				AEFD31AA21934D03006DE38F /* UILabel+IsTruncated.swift */,
 				AEFD31AC21935071006DE38F /* PictureDeviceCompat.swift */,
 				AE9FA4D7219463ED00DD5221 /* String+Localized.swift */,
+				AEBF6CDA2195EB3400BB1633 /* HalfBottomGradientShadowView.swift */,
+				AEBF6CDC2195EEA700BB1633 /* MiddleGradientShadowView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1530,6 +1536,7 @@
 				AEEC749D20CACA5A00B86837 /* AuthApi.swift in Sources */,
 				AE6F8B6D20DABB21007CC36A /* Request.swift in Sources */,
 				AE41B0E4218F5044007EB74E /* PickAndCropImagePresenter.swift in Sources */,
+				AEBF6CDD2195EEA700BB1633 /* MiddleGradientShadowView.swift in Sources */,
 				AEBB629C20C547D3001A4576 /* AppDelegate.swift in Sources */,
 				AE1D6D1D20C55AA400EA6DDD /* ExtendedExperienceTableViewCell.swift in Sources */,
 				AEB326B120C6EDAA000E07D8 /* ExperienceMapper.swift in Sources */,
@@ -1555,6 +1562,7 @@
 				AEE1529020D98395008707FF /* ResultCache.swift in Sources */,
 				AE9DF5082191D4D4002602CA /* EditExperienceView.swift in Sources */,
 				AE0B27AE20E67D110060D923 /* ExperienceMapPresenter.swift in Sources */,
+				AEBF6CDB2195EB3400BB1633 /* HalfBottomGradientShadowView.swift in Sources */,
 				AEAE26AE20E2881A00E5D4E9 /* String+UrlEncoding.swift in Sources */,
 				AE6F8B6920DA5F0D007CC36A /* ConnectableObservableType+Autoconnect.swift in Sources */,
 			);

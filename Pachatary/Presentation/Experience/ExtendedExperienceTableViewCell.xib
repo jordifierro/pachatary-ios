@@ -26,6 +26,9 @@
                             <constraint firstAttribute="width" secondItem="Le8-Dg-u5X" secondAttribute="height" multiplier="1:1" id="GFn-zh-i9r"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5hh-K1-OWt" userLabel="Shadow View" customClass="HalfBottomGradientShadowView" customModule="Pachatary" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jB3-Xz-CKp">
                         <rect key="frame" x="20" y="368.5" width="360" height="21.5"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
@@ -66,10 +69,13 @@
                     <constraint firstItem="Le8-Dg-u5X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2Gz-Y9-U9x"/>
                     <constraint firstItem="fwb-zo-Uoh" firstAttribute="centerY" secondItem="gKV-br-c2P" secondAttribute="centerY" id="4hY-mg-rEx"/>
                     <constraint firstAttribute="bottom" secondItem="9wC-zH-znf" secondAttribute="bottom" constant="20" id="4jF-3B-Uf0"/>
+                    <constraint firstItem="5hh-K1-OWt" firstAttribute="leading" secondItem="Le8-Dg-u5X" secondAttribute="leading" id="4ug-wv-3Hh"/>
                     <constraint firstItem="jB3-Xz-CKp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="78s-ko-Qmp"/>
                     <constraint firstItem="Le8-Dg-u5X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="BaP-AU-9zT"/>
                     <constraint firstItem="9wC-zH-znf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="BpG-Vf-Q2t"/>
                     <constraint firstItem="j4d-gb-cFU" firstAttribute="leading" secondItem="51f-q8-neO" secondAttribute="trailing" constant="5" id="D5L-jL-297"/>
+                    <constraint firstItem="5hh-K1-OWt" firstAttribute="bottom" secondItem="Le8-Dg-u5X" secondAttribute="bottom" id="DRB-Bm-3FM"/>
+                    <constraint firstItem="5hh-K1-OWt" firstAttribute="trailing" secondItem="Le8-Dg-u5X" secondAttribute="trailing" id="FJk-3D-2B1"/>
                     <constraint firstItem="jB3-Xz-CKp" firstAttribute="bottom" secondItem="Le8-Dg-u5X" secondAttribute="bottom" constant="-10" id="GQG-oN-ydW"/>
                     <constraint firstAttribute="trailing" secondItem="j4d-gb-cFU" secondAttribute="trailing" constant="20" id="LbK-Ne-S7s"/>
                     <constraint firstItem="j4d-gb-cFU" firstAttribute="centerY" secondItem="gKV-br-c2P" secondAttribute="centerY" id="Mdv-zz-Sbw"/>
@@ -78,6 +84,7 @@
                     <constraint firstItem="9wC-zH-znf" firstAttribute="top" secondItem="gKV-br-c2P" secondAttribute="bottom" constant="20" id="cfu-sU-jvT"/>
                     <constraint firstItem="51f-q8-neO" firstAttribute="centerY" secondItem="gKV-br-c2P" secondAttribute="centerY" id="dRA-rB-vYD"/>
                     <constraint firstItem="gKV-br-c2P" firstAttribute="top" secondItem="Le8-Dg-u5X" secondAttribute="bottom" constant="10" id="eQ5-LW-awH"/>
+                    <constraint firstItem="5hh-K1-OWt" firstAttribute="top" secondItem="Le8-Dg-u5X" secondAttribute="top" id="qbV-pW-hSF"/>
                     <constraint firstItem="gKV-br-c2P" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="sqS-rx-9cM"/>
                     <constraint firstItem="fwb-zo-Uoh" firstAttribute="leading" secondItem="gKV-br-c2P" secondAttribute="trailing" constant="10" id="uiL-Yq-W7H"/>
                 </constraints>
