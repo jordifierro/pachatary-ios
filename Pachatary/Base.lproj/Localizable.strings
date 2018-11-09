@@ -110,3 +110,7 @@
 "Select a picture" = "Select a picture";
 "Experience title..." = "Experience title...";
 "Description..." = "Description...";
+
+//RootViewController
+"VERSION EXPIRED" = "VERSION EXPIRED";
+"Update your version to keep using Pachatary" = "Update your version to keep using Pachatary";

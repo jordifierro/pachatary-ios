@@ -136,6 +136,8 @@
 		AEBB62A620C547D6001A4576 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBB62A420C547D6001A4576 /* LaunchScreen.storyboard */; };
 		AEBF6CDB2195EB3400BB1633 /* HalfBottomGradientShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBF6CDA2195EB3400BB1633 /* HalfBottomGradientShadowView.swift */; };
 		AEBF6CDD2195EEA700BB1633 /* MiddleGradientShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBF6CDC2195EEA700BB1633 /* MiddleGradientShadowView.swift */; };
+		AEBF6CDF2195F89B00BB1633 /* MinVersionMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBF6CDE2195F89B00BB1633 /* MinVersionMapper.swift */; };
+		AEBF6CE12195F99A00BB1633 /* GET_client_versions.json in Resources */ = {isa = PBXBuildFile; fileRef = AEBF6CE02195F99A00BB1633 /* GET_client_versions.json */; };
 		AEC2FF86217E1059000E3F1B /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC2FF85217E1059000E3F1B /* CustomButtons.swift */; };
 		AEC2FF88217E186F000E3F1B /* Bahiana-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEC2FF87217E186F000E3F1B /* Bahiana-Regular.ttf */; };
 		AEC2FF8A217E4A82000E3F1B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC2FF89217E4A82000E3F1B /* WebViewController.swift */; };
@@ -352,6 +354,8 @@
 		AEBB62BD20C547D6001A4576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEBF6CDA2195EB3400BB1633 /* HalfBottomGradientShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfBottomGradientShadowView.swift; sourceTree = "<group>"; };
 		AEBF6CDC2195EEA700BB1633 /* MiddleGradientShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleGradientShadowView.swift; sourceTree = "<group>"; };
+		AEBF6CDE2195F89B00BB1633 /* MinVersionMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinVersionMapper.swift; sourceTree = "<group>"; };
+		AEBF6CE02195F99A00BB1633 /* GET_client_versions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GET_client_versions.json; sourceTree = "<group>"; };
 		AEC2FF85217E1059000E3F1B /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		AEC2FF87217E186F000E3F1B /* Bahiana-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bahiana-Regular.ttf"; sourceTree = "<group>"; };
 		AEC2FF89217E4A82000E3F1B /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -611,6 +615,7 @@
 				AE41B0CE218E1312007EB74E /* PATCH_people_me_ERROR.json */,
 				AE73C7C120CE83F600B05DA2 /* POST_people.json */,
 				AEC8DCE7211DF1F0007CCC68 /* POST_people_me_login.json */,
+				AEBF6CE02195F99A00BB1633 /* GET_client_versions.json */,
 				AEEC749820CAADD000B86837 /* AuthStorageRepositoryTests.swift */,
 				AE73C7BE20CE80E200B05DA2 /* AuthApiRepositoryTests.swift */,
 				AE80DE7B20CEE0CB00A170F6 /* AuthRepositoryTests.swift */,
@@ -1082,6 +1087,7 @@
 				AEEC74A020CACF0F00B86837 /* AuthRepository.swift */,
 				AEEC74A220CADB8C00B86837 /* AuthHeaderPlugin.swift */,
 				AE86639520D7D3B5008CE6D2 /* AuthDataDependencyInjector.swift */,
+				AEBF6CDE2195F89B00BB1633 /* MinVersionMapper.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1250,6 +1256,7 @@
 				AED682B72175FC8600B61891 /* GET_profile.json in Resources */,
 				AE20062A2190FBC3009CAC5C /* POST_experiences_id_picture.json in Resources */,
 				AE41B0E621904397007EB74E /* POST_profiles_me_picture.json in Resources */,
+				AEBF6CE12195F99A00BB1633 /* GET_client_versions.json in Resources */,
 				AE41B0CF218E1312007EB74E /* PATCH_people_me_ERROR.json in Resources */,
 				AEC8DCE8211DF1F0007CCC68 /* POST_people_me_login.json in Resources */,
 				AE603832216E98AC0023F3BB /* GET_experiences.json in Resources */,
@@ -1498,6 +1505,7 @@
 				AEE1528A20D94E3E008707FF /* SingleResultMapper.swift in Sources */,
 				AE2006242190DB44009CAC5C /* CreateExperiencePresenter.swift in Sources */,
 				AEC2FF8C217FAE87000E3F1B /* Snackbar.swift in Sources */,
+				AEBF6CDF2195F89B00BB1633 /* MinVersionMapper.swift in Sources */,
 				AE603826216E4C6A0023F3BB /* ProfileRouterPresenter.swift in Sources */,
 				AE218B8520E2789E00E79E51 /* ExperienceMapView.swift in Sources */,
 				AEE03CF6216677D30034AE0C /* ProfileRepository.swift in Sources */,

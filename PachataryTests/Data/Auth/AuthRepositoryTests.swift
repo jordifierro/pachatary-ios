@@ -71,6 +71,13 @@ class AuthRepositoryTests: XCTestCase {
             .then_should_return_bool_result(Result(.success, data: true))
     }
 
+    func test_min_version_returns_api_call() {
+        ScenarioMaker(self)
+            .given_an_api_repo_that_returns_when_min_version(Result(.success, data: 4))
+            .when_min_version()
+            .then_should_return_int_result(Result(.success, data: 4))
+    }
+
     class ScenarioMaker {
         let mockApiRepo = AuthApiRepoMock()
         let mockAuthStorageRepo = AuthStorageRepoMock()
@@ -82,6 +89,7 @@ class AuthRepositoryTests: XCTestCase {
         var askLoginEmailResult: Result<Bool>!
         var resultBool: Bool!
         var resultBoolResult: Result<Bool>!
+        var resultIntObservable: Observable<Result<Int>>!
 
         init(_ testCase: XCTestCase) {
             self.testCase = testCase
@@ -133,6 +141,11 @@ class AuthRepositoryTests: XCTestCase {
             mockApiRepo.loginResults[token] = result
             return self
         }
+
+        func given_an_api_repo_that_returns_when_min_version(_ result: Result<Int>) -> ScenarioMaker {
+            mockApiRepo.minVersionResult = Observable.just(result)
+            return self
+        }
         
         func when_has_person_credentials() -> ScenarioMaker {
             resultHasPersonCredentials = repo.hasPersonCredentials()
@@ -170,6 +183,20 @@ class AuthRepositoryTests: XCTestCase {
         
         func when_login(_ token: String) -> ScenarioMaker {
             do { try authTokenResult = repo.login(token).toBlocking().toArray()[0] }
+            catch { assertionFailure() }
+            return self
+        }
+
+        func when_min_version() -> ScenarioMaker {
+            resultIntObservable = repo.minVersion()
+            return self
+        }
+
+        func then_should_return_int_result(_ result: Result<Int>) -> ScenarioMaker {
+            do {
+                let intResult = try resultIntObservable.toBlocking().toArray()[0]
+                assert(intResult == result)
+            }
             catch { assertionFailure() }
             return self
         }
@@ -261,6 +288,7 @@ class AuthRepoMock: AuthRepository {
     var isRegisterCompletedResult = false
     var confirmEmailResults = [Result<Bool>]()
     var confirmEmailCalls = [String]()
+    var minVersionResult: Observable<Result<Int>>!
 
     func hasPersonCredentials() -> Bool {
         return self.hasPersonCredentialsResult
@@ -291,5 +319,9 @@ class AuthRepoMock: AuthRepository {
     func confirmEmail(_ confirmationToken: String) -> Observable<Result<Bool>> {
         confirmEmailCalls.append(confirmationToken)
         return Observable.from(confirmEmailResults)
+    }
+
+    func minVersion() -> Observable<Result<Int>> {
+        return minVersionResult
     }
 }

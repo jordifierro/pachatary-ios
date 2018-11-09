@@ -44,6 +44,14 @@ class AuthApiRepositoryTests: XCTestCase {
             .then_should_return_inprogress_and_result_success()
     }
 
+    func test_min_version() {
+        ScenarioMaker(self)
+            .given_an_api_repo()
+            .given_an_stubbed_network_call_for_client_versions()
+            .when_min_version()
+            .then_should_return_inprogress_and_result_int()
+    }
+
     class ScenarioMaker {
         
         var authApiRepo: AuthApiRepository!
@@ -51,6 +59,7 @@ class AuthApiRepositoryTests: XCTestCase {
         var testCase: XCTestCase!
         var resultObservable: Observable<Result<AuthToken>>!
         var resultBoolObservable: Observable<Result<Bool>>!
+        var resultIntObservable: Observable<Result<Int>>!
 
         init(_ testCase: XCTestCase) {
             self.testCase = testCase
@@ -101,6 +110,13 @@ class AuthApiRepositoryTests: XCTestCase {
             return self
         }
 
+        func given_an_stubbed_network_call_for_client_versions() -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
+                                          AppDataDependencyInjector.apiUrl + "/client-versions",
+                                          .GET, "GET_client_versions", 200)
+            return self
+        }
+
         func when_get_person_invitation() -> ScenarioMaker {
             resultObservable = authApiRepo.getPersonInvitation()
             return self
@@ -118,6 +134,11 @@ class AuthApiRepositoryTests: XCTestCase {
 
         func when_confirm_email(_ token: String) -> ScenarioMaker {
             resultBoolObservable = authApiRepo.confirmEmail(token)
+            return self
+        }
+
+        func when_min_version() -> ScenarioMaker {
+            resultIntObservable = authApiRepo.minVersion()
             return self
         }
         
@@ -141,6 +162,16 @@ class AuthApiRepositoryTests: XCTestCase {
             } catch { assertionFailure() }
             return self
         }
+
+        @discardableResult
+        func then_should_return_inprogress_and_result_int() -> ScenarioMaker {
+            do {
+                let result = try resultIntObservable.toBlocking().toArray()
+                assert (result[0] == Result(.inProgress))
+                assert(result[1] == Result(.success, data: 2))
+            } catch { assertionFailure() }
+            return self
+        }
     }
 }
 
@@ -155,6 +186,7 @@ class AuthApiRepoMock: AuthApiRepository {
     var registerResults = [Result<Bool>]()
     var confirmEmailCalls = [String]()
     var confirmEmailResults = [Result<Bool>]()
+    var minVersionResult: Observable<Result<Int>>!
 
     func getPersonInvitation() -> Observable<Result<AuthToken>> {
         return Observable.just(Result(.success, data: authToken))
@@ -178,5 +210,9 @@ class AuthApiRepoMock: AuthApiRepository {
     func confirmEmail(_ confirmationToken: String) -> Observable<Result<Bool>> {
         confirmEmailCalls.append(confirmationToken)
         return Observable.from(confirmEmailResults)
+    }
+
+    func minVersion() -> Observable<Result<Int>> {
+        return minVersionResult
     }
 }

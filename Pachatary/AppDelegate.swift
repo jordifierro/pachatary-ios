@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         FirebaseApp.configure()
+
+        checkIfVersionHasExpired()
         
         return true
     }
@@ -118,6 +120,29 @@ extension AppDelegate {
 
     var rootViewController: RootViewController {
         return window!.rootViewController as! RootViewController
+    }
+
+    private func checkIfVersionHasExpired() {
+        let authRepo = AuthDataDependencyInjector.authRepository
+        _ = authRepo.minVersion()
+            .observeOn(AppPresentationDependencyInjector.mainScheduler)
+            .subscribe { event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success:
+                        let currentVersion = Int(Bundle.main.object(
+                            forInfoDictionaryKey: "CFBundleVersion") as! String)!
+                        if currentVersion < result.data! {
+                            self.rootViewController.showUpdateVersionDialog()
+                        }
+                    case .error: break
+                    case .inProgress: break
+                    }
+                case .error(_): break
+                case .completed: break
+                }
+            }
     }
 
     private func setupUI() {

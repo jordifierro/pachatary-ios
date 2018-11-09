@@ -20,6 +20,3 @@ struct AuthTokenMapper: ToDomainMapper {
         return authToken
     }
 }
-
-
-

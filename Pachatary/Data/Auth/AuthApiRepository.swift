@@ -8,6 +8,7 @@ protocol AuthApiRepository {
     func login(_ token: String) -> Observable<Result<AuthToken>>
     func register(_ email: String, _ username: String) -> Observable<Result<Bool>>
     func confirmEmail(_ confirmationToken: String) -> Observable<Result<Bool>>
+    func minVersion() -> Observable<Result<Int>>
 }
 
 class AuthApiRepoImplementation: AuthApiRepository {
@@ -46,5 +47,10 @@ class AuthApiRepoImplementation: AuthApiRepository {
     func confirmEmail(_ confirmationToken: String) -> Observable<Result<Bool>> {
         return self.api.request(.confirmEmail(confirmationToken: confirmationToken))
             .transformNetworkVoidResponseOrError(ioScheduler)
+    }
+
+    func minVersion() -> Observable<Result<Int>> {
+        return self.api.request(.minVersion)
+            .transformNetworkResponse(SingleResultMapper<MinVersionMapper>.self, ioScheduler)
     }
 }

@@ -9,6 +9,7 @@ protocol AuthRepository {
     func register(_ email: String, _ username: String) -> Observable<Result<Bool>>
     func isRegisterCompleted() -> Bool
     func confirmEmail(_ confirmationToken: String) -> Observable<Result<Bool>>
+    func minVersion() -> Observable<Result<Int>>
 }
 
 class AuthRepoImplementation: AuthRepository {
@@ -77,5 +78,9 @@ class AuthRepoImplementation: AuthRepository {
                 case .inProgress: break
                 }
             })
+    }
+
+    func minVersion() -> Observable<Result<Int>> {
+        return apiRepo.minVersion()
     }
 }

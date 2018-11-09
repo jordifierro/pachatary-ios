@@ -103,4 +103,21 @@ class RootViewController: UIViewController {
         pendingAskLoginEmailDeeplink = true
         animateFadeTransition(to: welcomeViewController!)
     }
+
+    func showUpdateVersionDialog() {
+        let dialogMessage = UIAlertController(title: "VERSION EXPIRED".localized(),
+            message: "Update your version to keep using Pachatary".localized(),
+                                              preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK".localized(), style: .default)
+            { (action) in
+                let urlStr = "http://itunes.apple.com/us/app/apple-store/"
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(URL(string: urlStr)!, options: [:],
+                                              completionHandler: nil)
+
+                } else { UIApplication.shared.openURL(URL(string: urlStr)!) }
+        }
+        dialogMessage.addAction(ok)
+        self.current.present(dialogMessage, animated: true, completion: nil)
+    }
 }

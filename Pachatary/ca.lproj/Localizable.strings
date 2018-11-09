@@ -110,3 +110,7 @@
 "Select a picture" = "Selecciona una imatge";
 "Experience title..." = "Títol de l'experiència...";
 "Description..." = "Descripció...";
+
+//RootViewController
+"VERSION EXPIRED" = "VERSIÓ CADUCADA";
+"Update your version to keep using Pachatary" = "Actualitza la teva versió de Pachatary per seguir fent-lo servir";
