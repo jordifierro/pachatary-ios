@@ -13,6 +13,7 @@ enum ExperienceApi {
     case create(title: String, description: String)
     case uploadPicture(experienceId: String, picture: UIImage)
     case edit(id: String, title: String, description: String)
+    case flag(id: String, reason: String)
 }
 
 // MARK: - TargetType Protocol Implementation
@@ -47,6 +48,8 @@ extension ExperienceApi: TargetType {
             return "/experiences/" + experienceId + "/picture"
         case .edit(let id, _, _):
             return "/experiences/" + id
+        case .flag(let id, _):
+            return "/experiences/" + id + "/flag"
         }
     }
     var method: Moya.Method {
@@ -54,7 +57,7 @@ extension ExperienceApi: TargetType {
         case .save(let (_, save)):
             if save { return .post }
             else { return .delete }
-        case .create, .uploadPicture:
+        case .create, .uploadPicture, .flag:
             return .post
         case .edit:
             return .patch
@@ -85,6 +88,8 @@ extension ExperienceApi: TargetType {
         case .edit(_, let title, let description):
             return .requestParameters(parameters: ["title": title, "description": description],
                                       encoding: URLEncoding.default)
+        case .flag(_, let reason):
+            return .requestParameters(parameters: ["reason": reason], encoding: URLEncoding.default)
         default:
             return .requestPlain
         }

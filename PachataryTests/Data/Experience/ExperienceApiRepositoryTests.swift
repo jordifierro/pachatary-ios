@@ -89,13 +89,20 @@ class ExperienceApiRepositoryTests: XCTestCase {
         //Cannot test PATCH due to Hippolyte
     }
 
+    func test_flag_experience() {
+        ScenarioMaker(self).buildScenario()
+            .given_an_stubbed_network_call_for_flag("6")
+            .when_flag("6", reason: "Spam")
+            .then_should_return_flowable_with_inprogress_and_result_success()
+    }
+
     class ScenarioMaker {
         let api = MoyaProvider<ExperienceApi>().rx
         var repo: ExperienceApiRepository!
         var testCase: XCTestCase!
         var resultObservable: Observable<Result<[Experience]>>!
         var experienceObservable: Observable<Result<Experience>>!
-        var saveResultObservable: Observable<Result<Bool>>!
+        var boolResultObservable: Observable<Result<Bool>>!
         var stringResultObservable: Observable<Result<String>>!
         var paginationUrl = ""
         
@@ -199,7 +206,14 @@ class ExperienceApiRepositoryTests: XCTestCase {
                   method, nil, statusCode)
             return self
         }
-        
+
+        func given_an_stubbed_network_call_for_flag(_ experienceId: String) -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
+                                          AppDataDependencyInjector.apiUrl + "/experiences/" + experienceId + "/flag",
+                                          .POST, nil, 201)
+            return self
+        }
+
         func when_experiences_flowable(_ searchText: String, _ latitude: Double,
                                        _ longitude: Double) -> ScenarioMaker {
             resultObservable = repo.exploreExperiencesObservable(searchText, latitude, longitude)
@@ -222,7 +236,12 @@ class ExperienceApiRepositoryTests: XCTestCase {
         }
         
         func when_save(_ experienceId: String, save: Bool) -> ScenarioMaker {
-            saveResultObservable = repo.saveExperience(experienceId, save: save)
+            boolResultObservable = repo.saveExperience(experienceId, save: save)
+            return self
+        }
+
+        func when_flag(_ experienceId: String, reason: String) -> ScenarioMaker {
+            boolResultObservable = repo.flagExperience(experienceId, reason)
             return self
         }
 
@@ -292,7 +311,7 @@ class ExperienceApiRepositoryTests: XCTestCase {
         
         @discardableResult
         func then_should_return_flowable_with_inprogress_and_result_success() -> ScenarioMaker {
-            do { let result = try saveResultObservable.toBlocking().toArray()
+            do { let result = try boolResultObservable.toBlocking().toArray()
                 assert(result.count == 2)
                 assert(Result(.inProgress) == result[0])
                 assert(Result(.success, data: true) == result[1])
@@ -367,6 +386,8 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     var uploadPictureResult: Observable<Result<Experience>>?
     var editExperienceCalls = [(String, String, String)]()
     var editExperienceResult: Observable<Result<Experience>>?
+    var flagExperienceCalls = [(String, String)]()
+    var flagExperienceResult: Observable<Result<Bool>>?
 
     init() {}
 
@@ -420,5 +441,10 @@ class MockExperienceApiRepo: ExperienceApiRepository {
     func editExperience(_ experienceId: String, _ title: String, _ description: String) -> Observable<Result<Experience>> {
         editExperienceCalls.append((experienceId, title, description))
         return editExperienceResult!
+    }
+
+    func flagExperience(_ experienceId: String, _ reason: String) -> Observable<Result<Bool>> {
+        flagExperienceCalls.append((experienceId, reason))
+        return flagExperienceResult!
     }
 }

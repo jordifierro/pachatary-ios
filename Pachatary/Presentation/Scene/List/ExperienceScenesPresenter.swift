@@ -102,6 +102,29 @@ class ExperienceScenesPresenter {
         view.navigateToEditScene(sceneId)
     }
 
+    func flagClick() {
+        view.showFlagOptionsDialog()
+    }
+
+    func flagReasonChosen(_ reason: String) {
+        experienceRepo.flagExperience(experienceId, reason)
+            .observeOn(mainScheduler)
+            .subscribe { [unowned self] event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success: self.view.showFlagSuccess()
+                    case .error: self.view.showFlagError()
+                    case .inProgress: break
+                    }
+                case .error(let error): fatalError(error.localizedDescription)
+                case .completed: break
+                }
+            }
+            .disposed(by: disposeBag)
+
+    }
+
     private func getExperienceAndScenes() {
         connectToExperience()
         connectToScenes()

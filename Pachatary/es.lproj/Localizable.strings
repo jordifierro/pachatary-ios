@@ -27,6 +27,18 @@
     "Estás seguro de que quieres borrarla de tus experiencias guardades?";
 "OK" = "OK";
 "Cancel" = "Cancelar";
+"REPORT EXPERIENCE" = "REPORTAR EXPERIENCIA";
+"Why do you want to report this experience?" = "Porqué quieres reportar esta experiencia?";
+"I don't like it" = "No me gusta";
+"Spam" = "Spam";
+"False or misleading" = "Falsa o engañosa";
+"Offensive" = "Ofensiva";
+"Sexually inappropiate" = "Sexualmente inapropiada";
+"Violent or prohibited" = "Violenta o prohibida";
+"Copyright infringement" = "Vulnera derechos de autor";
+"Other reason" = "Otras razones";
+"Experience successfully reported! We will review it as soon as possible..." =
+    "Experience reportada correctamente! Lo revisaremos tan pronto como sea posible...";
 
 //AskLoginEmailView
 "LOGIN" = "LOGIN";

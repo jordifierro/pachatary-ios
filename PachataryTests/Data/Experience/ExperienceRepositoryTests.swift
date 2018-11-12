@@ -145,6 +145,14 @@ class ExperienceRepositoryTests: XCTestCase {
             .then_should_modify_switch_result(1, .explore, .update, [Mock.experience("4")])
     }
 
+    func test_flag_experience() {
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_flag(Result(.success, data: true))
+            .when_flag_experience("4", "Offensive")
+            .then_should_call_api_repo_flag("4", "Offensive")
+            .then_should_return_bool(Result(.success, data: true))
+    }
+
     class ScenarioMaker {
 
         let mockApiRepo = MockExperienceApiRepo()
@@ -154,6 +162,7 @@ class ExperienceRepositoryTests: XCTestCase {
         var experiencesObservableResult: Observable<Result<[Experience]>>!
         var experienceObservableResult: Observable<Result<Experience>>!
         var stringObservableResult: Observable<Result<String>>!
+        var boolObservableResult: Observable<Result<Bool>>!
 
         init() {
             repo = ExperienceRepoImplementation(apiRepo: mockApiRepo,
@@ -205,6 +214,11 @@ class ExperienceRepositoryTests: XCTestCase {
 
         func given_an_api_repo_that_returns_on_upload_picture(_ result: Result<Experience>) -> ScenarioMaker {
             mockApiRepo.uploadPictureResult = Observable.just(result)
+            return self
+        }
+
+        func given_an_api_repo_that_returns_on_flag(_ result: Result<Bool>) -> ScenarioMaker {
+            mockApiRepo.flagExperienceResult = Observable.just(result)
             return self
         }
 
@@ -274,6 +288,12 @@ class ExperienceRepositoryTests: XCTestCase {
             return self
         }
 
+        func when_flag_experience(_ experienceId: String, _ reason: String) -> ScenarioMaker {
+            boolObservableResult = repo.flagExperience(experienceId, reason)
+            return self
+        }
+
+
         func then_should_call_api_save(_ experienceId: String) -> ScenarioMaker {
             assert(mockApiRepo.saveCalls.count == 1)
             assert(mockApiRepo.saveCalls[0].0 == experienceId)
@@ -285,6 +305,14 @@ class ExperienceRepositoryTests: XCTestCase {
             assert(mockApiRepo.createExperienceCalls.count == 1)
             assert(mockApiRepo.createExperienceCalls[0].0 == title)
             assert(mockApiRepo.createExperienceCalls[0].1 == description)
+            return self
+        }
+
+        func then_should_call_api_repo_flag(_ experienceId: String,
+                                            _ reason: String) -> ScenarioMaker {
+            assert(mockApiRepo.flagExperienceCalls.count == 1)
+            assert(mockApiRepo.flagExperienceCalls[0].0 == experienceId)
+            assert(mockApiRepo.flagExperienceCalls[0].1 == reason)
             return self
         }
 
@@ -346,6 +374,15 @@ class ExperienceRepositoryTests: XCTestCase {
             } catch { assertionFailure() }
             return self
         }
+
+        @discardableResult
+        func then_should_return_bool(_ expectedResult: Result<Bool>) -> ScenarioMaker {
+            do { let result = try boolObservableResult.toBlocking().toArray()
+                assert(result.count == 1)
+                assert(expectedResult == result[0])
+            } catch { assertionFailure() }
+            return self
+        }
         
         @discardableResult
         func then_should_modify_switch_result(_ index: Int, _ kind: Kind,
@@ -402,6 +439,8 @@ class ExperienceRepoMock: ExperienceRepository {
     var uploadPictureCalls = [(String, UIImage)]()
     var editExperienceCalls = [(String, String, String)]()
     var editExperienceResult: Observable<Result<Experience>>!
+    var flagExperienceCalls = [(String, String)]()
+    var flagExperienceResult: Observable<Result<Bool>>!
 
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         switch kind {
@@ -460,5 +499,10 @@ class ExperienceRepoMock: ExperienceRepository {
     func editExperience(_ experienceId: String, _ title: String, _ description: String) -> Observable<Result<Experience>> {
         editExperienceCalls.append((experienceId, title, description))
         return editExperienceResult
+    }
+
+    func flagExperience(_ experienceId: String, _ reason: String) -> Observable<Result<Bool>> {
+        flagExperienceCalls.append((experienceId, reason))
+        return flagExperienceResult
     }
 }

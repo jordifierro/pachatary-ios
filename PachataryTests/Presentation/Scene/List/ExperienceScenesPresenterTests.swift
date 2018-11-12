@@ -232,6 +232,32 @@ class ExperienceScenesPresenterTests: XCTestCase {
             .then_should_navigate_to_edit_scene("7")
     }
 
+    func test_flag_click() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .when_flag_click()
+            .then_should_show_flag_options_dialog()
+    }
+
+    func test_flag_call_result_success() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .given_an_experience_repo_that_returns_on_flag(Result(.success, data: true))
+            .when_flag_reason_chosen("Inappropiate")
+            .then_should_call_repo_flag("4", "Inappropiate")
+            .then_should_show_flag_success()
+    }
+
+    func test_flag_call_result_error() {
+        ScenarioMaker()
+            .given_a_presenter("4")
+            .given_an_experience_repo_that_returns_on_flag(
+                Result(.error, error: DataError.noInternetConnection))
+            .when_flag_reason_chosen("Inappropiate")
+            .then_should_call_repo_flag("4", "Inappropiate")
+            .then_should_show_flag_error()
+    }
+
     class ScenarioMaker {
         let mockSceneRepo = SceneRepoMock()
         let mockExperienceRepo = ExperienceRepoMock()
@@ -257,6 +283,11 @@ class ExperienceScenesPresenterTests: XCTestCase {
         
         func given_an_scenes_observable_result(_ result: Result<[Scene]>, experienceId: String) -> ScenarioMaker {
             mockSceneRepo.resultSceneForExperience[experienceId] = result
+            return self
+        }
+
+        func given_an_experience_repo_that_returns_on_flag(_ result: Result<Bool>) -> ScenarioMaker {
+            mockExperienceRepo.flagExperienceResult = Observable.just(result)
             return self
         }
         
@@ -334,6 +365,16 @@ class ExperienceScenesPresenterTests: XCTestCase {
             presenter.addClick()
             return self
         }
+
+        func when_flag_click() -> ScenarioMaker {
+            presenter.flagClick()
+            return self
+        }
+
+        func when_flag_reason_chosen(_ reason: String) -> ScenarioMaker {
+            presenter.flagReasonChosen(reason)
+            return self
+        }
         
         @discardableResult
         func then_should_call_scene_repo_observable_with(experienceId: String) -> ScenarioMaker {
@@ -391,6 +432,14 @@ class ExperienceScenesPresenterTests: XCTestCase {
             assert(mockExperienceRepo.saveCalls.count == 1)
             assert(mockExperienceRepo.saveCalls[0].0 == experienceId)
             assert(mockExperienceRepo.saveCalls[0].1 == save)
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_repo_flag(_ experienceId: String, _ reason: String) -> ScenarioMaker {
+            assert(mockExperienceRepo.flagExperienceCalls.count == 1)
+            assert(mockExperienceRepo.flagExperienceCalls[0].0 == experienceId)
+            assert(mockExperienceRepo.flagExperienceCalls[0].1 == reason)
             return self
         }
 
@@ -473,6 +522,24 @@ class ExperienceScenesPresenterTests: XCTestCase {
             assert(mockView.navigateToEditSceneCalls == [sceneId])
             return self
         }
+
+        @discardableResult
+        func then_should_show_flag_options_dialog() -> ScenarioMaker {
+            assert(mockView.showFlagOptionsDialogCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_flag_success() -> ScenarioMaker {
+            assert(mockView.showFlagSuccessCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_show_flag_error() -> ScenarioMaker {
+            assert(mockView.showFlagErrorCalls == 1)
+            return self
+        }
     }
 }
 
@@ -492,6 +559,9 @@ class ExperienceScenesViewMock: ExperienceScenesView {
     var showShareDialogCalls = [String]()
     var navigateToAddSceneCalls = 0
     var navigateToEditSceneCalls = [String]()
+    var showFlagSuccessCalls = 0
+    var showFlagErrorCalls = 0
+    var showFlagOptionsDialogCalls = 0
 
     func showScenes(_ scenes: [Scene]) {
         showScenesCalls.append(scenes)
@@ -547,5 +617,17 @@ class ExperienceScenesViewMock: ExperienceScenesView {
 
     func navigateToEditScene(_ sceneId: String) {
         navigateToEditSceneCalls.append(sceneId)
+    }
+
+    func showFlagSuccess() {
+        showFlagSuccessCalls += 1
+    }
+
+    func showFlagError() {
+        showFlagErrorCalls += 1
+    }
+
+    func showFlagOptionsDialog() {
+        showFlagOptionsDialogCalls += 1
     }
 }

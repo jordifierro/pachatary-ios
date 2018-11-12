@@ -27,6 +27,18 @@
     "Are you sure you want to remove it from your saved experiences?";
 "OK" = "OK";
 "Cancel" = "Cancel";
+"REPORT EXPERIENCE" = "REPORT EXPERIENCE";
+"Why do you want to report this experience?" = "Why do you want to report this experience?";
+"I don't like it" = "I don't like it";
+"Spam" = "Spam";
+"False or misleading" = "False or misleading";
+"Offensive" = "Offensive";
+"Sexually inappropiate" = "Sexually inappropiate";
+"Violent or prohibited" = "Violent or prohibited";
+"Copyright infringement" = "Copyright infringement";
+"Other reason" = "Other reason";
+"Experience successfully reported! We will review it as soon as possible..." =
+    "Experience successfully reported! We will review it as soon as possible...";
 
 //AskLoginEmailView
 "LOGIN" = "LOGIN";

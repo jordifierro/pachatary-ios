@@ -83,4 +83,8 @@ class ProfileSnifferExperienceApiRepo: ExperienceApiRepository {
         return self.realExperienceApiRepo.editExperience(experienceId, title, description)
             .do(onNext: sniffProfile)
     }
+
+    func flagExperience(_ experienceId: String, _ reason: String) -> Observable<Result<Bool>> {
+        return self.realExperienceApiRepo.flagExperience(experienceId, reason)
+    }
 }

@@ -90,6 +90,13 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
             .then_should_sniff([Mock.profile("u")])
     }
 
+    func test_flag_experience_is_not_sniffed() {
+        ScenarioMaker()
+            .given_an_api_repo_that_returns_on_flag(Result(.success, data: true))
+            .when_flag_experience("4", "Spam")
+            .then_should_sniff([])
+    }
+
     class ScenarioMaker {
         
         let sniffer: ProfileSnifferExperienceApiRepo
@@ -147,6 +154,11 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
 
         func given_an_api_repo_that_returns_on_upload_picture(_ result: Result<Experience>) -> ScenarioMaker {
             mockExperienceApiRepo.uploadPictureResult = Observable.just(result)
+            return self
+        }
+
+        func given_an_api_repo_that_returns_on_flag(_ result: Result<Bool>) -> ScenarioMaker {
+            mockExperienceApiRepo.flagExperienceResult = Observable.just(result)
             return self
         }
 
@@ -209,6 +221,11 @@ class ProfileSnifferExperienceApiRepoTests: XCTestCase {
 
         func when_share_url(_ experienceId: String) -> ScenarioMaker {
             _ = sniffer.shareUrl(experienceId).subscribe()
+            return self
+        }
+
+        func when_flag_experience(_ experienceId: String, _ reason: String) -> ScenarioMaker {
+            _ = sniffer.flagExperience(experienceId, reason)
             return self
         }
 

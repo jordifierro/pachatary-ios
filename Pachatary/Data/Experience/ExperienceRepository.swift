@@ -14,6 +14,7 @@ protocol ExperienceRepository {
     func uploadPicture(_ experienceId: String, _ image: UIImage)
     func editExperience(_ experienceId: String,
                         _ title: String, _ description: String) -> Observable<Result<Experience>>
+    func flagExperience(_ experienceId: String, _ reason: String) -> Observable<Result<Bool>>
 }
 
 class ExperienceRepoImplementation: ExperienceRepository {
@@ -160,6 +161,10 @@ class ExperienceRepoImplementation: ExperienceRepository {
                     break
                 }
             }
+    }
+
+    func flagExperience(_ experienceId: String, _ reason: String) -> Observable<Result<Bool>> {
+        return apiRepo.flagExperience(experienceId, reason)
     }
 
     private func saveExperienceOnApiRepo(_ experienceId: String, save: Bool) {

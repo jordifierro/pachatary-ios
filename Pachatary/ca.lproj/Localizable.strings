@@ -27,6 +27,18 @@
     "Estàs segur que vols esborrar l'experiència de les guardades?";
 "OK" = "OK";
 "Cancel" = "Cancel·lar";
+"REPORT EXPERIENCE" = "REPORTAR EXPERIÈNCIA";
+"Why do you want to report this experience?" = "Per què vols reportar aquesta experiència?";
+"I don't like it" = "No m'agrada";
+"Spam" = "Spam";
+"False or misleading" = "Falsa o enganyosa";
+"Offensive" = "Ofensiva";
+"Sexually inappropiate" = "Sexualment inapropiada";
+"Violent or prohibited" = "Violenta o prohibida";
+"Copyright infringement" = "Vulnera drets d'autor";
+"Other reason" = "Altres raons";
+"Experience successfully reported! We will review it as soon as possible..." =
+    "Experiència reportada correctament! Ho revisarem tant aviat com sigui possible...";
 
 //AskLoginEmailView
 "LOGIN" = "LOGIN";

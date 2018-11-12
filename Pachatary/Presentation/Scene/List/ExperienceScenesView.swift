@@ -7,6 +7,8 @@ protocol ExperienceScenesView : class {
     func showExperienceLoading(_ isLoading: Bool)
     func showSceneLoading(_ isLoading: Bool)
     func showRetry()
+    func showFlagSuccess()
+    func showFlagError()
     func navigateToMap(_ sceneId: String?)
     func navigateToProfile(_ username: String)
     func navigateToEditExperience()
@@ -15,6 +17,7 @@ protocol ExperienceScenesView : class {
     func scrollToScene(_ sceneId: String)
     func showUnsaveConfirmationDialog()
     func showShareDialog(_ url: String)
+    func showFlagOptionsDialog()
     func finish()
 }
 
@@ -69,6 +72,10 @@ class ExperienceScenesViewController: UIViewController {
 
     @objc func shareClick(){
         presenter.shareClick()
+    }
+
+    @objc func flagClick(){
+        presenter.flagClick()
     }
 
     @objc func editClick(){
@@ -149,6 +156,15 @@ extension ExperienceScenesViewController: ExperienceScenesView {
         Snackbar.showErrorWithRetry({ [weak self] () in self?.presenter.retry() })
     }
 
+    func showFlagSuccess() {
+        Snackbar.show(
+            "Experience successfully reported! We will review it as soon as possible...".localized(),
+            .long)
+    }
+    func showFlagError() {
+        Snackbar.showError()
+    }
+
     func navigateToMap(_ sceneId: String? = nil) {
         self.selectedSceneId = sceneId
         performSegue(withIdentifier: "experienceMapSegue", sender: self)
@@ -203,6 +219,30 @@ extension ExperienceScenesViewController: ExperienceScenesView {
         self.navigationController?.popViewController(animated: true)
     }
 
+    func showFlagOptionsDialog() {
+        let optionsDialog = UIAlertController(title: "REPORT EXPERIENCE".localized(),
+            message: "Why do you want to report this experience?".localized(),
+            preferredStyle: .actionSheet)
+        optionsDialog.addAction(UIAlertAction(title: "I don't like it".localized(), style: .default)
+            { [unowned self] (action) in self.presenter.flagReasonChosen("I don't like it") })
+        optionsDialog.addAction(UIAlertAction(title: "Spam".localized(), style: .default)
+        { [unowned self] (action) in self.presenter.flagReasonChosen("Spam") })
+        optionsDialog.addAction(UIAlertAction(title: "False or misleading".localized(), style: .default)
+        { [unowned self] (action) in self.presenter.flagReasonChosen("False or misleading") })
+        optionsDialog.addAction(UIAlertAction(title: "Offensive".localized(), style: .default)
+        { [unowned self] (action) in self.presenter.flagReasonChosen("Offensive") })
+        optionsDialog.addAction(UIAlertAction(title: "Sexually inappropiate".localized(), style: .default)
+        { [unowned self] (action) in self.presenter.flagReasonChosen("Sexually inappropiate") })
+        optionsDialog.addAction(UIAlertAction(title: "Violent or prohibited".localized(), style: .default)
+        { [unowned self] (action) in self.presenter.flagReasonChosen("Violent or prohibited") })
+        optionsDialog.addAction(UIAlertAction(title: "Copyright infringement".localized(), style: .default)
+        { [unowned self] (action) in self.presenter.flagReasonChosen("Copyright infringement") })
+        optionsDialog.addAction(UIAlertAction(title: "Other reason".localized(), style: .default)
+        { [unowned self] (action) in self.presenter.flagReasonChosen("Other reason") })
+        optionsDialog.addAction(UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: nil))
+        self.present(optionsDialog, animated: true, completion: nil)
+    }
+
     private func configureNavigationItems(_ experience: Experience,
                                           _ isExperienceEditableIfMine: Bool) {
         self.navigationItem.rightBarButtonItems = []
@@ -227,6 +267,11 @@ extension ExperienceScenesViewController: ExperienceScenesView {
             saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: .normal)
             saveBarButtonItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState.highlighted)
             self.navigationItem.rightBarButtonItems?.append(saveBarButtonItem)
+
+            let flagBarButtonItem = UIBarButtonItem(
+                image: UIImage(named: "icFlag.png")?.withRenderingMode(.alwaysTemplate),
+                style: .done, target: self, action: #selector(flagClick))
+            self.navigationItem.rightBarButtonItems?.append(flagBarButtonItem)
         }
         else if experience.isMine && isExperienceEditableIfMine {
             let editBarButtonItem = UIBarButtonItem(
