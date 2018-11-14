@@ -5,6 +5,7 @@ class ProfilePresenter {
     
     let experienceRepo: ExperienceRepository
     let profileRepo: ProfileRepository
+    let authRepo: AuthRepository
     let mainScheduler: ImmediateSchedulerType
     
     unowned let view: ProfileView
@@ -14,11 +15,13 @@ class ProfilePresenter {
 
     init(_ experienceRepository: ExperienceRepository,
          _ profileRepository: ProfileRepository,
+         _ authRepository: AuthRepository,
          _ mainScheduler: ImmediateSchedulerType,
          _ view: ProfileView,
          _ username: String) {
         self.experienceRepo = experienceRepository
         self.profileRepo = profileRepository
+        self.authRepo = authRepository
         self.mainScheduler = mainScheduler
         self.view = view
         self.username = username
@@ -104,5 +107,27 @@ class ProfilePresenter {
 
     func shareClick() {
         view.showShareDialog(username)
+    }
+
+    func blockClick() {
+        view.showBlockExplanationDialog()
+    }
+
+    func blockConfirmed() {
+        authRepo.blockPerson(username)
+            .observeOn(mainScheduler)
+            .subscribe { [unowned self] event in
+                switch event {
+                case .next(let result):
+                    switch result.status {
+                    case .success: self.view.showBlockSuccess()
+                    case .error: self.view.showBlockError()
+                    case .inProgress: break
+                    }
+                case .error(let error): fatalError(error.localizedDescription)
+                case .completed: break
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }

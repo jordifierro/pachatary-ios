@@ -10,6 +10,7 @@ protocol AuthRepository {
     func isRegisterCompleted() -> Bool
     func confirmEmail(_ confirmationToken: String) -> Observable<Result<Bool>>
     func minVersion() -> Observable<Result<Int>>
+    func blockPerson(_ username: String) -> Observable<Result<Bool>>
 }
 
 class AuthRepoImplementation: AuthRepository {
@@ -82,5 +83,9 @@ class AuthRepoImplementation: AuthRepository {
 
     func minVersion() -> Observable<Result<Int>> {
         return apiRepo.minVersion()
+    }
+
+    func blockPerson(_ username: String) -> Observable<Result<Bool>> {
+        return apiRepo.blockPerson(username)
     }
 }

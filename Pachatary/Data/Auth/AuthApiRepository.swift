@@ -9,6 +9,7 @@ protocol AuthApiRepository {
     func register(_ email: String, _ username: String) -> Observable<Result<Bool>>
     func confirmEmail(_ confirmationToken: String) -> Observable<Result<Bool>>
     func minVersion() -> Observable<Result<Int>>
+    func blockPerson(_ username: String) -> Observable<Result<Bool>>
 }
 
 class AuthApiRepoImplementation: AuthApiRepository {
@@ -52,5 +53,10 @@ class AuthApiRepoImplementation: AuthApiRepository {
     func minVersion() -> Observable<Result<Int>> {
         return self.api.request(.minVersion)
             .transformNetworkResponse(SingleResultMapper<MinVersionMapper>.self, ioScheduler)
+    }
+
+    func blockPerson(_ username: String) -> Observable<Result<Bool>> {
+        return self.api.request(.blockPerson(username: username))
+            .transformNetworkVoidResponse(ioScheduler)
     }
 }

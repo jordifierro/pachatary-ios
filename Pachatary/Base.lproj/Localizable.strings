@@ -126,3 +126,11 @@
 //RootViewController
 "VERSION EXPIRED" = "VERSION EXPIRED";
 "Update your version to keep using Pachatary" = "Update your version to keep using Pachatary";
+
+//ProfileView
+"BLOCK PERSON" = "BLOCK PERSON";
+"Do you want to stop seeing content from this person?" =
+    "Do you want to stop seeing content from this person?";
+"YES, BLOCK" = "YES, BLOCK";
+"Cancel" = "Cancel";
+"Person successfully blocked" = "Person successfully blocked";

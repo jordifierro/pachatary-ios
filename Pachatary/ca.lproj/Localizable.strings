@@ -125,4 +125,13 @@
 
 //RootViewController
 "VERSION EXPIRED" = "VERSIÓ CADUCADA";
-"Update your version to keep using Pachatary" = "Actualitza la teva versió de Pachatary per seguir fent-lo servir";
+"Update your version to keep using Pachatary" =
+    "Actualitza la teva versió de Pachatary per seguir fent-lo servir";
+
+//ProfileView
+"BLOCK PERSON" = "BLOQUEJAR PERSONA";
+"Do you want to stop seeing content from this person?" =
+    "Vols que no t'aparegui mai més contingut d'aquesta person?";
+"YES, BLOCK" = "SI, BLOQUEJAR";
+"Cancel" = "Cancel·lar";
+"Person successfully blocked" = "Persona bloquejada correctament";

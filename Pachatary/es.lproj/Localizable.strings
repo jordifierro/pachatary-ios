@@ -129,3 +129,11 @@
 "VERSION EXPIRED" = "VERSIÓN CADUCADA";
 "Update your version to keep using Pachatary" =
     "Actualiza tu versión de Pachatary para seguir usándolo";
+
+//ProfileView
+"BLOCK PERSON" = "BLOQUEAR PERSONA";
+"Do you want to stop seeing content from this person?" =
+    "Quieres que no te aparezca nunca más contenido de esta persona?";
+"YES, BLOCK" = "SI, BLOQUEAR";
+"Cancel" = "Cancelar";
+"Person successfully blocked" = "Persona bloqueada correctamente";

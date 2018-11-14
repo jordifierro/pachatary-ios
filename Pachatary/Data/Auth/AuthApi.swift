@@ -8,6 +8,7 @@ enum AuthApi {
     case register(email: String, username: String)
     case confirmEmail(confirmationToken: String)
     case minVersion
+    case blockPerson(username: String)
 }
 
 // MARK: - TargetType Protocol Implementation
@@ -29,13 +30,15 @@ extension AuthApi: TargetType {
             return "/people/me"
         case .confirmEmail:
             return "/people/me/email-confirmation"
+        case .blockPerson(let username):
+            return "/people/" + username + "/block"
         }
     }
     var method: Moya.Method {
         switch self {
         case .minVersion:
             return .get
-        case .createPerson, .askLoginEmail, .login, .confirmEmail:
+        case .createPerson, .askLoginEmail, .login, .confirmEmail, .blockPerson:
             return .post
         case .register:
             return .patch
@@ -43,7 +46,7 @@ extension AuthApi: TargetType {
     }
     var task: Task {
         switch self {
-        case .minVersion:
+        case .minVersion, .blockPerson:
             return .requestPlain
         case let .createPerson(clientSecretKey):
             return .requestParameters(parameters: ["client_secret_key": clientSecretKey],

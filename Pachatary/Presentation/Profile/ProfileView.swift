@@ -11,6 +11,9 @@ protocol ProfileView : class {
     func showRetry()
     func navigateToExperienceScenes(_ experienceId: String)
     func showShareDialog(_ username: String)
+    func showBlockExplanationDialog()
+    func showBlockSuccess()
+    func showBlockError()
 }
 
 class ProfileViewController: UIViewController {
@@ -51,11 +54,6 @@ class ProfileViewController: UIViewController {
         
         self.collectionView.addSubview(self.refreshControl)
 
-        let shareBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "icShare.png")?.withRenderingMode(.alwaysTemplate),
-            style: .done, target: self, action: #selector(shareClick))
-        self.navigationItem.rightBarButtonItem = shareBarButtonItem
-
         presenter!.create()
     }
     
@@ -67,7 +65,11 @@ class ProfileViewController: UIViewController {
     @objc func shareClick(){
         presenter!.shareClick()
     }
-    
+
+    @objc func blockClick(){
+        presenter!.blockClick()
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -200,6 +202,7 @@ extension ProfileViewController: ProfileView {
     func showProfile(_ profile: Profile) {
         self.profile = profile
         self.collectionView!.reloadData()
+        configureNavigationBarButtons(showBlockButton: !self.profile!.isMe)
     }
     
     func showLoadingProfile(_ visibility: Bool) {
@@ -222,5 +225,41 @@ extension ProfileViewController: ProfileView {
         let activityViewController = UIActivityViewController(activityItems : sharedObjects, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
+    }
+
+    func showBlockExplanationDialog() {
+        let dialogMessage = UIAlertController(title: "BLOCK PERSON".localized(),
+            message: "Do you want to stop seeing content from this person?".localized(),
+            preferredStyle: .alert)
+        let block = UIAlertAction(title: "YES, BLOCK".localized(), style: .default)
+        { [unowned self] (action) -> Void in self.presenter!.blockConfirmed() }
+        dialogMessage.addAction(block)
+        let cancel = UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: nil)
+        dialogMessage.addAction(cancel)
+        self.present(dialogMessage, animated: true, completion: nil)
+    }
+
+    func showBlockSuccess() {
+        Snackbar.show("Person successfully blocked".localized(), .short)
+    }
+
+    func showBlockError() {
+        Snackbar.showError()
+    }
+
+    private func configureNavigationBarButtons(showBlockButton: Bool = false) {
+        self.navigationItem.rightBarButtonItems = []
+
+        let shareBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "icShare.png")?.withRenderingMode(.alwaysTemplate),
+            style: .done, target: self, action: #selector(shareClick))
+        self.navigationItem.rightBarButtonItems?.append(shareBarButtonItem)
+
+        if showBlockButton {
+            let blockBarButtonItem = UIBarButtonItem(
+                image: UIImage(named: "icBlock.png")?.withRenderingMode(.alwaysTemplate),
+                style: .done, target: self, action: #selector(blockClick))
+            self.navigationItem.rightBarButtonItems?.append(blockBarButtonItem)
+        }
     }
 }

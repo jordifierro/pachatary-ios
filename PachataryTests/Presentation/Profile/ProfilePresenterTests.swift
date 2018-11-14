@@ -108,16 +108,43 @@ class ProfilePresenterTests: XCTestCase {
             .then_view_should_show_share_dialog(with: "test")
     }
 
+    func test_on_block_click_shows_block_explanation_dialog() {
+        ScenarioMaker()
+            .given_a_presenter_with(username: "test")
+            .when_block_click()
+            .then_view_should_show_block_explanation_dialog()
+    }
+
+    func test_on_block_confirmation_response_error_shows_error() {
+        ScenarioMaker()
+            .given_a_presenter_with(username: "test")
+            .given_an_auth_repo_that_returns_on_block(
+                Result(.error, error: DataError.noInternetConnection))
+            .when_block_confirmed()
+            .then_should_call_auth_repo_block_with("test")
+            .then_view_should_show_block_error()
+    }
+
+    func test_on_block_confirmation_response_success_shows_success() {
+        ScenarioMaker()
+            .given_a_presenter_with(username: "test")
+            .given_an_auth_repo_that_returns_on_block(Result(.success, data: true))
+            .when_block_confirmed()
+            .then_should_call_auth_repo_block_with("test")
+            .then_view_should_show_block_success()
+    }
+
     class ScenarioMaker {
         let mockExperienceRepo = ExperienceRepoMock()
         let mockProfileRepo = ProfileRepositoryMock()
+        let mockAuthRepo = AuthRepoMock()
         let mockView = ProfileViewMock()
         var presenter: ProfilePresenter!
 
         init() {}
 
         func given_a_presenter_with(username: String) -> ScenarioMaker {
-            presenter = ProfilePresenter(mockExperienceRepo, mockProfileRepo,
+            presenter = ProfilePresenter(mockExperienceRepo, mockProfileRepo, mockAuthRepo,
                                          CurrentThreadScheduler.instance, mockView, username)
             return self
         }
@@ -132,6 +159,11 @@ class ProfilePresenterTests: XCTestCase {
                                                           _ result: Result<Profile>) -> ScenarioMaker {
                 mockProfileRepo.profileResult[username] = Observable.just(result)
                 return self
+        }
+
+        func given_an_auth_repo_that_returns_on_block(_ result: Result<Bool>) -> ScenarioMaker {
+            mockAuthRepo.blockPersonResult = Observable.just(result)
+            return self
         }
 
         func when_create() -> ScenarioMaker {
@@ -161,6 +193,16 @@ class ProfilePresenterTests: XCTestCase {
 
         func when_share_click() -> ScenarioMaker {
             presenter.shareClick()
+            return self
+        }
+
+        func when_block_click() -> ScenarioMaker {
+            presenter.blockClick()
+            return self
+        }
+
+        func when_block_confirmed() -> ScenarioMaker {
+            presenter.blockConfirmed()
             return self
         }
 
@@ -225,6 +267,30 @@ class ProfilePresenterTests: XCTestCase {
             assert(mockView.shareDialogCalls == [username])
             return self
         }
+
+        @discardableResult
+        func then_view_should_show_block_explanation_dialog() -> ScenarioMaker {
+            assert(mockView.showBlockExplanationDialogCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_view_should_show_block_success() -> ScenarioMaker {
+            assert(mockView.showBlockSuccessCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_view_should_show_block_error() -> ScenarioMaker {
+            assert(mockView.showBlockErrorCalls == 1)
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_auth_repo_block_with(_ username: String) -> ScenarioMaker {
+            assert(mockAuthRepo.blockPersonCalls == [username])
+            return self
+        }
     }
 }
 
@@ -237,6 +303,9 @@ class ProfileViewMock: ProfileView {
     var showRetryCalls = 0
     var navigateCalls: [String] = []
     var shareDialogCalls: [String] = []
+    var showBlockExplanationDialogCalls = 0
+    var showBlockSuccessCalls = 0
+    var showBlockErrorCalls = 0
 
     func showExperiences(_ experiences: [Experience]) {
         showExperienceCalls.append(experiences)
@@ -264,5 +333,17 @@ class ProfileViewMock: ProfileView {
 
     func showShareDialog(_ username: String) {
         self.shareDialogCalls.append(username)
+    }
+
+    func showBlockExplanationDialog() {
+        showBlockExplanationDialogCalls += 1
+    }
+
+    func showBlockSuccess() {
+        showBlockSuccessCalls += 1
+    }
+
+    func showBlockError() {
+        showBlockErrorCalls += 1
     }
 }

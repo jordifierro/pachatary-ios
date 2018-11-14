@@ -52,6 +52,14 @@ class AuthApiRepositoryTests: XCTestCase {
             .then_should_return_inprogress_and_result_int()
     }
 
+    func test_block_person() {
+        ScenarioMaker(self)
+            .given_an_api_repo()
+            .given_an_stubbed_network_call_for_block_person("p")
+            .when_block_person("p")
+            .then_should_return_inprogress_and_result_success()
+    }
+
     class ScenarioMaker {
         
         var authApiRepo: AuthApiRepository!
@@ -117,6 +125,13 @@ class AuthApiRepositoryTests: XCTestCase {
             return self
         }
 
+        func given_an_stubbed_network_call_for_block_person(_ username: String) -> ScenarioMaker {
+            DataTestUtils.stubNetworkCall(testCase, Bundle(for: type(of: self)),
+                AppDataDependencyInjector.apiUrl + "/people/" + username + "/block",
+                                          .POST, nil, 204)
+            return self
+        }
+
         func when_get_person_invitation() -> ScenarioMaker {
             resultObservable = authApiRepo.getPersonInvitation()
             return self
@@ -139,6 +154,11 @@ class AuthApiRepositoryTests: XCTestCase {
 
         func when_min_version() -> ScenarioMaker {
             resultIntObservable = authApiRepo.minVersion()
+            return self
+        }
+
+        func when_block_person(_ username: String) -> ScenarioMaker {
+            resultBoolObservable = authApiRepo.blockPerson(username)
             return self
         }
         
@@ -187,6 +207,8 @@ class AuthApiRepoMock: AuthApiRepository {
     var confirmEmailCalls = [String]()
     var confirmEmailResults = [Result<Bool>]()
     var minVersionResult: Observable<Result<Int>>!
+    var blockPersonCalls = [String]()
+    var blockPersonResult: Observable<Result<Bool>>!
 
     func getPersonInvitation() -> Observable<Result<AuthToken>> {
         return Observable.just(Result(.success, data: authToken))
@@ -214,5 +236,10 @@ class AuthApiRepoMock: AuthApiRepository {
 
     func minVersion() -> Observable<Result<Int>> {
         return minVersionResult
+    }
+
+    func blockPerson(_ username: String) -> Observable<Result<Bool>> {
+        blockPersonCalls.append(username)
+        return blockPersonResult
     }
 }

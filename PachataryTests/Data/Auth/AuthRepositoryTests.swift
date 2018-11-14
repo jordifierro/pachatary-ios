@@ -78,6 +78,14 @@ class AuthRepositoryTests: XCTestCase {
             .then_should_return_int_result(Result(.success, data: 4))
     }
 
+    func test_block_person_returns_api() {
+        ScenarioMaker(self)
+            .given_an_api_repo_that_returns_when_block_person(Result(.success, data: true))
+            .when_block_person("p")
+            .then_should_call_api_block_person("p")
+            .then_should_return_bool_result(Result(.success, data: true))
+    }
+
     class ScenarioMaker {
         let mockApiRepo = AuthApiRepoMock()
         let mockAuthStorageRepo = AuthStorageRepoMock()
@@ -146,6 +154,11 @@ class AuthRepositoryTests: XCTestCase {
             mockApiRepo.minVersionResult = Observable.just(result)
             return self
         }
+
+        func given_an_api_repo_that_returns_when_block_person(_ result: Result<Bool>) -> ScenarioMaker {
+            mockApiRepo.blockPersonResult = Observable.just(result)
+            return self
+        }
         
         func when_has_person_credentials() -> ScenarioMaker {
             resultHasPersonCredentials = repo.hasPersonCredentials()
@@ -187,11 +200,18 @@ class AuthRepositoryTests: XCTestCase {
             return self
         }
 
+        func when_block_person(_ username: String) -> ScenarioMaker {
+            do { try resultBoolResult = repo.blockPerson(username).toBlocking().toArray()[0] }
+            catch { assertionFailure() }
+            return self
+        }
+
         func when_min_version() -> ScenarioMaker {
             resultIntObservable = repo.minVersion()
             return self
         }
 
+        @discardableResult
         func then_should_return_int_result(_ result: Result<Int>) -> ScenarioMaker {
             do {
                 let intResult = try resultIntObservable.toBlocking().toArray()[0]
@@ -255,6 +275,11 @@ class AuthRepositoryTests: XCTestCase {
             assert(mockApiRepo.loginCalls == [token])
             return self
         }
+
+        func then_should_call_api_block_person(_ username: String) -> ScenarioMaker {
+            assert(mockApiRepo.blockPersonCalls == [username])
+            return self
+        }
         
         @discardableResult
         func then_should_return_auth_token(_ authTokenResult: Result<AuthToken>) -> ScenarioMaker {
@@ -289,6 +314,8 @@ class AuthRepoMock: AuthRepository {
     var confirmEmailResults = [Result<Bool>]()
     var confirmEmailCalls = [String]()
     var minVersionResult: Observable<Result<Int>>!
+    var blockPersonCalls = [String]()
+    var blockPersonResult: Observable<Result<Bool>>!
 
     func hasPersonCredentials() -> Bool {
         return self.hasPersonCredentialsResult
@@ -323,5 +350,10 @@ class AuthRepoMock: AuthRepository {
 
     func minVersion() -> Observable<Result<Int>> {
         return minVersionResult
+    }
+
+    func blockPerson(_ username: String) -> Observable<Result<Bool>> {
+        blockPersonCalls.append(username)
+        return blockPersonResult
     }
 }

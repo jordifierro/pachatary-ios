@@ -7,6 +7,7 @@ class ProfileDependencyInjector {
     static func profilePresenter(view: ProfileView, username: String) -> ProfilePresenter {
         return ProfilePresenter(ExperienceDataDependencyInjector.experienceRepository,
                                 ProfileDataDependencyInjector.profileRepository,
+                                AuthDataDependencyInjector.authRepository,
                                 AppPresentationDependencyInjector.mainScheduler, view, username)
     }
 
