@@ -109,6 +109,12 @@ class RequesterTests: XCTestCase {
             .then_should_call_cache_update(with: [IdEq("8"), IdEq("9")])
     }
 
+    func test_remove_calls_cache_remove() {
+        ScenarioMaker()
+            .when_remove({ (id: IdEq) in return id == IdEq("3") })
+            .then_should_call_cache_remove([IdEq("3")], [IdEq("4"), IdEq("2"), IdEq("0"), IdEq("33")])
+    }
+
     class ScenarioMaker {
         
         let mockCache = ResultCacheMock()
@@ -158,7 +164,12 @@ class RequesterTests: XCTestCase {
             self.requester!.update(list)
             return self
         }
-        
+
+        func when_remove(_ allItemsThat: @escaping (IdEq) -> Bool) -> ScenarioMaker {
+            self.requester!.remove(allItemsThat)
+            return self
+        }
+
         @discardableResult
         func then_should_emit_through_cache_replace(_ result: Result<[IdEq]>) -> ScenarioMaker {
             assert(mockCache.replaceResultCalls == [result])
@@ -181,6 +192,18 @@ class RequesterTests: XCTestCase {
         @discardableResult
         func then_should_call_cache_update(with list: [IdEq]) -> ScenarioMaker {
             assert(mockCache.updateCalls == [list])
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_cache_remove(_ removes: [IdEq], _ keeps: [IdEq]) -> ScenarioMaker {
+            let closure = mockCache.removeCalls[0]
+            for ideq in removes {
+                assert(closure(ideq) == true)
+            }
+            for ideq in keeps {
+                assert(closure(ideq) == false)
+            }
             return self
         }
     }
@@ -206,6 +229,7 @@ class RequesterMock: Requester {
     var resultObservable: Observable<Result<[Experience]>>!
     var updateCalls = [[Experience]]()
     var addOrUpdateCalls = [[Experience]]()
+    var removeCalls = [((Experience) -> Bool)]()
 
     func request(_ request: Request) {
         requestCalls.append(request)
@@ -221,5 +245,9 @@ class RequesterMock: Requester {
 
     func addOrUpdate(_ tList: [Experience]) {
         addOrUpdateCalls.append(tList)
+    }
+
+    func remove(_ allItemsThat: @escaping (Experience) -> Bool) {
+        removeCalls.append(allItemsThat)
     }
 }

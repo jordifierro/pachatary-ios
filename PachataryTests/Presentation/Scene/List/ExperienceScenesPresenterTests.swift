@@ -61,6 +61,21 @@ class ExperienceScenesPresenterTests: XCTestCase {
         }
     }
 
+    func test_experience_response_blocked_content_error_finishes_view() {
+        for action in [Action.create, Action.retry] {
+            ScenarioMaker()
+                .given_a_presenter("7")
+                .given_an_scenes_observable_result(Result(.inProgress), experienceId: "7")
+                .given_an_experience_observable_result(
+                    Result(.error, error: DataError.clientException(source: "content",
+                                                                    code: "blocked",
+                                                                    message: "Content is blocked")))
+                .when(do: action)
+                .then_should_call_experience_repo_observable_with(experienceId: "7")
+                .then_should_finish()
+        }
+    }
+
     func test_scenes_response_success() {
         for action in [Action.create, Action.retry] {
             ScenarioMaker()

@@ -132,6 +132,7 @@ class ProfilePresenterTests: XCTestCase {
             .when_block_confirmed()
             .then_should_call_auth_repo_block_with("test")
             .then_view_should_show_block_success()
+            .then_should_finish()
     }
 
     class ScenarioMaker {
@@ -291,6 +292,12 @@ class ProfilePresenterTests: XCTestCase {
             assert(mockAuthRepo.blockPersonCalls == [username])
             return self
         }
+
+        @discardableResult
+        func then_should_finish() -> ScenarioMaker {
+            assert(mockView.finishCalls == 1)
+            return self
+        }
     }
 }
 
@@ -306,6 +313,7 @@ class ProfileViewMock: ProfileView {
     var showBlockExplanationDialogCalls = 0
     var showBlockSuccessCalls = 0
     var showBlockErrorCalls = 0
+    var finishCalls = 0
 
     func showExperiences(_ experiences: [Experience]) {
         showExperienceCalls.append(experiences)
@@ -345,5 +353,9 @@ class ProfileViewMock: ProfileView {
 
     func showBlockError() {
         showBlockErrorCalls += 1
+    }
+
+    func finish() {
+        finishCalls += 1
     }
 }

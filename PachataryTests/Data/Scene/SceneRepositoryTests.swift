@@ -265,6 +265,8 @@ class MockSceneResultCache: ResultCache {
         updateObserver.onNext(list)
     }
 
+    func remove(_ allItemsThat: @escaping (Scene) -> (Bool)) {}
+
     func waitForResult(_ waitedResult: Result<[Scene]>, xcTestCase: XCTestCase) {
         let expectation = XCTestExpectation(description: "wait for result")
         _ = resultObservable.subscribe { event in

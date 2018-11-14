@@ -84,11 +84,13 @@ class AuthRepositoryTests: XCTestCase {
             .when_block_person("p")
             .then_should_call_api_block_person("p")
             .then_should_return_bool_result(Result(.success, data: true))
+            .then_should_call_experience_repo_remove_cached_experiences_from("p")
     }
 
     class ScenarioMaker {
         let mockApiRepo = AuthApiRepoMock()
         let mockAuthStorageRepo = AuthStorageRepoMock()
+        let mockExperienceRepo = ExperienceRepoMock()
         var repo: AuthRepository!
         var testCase: XCTestCase!
         var resultHasPersonCredentials: Bool!
@@ -101,7 +103,7 @@ class AuthRepositoryTests: XCTestCase {
 
         init(_ testCase: XCTestCase) {
             self.testCase = testCase
-            repo = AuthRepoImplementation(mockAuthStorageRepo, mockApiRepo)
+            repo = AuthRepoImplementation(mockAuthStorageRepo, mockApiRepo, mockExperienceRepo)
         }
         
         func given_an_storage_repo_that_returns_auth_token() -> ScenarioMaker {
@@ -296,6 +298,13 @@ class AuthRepositoryTests: XCTestCase {
         @discardableResult
         func then_should_return_bool_result(_ result: Result<Bool>) -> ScenarioMaker {
             assert(resultBoolResult == result)
+            return self
+        }
+
+        @discardableResult
+        func then_should_call_experience_repo_remove_cached_experiences_from(_ username: String)
+                                                                                -> ScenarioMaker {
+            assert(mockExperienceRepo.removeCacheExperienceFromPersonCalls == [username])
             return self
         }
     }

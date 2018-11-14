@@ -441,6 +441,7 @@ class ExperienceRepoMock: ExperienceRepository {
     var editExperienceResult: Observable<Result<Experience>>!
     var flagExperienceCalls = [(String, String)]()
     var flagExperienceResult: Observable<Result<Bool>>!
+    var removeCacheExperienceFromPersonCalls = [String]()
 
     func experiencesObservable(kind: Kind) -> Observable<Result<[Experience]>> {
         switch kind {
@@ -504,5 +505,9 @@ class ExperienceRepoMock: ExperienceRepository {
     func flagExperience(_ experienceId: String, _ reason: String) -> Observable<Result<Bool>> {
         flagExperienceCalls.append((experienceId, reason))
         return flagExperienceResult
+    }
+
+    func removeCacheExperiencesFromPerson(_ username: String) {
+        removeCacheExperienceFromPersonCalls.append(username)
     }
 }

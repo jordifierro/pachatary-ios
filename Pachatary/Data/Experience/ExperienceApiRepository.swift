@@ -63,7 +63,7 @@ class ExperienceApiRepoImplementation: ExperienceApiRepository {
 
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
         return self.api.request(.experience(experienceId))
-            .transformNetworkResponse(SingleResultMapper<ExperienceMapper>.self, ioScheduler)
+            .transformNetworkResponseOrError(SingleResultMapper<ExperienceMapper>.self, ioScheduler)
     }
 
     func shareUrl(_ experienceId: String) -> Observable<Result<String>> {

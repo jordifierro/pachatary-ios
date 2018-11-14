@@ -17,10 +17,14 @@ class AuthRepoImplementation: AuthRepository {
     
     let storageRepo: AuthStorageRepository!
     let apiRepo: AuthApiRepository!
+    let experienceRepo: ExperienceRepository!
     
-    init(_ authStorageRepo: AuthStorageRepository, _ authApiRepo: AuthApiRepository) {
+    init(_ authStorageRepo: AuthStorageRepository,
+         _ authApiRepo: AuthApiRepository,
+         _ experienceRepo: ExperienceRepository) {
         self.storageRepo = authStorageRepo
         self.apiRepo = authApiRepo
+        self.experienceRepo = experienceRepo
     }
     
     func hasPersonCredentials() -> Bool {
@@ -87,5 +91,13 @@ class AuthRepoImplementation: AuthRepository {
 
     func blockPerson(_ username: String) -> Observable<Result<Bool>> {
         return apiRepo.blockPerson(username)
+            .do(onNext: { result in
+                switch result.status {
+                case .success:
+                    self.experienceRepo.removeCacheExperiencesFromPerson(username)
+                case .error: break
+                case .inProgress: break
+                }
+            })
     }
 }

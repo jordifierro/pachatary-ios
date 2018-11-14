@@ -8,6 +8,7 @@ protocol Requester {
     func resultsObservable() -> Observable<Result<[requesterType]>>
     func update(_ tList: [requesterType])
     func addOrUpdate(_ tList: [requesterType])
+    func remove(_ allItemsThat: @escaping (requesterType) -> Bool)
 }
 
 class RequesterImplementation<T: ResultCache>: Requester {
@@ -101,6 +102,10 @@ class RequesterImplementation<T: ResultCache>: Requester {
 
     func addOrUpdate(_ tList: [T.cacheType]) {
         self.cache.addOrUpdate(tList, placeAtTheEnd: false)
+    }
+
+    func remove(_ allItemsThat: @escaping (T.cacheType) -> Bool) {
+        self.cache.remove(allItemsThat)
     }
 
     func resultsObservable() -> Observable<Result<[T.cacheType]>> {

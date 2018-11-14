@@ -10,6 +10,8 @@ class AuthDataDependencyInjector {
                                   AppDataDependencyInjector.clientSecretKey,
                                   AppDataDependencyInjector.ioScheduler)
     static let authRepository =
-        AuthRepoImplementation(AppDataDependencyInjector.authStorageRepository, authApiRepository)
+        AuthRepoImplementation(AppDataDependencyInjector.authStorageRepository,
+                               authApiRepository,
+                               ExperienceDataDependencyInjector.experienceRepository)
 }
 

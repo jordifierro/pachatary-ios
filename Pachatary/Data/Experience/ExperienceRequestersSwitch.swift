@@ -18,12 +18,13 @@ protocol ExperienceRequestersSwitch {
     func executeAction(_ kind: Kind, _ request: Request)
     func modifyResult(_ kind: Kind, _ modification: Modification,
                       list: [Experience]?, result: Result<[Experience]>?)
+    func remove(_ kind: Kind, _ allItemsThat: @escaping (Experience) -> Bool)
     func experiencesObservable(_ kind: Kind) -> Observable<Result<[Experience]>>
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>>
 }
 
 class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequestersSwitch
-                                                               where R.requesterType == Experience {
+where R.requesterType == Experience {
 
     let exploreRequester: R!
     let savedRequester: R!
@@ -52,6 +53,10 @@ class ExperienceRequestersSwitchImplementation<R: Requester>: ExperienceRequeste
         case .addOrUpdate:
             requester(kind).addOrUpdate(list!)
         }
+    }
+
+    func remove(_ kind: Kind, _ allItemsThat: @escaping (Experience) -> Bool) {
+        requester(kind).remove(allItemsThat)
     }
 
     func experiencesObservable(_ kind: Kind) -> Observable<Result<[Experience]>> {

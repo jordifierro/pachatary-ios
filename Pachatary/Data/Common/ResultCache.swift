@@ -7,6 +7,7 @@ protocol ResultCache {
     func replaceResult(_ result: Result<[cacheType]>)
     func addOrUpdate(_ list: [cacheType], placeAtTheEnd: Bool)
     func update(_ list: [cacheType])
+    func remove(_ allItemsThat: @escaping (cacheType) -> (Bool))
     var resultObservable: Observable<Result<[cacheType]>> { get }
 }
 
@@ -15,6 +16,7 @@ class ResultCacheImplementation<T: Identifiable & Equatable>: ResultCache {
     private let replaceResultObserver: AnyObserver<Result<[T]>>
     private let addOrUpdateObserver: AnyObserver<([T], Bool)>
     private let updateObserver: AnyObserver<[T]>
+    private let removeObserver: AnyObserver<(T) -> Bool>
     let resultObservable: Observable<Result<[T]>>
     
     init() {
@@ -24,11 +26,20 @@ class ResultCacheImplementation<T: Identifiable & Equatable>: ResultCache {
         addOrUpdateObserver = addOrUpdateSubject.asObserver()
         let updateSubject = PublishSubject<[T]>()
         updateObserver = updateSubject.asObserver()
+        let removeSubject = PublishSubject<((T) -> Bool)>()
+        removeObserver = removeSubject.asObserver()
         
         let resultConnectable = Observable.merge(
             replaceResultSubject.asObservable()
                 .map { (newResult: Result<[T]>) -> ((Result<[T]>) -> Result<[T]>) in
                     return { _ in return newResult }},
+            removeSubject.asObservable()
+                .map { (remove: @escaping (T) -> Bool) -> ((Result<[T]>) -> Result<[T]>) in
+                    return { oldResult in
+                        return oldResult.builder()
+                            .data(oldResult.data!.filter({ t in return !remove(t) }))
+                            .build()
+                    }},
             addOrUpdateSubject.asObservable()
                 .map { (newList: [T], placeAtTheEnd: Bool) -> ((Result<[T]>) -> Result<[T]>) in
                     if placeAtTheEnd {
@@ -87,5 +98,9 @@ class ResultCacheImplementation<T: Identifiable & Equatable>: ResultCache {
 
     func update(_ list: [T]) {
         updateObserver.onNext(list)
+    }
+
+    func remove(_ allItemsThat: @escaping (T) -> Bool) {
+        removeObserver.onNext(allItemsThat)
     }
 }

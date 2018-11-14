@@ -262,6 +262,7 @@ class ExperienceRequestersSwitchMock: ExperienceRequestersSwitch {
     var modifyResultCalls = [(Kind, Modification, [Experience]?, Result<[Experience]>?)]()
     var experiencesObservableResult = [Kind:Observable<Result<[Experience]>>]()
     var experienceObservableResult = [String:Observable<Result<Experience>>]()
+    var removeCalls = [(Kind, ((Experience) -> Bool))]()
 
     func executeAction(_ kind: Kind, _ request: Request) {
         executeActionCalls.append((kind, request))
@@ -277,5 +278,9 @@ class ExperienceRequestersSwitchMock: ExperienceRequestersSwitch {
 
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
         return experienceObservableResult[experienceId]!
+    }
+
+    func remove(_ kind: Kind, _ allItemsThat: @escaping (Experience) -> Bool) {
+        removeCalls.append((kind, allItemsThat))
     }
 }

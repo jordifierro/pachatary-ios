@@ -14,6 +14,7 @@ protocol ProfileView : class {
     func showBlockExplanationDialog()
     func showBlockSuccess()
     func showBlockError()
+    func finish()
 }
 
 class ProfileViewController: UIViewController {
@@ -245,6 +246,10 @@ extension ProfileViewController: ProfileView {
 
     func showBlockError() {
         Snackbar.showError()
+    }
+
+    func finish() {
+        self.navigationController?.popViewController(animated: true)
     }
 
     private func configureNavigationBarButtons(showBlockButton: Bool = false) {

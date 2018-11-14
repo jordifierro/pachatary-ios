@@ -80,6 +80,20 @@ class ResultCacheTests: XCTestCase {
             .when_emit_result_on_replace_observer(result: 3)
             .then_should_emit_result_on_subscribe(result: 3)
     }
+
+    func test_remove_observer() {
+        ScenarioMaker()
+            .given_an_experience(id: "3")
+            .given_an_experience(id: "4")
+            .given_an_experience(id: "5")
+            .given_an_experience(id: "6")
+            .given_a_result(status: .success, experiences: [0, 1, 2, 3])
+            .given_emitted_result_on_replace_observer(result: 1)
+            .given_a_result(status: .success, experiences: [0, 1, 3])
+            .when_emit_result_on_remove({ experience in return experience.id == "5" })
+            .then_should_emit_result_on_subscribe(result: 2)
+    }
+
     
     class ScenarioMaker {
         
@@ -137,6 +151,11 @@ class ResultCacheTests: XCTestCase {
         func when_emit_result_on_update_observer(result: Int) -> ScenarioMaker {
             return given_emitted_result_on_update_observer(result: result)
         }
+
+        func when_emit_result_on_remove(_ removeClosure: @escaping (Experience) -> Bool) -> ScenarioMaker {
+            self.cache.remove(removeClosure)
+            return self
+        }
         
         @discardableResult
         func then_should_emit_result_on_subscribe(result: Int) -> ScenarioMaker {
@@ -157,6 +176,7 @@ class ResultCacheMock: ResultCache {
     var replaceResultCalls = [Result<[IdEq]>]()
     var addOrUpdateCalls = [([IdEq], Bool)]()
     var updateCalls = [[IdEq]]()
+    var removeCalls = [(IdEq) -> Bool]()
 
     init() {
         resultObservable = Observable.empty()
@@ -173,5 +193,9 @@ class ResultCacheMock: ResultCache {
 
     func update(_ list: [IdEq]) {
         updateCalls.append(list)
+    }
+
+    func remove(_ allItemsThat: @escaping (IdEq) -> (Bool)) {
+        removeCalls.append(allItemsThat)
     }
 }

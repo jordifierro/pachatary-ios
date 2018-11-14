@@ -15,6 +15,7 @@ protocol ExperienceRepository {
     func editExperience(_ experienceId: String,
                         _ title: String, _ description: String) -> Observable<Result<Experience>>
     func flagExperience(_ experienceId: String, _ reason: String) -> Observable<Result<Bool>>
+    func removeCacheExperiencesFromPerson(_ username: String)
 }
 
 class ExperienceRepoImplementation: ExperienceRepository {
@@ -46,6 +47,7 @@ class ExperienceRepoImplementation: ExperienceRepository {
     
     func experienceObservable(_ experienceId: String) -> Observable<Result<Experience>> {
         return self.requestersSwitch.experienceObservable(experienceId)
+            .distinctUntilChanged()
             .flatMap { (result: Result<Experience>) -> Observable<Result<Experience>> in
                 if result.error == DataError.notCached {
                     return self.apiRepo.experienceObservable(experienceId)
@@ -165,6 +167,17 @@ class ExperienceRepoImplementation: ExperienceRepository {
 
     func flagExperience(_ experienceId: String, _ reason: String) -> Observable<Result<Bool>> {
         return apiRepo.flagExperience(experienceId, reason)
+    }
+
+    func removeCacheExperiencesFromPerson(_ username: String) {
+        requestersSwitch.remove(.explore)
+            { experience in return experience.authorProfile.username == username }
+        requestersSwitch.remove(.saved)
+            { experience in return experience.authorProfile.username == username }
+        requestersSwitch.remove(.persons)
+            { experience in return experience.authorProfile.username == username }
+        requestersSwitch.remove(.other)
+            { experience in return experience.authorProfile.username == username }
     }
 
     private func saveExperienceOnApiRepo(_ experienceId: String, save: Bool) {

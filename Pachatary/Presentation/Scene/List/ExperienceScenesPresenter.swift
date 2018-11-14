@@ -141,8 +141,14 @@ class ExperienceScenesPresenter {
                         self.view.showExperience(result.data!, self.isExperienceEditableIfMine)
                         self.view.showExperienceLoading(false)
                     case .error:
-                        self.view.showExperienceLoading(false)
-                        self.view.showRetry()
+                        switch result.error! {
+                        case DataError.clientException(_, let code, _):
+                            if code == "blocked" { self.view.finish() }
+                            else { fatalError(code) }
+                        default:
+                            self.view.showExperienceLoading(false)
+                            self.view.showRetry()
+                        }
                     case .inProgress:
                         self.view.showExperienceLoading(true)
                     }

@@ -120,7 +120,9 @@ class ProfilePresenter {
                 switch event {
                 case .next(let result):
                     switch result.status {
-                    case .success: self.view.showBlockSuccess()
+                    case .success:
+                        self.view.showBlockSuccess()
+                        self.view.finish()
                     case .error: self.view.showBlockError()
                     case .inProgress: break
                     }
