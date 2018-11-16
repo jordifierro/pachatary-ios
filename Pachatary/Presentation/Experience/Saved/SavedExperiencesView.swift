@@ -130,7 +130,7 @@ extension SavedExperiencesViewController: UICollectionViewDataSource, UICollecti
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row <= experiences.count {
+        if indexPath.row < experiences.count {
             presenter!.experienceClick(experiences[indexPath.row].id)
         }
     }

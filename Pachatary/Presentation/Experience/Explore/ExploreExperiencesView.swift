@@ -179,7 +179,7 @@ extension ExploreExperiencesViewController: UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row <= experiences.count {
+        if indexPath.row < experiences.count {
             presenter!.experienceClick(experiences[indexPath.row].id)
         }
     }
