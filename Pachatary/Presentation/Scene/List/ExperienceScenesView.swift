@@ -240,6 +240,11 @@ extension ExperienceScenesViewController: ExperienceScenesView {
         optionsDialog.addAction(UIAlertAction(title: "Other reason".localized(), style: .default)
         { [unowned self] (action) in self.presenter.flagReasonChosen("Other reason") })
         optionsDialog.addAction(UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: nil))
+        if let popoverController = optionsDialog.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
         self.present(optionsDialog, animated: true, completion: nil)
     }
 
