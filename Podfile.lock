@@ -55,10 +55,10 @@ PODS:
   - MapboxStatic.swift (0.9.1)
   - Moya (11.0.2):
     - Moya/Core (= 11.0.2)
-  - Moya-ObjectMapper/Core (2.6):
+  - Moya-ObjectMapper/Core (2.7):
     - Moya (~> 11)
-    - ObjectMapper (~> 3.2)
-  - Moya-ObjectMapper/RxSwift (2.6):
+    - ObjectMapper (~> 3.3)
+  - Moya-ObjectMapper/RxSwift (2.7):
     - Moya-ObjectMapper/Core
     - RxSwift (~> 4.1)
   - Moya/Core (11.0.2):
@@ -72,7 +72,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - ObjectMapper (3.2.0)
+  - ObjectMapper (3.3.0)
   - Result (3.2.4)
   - RxBlocking (4.1.2):
     - RxSwift (~> 4.0)
@@ -91,7 +91,7 @@ DEPENDENCIES:
   - Kingfisher (~> 4.0)
   - Mapbox-iOS-SDK (~> 4.1)
   - MapboxStatic.swift (~> 0.9)
-  - Moya-ObjectMapper/RxSwift
+  - Moya-ObjectMapper/RxSwift (~> 2.7)
   - Moya/RxSwift (~> 11.0)
   - RxBlocking
   - RxSwift (~> 4.0)
@@ -142,15 +142,15 @@ SPEC CHECKSUMS:
   Mapbox-iOS-SDK: f0a9813d5f08c096c1199eceb57ec6102b19cf54
   MapboxStatic.swift: 247d98dd6e11b8934aa5d122efcb50384f8d66f6
   Moya: a725035953bc1c0eb1be505ab903984501d82440
-  Moya-ObjectMapper: cc9ff0e0df0c2db26f144c3aaffc78f4feb0983c
+  Moya-ObjectMapper: 441caa307b527331fde59e2577adc632a16f1255
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  ObjectMapper: 5cccd2de6f253eda859df8116a5a554d9769e859
+  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RxBlocking: f6054985901412fc8c02daa84e92d4ba68c61389
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
   TTGSnackbar: a66e929fd17d662152ec0964990a86e966310edb
 
-PODFILE CHECKSUM: 3d14e0b75466a245373dde650a6b8e159bbe4422
+PODFILE CHECKSUM: 79c905e05668b011755be197731896d2f4596dd0
 
 COCOAPODS: 1.5.3

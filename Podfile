@@ -10,7 +10,7 @@ target 'Pachatary' do
   pod 'RxSwift',    '~> 4.0'
   pod 'Alamofire', '~> 4.7'
   pod 'Moya/RxSwift', '~> 11.0'
-  pod 'Moya-ObjectMapper/RxSwift'
+  pod 'Moya-ObjectMapper/RxSwift', '~>2.7'
   pod 'Mapbox-iOS-SDK', '~> 4.1'
   pod 'MapboxStatic.swift', '~> 0.9'
   pod 'SwiftKeychainWrapper'
