@@ -50,9 +50,9 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Use location to search experiences close to you</string>
 	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Use location to search experiences close to you</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Use location to search experiences close to you</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Use photo album to select pictures to upload</string>
