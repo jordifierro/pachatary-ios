@@ -99,7 +99,7 @@ DEPENDENCIES:
   - TTGSnackbar
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Alamofire
     - Crashlytics
     - CropViewController
@@ -153,4 +153,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 79c905e05668b011755be197731896d2f4596dd0
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.9.3

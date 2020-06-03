@@ -61,39 +61,43 @@ extension SceneApi: TargetType {
         }
     }
     var sampleData: Data {
-        let results = String(stringInterpolation: "[",
-        "{",
-            "\"id\": \"5\",",
-            "\"title\": \"Plaça Mundial\",",
-            "\"description\": \"World wide square!\",",
-            "\"picture\": {",
-                "\"small_url\": \"https://scenes/37d6.small.jpeg\",",
-                "\"medium_url\": \"https://scenes/37d6.medium.jpeg\",",
-                "\"large_url\": \"https://scenes/37d6.large.jpeg\"",
-            "},",
-            "\"latitude\": 1.000000,",
-            "\"longitude\": 2.000000,",
-            "\"experience_id\": \"5\"",
-            "},",
-        "{",
-            "\"id\": \"4\",",
-            "\"title\": \"I've been here\",",
-            "\"description\": \"\",",
-            "\"picture\": null,",
-            "\"latitude\": 0.000000,",
-            "\"longitude\": 1.000000,",
-            "\"experience_id\": \"5\"",
-            "},",
-        "]").utf8Encoded
-        let result = String(stringInterpolation: "{",
-        "\"id\": \"4\",",
-        "\"title\": \"I've been here\",",
-        "\"description\": \"\",",
-        "\"picture\": null,",
-        "\"latitude\": 0.000000,",
-        "\"longitude\": 1.000000,",
-        "\"experience_id\": \"5\"",
-        "}").utf8Encoded
+        let results = """
+            [\
+                {\
+                    "id": "5",\
+                    "title": "Plaça Mundial",\
+                    "description": "World wide square!",\
+                    "picture": {\
+                        "small_url": "https://scenes/37d6.small.jpeg",\
+                        "medium_url": "https://scenes/37d6.medium.jpeg",\
+                        "large_url": "https://scenes/37d6.large.jpeg"\
+                    },\
+                    "latitude": 1.000000,\
+                    "longitude": 2.000000,\
+                    "experience_id": "5"\
+            },\
+                {\
+                    "id": "4",\
+                    "title": "I've been here",\
+                    "description": "",\
+                    "picture": null,\
+                    "latitude": 0.000000,\
+                    "longitude": 1.000000,\
+                    "experience_id": "5"\
+                },",
+            ]
+            """.utf8Encoded
+        let result = """
+            {\
+                "id": "4",\
+                "title": "I've been here",\
+                "description": "",\
+                "picture": null,\
+                "latitude": 0.000000,\
+                "longitude": 1.000000,\
+                "experience_id": "5"\
+            }
+            """.utf8Encoded
         switch self {
         case .experienceScenes:
             return results

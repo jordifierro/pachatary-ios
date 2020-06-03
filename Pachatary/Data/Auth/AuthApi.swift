@@ -65,10 +65,11 @@ extension AuthApi: TargetType {
     var sampleData: Data {
         switch self {
         case .createPerson, .login:
-            return String(stringInterpolation:
-                  "{\"access_token\": \"A_TK\",", "\"refresh_token\": \"R_TK\"}").utf8Encoded
+            return """
+                    {"access_token": "A_TK", "refresh_token": "R_TK"}
+                    """.utf8Encoded
         default:
-            return String(stringInterpolation: "").utf8Encoded
+            return "".utf8Encoded
         }
     }
     var headers: [String : String]? {

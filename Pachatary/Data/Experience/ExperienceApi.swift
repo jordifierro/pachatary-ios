@@ -95,16 +95,18 @@ extension ExperienceApi: TargetType {
         }
     }
     var sampleData: Data {
-        let results = String(stringInterpolation: "{\"results\": [",
-                      "{\"id\": \"8\",",
-                      "\"title\": \"Barcelona\",",
-                      "\"description\": \"Live bcn!\",",
-                      "\"picture\": null,",
-                      "\"isMine\": false,",
-                      "\"isSaved\": false,",
-                      "\"authorUsername\": \"jordi\",",
-                      "\"savesCount\": 8,",
-                      "}]").utf8Encoded
+        let results = """
+            {"results": [{\
+                    "id": "8",\
+                    "title": "Barcelona",\
+                    "description": "Live bcn!",\
+                    "picture": null,\
+                    "isMine": false,\
+                    "isSaved": false,\
+                    "authorUsername": "jordi",\
+                    "savesCount": 8,\
+                }]
+            """.utf8Encoded
         switch self {
         case .save:
             return "".utf8Encoded

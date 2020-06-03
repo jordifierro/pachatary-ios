@@ -45,17 +45,20 @@ extension ProfileApi: TargetType {
         }
     }
     var sampleData: Data {
-        let result = String(stringInterpolation: "[",
-                             "{",
-                             "\"username\": \"5\",",
-                             "\"bio\": \"Plaça Mundial\",",
-                             "\"picture\": {",
-                             "\"tiny_url\": \"https://profiles/37d6.tiny.jpeg\"",
-                             "\"small_url\": \"https://profiles/37d6.small.jpeg\",",
-                             "\"medium_url\": \"https://profiles/37d6.medium.jpeg\",",
-                             "},",
-                             "\"is_me\": true",
-                             "}").utf8Encoded
+        let result = """
+            [\
+                 {\
+                     "username": "5",\
+                     "bio": "Plaça Mundial",\
+                     "picture": {\
+                         "tiny_url": "https://profiles/37d6.tiny.jpeg",\
+                         "small_url": "https://profiles/37d6.small.jpeg",\
+                         "medium_url": "https://profiles/37d6.medium.jpeg",\
+                     },\
+                     "is_me": true\
+                 }\
+            ]
+            """.utf8Encoded
         return result
     }
     var headers: [String: String]? {
